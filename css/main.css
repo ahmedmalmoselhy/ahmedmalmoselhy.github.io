@@ -42,13 +42,13 @@ html {
 
 .skills-container img {
   /* max-width: 70pt; */
-  height: 25pt;
-  width: auto;
+  height: 25pt !important;
+  width: auto !important;
   /* margin: 0; */
-  margin-top: 5pt;
+  margin-top: 5pt !important;
   /* margin-bottom: 5pt; */
-  margin-right: 1pt;
-  margin-left: 1pt;
+  margin-right: 1pt !important;
+  margin-left: 1pt !important;
 }
 
 .nav-link {
