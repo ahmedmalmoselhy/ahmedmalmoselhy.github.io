@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   overflow-x: hidden;
 }
 
@@ -39,6 +40,17 @@ html {
   }
 }
 
+.skills-container img {
+  /* max-width: 70pt; */
+  height: 25pt;
+  width: auto;
+  /* margin: 0; */
+  margin-top: 5pt;
+  /* margin-bottom: 5pt; */
+  margin-right: 1pt;
+  margin-left: 1pt;
+}
+
 .nav-link {
   font-weight: 700;
   color: rgba(0, 0, 0, 0.8) !important;
@@ -65,6 +77,7 @@ html {
   0% {
     transform: scale(1, 0);
   }
+
   100% {
     transform: scale(1, 1);
   }
@@ -74,6 +87,7 @@ html {
   0% {
     transform: scale(1, 0);
   }
+
   100% {
     transform: scale(1, 1);
   }
@@ -86,7 +100,7 @@ html {
   min-width: 600px;
   transform-origin: top;
   -webkit-animation: animateWave 2000ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
-          animation: animateWave 2000ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  animation: animateWave 2000ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
   background-image: url("../images/wave-bg.svg");
   background-position: center;
   background-repeat: no-repeat;
@@ -114,10 +128,12 @@ img.avatar {
 }
 
 @media (min-width: 48em) {
+
   .grid-sizer,
   .grid-item {
     width: 25%;
   }
+
   .grid-item {
     float: left;
     padding: 6px;
@@ -259,6 +275,7 @@ footer a:not(.nav-link) {
   .marker {
     padding-right: 0;
   }
+
   .marker:after {
     bottom: -30px;
     left: 50%;
