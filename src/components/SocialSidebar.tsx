@@ -7,7 +7,7 @@ const SocialSidebar = () => {
     <div className="fixed left-6 bottom-0 hidden lg:block z-10">
       <div className="flex flex-col items-center space-y-6">
         <a 
-          href="https://github.com" 
+          href="https://github.com/ahmedmalmoselhy" 
           target="_blank" 
           rel="noopener noreferrer"
           className="text-portfolio-slate hover:text-portfolio-highlight transition-transform hover:-translate-y-1"
@@ -16,7 +16,7 @@ const SocialSidebar = () => {
           <Github size={20} />
         </a>
         <a 
-          href="https://linkedin.com" 
+          href="https://www.linkedin.com/in/ahmedmalmoselhy/" 
           target="_blank" 
           rel="noopener noreferrer"
           className="text-portfolio-slate hover:text-portfolio-highlight transition-transform hover:-translate-y-1"
@@ -25,14 +25,14 @@ const SocialSidebar = () => {
           <Linkedin size={20} />
         </a>
         <a 
-          href="mailto:ahmed@example.com" 
+          href="mailto:ahmedalmoselhy.slm@gmail.com" 
           className="text-portfolio-slate hover:text-portfolio-highlight transition-transform hover:-translate-y-1"
           aria-label="Email"
         >
           <Mail size={20} />
         </a>
         <a 
-          href="tel:+1234567890" 
+          href="tel:+201117001262" 
           className="text-portfolio-slate hover:text-portfolio-highlight transition-transform hover:-translate-y-1"
           aria-label="Phone"
         >

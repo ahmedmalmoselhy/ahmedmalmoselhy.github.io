@@ -21,7 +21,7 @@ const Footer = () => {
           
           <div className="flex space-x-4">
             <a 
-              href="https://github.com" 
+              href="https://github.com/ahmedmalmoselhy" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-portfolio-slate hover:text-portfolio-highlight transition-colors"
@@ -30,7 +30,7 @@ const Footer = () => {
               <Github size={20} />
             </a>
             <a 
-              href="https://linkedin.com" 
+              href="https://www.linkedin.com/in/ahmedmalmoselhy/" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-portfolio-slate hover:text-portfolio-highlight transition-colors"
@@ -39,14 +39,14 @@ const Footer = () => {
               <Linkedin size={20} />
             </a>
             <a 
-              href="mailto:ahmed@example.com" 
+              href="mailto:ahmedalmoselhy.slm@gmail.com" 
               className="text-portfolio-slate hover:text-portfolio-highlight transition-colors"
               aria-label="Email"
             >
               <Mail size={20} />
             </a>
             <a 
-              href="tel:+1234567890" 
+              href="tel:+201117001262" 
               className="text-portfolio-slate hover:text-portfolio-highlight transition-colors"
               aria-label="Phone"
             >
