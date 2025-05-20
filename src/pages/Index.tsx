@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Layout from '@/components/Layout';
 import SocialSidebar from '@/components/SocialSidebar';
 import { Button } from '@/components/ui/button';
-import { Mail, FileText, User, Briefcase, Github } from 'lucide-react';
+import { Mail, FileText, User, Briefcase, Github, ExternalLink } from 'lucide-react';
 
 const Index = () => {
   return (
@@ -21,7 +21,7 @@ const Index = () => {
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-portfolio-slate mb-6 animate-slide-up" style={{ animationDelay: '100ms' }}>
             I build things for the web.
           </h2>
-          <p className="text-portfolio-slate text-lg max-w-xl mb-12 animate-slide-up" style={{ animationDelay: '200ms' }}>
+          <p className="text-portfolio-lightSlate text-lg max-w-xl mb-12 animate-slide-up" style={{ animationDelay: '200ms' }}>
             I'm a software engineer specializing in building exceptional digital experiences.
             Currently, I'm focused on building accessible, human-centered products.
           </p>
@@ -107,20 +107,24 @@ const Index = () => {
                 <span className="text-portfolio-highlight font-mono">Node.js</span>
               </div>
               <div className="flex space-x-4 text-portfolio-slate">
-                <a href="#" className="hover:text-portfolio-highlight">
+                <a href="#" className="hover:text-portfolio-highlight flex items-center gap-1">
                   <Github size={20} />
+                  <span>Code</span>
                 </a>
-                <a href="#" className="hover:text-portfolio-highlight">
-                  External Link
+                <a href="#" className="hover:text-portfolio-highlight flex items-center gap-1">
+                  <ExternalLink size={20} />
+                  <span>Demo</span>
                 </a>
               </div>
             </div>
           ))}
         </div>
         <div className="mt-12 text-center">
-          <Button className="btn-primary">
-            View All Projects
-          </Button>
+          <Link to="/projects">
+            <Button className="btn-primary">
+              View All Projects
+            </Button>
+          </Link>
         </div>
       </section>
     </Layout>
