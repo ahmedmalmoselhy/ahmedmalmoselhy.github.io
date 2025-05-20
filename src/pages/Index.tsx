@@ -19,7 +19,7 @@ const Index = () => {
             Ahmed AlMoselhy
           </h1>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-portfolio-slate mb-6 animate-slide-up" style={{ animationDelay: '100ms' }}>
-            I build things for the web.
+            I build software!
           </h2>
           <p className="text-portfolio-lightSlate text-lg max-w-xl mb-12 animate-slide-up" style={{ animationDelay: '200ms' }}>
             I'm a software engineer specializing in building exceptional digital experiences.
@@ -49,9 +49,9 @@ const Index = () => {
           <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="lg:w-2/3">
               <p className="text-portfolio-lightSlate mb-4">
-                Welcome to my portfolio! I'm Ahmed AlMoselhy, a passionate Software Engineer with experience in 
-                building and maintaining responsive websites and web applications. I'm excited about creating 
-                technology that improves people's lives and solves real-world problems.
+                Welcome to my portfolio! I'm Ahmed AlMoselhy, A versatile and detail-oriented Software Engineer with extensive hands-on experience in full-stack development,
+                CRM systems, and Telecom applications. Proven track record in working across various support levels and developing scalable web applications utilizing modern technologies. 
+                Committed to delivering optimized and innovative software solutions that align with business objectives.
               </p>
               <p className="text-portfolio-lightSlate mb-4">
                 With a strong foundation in software development and a keen eye for detail, I strive to create 
@@ -59,7 +59,7 @@ const Index = () => {
                 focus, ensuring that the end product is both functional and intuitive.
               </p>
               <p className="text-portfolio-lightSlate mb-6">
-                Outside of coding, I enjoy [your hobbies/interests]. I believe that a well-rounded individual 
+                Outside of coding, I enjoy gaming, reading, photography and being a family man. I believe that a well-rounded individual 
                 brings fresh perspectives to technical challenges.
               </p>
               <div className="flex flex-wrap gap-4">
@@ -80,7 +80,7 @@ const Index = () => {
             <div className="lg:w-1/3 flex justify-center">
               <div className="rounded-lg overflow-hidden border-2 border-portfolio-highlight w-64 h-64 relative">
                 <div className="absolute inset-0 bg-portfolio-highlight/20 flex items-center justify-center">
-                  <span className="text-portfolio-highlight font-mono">Your Photo Here</span>
+                  <span className="text-portfolio-highlight font-mono"><img src='/image.png'/></span>
                 </div>
               </div>
             </div>
