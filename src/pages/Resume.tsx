@@ -3,6 +3,43 @@ import Layout from '@/components/Layout';
 import { Briefcase, GraduationCap, Award, FileText, Mail, Phone, Linkedin, Github } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
+const jobs = [
+  {
+    title: 'EOC/ECM Developer',
+    company: 'STC [outsourced from Qeema]',
+    duration: 'July 2023 - Present',
+    roles: [
+      "Product Catalog Management: Oversaw catalog components using Ericsson Catalog Manager (ECM), ensuring accurate and efficient handling of product data.",
+  "Technical Support: Delivered advanced support to maintain system reliability and swiftly resolve critical issues in the L3 layer of support.",
+  "System Integration: Contributed to the development efforts, implementing logic to interface with external systems for streamlined operations and improved overall performance."
+    ]
+  },
+  {
+    title: 'Software Engineer',
+    company: 'Qeema',
+    duration: 'December 2022 - Present',
+    roles: [
+      'Developed and implemented EOC solutions for the Jawwy DT project, customizing CRM solutions to meet telecom industry-specific requirements',
+      'Provided Level 3 advanced application support ensuring optimal performance and rapid issue resolution',
+      'Played a pivotal role in the successful release of the Jawwy DT project by maintaining EOC/ECM modules and supporting the client\'s operation team',
+      'Led the EOC/ECM upgrade from version 20 to 22, resolving version conflicts while maintaining system integration and implementation flow',
+    ]
+  },
+  {
+    title: 'Software Engineer',
+    company: 'Serv5',
+    duration: 'October 2021 - November 2022',
+    roles: [
+      'Enhanced web application performance through comprehensive front-end and back-end optimizations',
+      'Integrated third-party APIs to support mobile application functionality and improve user experience',
+      'Provided post-sales technical support to address client needs and ensure smooth deployment',
+      'Streamlined development processes by introducing modern tools and frameworks for workflow automation',
+      'Improved codebase quality to align with industry standards and best practices',
+    ]
+  }
+]
+
+
 const Resume = () => {
   return (
     <Layout className="pt-28">
@@ -14,10 +51,10 @@ const Resume = () => {
           <p className="text-portfolio-slate max-w-2xl mx-auto mb-8 animate-fade-in">
             A comprehensive overview of my professional experience, education, and skills
           </p>
-          <Button className="btn-primary animate-fade-in flex items-center gap-2">
+          {/* <Button className="btn-primary animate-fade-in flex items-center gap-2">
             <FileText size={18} />
             Download CV
-          </Button>
+          </Button> */}
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -28,84 +65,25 @@ const Resume = () => {
                 <Briefcase size={24} className="text-portfolio-highlight" />
                 Work Experience
               </h2>
-              
+
               <div className="space-y-8">
-                {/* Job 1 */}
-                <div className="card">
-                  <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-3">
-                    <h3 className="text-xl font-semibold text-portfolio-white">Senior Software Engineer</h3>
-                    <span className="text-portfolio-highlight font-mono text-sm mt-1 md:mt-0">Jan 2022 - Present</span>
+                {jobs.map((job, index) => (
+                  <div className="card" key={index}>
+                    <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-3">
+                      <h3 className="text-xl font-semibold text-portfolio-white">{job.title}</h3>
+                      <span className="text-portfolio-highlight font-mono text-sm mt-1 md:mt-0">{job.duration}</span>
+                    </div>
+                    <h4 className="text-portfolio-lightSlate mb-4">{job.company}</h4>
+                    <ul className="space-y-2 text-portfolio-lightSlate">
+                      {job.roles.map((role, roleIndex) => (
+                        <li className="flex items-start" key={roleIndex}>
+                          <span className="text-portfolio-highlight mr-2">▹</span>
+                          {role}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <h4 className="text-portfolio-lightSlate mb-4">Example Company Inc.</h4>
-                  <ul className="space-y-2 text-portfolio-lightSlate">
-                    <li className="flex items-start">
-                      <span className="text-portfolio-highlight mr-2">▹</span>
-                      Led development of a high-traffic web application with over 100k daily users
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-portfolio-highlight mr-2">▹</span>
-                      Implemented new features resulting in a 25% increase in user engagement
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-portfolio-highlight mr-2">▹</span>
-                      Optimized database queries reducing load times by 40%
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-portfolio-highlight mr-2">▹</span>
-                      Mentored junior developers and conducted code reviews to maintain code quality
-                    </li>
-                  </ul>
-                </div>
-
-                {/* Job 2 */}
-                <div className="card">
-                  <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-3">
-                    <h3 className="text-xl font-semibold text-portfolio-white">Software Developer</h3>
-                    <span className="text-portfolio-highlight font-mono text-sm mt-1 md:mt-0">Mar 2019 - Dec 2021</span>
-                  </div>
-                  <h4 className="text-portfolio-lightSlate mb-4">Previous Company LLC</h4>
-                  <ul className="space-y-2 text-portfolio-lightSlate">
-                    <li className="flex items-start">
-                      <span className="text-portfolio-highlight mr-2">▹</span>
-                      Developed and maintained multiple client-facing applications
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-portfolio-highlight mr-2">▹</span>
-                      Implemented responsive designs ensuring compatibility across devices
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-portfolio-highlight mr-2">▹</span>
-                      Collaborated with design and product teams to deliver features on time
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-portfolio-highlight mr-2">▹</span>
-                      Participated in agile development process, including daily standups and sprint planning
-                    </li>
-                  </ul>
-                </div>
-
-                {/* Job 3 */}
-                <div className="card">
-                  <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-3">
-                    <h3 className="text-xl font-semibold text-portfolio-white">Junior Developer</h3>
-                    <span className="text-portfolio-highlight font-mono text-sm mt-1 md:mt-0">Jun 2018 - Feb 2019</span>
-                  </div>
-                  <h4 className="text-portfolio-lightSlate mb-4">First Job Inc.</h4>
-                  <ul className="space-y-2 text-portfolio-lightSlate">
-                    <li className="flex items-start">
-                      <span className="text-portfolio-highlight mr-2">▹</span>
-                      Assisted in developing features for company's main product
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-portfolio-highlight mr-2">▹</span>
-                      Fixed bugs and improved application performance
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-portfolio-highlight mr-2">▹</span>
-                      Learned and worked with various technologies in the company's stack
-                    </li>
-                  </ul>
-                </div>
+                ))}
               </div>
             </section>
 
@@ -115,10 +93,10 @@ const Resume = () => {
                 <GraduationCap size={24} className="text-portfolio-highlight" />
                 Education
               </h2>
-              
+
               <div className="space-y-8">
                 {/* Education 1 */}
-                <div className="card">
+                {/* <div className="card">
                   <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-3">
                     <h3 className="text-xl font-semibold text-portfolio-white">Master's Degree in Computer Science</h3>
                     <span className="text-portfolio-highlight font-mono text-sm mt-1 md:mt-0">2017 - 2019</span>
@@ -128,52 +106,51 @@ const Resume = () => {
                     Specialized in Software Engineering with focus on web technologies and distributed systems.
                     Graduated with honors.
                   </p>
-                </div>
+                </div> */}
 
                 {/* Education 2 */}
                 <div className="card">
                   <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-3">
-                    <h3 className="text-xl font-semibold text-portfolio-white">Bachelor's Degree in Computer Engineering</h3>
-                    <span className="text-portfolio-highlight font-mono text-sm mt-1 md:mt-0">2013 - 2017</span>
+                    <h3 className="text-xl font-semibold text-portfolio-white">Bachelor's Degree in Computers & Systems Engineering</h3>
+                    <span className="text-portfolio-highlight font-mono text-sm mt-1 md:mt-0">2014 - 2020</span>
                   </div>
-                  <h4 className="text-portfolio-lightSlate mb-4">University Name</h4>
+                  <h4 className="text-portfolio-lightSlate mb-4">Mansoura University</h4>
                   <p className="text-portfolio-lightSlate">
-                    Studied computer architecture, algorithms, and software development.
-                    Participated in various hackathons and coding competitions.
+                    Algorithms, Data Structures, Programming Languages, Agile Methodology, Waterfall Methodology, Software Development, Work Ethics, Classic Control Systems, PLC, Embedded Systems, Databases.
                   </p>
                 </div>
               </div>
             </section>
 
             {/* Certifications */}
-            <section>
+            {/* <section>
               <h2 className="section-title flex items-center gap-3">
                 <Award size={24} className="text-portfolio-highlight" />
                 Certifications
               </h2>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="card">
                   <h3 className="text-xl font-semibold text-portfolio-white mb-2">AWS Certified Developer</h3>
                   <p className="text-portfolio-lightSlate">Issued by Amazon Web Services, 2021</p>
                 </div>
-                
+
                 <div className="card">
                   <h3 className="text-xl font-semibold text-portfolio-white mb-2">Certified Scrum Master</h3>
                   <p className="text-portfolio-lightSlate">Scrum Alliance, 2020</p>
                 </div>
-                
+
                 <div className="card">
                   <h3 className="text-xl font-semibold text-portfolio-white mb-2">React Advanced Developer</h3>
                   <p className="text-portfolio-lightSlate">Frontend Masters, 2019</p>
                 </div>
-                
+
                 <div className="card">
                   <h3 className="text-xl font-semibold text-portfolio-white mb-2">MongoDB Certification</h3>
                   <p className="text-portfolio-lightSlate">MongoDB University, 2018</p>
                 </div>
               </div>
-            </section>
+            </section> */}
           </div>
 
           {/* Sidebar */}
@@ -184,19 +161,19 @@ const Resume = () => {
               <div className="space-y-3 text-portfolio-lightSlate">
                 <div className="flex items-center gap-3">
                   <Mail size={18} className="text-portfolio-highlight" />
-                  <span>ahmed@example.com</span>
+                  <span><span><a href="mailto:ahmedalmoselhy.slm@gmail.com" className="hover:text-portfolio-highlight">ahmedalmoselhy.slm@gmail.com</a></span></span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone size={18} className="text-portfolio-highlight" />
-                  <span>+1 (234) 567-8901</span>
+                  <span><a href="tel:+201117001262" className="hover:text-portfolio-highlight">+20 111 700 1262</a></span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Linkedin size={18} className="text-portfolio-highlight" />
-                  <a href="https://linkedin.com" className="hover:text-portfolio-highlight">LinkedIn Profile</a>
+                  <a href="https://www.linkedin.com/in/ahmedmalmoselhy/" className="hover:text-portfolio-highlight">LinkedIn Profile</a>
                 </div>
                 <div className="flex items-center gap-3">
                   <Github size={18} className="text-portfolio-highlight" />
-                  <a href="https://github.com" className="hover:text-portfolio-highlight">GitHub Profile</a>
+                  <a href="https://github.com/ahmedmalmoselhy" className="hover:text-portfolio-highlight">GitHub Profile</a>
                 </div>
               </div>
             </div>
@@ -204,74 +181,74 @@ const Resume = () => {
             {/* Skills Overview */}
             <div className="card">
               <h3 className="text-xl font-semibold text-portfolio-white mb-4">Skills Overview</h3>
-              
+
               <div className="space-y-4">
                 <div>
-                  <h4 className="text-portfolio-white mb-2">Frontend</h4>
+                  {/* <h4 className="text-portfolio-white mb-2">Frontend</h4> */}
                   <div className="flex flex-wrap gap-2">
-                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">React</span>
-                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">TypeScript</span>
                     <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">JavaScript</span>
+                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">Node JS</span>
+                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">Express JS</span>
+                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">Vue JS</span>
                     <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">HTML/CSS</span>
-                  </div>
-                </div>
-                
-                <div>
-                  <h4 className="text-portfolio-white mb-2">Backend</h4>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">Node.js</span>
-                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">Express</span>
-                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">MongoDB</span>
+                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">Python</span>
+                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">PHP</span>
+                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">Laravel</span>
+                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">C#</span>
+                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">Oracle DB</span>
+                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">Maria DB</span>
+                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">MySQL</span>
+                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">PostgreSQL</span>
                     <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">SQL</span>
-                  </div>
-                </div>
-                
-                <div>
-                  <h4 className="text-portfolio-white mb-2">Tools</h4>
-                  <div className="flex flex-wrap gap-2">
                     <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">Git</span>
                     <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">Docker</span>
-                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">AWS</span>
-                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">CI/CD</span>
+                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">Ericsson Order Care [EOC]</span>
+                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">Ericsson Catalog Manager [ECM]</span>
+                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">Creatio</span>
+                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">Jira</span>
+
                   </div>
                 </div>
               </div>
             </div>
-            
+
             {/* Languages */}
             <div className="card">
               <h3 className="text-xl font-semibold text-portfolio-white mb-4">Languages</h3>
               <ul className="space-y-2 text-portfolio-lightSlate">
                 <li className="flex justify-between">
                   <span>English</span>
-                  <span className="text-portfolio-highlight">Native</span>
+                  <span className="text-portfolio-highlight">Professional</span>
                 </li>
                 <li className="flex justify-between">
                   <span>Arabic</span>
                   <span className="text-portfolio-highlight">Native</span>
                 </li>
-                <li className="flex justify-between">
-                  <span>French</span>
-                  <span className="text-portfolio-highlight">Intermediate</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>German</span>
-                  <span className="text-portfolio-highlight">Basic</span>
-                </li>
               </ul>
             </div>
-            
+
+            {/* Personal Details */}
+            <div className="card">
+              <h3 className="text-xl font-semibold text-portfolio-white mb-4">Personal Details</h3>
+              <ul className="space-y-2 text-portfolio-lightSlate">
+                <li>Date of Birth: <span className="text-portfolio-highlight">1996</span></li>
+                <li>Military Service: <span className="text-portfolio-highlight">Completed</span></li>
+                <li>Marital Status: <span className="text-portfolio-highlight">Married</span></li>
+              </ul>
+            </div>
+
             {/* Interests */}
             <div className="card">
               <h3 className="text-xl font-semibold text-portfolio-white mb-4">Interests</h3>
               <div className="flex flex-wrap gap-2">
                 <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-slate">Open Source</span>
                 <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-slate">Web Development</span>
-                <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-slate">UI/UX Design</span>
-                <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-slate">Machine Learning</span>
+                <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-slate">Database Design</span>
+                <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-slate">CRM Development</span>
                 <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-slate">Photography</span>
                 <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-slate">Reading</span>
                 <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-slate">Traveling</span>
+                <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-slate">Gaming</span>
               </div>
             </div>
           </div>
