@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Layout from '@/components/Layout';
 import SocialSidebar from '@/components/SocialSidebar';
 import { Button } from '@/components/ui/button';
-import { Mail, FileText, User, Briefcase } from 'lucide-react';
+import { Mail, FileText, User, Briefcase, Github } from 'lucide-react';
 
 const Index = () => {
   return (

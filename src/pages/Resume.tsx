@@ -1,7 +1,6 @@
-
 import React from 'react';
 import Layout from '@/components/Layout';
-import { Briefcase, GraduationCap, Award, FileText } from 'lucide-react';
+import { Briefcase, GraduationCap, Award, FileText, Mail, Phone, Linkedin, Github } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Resume = () => {
