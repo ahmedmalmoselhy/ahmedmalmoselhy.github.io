@@ -1,10 +1,9 @@
 
 import React from 'react';
 import Layout from '@/components/Layout';
-import { Button } from '@/components/ui/button';
 import { ExternalLink, Github } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 
 interface Project {
   id: number;
@@ -78,23 +77,27 @@ const Projects = () => {
     <Layout>
       <section className="container mx-auto px-4 py-16">
         <div className="max-w-3xl mx-auto mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-portfolio-white mb-6">
+          <h1 className="text-4xl md:text-5xl font-bold text-portfolio-white mb-6 animate-fade-in">
             My Projects
           </h1>
-          <p className="text-portfolio-lightSlate text-lg">
+          <p className="text-portfolio-lightSlate text-lg animate-slide-up">
             Here's a selection of projects I've worked on. Each project represents different skills 
             and technologies I've used to solve various challenges.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projectsData.map((project) => (
-            <Card key={project.id} className="card">
-              <div className="h-48 bg-portfolio-slate/20 rounded-t-lg mb-2 flex items-center justify-center overflow-hidden">
+          {projectsData.map((project, index) => (
+            <Card 
+              key={project.id} 
+              className="bg-portfolio-lightNavy border-portfolio-slate/20 hover:-translate-y-2 transition-transform duration-300 overflow-hidden animate-fade-in"
+              style={{ animationDelay: `${index * 100}ms` }}
+            >
+              <div className="h-48 bg-portfolio-navy/50 flex items-center justify-center overflow-hidden">
                 <img 
                   src={project.image} 
                   alt={project.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-300"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.src = "/placeholder.svg";
@@ -110,11 +113,15 @@ const Projects = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent className="pb-2">
-                <div className="flex flex-wrap text-sm space-x-3 mb-2">
+                <div className="flex flex-wrap gap-2 mb-2">
                   {project.technologies.map((tech, index) => (
-                    <span key={index} className="text-portfolio-highlight font-mono">
+                    <Badge 
+                      key={index} 
+                      variant="outline" 
+                      className="bg-portfolio-navy/50 text-portfolio-highlight border-portfolio-highlight/30 font-mono text-xs py-1"
+                    >
                       {tech}
-                    </span>
+                    </Badge>
                   ))}
                 </div>
               </CardContent>
@@ -123,7 +130,7 @@ const Projects = () => {
                   href={project.githubUrl} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="hover:text-portfolio-highlight flex items-center gap-1"
+                  className="hover:text-portfolio-highlight flex items-center gap-1 transition-colors duration-200"
                   aria-label={`View ${project.title} source code on GitHub`}
                 >
                   <Github size={18} />
@@ -133,7 +140,7 @@ const Projects = () => {
                   href={project.liveUrl} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="hover:text-portfolio-highlight flex items-center gap-1"
+                  className="hover:text-portfolio-highlight flex items-center gap-1 transition-colors duration-200"
                   aria-label={`View ${project.title} live demo`}
                 >
                   <ExternalLink size={18} />
