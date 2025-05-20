@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -96,6 +99,49 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .nav-link {
+    @apply px-4 py-2 text-portfolio-slate hover:text-portfolio-highlight transition-colors duration-200 relative;
+  }
+  
+  .nav-link::after {
+    @apply content-[''] absolute bottom-0 left-0 w-0 h-[2px] bg-portfolio-highlight transition-all duration-300;
+  }
+  
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    @apply w-full;
+  }
+  
+  .nav-link.active {
+    @apply text-portfolio-highlight;
+  }
+  
+  .section-title {
+    @apply text-3xl font-bold text-portfolio-white mb-6 flex items-center;
+  }
+  
+  .section-title::after {
+    @apply content-[''] h-[1px] bg-portfolio-lightSlate ml-4 flex-grow opacity-20;
+  }
+  
+  .btn-primary {
+    @apply px-6 py-3 rounded border border-portfolio-teal text-portfolio-teal hover:bg-portfolio-teal/10 transition-all duration-300;
+  }
+  
+  .btn-outline {
+    @apply px-4 py-2 rounded border border-portfolio-slate text-portfolio-slate hover:bg-portfolio-slate/10 transition-all duration-300;
+  }
+  
+  .card {
+    @apply bg-portfolio-lightNavy rounded-lg p-6 transition-transform duration-300 hover:-translate-y-2 border border-portfolio-slate/20;
   }
 }
