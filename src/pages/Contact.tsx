@@ -25,7 +25,7 @@ const Contact = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Simulate form submission
     setTimeout(() => {
       console.log('Form submitted:', formData);
@@ -66,7 +66,7 @@ const Contact = () => {
                   className="bg-portfolio-lightNavy border-portfolio-slate/30 focus:border-portfolio-highlight text-portfolio-white placeholder:text-portfolio-slate/70"
                 />
               </div>
-              
+
               <div>
                 <label htmlFor="email" className="block text-portfolio-white mb-1">Email</label>
                 <Input
@@ -80,7 +80,7 @@ const Contact = () => {
                   className="bg-portfolio-lightNavy border-portfolio-slate/30 focus:border-portfolio-highlight text-portfolio-white placeholder:text-portfolio-slate/70"
                 />
               </div>
-              
+
               <div>
                 <label htmlFor="subject" className="block text-portfolio-white mb-1">Subject</label>
                 <Input
@@ -93,7 +93,7 @@ const Contact = () => {
                   className="bg-portfolio-lightNavy border-portfolio-slate/30 focus:border-portfolio-highlight text-portfolio-white placeholder:text-portfolio-slate/70"
                 />
               </div>
-              
+
               <div>
                 <label htmlFor="message" className="block text-portfolio-white mb-1">Message</label>
                 <Textarea
@@ -108,9 +108,9 @@ const Contact = () => {
                 />
               </div>
             </div>
-            
-            <Button 
-              type="submit" 
+
+            <Button
+              type="submit"
               className="w-full btn-primary flex items-center justify-center gap-2"
               disabled={isSubmitting}
             >
@@ -127,12 +127,12 @@ const Contact = () => {
               )}
             </Button>
           </form>
-          
+
           {/* Contact Info */}
           <div className="space-y-8">
             <div className="card animate-fade-in" style={{ animationDelay: '100ms' }}>
               <h2 className="text-2xl font-semibold text-portfolio-white mb-6">Contact Information</h2>
-              
+
               <div className="space-y-6">
                 <div className="flex items-start space-x-4">
                   <div className="bg-portfolio-highlight/20 p-3 rounded-full">
@@ -140,60 +140,60 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="text-portfolio-white font-medium mb-1">Email</h3>
-                    <a href="mailto:ahmed@example.com" className="text-portfolio-slate hover:text-portfolio-highlight transition-colors">
-                      ahmed@example.com
+                    <a href="mailto:ahmedalmoselhy.slm@gmail.com" className="text-portfolio-slate hover:text-portfolio-highlight transition-colors">
+                      ahmedalmoselhy.slm@gmail.com
                     </a>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start space-x-4">
                   <div className="bg-portfolio-highlight/20 p-3 rounded-full">
                     <Phone size={24} className="text-portfolio-highlight" />
                   </div>
                   <div>
                     <h3 className="text-portfolio-white font-medium mb-1">Phone</h3>
-                    <a href="tel:+1234567890" className="text-portfolio-slate hover:text-portfolio-highlight transition-colors">
-                      +1 (234) 567-8901
+                    <a href="tel:+201117001262" className="text-portfolio-slate hover:text-portfolio-highlight transition-colors">
+                      +20 111 700 1262
                     </a>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start space-x-4">
                   <div className="bg-portfolio-highlight/20 p-3 rounded-full">
                     <Linkedin size={24} className="text-portfolio-highlight" />
                   </div>
                   <div>
                     <h3 className="text-portfolio-white font-medium mb-1">LinkedIn</h3>
-                    <a 
-                      href="https://linkedin.com" 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
+                    <a
+                      href="https://www.linkedin.com/in/ahmedmalmoselhy/"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="text-portfolio-slate hover:text-portfolio-highlight transition-colors"
                     >
-                      linkedin.com/in/ahmed-almoselhy
+                      linkedin.com/in/ahmedmalmoselhy
                     </a>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start space-x-4">
                   <div className="bg-portfolio-highlight/20 p-3 rounded-full">
                     <Github size={24} className="text-portfolio-highlight" />
                   </div>
                   <div>
                     <h3 className="text-portfolio-white font-medium mb-1">GitHub</h3>
-                    <a 
-                      href="https://github.com" 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
+                    <a
+                      href="https://github.com/ahmedmalmoselhy"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="text-portfolio-slate hover:text-portfolio-highlight transition-colors"
                     >
-                      github.com/ahmed-almoselhy
+                      github.com/ahmedmalmoselhy
                     </a>
                   </div>
                 </div>
               </div>
             </div>
-            
+
             <div className="card animate-fade-in" style={{ animationDelay: '200ms' }}>
               <h2 className="text-2xl font-semibold text-portfolio-white mb-4">Available For</h2>
               <div className="grid grid-cols-2 gap-4">
@@ -201,17 +201,17 @@ const Contact = () => {
                   <h3 className="text-portfolio-white font-medium mb-2">Freelance Work</h3>
                   <p className="text-portfolio-slate text-sm">Available for short to medium-term projects</p>
                 </div>
-                
+
                 <div className="bg-portfolio-navy rounded p-4 border border-portfolio-slate/20">
                   <h3 className="text-portfolio-white font-medium mb-2">Full-time Positions</h3>
                   <p className="text-portfolio-slate text-sm">Open to discussing new opportunities</p>
                 </div>
-                
+
                 <div className="bg-portfolio-navy rounded p-4 border border-portfolio-slate/20">
                   <h3 className="text-portfolio-white font-medium mb-2">Consulting</h3>
                   <p className="text-portfolio-slate text-sm">Technical consulting for your projects</p>
                 </div>
-                
+
                 <div className="bg-portfolio-navy rounded p-4 border border-portfolio-slate/20">
                   <h3 className="text-portfolio-white font-medium mb-2">Collaboration</h3>
                   <p className="text-portfolio-slate text-sm">Interested in partnering on innovative projects</p>
@@ -222,14 +222,14 @@ const Contact = () => {
         </div>
 
         {/* Location */}
-        <div className="mt-16 animate-fade-in" style={{ animationDelay: '300ms' }}>
+        {/* <div className="mt-16 animate-fade-in" style={{ animationDelay: '300ms' }}>
           <h2 className="section-title mb-6">Location</h2>
           <div className="card p-0 overflow-hidden">
             <div className="bg-portfolio-slate/20 h-80 w-full flex items-center justify-center">
               <p className="text-portfolio-slate">Map Placeholder - Your Location</p>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </Layout>
   );
