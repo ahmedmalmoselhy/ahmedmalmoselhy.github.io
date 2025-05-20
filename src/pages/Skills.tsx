@@ -13,22 +13,26 @@ import {
 
 // Placeholder skill data
 const frontendSkills = [
-  { name: 'React', level: 95 },
-  { name: 'TypeScript', level: 90 },
-  { name: 'JavaScript', level: 95 },
-  { name: 'HTML/CSS', level: 88 },
-  { name: 'Angular', level: 75 },
-  { name: 'Vue', level: 70 },
-  { name: 'Redux', level: 85 },
-  { name: 'Styled Components', level: 80 },
+  // { name: 'React', level: 95 },
+  // { name: 'TypeScript', level: 90 },
+  // { name: 'JavaScript', level: 95 },
+  // { name: 'HTML/CSS', level: 88 },
+  // { name: 'Angular', level: 75 },
+  // { name: 'Vue', level: 70 },
+  // { name: 'Redux', level: 85 },
+  // { name: 'Styled Components', level: 80 },
 ];
 
 const backendSkills = [
-  { name: 'Node.js', level: 92 },
-  { name: 'Express', level: 90 },
-  { name: 'MongoDB', level: 85 },
+  { name: 'JavaScript', level: 95 },
+  // { name: 'TypeScript', level: 90 },
+  // { name: 'Node.js', level: 92 },
+  // { name: 'Express', level: 90 },
+  { name: 'PHP', level: 80 },
+  { name: 'Laravel', level: 85 },
   { name: 'PostgreSQL', level: 80 },
-  { name: 'GraphQL', level: 75 },
+  { name: 'MySQL', level: 85 },
+  { name: 'OracleDB', level: 75 },
   { name: 'REST APIs', level: 95 },
   { name: 'Java', level: 70 },
   { name: 'Python', level: 65 },
@@ -37,11 +41,11 @@ const backendSkills = [
 const otherSkills = [
   { name: 'Git', level: 90 },
   { name: 'Docker', level: 75 },
-  { name: 'AWS', level: 80 },
+  // { name: 'AWS', level: 80 },
   { name: 'CI/CD', level: 85 },
   { name: 'Agile', level: 90 },
   { name: 'Testing', level: 82 },
-  { name: 'Microservices', level: 78 },
+  // { name: 'Microservices', level: 78 },
   { name: 'System Design', level: 85 },
 ];
 
@@ -60,7 +64,7 @@ const Skills = () => {
 
         <div className="space-y-16">
           {/* Frontend Skills */}
-          <section>
+          {/* <section>
             <h2 className="section-title mb-8">Frontend Development</h2>
             <Card className="bg-portfolio-lightNavy border-portfolio-slate/20">
               <CardContent className="pt-6">
@@ -103,11 +107,11 @@ const Skills = () => {
                 </div>
               ))}
             </div>
-          </section>
+          </section> */}
 
           {/* Backend Skills */}
           <section>
-            <h2 className="section-title mb-8">Backend Development</h2>
+            <h2 className="section-title mb-8">Languages & Frameworks</h2>
             <Card className="bg-portfolio-lightNavy border-portfolio-slate/20">
               <CardContent className="pt-6">
                 <div className="h-80 w-full">
@@ -153,7 +157,7 @@ const Skills = () => {
 
           {/* Other Skills */}
           <section>
-            <h2 className="section-title mb-8">Tools & Other Skills</h2>
+            <h2 className="section-title mb-8">Tools</h2>
             <Card className="bg-portfolio-lightNavy border-portfolio-slate/20">
               <CardContent className="pt-6">
                 <div className="h-80 w-full">
