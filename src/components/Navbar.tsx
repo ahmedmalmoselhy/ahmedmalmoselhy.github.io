@@ -48,11 +48,11 @@ const Navbar = () => {
           <Link to="/" className={cn('nav-link', isActive('/') && 'active')}>
             Home
           </Link>
-          <Link to="/projects" className={cn('nav-link', isActive('/projects') && 'active')}>
-            Projects
-          </Link>
           <Link to="/resume" className={cn('nav-link', isActive('/resume') && 'active')}>
             Resume
+          </Link>
+          <Link to="/projects" className={cn('nav-link', isActive('/projects') && 'active')}>
+            Projects
           </Link>
           <Link to="/skills" className={cn('nav-link', isActive('/skills') && 'active')}>
             Skills
@@ -99,18 +99,18 @@ const Navbar = () => {
             Home
           </Link>
           <Link 
-            to="/projects" 
-            className={cn('nav-link text-xl', isActive('/projects') && 'active')}
-            onClick={closeMobileMenu}
-          >
-            Projects
-          </Link>
-          <Link 
             to="/resume" 
             className={cn('nav-link text-xl', isActive('/resume') && 'active')}
             onClick={closeMobileMenu}
           >
             Resume
+          </Link>
+          <Link 
+            to="/projects" 
+            className={cn('nav-link text-xl', isActive('/projects') && 'active')}
+            onClick={closeMobileMenu}
+          >
+            Projects
           </Link>
           <Link 
             to="/skills" 
