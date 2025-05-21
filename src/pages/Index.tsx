@@ -1,17 +1,33 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '@/components/Layout';
 import SocialSidebar from '@/components/SocialSidebar';
 import { Button } from '@/components/ui/button';
 import { Mail, FileText, User, Briefcase, Github, ExternalLink } from 'lucide-react';
 
-// Import project data from the Projects page to reuse
-import { projectsData } from './Projects';
+// Import project data from the Projects page
+import { projectsData, Project } from './Projects';
 
 const Index = () => {
-  // Get only the first 3 projects for featured section
-  const featuredProjects = projectsData.slice(0, 3);
+  const [randomProjects, setRandomProjects] = useState<Project[]>([]);
+  
+  useEffect(() => {
+    // Function to get 3 random projects from the projectsData array
+    const getRandomProjects = () => {
+      // Create a copy of the projects array to avoid mutating the original
+      const projectsCopy = [...projectsData];
+      // Shuffle the array using Fisher-Yates (Knuth) shuffle algorithm
+      for (let i = projectsCopy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [projectsCopy[i], projectsCopy[j]] = [projectsCopy[j], projectsCopy[i]];
+      }
+      // Return the first 3 items from the shuffled array
+      return projectsCopy.slice(0, 3);
+    };
+    
+    setRandomProjects(getRandomProjects());
+  }, []);
   
   return (
     <Layout>
@@ -84,7 +100,7 @@ const Index = () => {
               </div>
             </div>
             <div className="lg:w-1/3 flex justify-center">
-              <div className="rounded-lg overflow-hidden border-2 border-portfolio-highlight w-64 h-64">
+              <div className="rounded-lg overflow-hidden w-64 h-64">
                 <img src='/image.png' alt="Ahmed AlMoselhy" className="w-full h-full object-cover" />
               </div>
             </div>
@@ -96,7 +112,7 @@ const Index = () => {
       <section className="container mx-auto px-4 py-24">
         <h2 className="section-title">Featured Projects</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featuredProjects.map((project) => (
+          {randomProjects.map((project) => (
             <div key={project.id} className="card">
               <div className="h-40 bg-portfolio-navy/50 flex items-center justify-center overflow-hidden">
                 <Github size={80} className="text-portfolio-slate/40" />
