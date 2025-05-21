@@ -17,6 +17,22 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Effect to handle body scrolling when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      // Disable scrolling on the body when mobile menu is open
+      document.body.style.overflow = 'hidden';
+    } else {
+      // Re-enable scrolling when mobile menu is closed
+      document.body.style.overflow = '';
+    }
+
+    // Cleanup function to re-enable scrolling when component unmounts
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
   const isActive = (path: string) => location.pathname === path;
 
   const toggleMobileMenu = () => {
