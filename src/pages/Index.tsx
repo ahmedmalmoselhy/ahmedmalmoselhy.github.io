@@ -6,7 +6,13 @@ import SocialSidebar from '@/components/SocialSidebar';
 import { Button } from '@/components/ui/button';
 import { Mail, FileText, User, Briefcase, Github, ExternalLink } from 'lucide-react';
 
+// Import project data from the Projects page to reuse
+import { projectsData } from './Projects';
+
 const Index = () => {
+  // Get only the first 3 projects for featured section
+  const featuredProjects = projectsData.slice(0, 3);
+  
   return (
     <Layout>
       <SocialSidebar />
@@ -78,10 +84,8 @@ const Index = () => {
               </div>
             </div>
             <div className="lg:w-1/3 flex justify-center">
-              <div className="rounded-lg overflow-hidden border-2 border-portfolio-highlight w-64 h-64 relative">
-                <div className="absolute inset-0 bg-portfolio-highlight/20 flex items-center justify-center">
-                  <span className="text-portfolio-highlight font-mono"><img src='/image.png'/></span>
-                </div>
+              <div className="rounded-lg overflow-hidden border-2 border-portfolio-highlight w-64 h-64">
+                <img src='/image.png' alt="Ahmed AlMoselhy" className="w-full h-full object-cover" />
               </div>
             </div>
           </div>
@@ -92,26 +96,36 @@ const Index = () => {
       <section className="container mx-auto px-4 py-24">
         <h2 className="section-title">Featured Projects</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {[1, 2, 3].map(i => (
-            <div key={i} className="card">
-              <div className="h-40 bg-portfolio-slate/20 rounded mb-4 flex items-center justify-center">
-                <span className="text-portfolio-lightSlate">Project Screenshot</span>
+          {featuredProjects.map((project) => (
+            <div key={project.id} className="card">
+              <div className="h-40 bg-portfolio-navy/50 flex items-center justify-center overflow-hidden">
+                <Github size={80} className="text-portfolio-slate/40" />
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-portfolio-white">Project {i}</h3>
+              <h3 className="text-xl font-semibold mb-2 text-portfolio-white">{project.title}</h3>
               <p className="text-portfolio-lightSlate mb-4">
-                A brief description of this project and the technologies used in its development.
+                {project.description}
               </p>
-              <div className="flex text-sm space-x-3 mb-4">
-                <span className="text-portfolio-highlight font-mono">React</span>
-                <span className="text-portfolio-highlight font-mono">TypeScript</span>
-                <span className="text-portfolio-highlight font-mono">Node.js</span>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {project.technologies.slice(0, 3).map((tech, index) => (
+                  <span key={index} className="text-portfolio-highlight font-mono text-sm">{tech}</span>
+                ))}
               </div>
               <div className="flex space-x-4 text-portfolio-slate">
-                <a href="#" className="hover:text-portfolio-highlight flex items-center gap-1">
+                <a 
+                  href={project.githubUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="hover:text-portfolio-highlight flex items-center gap-1"
+                >
                   <Github size={20} />
                   <span>Code</span>
                 </a>
-                <a href="#" className="hover:text-portfolio-highlight flex items-center gap-1">
+                <a 
+                  href={project.liveUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="hover:text-portfolio-highlight flex items-center gap-1"
+                >
                   <ExternalLink size={20} />
                   <span>Demo</span>
                 </a>

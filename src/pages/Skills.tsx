@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Layout from '@/components/Layout';
 import { Card, CardContent } from '@/components/ui/card';
@@ -11,23 +12,9 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-// Placeholder skill data
-const frontendSkills = [
-  // { name: 'React', level: 95 },
-  // { name: 'TypeScript', level: 90 },
-  // { name: 'JavaScript', level: 95 },
-  // { name: 'HTML/CSS', level: 88 },
-  // { name: 'Angular', level: 75 },
-  // { name: 'Vue', level: 70 },
-  // { name: 'Redux', level: 85 },
-  // { name: 'Styled Components', level: 80 },
-];
-
+// Skill data
 const backendSkills = [
   { name: 'JavaScript', level: 95 },
-  // { name: 'TypeScript', level: 90 },
-  // { name: 'Node.js', level: 92 },
-  // { name: 'Express', level: 90 },
   { name: 'PHP', level: 80 },
   { name: 'Laravel', level: 85 },
   { name: 'PostgreSQL', level: 80 },
@@ -41,19 +28,25 @@ const backendSkills = [
 const otherSkills = [
   { name: 'Git', level: 90 },
   { name: 'Docker', level: 75 },
-  // { name: 'AWS', level: 80 },
   { name: 'CI/CD', level: 85 },
   { name: 'Agile', level: 90 },
   { name: 'Testing', level: 82 },
-  // { name: 'Microservices', level: 78 },
   { name: 'System Design', level: 85 },
+];
+
+// Group skills for better organization
+const frontendSkills = [
+  { name: 'React', level: 90 },
+  { name: 'TypeScript', level: 85 },
+  { name: 'HTML/CSS', level: 88 },
+  { name: 'Angular', level: 75 },
 ];
 
 const Skills = () => {
   return (
     <Layout className="pt-28">
       <div className="container mx-auto px-4">
-        <header className="mb-16 text-center">
+        <header className="mb-12 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-portfolio-white mb-4 animate-fade-in">
             My Skills
           </h1>
@@ -62,10 +55,10 @@ const Skills = () => {
           </p>
         </header>
 
-        <div className="space-y-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
           {/* Frontend Skills */}
-          {/* <section>
-            <h2 className="section-title mb-8">Frontend Development</h2>
+          <section className="animate-fade-in">
+            <h2 className="section-title mb-6">Frontend Development</h2>
             <Card className="bg-portfolio-lightNavy border-portfolio-slate/20">
               <CardContent className="pt-6">
                 <div className="h-80 w-full">
@@ -93,9 +86,9 @@ const Skills = () => {
               </CardContent>
             </Card>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
               {frontendSkills.map((skill) => (
-                <div key={skill.name} className="card p-4 text-center">
+                <div key={skill.name} className="card p-3 text-center">
                   <h3 className="text-portfolio-white font-semibold mb-2">{skill.name}</h3>
                   <div className="w-full bg-portfolio-navy rounded-full h-2.5">
                     <div 
@@ -107,17 +100,17 @@ const Skills = () => {
                 </div>
               ))}
             </div>
-          </section> */}
+          </section>
 
           {/* Backend Skills */}
-          <section>
-            <h2 className="section-title mb-8">Languages & Frameworks</h2>
+          <section className="animate-fade-in" style={{ animationDelay: '100ms' }}>
+            <h2 className="section-title mb-6">Backend Development</h2>
             <Card className="bg-portfolio-lightNavy border-portfolio-slate/20">
               <CardContent className="pt-6">
                 <div className="h-80 w-full">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
-                      data={backendSkills}
+                      data={backendSkills.slice(0, 6)}
                       layout="vertical"
                       margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                     >
@@ -139,9 +132,9 @@ const Skills = () => {
               </CardContent>
             </Card>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-4">
               {backendSkills.map((skill) => (
-                <div key={skill.name} className="card p-4 text-center">
+                <div key={skill.name} className="card p-3 text-center">
                   <h3 className="text-portfolio-white font-semibold mb-2">{skill.name}</h3>
                   <div className="w-full bg-portfolio-navy rounded-full h-2.5">
                     <div 
@@ -154,13 +147,15 @@ const Skills = () => {
               ))}
             </div>
           </section>
-
-          {/* Other Skills */}
-          <section>
-            <h2 className="section-title mb-8">Tools</h2>
+        </div>
+        
+        {/* Tools Section */}
+        <section className="mb-16 animate-fade-in" style={{ animationDelay: '200ms' }}>
+          <h2 className="section-title mb-6">Development Tools</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <Card className="bg-portfolio-lightNavy border-portfolio-slate/20">
               <CardContent className="pt-6">
-                <div className="h-80 w-full">
+                <div className="h-60 w-full">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
                       data={otherSkills}
@@ -185,7 +180,7 @@ const Skills = () => {
               </CardContent>
             </Card>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {otherSkills.map((skill) => (
                 <div key={skill.name} className="card p-4 text-center">
                   <h3 className="text-portfolio-white font-semibold mb-2">{skill.name}</h3>
@@ -199,74 +194,74 @@ const Skills = () => {
                 </div>
               ))}
             </div>
-          </section>
+          </div>
+        </section>
 
-          {/* Soft Skills */}
-          <section>
-            <h2 className="section-title mb-8">Soft Skills</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="card flex flex-col items-center p-6 text-center">
-                <div className="w-20 h-20 rounded-full bg-portfolio-highlight/20 flex items-center justify-center mb-4">
-                  <span className="text-portfolio-highlight text-3xl">🤝</span>
-                </div>
-                <h3 className="text-xl font-semibold text-portfolio-white mb-3">Team Collaboration</h3>
-                <p className="text-portfolio-lightSlate">
-                  Experienced in working with cross-functional teams, collaborating effectively with designers, product managers, and other developers.
-                </p>
+        {/* Soft Skills */}
+        <section className="animate-fade-in" style={{ animationDelay: '300ms' }}>
+          <h2 className="section-title mb-8">Soft Skills</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <div className="card flex flex-col items-center p-4 text-center">
+              <div className="w-16 h-16 rounded-full bg-portfolio-highlight/20 flex items-center justify-center mb-3">
+                <span className="text-portfolio-highlight text-2xl">🤝</span>
               </div>
-              
-              <div className="card flex flex-col items-center p-6 text-center">
-                <div className="w-20 h-20 rounded-full bg-portfolio-highlight/20 flex items-center justify-center mb-4">
-                  <span className="text-portfolio-highlight text-3xl">💬</span>
-                </div>
-                <h3 className="text-xl font-semibold text-portfolio-white mb-3">Communication</h3>
-                <p className="text-portfolio-lightSlate">
-                  Clear and effective communicator who can explain technical concepts to both technical and non-technical audiences.
-                </p>
-              </div>
-              
-              <div className="card flex flex-col items-center p-6 text-center">
-                <div className="w-20 h-20 rounded-full bg-portfolio-highlight/20 flex items-center justify-center mb-4">
-                  <span className="text-portfolio-highlight text-3xl">⏱️</span>
-                </div>
-                <h3 className="text-xl font-semibold text-portfolio-white mb-3">Time Management</h3>
-                <p className="text-portfolio-lightSlate">
-                  Skilled at prioritizing tasks, meeting deadlines, and managing multiple projects simultaneously.
-                </p>
-              </div>
-              
-              <div className="card flex flex-col items-center p-6 text-center">
-                <div className="w-20 h-20 rounded-full bg-portfolio-highlight/20 flex items-center justify-center mb-4">
-                  <span className="text-portfolio-highlight text-3xl">💡</span>
-                </div>
-                <h3 className="text-xl font-semibold text-portfolio-white mb-3">Problem-Solving</h3>
-                <p className="text-portfolio-lightSlate">
-                  Strong analytical and problem-solving skills with a methodical approach to debugging and feature development.
-                </p>
-              </div>
-              
-              <div className="card flex flex-col items-center p-6 text-center">
-                <div className="w-20 h-20 rounded-full bg-portfolio-highlight/20 flex items-center justify-center mb-4">
-                  <span className="text-portfolio-highlight text-3xl">🧠</span>
-                </div>
-                <h3 className="text-xl font-semibold text-portfolio-white mb-3">Adaptability</h3>
-                <p className="text-portfolio-lightSlate">
-                  Quick to learn new technologies and adapt to changing requirements and project needs.
-                </p>
-              </div>
-              
-              <div className="card flex flex-col items-center p-6 text-center">
-                <div className="w-20 h-20 rounded-full bg-portfolio-highlight/20 flex items-center justify-center mb-4">
-                  <span className="text-portfolio-highlight text-3xl">🚀</span>
-                </div>
-                <h3 className="text-xl font-semibold text-portfolio-white mb-3">Leadership</h3>
-                <p className="text-portfolio-lightSlate">
-                  Experience mentoring junior developers and leading small teams to achieve project goals.
-                </p>
-              </div>
+              <h3 className="text-lg font-semibold text-portfolio-white mb-2">Team Collaboration</h3>
+              <p className="text-portfolio-lightSlate text-sm">
+                Working effectively in cross-functional teams
+              </p>
             </div>
-          </section>
-        </div>
+            
+            <div className="card flex flex-col items-center p-4 text-center">
+              <div className="w-16 h-16 rounded-full bg-portfolio-highlight/20 flex items-center justify-center mb-3">
+                <span className="text-portfolio-highlight text-2xl">💬</span>
+              </div>
+              <h3 className="text-lg font-semibold text-portfolio-white mb-2">Communication</h3>
+              <p className="text-portfolio-lightSlate text-sm">
+                Explaining technical concepts clearly
+              </p>
+            </div>
+            
+            <div className="card flex flex-col items-center p-4 text-center">
+              <div className="w-16 h-16 rounded-full bg-portfolio-highlight/20 flex items-center justify-center mb-3">
+                <span className="text-portfolio-highlight text-2xl">⏱️</span>
+              </div>
+              <h3 className="text-lg font-semibold text-portfolio-white mb-2">Time Management</h3>
+              <p className="text-portfolio-lightSlate text-sm">
+                Prioritizing tasks and meeting deadlines
+              </p>
+            </div>
+            
+            <div className="card flex flex-col items-center p-4 text-center">
+              <div className="w-16 h-16 rounded-full bg-portfolio-highlight/20 flex items-center justify-center mb-3">
+                <span className="text-portfolio-highlight text-2xl">💡</span>
+              </div>
+              <h3 className="text-lg font-semibold text-portfolio-white mb-2">Problem-Solving</h3>
+              <p className="text-portfolio-lightSlate text-sm">
+                Analytical approach to challenges
+              </p>
+            </div>
+            
+            <div className="card flex flex-col items-center p-4 text-center">
+              <div className="w-16 h-16 rounded-full bg-portfolio-highlight/20 flex items-center justify-center mb-3">
+                <span className="text-portfolio-highlight text-2xl">🧠</span>
+              </div>
+              <h3 className="text-lg font-semibold text-portfolio-white mb-2">Adaptability</h3>
+              <p className="text-portfolio-lightSlate text-sm">
+                Quick to learn new technologies
+              </p>
+            </div>
+            
+            <div className="card flex flex-col items-center p-4 text-center">
+              <div className="w-16 h-16 rounded-full bg-portfolio-highlight/20 flex items-center justify-center mb-3">
+                <span className="text-portfolio-highlight text-2xl">🚀</span>
+              </div>
+              <h3 className="text-lg font-semibold text-portfolio-white mb-2">Leadership</h3>
+              <p className="text-portfolio-lightSlate text-sm">
+                Mentoring and leading development teams
+              </p>
+            </div>
+          </div>
+        </section>
       </div>
     </Layout>
   );

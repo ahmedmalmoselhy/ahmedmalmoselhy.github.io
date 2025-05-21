@@ -5,7 +5,7 @@ import { ExternalLink, Github } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
-interface Project {
+export interface Project {
   id: number;
   title: string;
   description: string;
@@ -15,7 +15,7 @@ interface Project {
   liveUrl: string;
 }
 
-const projectsData: Project[] = [
+export const projectsData: Project[] = [
   {
     id: 1,
     title: "Portfolio Website",
@@ -94,15 +94,7 @@ const Projects = () => {
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <div className="h-48 bg-portfolio-navy/50 flex items-center justify-center overflow-hidden">
-                <img 
-                  src={project.image} 
-                  alt={project.title}
-                  className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-300"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = "/placeholder.svg";
-                  }}
-                />
+                <Github size={80} className="text-portfolio-slate/40" />
               </div>
               <CardHeader className="pb-2">
                 <CardTitle className="text-xl font-semibold text-portfolio-white">
