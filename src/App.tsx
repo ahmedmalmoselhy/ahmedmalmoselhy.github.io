@@ -18,7 +18,7 @@ const isMaintenanceMode = false;
 // Config object for maintenance mode
 const maintenanceConfig = {
   // Pages that are exempt from maintenance mode (can still be accessed)
-  exemptRoutes: ["/"]
+  // exemptRoutes: ["/"]
 };
 
 const queryClient = new QueryClient();
@@ -33,7 +33,7 @@ const App = () => (
           {isMaintenanceMode ? (
             <>
               {/* When in maintenance mode, only show specific routes */}
-              <Route path="/" element={<Index />} />
+              {/* <Route path="/" element={<Index />} /> */}
               <Route path="/maintenance" element={<UnderMaintenance />} />
               {/* Redirect all other routes to maintenance page, except exempt routes */}
               <Route 
