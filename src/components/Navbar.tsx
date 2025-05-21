@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
+import { X } from 'lucide-react';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -106,6 +107,15 @@ const Navbar = () => {
         'md:hidden fixed inset-0 bg-portfolio-lightNavy/95 z-40 transform transition-transform duration-300 pt-24',
         isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
       )}>
+        {/* Close button for mobile menu */}
+        <button
+          onClick={closeMobileMenu}
+          className="absolute top-6 right-6 p-2 text-portfolio-white hover:text-portfolio-highlight transition-colors"
+          aria-label="Close menu"
+        >
+          <X size={24} />
+        </button>
+        
         <div className="flex flex-col items-center space-y-6 text-lg">
           <Link 
             to="/" 
