@@ -55,7 +55,7 @@ const Index = () => {
                   Get In Touch
                 </Button>
               </Link>
-              <a href="/AhmedAlMoselhy.pdf" target="_blank" rel="noopener noreferrer">
+              <a href="/AhmedAlMoselhy.pdf" download target="_blank" rel="noopener noreferrer">
                 <Button variant="outline" className="btn-outline flex items-center gap-2">
                   <FileText size={18} />
                   Download Resume

@@ -51,7 +51,7 @@ const Resume = () => {
           <p className="text-portfolio-slate max-w-2xl mx-auto mb-8 animate-fade-in">
             A comprehensive overview of my professional experience, education, and skills
           </p>
-          <a href="/resume.pdf" download className="inline-block">
+          <a href="/AhmedAlMoselhy.pdf" download className="inline-block">
             <Button className="btn-primary animate-fade-in flex items-center gap-2">
               <Download size={18} />
               Download CV
