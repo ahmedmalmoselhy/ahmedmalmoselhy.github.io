@@ -7,6 +7,7 @@ import { X } from 'lucide-react';
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [scrollPosition, setScrollPosition] = useState(0);
   const location = useLocation();
 
   useEffect(() => {
@@ -22,19 +23,22 @@ const Navbar = () => {
   useEffect(() => {
     if (isMobileMenuOpen) {
       // Save the current scroll position
-      const scrollY = window.scrollY;
+      setScrollPosition(window.scrollY);
       // Disable scrolling on the body when mobile menu is open and fix position
       document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
+      document.body.style.top = `-${window.scrollY}px`;
       document.body.style.width = '100%';
     } else {
       // Re-enable scrolling when mobile menu is closed
-      const scrollY = document.body.style.top;
       document.body.style.position = '';
       document.body.style.top = '';
       document.body.style.width = '';
-      if (scrollY) {
-        window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+      // Restore scroll position without jumping to top
+      if (scrollPosition) {
+        window.scrollTo({
+          top: scrollPosition,
+          behavior: 'auto' // Use 'auto' to prevent animation
+        });
       }
     }
 
@@ -44,7 +48,7 @@ const Navbar = () => {
       document.body.style.top = '';
       document.body.style.width = '';
     };
-  }, [isMobileMenuOpen]);
+  }, [isMobileMenuOpen, scrollPosition]);
 
   const isActive = (path: string) => location.pathname === path;
 

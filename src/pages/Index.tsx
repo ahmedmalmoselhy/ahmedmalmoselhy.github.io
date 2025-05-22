@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Layout from '@/components/Layout';
 import SocialSidebar from '@/components/SocialSidebar';
 import { Button } from '@/components/ui/button';
-import { Mail, FileText, User, Briefcase, Github, ExternalLink } from 'lucide-react';
+import { Mail, FileText, User, Briefcase, Github, ExternalLink, Code, Database, Server } from 'lucide-react';
 
 // Import project data from the Projects page
 import { projectsData, Project } from './Projects';
@@ -35,31 +35,87 @@ const Index = () => {
       
       {/* Hero Section */}
       <section className="container mx-auto px-4 pt-16 md:pt-24 pb-24">
-        <div className="flex flex-col max-w-3xl mx-auto md:ml-0">
-          <p className="text-portfolio-highlight font-mono mb-5 animate-fade-in">Hi, my name is</p>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-portfolio-white mb-4 animate-slide-up">
-            Ahmed AlMoselhy
-          </h1>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-portfolio-slate mb-6 animate-slide-up" style={{ animationDelay: '100ms' }}>
-            I build software!
-          </h2>
-          <p className="text-portfolio-lightSlate text-lg max-w-xl mb-12 animate-slide-up" style={{ animationDelay: '200ms' }}>
-            I'm a software engineer specializing in building exceptional digital experiences.
-            Currently, I'm focused on building accessible, human-centered products.
-          </p>
-          <div className="flex flex-wrap gap-4 animate-slide-up" style={{ animationDelay: '300ms' }}>
-            <Link to="/contact">
-              <Button className="btn-primary flex items-center gap-2">
-                <Mail size={18} />
-                Get In Touch
-              </Button>
-            </Link>
-            <Link to="/resume">
-              <Button variant="outline" className="btn-outline flex items-center gap-2">
-                <FileText size={18} />
-                View Resume
-              </Button>
-            </Link>
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between max-w-6xl mx-auto">
+          <div className="md:max-w-xl">
+            <p className="text-portfolio-highlight font-mono mb-5 animate-fade-in">Hi, my name is</p>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-portfolio-white mb-4 animate-slide-up">
+              Ahmed AlMoselhy
+            </h1>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-portfolio-slate mb-6 animate-slide-up" style={{ animationDelay: '100ms' }}>
+              I build software!
+            </h2>
+            <p className="text-portfolio-lightSlate text-lg max-w-xl mb-12 animate-slide-up" style={{ animationDelay: '200ms' }}>
+              I'm a software engineer specializing in building exceptional digital experiences.
+              Currently, I'm focused on building accessible, human-centered products.
+            </p>
+            <div className="flex flex-wrap gap-4 animate-slide-up" style={{ animationDelay: '300ms' }}>
+              <Link to="/contact">
+                <Button className="btn-primary flex items-center gap-2">
+                  <Mail size={18} />
+                  Get In Touch
+                </Button>
+              </Link>
+              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" className="btn-outline flex items-center gap-2">
+                  <FileText size={18} />
+                  View Resume
+                </Button>
+              </a>
+            </div>
+          </div>
+          
+          {/* Tech Stack Visual - only visible on desktop */}
+          <div className="hidden md:flex flex-col items-center animate-fade-in" style={{ animationDelay: '400ms' }}>
+            <div className="relative w-64 h-64 md:w-80 md:h-80 bg-portfolio-lightNavy/20 rounded-full flex items-center justify-center">
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Code size={48} className="text-portfolio-highlight" />
+              </div>
+              {/* Tech stack icons positioned around in a circle */}
+              <div className="absolute top-4 left-1/2 transform -translate-x-1/2">
+                <div className="bg-portfolio-navy/70 p-3 rounded-full">
+                  <Server size={24} className="text-portfolio-highlight" />
+                </div>
+              </div>
+              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
+                <div className="bg-portfolio-navy/70 p-3 rounded-full">
+                  <Database size={24} className="text-portfolio-highlight" />
+                </div>
+              </div>
+              <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
+                <div className="bg-portfolio-navy/70 p-3 rounded-full">
+                  <Code size={24} className="text-portfolio-highlight" />
+                </div>
+              </div>
+              <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
+                <div className="bg-portfolio-navy/70 p-3 rounded-full">
+                  <Github size={24} className="text-portfolio-highlight" />
+                </div>
+              </div>
+              <div className="absolute top-1/4 right-1/4">
+                <div className="bg-portfolio-navy/70 p-3 rounded-full">
+                  <FileText size={24} className="text-portfolio-highlight" />
+                </div>
+              </div>
+              <div className="absolute bottom-1/4 right-1/4">
+                <div className="bg-portfolio-navy/70 p-3 rounded-full">
+                  <User size={24} className="text-portfolio-highlight" />
+                </div>
+              </div>
+              <div className="absolute bottom-1/4 left-1/4">
+                <div className="bg-portfolio-navy/70 p-3 rounded-full">
+                  <Mail size={24} className="text-portfolio-highlight" />
+                </div>
+              </div>
+              <div className="absolute top-1/4 left-1/4">
+                <div className="bg-portfolio-navy/70 p-3 rounded-full">
+                  <Briefcase size={24} className="text-portfolio-highlight" />
+                </div>
+              </div>
+            </div>
+            <div className="mt-4 text-center">
+              <h3 className="text-portfolio-white text-lg font-medium">Full Stack Developer</h3>
+              <p className="text-portfolio-highlight font-mono">JavaScript | Node.js | React</p>
+            </div>
           </div>
         </div>
       </section>

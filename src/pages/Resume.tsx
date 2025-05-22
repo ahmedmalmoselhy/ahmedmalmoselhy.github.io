@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '@/components/Layout';
-import { Briefcase, GraduationCap, Award, FileText, Mail, Phone, Linkedin, Github } from 'lucide-react';
+import { Briefcase, GraduationCap, FileText, Mail, Phone, Linkedin, Github, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const jobs = [
@@ -10,8 +10,8 @@ const jobs = [
     duration: 'July 2023 - Present',
     roles: [
       "Product Catalog Management: Oversaw catalog components using Ericsson Catalog Manager (ECM), ensuring accurate and efficient handling of product data.",
-  "Technical Support: Delivered advanced support to maintain system reliability and swiftly resolve critical issues in the L3 layer of support.",
-  "System Integration: Contributed to the development efforts, implementing logic to interface with external systems for streamlined operations and improved overall performance."
+      "Technical Support: Delivered advanced support to maintain system reliability and swiftly resolve critical issues in the L3 layer of support.",
+      "System Integration: Contributed to the development efforts, implementing logic to interface with external systems for streamlined operations and improved overall performance."
     ]
   },
   {
@@ -51,10 +51,12 @@ const Resume = () => {
           <p className="text-portfolio-slate max-w-2xl mx-auto mb-8 animate-fade-in">
             A comprehensive overview of my professional experience, education, and skills
           </p>
-          {/* <Button className="btn-primary animate-fade-in flex items-center gap-2">
-            <FileText size={18} />
-            Download CV
-          </Button> */}
+          <a href="/resume.pdf" download className="inline-block">
+            <Button className="btn-primary animate-fade-in flex items-center gap-2">
+              <Download size={18} />
+              Download CV
+            </Button>
+          </a>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
