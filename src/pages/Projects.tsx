@@ -14,63 +14,45 @@ export interface Project {
   technologies: string[];
   image: string;
   githubUrl: string;
-  liveUrl: string;
+  // liveUrl: string;
 }
 
 export const projectsData: Project[] = [
   {
     id: 1,
-    title: "Portfolio Website",
-    description: "A responsive portfolio website built with React and Tailwind CSS to showcase my skills and projects.",
-    technologies: ["React", "TypeScript", "Tailwind CSS"],
+    title: "Laravel Modular Dashboard",
+    description: "Developed a configurable admin dashboard with Laravel Blade templates.",
+    technologies: ["Laravel", "MariaDB", "Laravel Blade", "PHP"],
     image: "/placeholder.svg",
-    githubUrl: "https://github.com",
-    liveUrl: "https://example.com"
+    githubUrl: "https://github.com/ahmedmalmoselhy/laravel-dashboard",
+    // liveUrl: "https://example.com"
   },
   {
     id: 2,
-    title: "E-commerce Platform",
-    description: "A full-stack e-commerce application with user authentication, product catalog, and payment processing.",
-    technologies: ["React", "Node.js", "MongoDB", "Stripe"],
+    title: "Laravel GetText Package",
+    description: "Extended compatibility to PHP 8.1 and Laravel 9 for multilingual support.",
+    technologies: ["PHP", "Laravel"],
     image: "/placeholder.svg",
-    githubUrl: "https://github.com",
-    liveUrl: "https://example.com"
+    githubUrl: "https://github.com/ahmedmalmoselhy/laravel-gettext",
+    // liveUrl: "https://example.com"
   },
   {
     id: 3,
-    title: "Task Management App",
-    description: "A productivity application that helps users organize and manage their daily tasks and projects.",
-    technologies: ["React", "Redux", "Firebase"],
+    title: "CSED 2020 Yearbook",
+    description: "Created a memorial website including backend and layout in Laravel Blade.",
+    technologies: ["PHP", "Laravel", "PostgreSQL", "Heroku"],
     image: "/placeholder.svg",
-    githubUrl: "https://github.com",
-    liveUrl: "https://example.com"
+    githubUrl: "https://github.com/ahmedmalmoselhy/csed_yearbook",
+    // liveUrl: "https://example.com"
   },
   {
     id: 4,
-    title: "Weather Dashboard",
-    description: "A weather application that displays current and forecasted weather data for any location.",
-    technologies: ["React", "OpenWeather API", "Chart.js"],
+    title: "Curey Healthcare App",
+    description: "Graduation project focused on backend API and database systems",
+    technologies: ["PHP", "Laravel"],
     image: "/placeholder.svg",
-    githubUrl: "https://github.com",
-    liveUrl: "https://example.com"
-  },
-  {
-    id: 5,
-    title: "Social Media Analytics",
-    description: "A dashboard for tracking and analyzing social media performance across multiple platforms.",
-    technologies: ["React", "D3.js", "Node.js", "Express"],
-    image: "/placeholder.svg",
-    githubUrl: "https://github.com",
-    liveUrl: "https://example.com"
-  },
-  {
-    id: 6,
-    title: "Fitness Tracker",
-    description: "An application for tracking workouts, nutrition, and progress towards fitness goals.",
-    technologies: ["React", "TypeScript", "Firebase"],
-    image: "/placeholder.svg",
-    githubUrl: "https://github.com",
-    liveUrl: "https://example.com"
+    githubUrl: "https://github.com/Curey-HealthCare/Curey-HealthCareApp-Backend",
+    // liveUrl: "https://example.com"
   }
 ];
 
@@ -130,7 +112,7 @@ const Projects = () => {
                   <Github size={16} className="md:size-18" />
                   <span className="text-xs md:text-sm">Code</span>
                 </a>
-                <a 
+                {/* <a 
                   href={project.liveUrl} 
                   target="_blank" 
                   rel="noopener noreferrer"
@@ -139,7 +121,7 @@ const Projects = () => {
                 >
                   <ExternalLink size={16} className="md:size-18" />
                   <span className="text-xs md:text-sm">Live Demo</span>
-                </a>
+                </a> */}
               </CardFooter>
             </Card>
           ))}
