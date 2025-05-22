@@ -97,10 +97,10 @@ const Skills = () => {
           </div>
         </section>
 
-        {/* Soft Skills */}
+        {/* Soft Skills - Updated with dynamic grid */}
         <section className="mb-16">
           <h2 className="section-title mb-8">Soft Skills</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 auto-rows-fr gap-4">
             {softSkills.map((skill, idx) => (
               <div key={idx} className="card flex flex-col items-center p-4 text-center">
                 <div className="w-12 h-12 rounded-full bg-portfolio-highlight/20 flex items-center justify-center mb-3">
