@@ -1,3 +1,4 @@
+
 /* eslint-disable react-refresh/only-export-components */
 
 import React from 'react';
@@ -76,49 +77,49 @@ export const projectsData: Project[] = [
 const Projects = () => {
   return (
     <Layout>
-      <section className="container mx-auto px-4 py-16">
-        <div className="max-w-3xl mx-auto mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-portfolio-white mb-6 animate-fade-in">
+      <section className="container mx-auto px-4 py-8 md:py-16">
+        <div className="max-w-3xl mx-auto mb-8 md:mb-12">
+          <h1 className="text-3xl md:text-5xl font-bold text-portfolio-white mb-4 md:mb-6 animate-fade-in">
             My Projects
           </h1>
-          <p className="text-portfolio-lightSlate text-lg animate-slide-up">
+          <p className="text-portfolio-lightSlate text-base md:text-lg animate-slide-up">
             Here's a selection of projects I've worked on. Each project represents different skills 
             and technologies I've used to solve various challenges.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8">
           {projectsData.map((project, index) => (
             <Card 
               key={project.id} 
-              className="bg-portfolio-lightNavy border-portfolio-slate/20 hover:-translate-y-2 transition-transform duration-300 overflow-hidden animate-fade-in"
+              className="bg-portfolio-lightNavy border-portfolio-slate/20 hover:-translate-y-1 md:hover:-translate-y-2 transition-transform duration-300 overflow-hidden animate-fade-in"
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              <div className="h-48 bg-portfolio-navy/50 flex items-center justify-center overflow-hidden">
-                <Github size={80} className="text-portfolio-slate/40" />
+              <div className="h-32 md:h-48 bg-portfolio-navy/50 flex items-center justify-center overflow-hidden">
+                <Github size={48} className="text-portfolio-slate/40" />
               </div>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-xl font-semibold text-portfolio-white">
+              <CardHeader className="pb-2 p-4 md:p-6">
+                <CardTitle className="text-lg md:text-xl font-semibold text-portfolio-white">
                   {project.title}
                 </CardTitle>
-                <CardDescription className="text-portfolio-lightSlate">
+                <CardDescription className="text-portfolio-lightSlate text-sm md:text-base">
                   {project.description}
                 </CardDescription>
               </CardHeader>
-              <CardContent className="pb-2">
-                <div className="flex flex-wrap gap-2 mb-2">
+              <CardContent className="pb-1 p-4 md:p-6 pt-0">
+                <div className="flex flex-wrap gap-1.5 md:gap-2">
                   {project.technologies.map((tech, index) => (
                     <Badge 
                       key={index} 
                       variant="outline" 
-                      className="bg-portfolio-navy/50 text-portfolio-highlight border-portfolio-highlight/30 font-mono text-xs py-1"
+                      className="bg-portfolio-navy/50 text-portfolio-highlight border-portfolio-highlight/30 font-mono text-xs py-0.5 md:py-1"
                     >
                       {tech}
                     </Badge>
                   ))}
                 </div>
               </CardContent>
-              <CardFooter className="flex space-x-4 text-portfolio-slate">
+              <CardFooter className="flex space-x-4 text-portfolio-slate p-4 md:p-6">
                 <a 
                   href={project.githubUrl} 
                   target="_blank" 
@@ -126,8 +127,8 @@ const Projects = () => {
                   className="hover:text-portfolio-highlight flex items-center gap-1 transition-colors duration-200"
                   aria-label={`View ${project.title} source code on GitHub`}
                 >
-                  <Github size={18} />
-                  <span className="text-sm">Code</span>
+                  <Github size={16} className="md:size-18" />
+                  <span className="text-xs md:text-sm">Code</span>
                 </a>
                 <a 
                   href={project.liveUrl} 
@@ -136,8 +137,8 @@ const Projects = () => {
                   className="hover:text-portfolio-highlight flex items-center gap-1 transition-colors duration-200"
                   aria-label={`View ${project.title} live demo`}
                 >
-                  <ExternalLink size={18} />
-                  <span className="text-sm">Live Demo</span>
+                  <ExternalLink size={16} className="md:size-18" />
+                  <span className="text-xs md:text-sm">Live Demo</span>
                 </a>
               </CardFooter>
             </Card>
