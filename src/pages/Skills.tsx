@@ -2,44 +2,56 @@
 import React from 'react';
 import Layout from '@/components/Layout';
 import { Card, CardContent } from '@/components/ui/card';
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from 'recharts';
 
-// Skill data
-const backendSkills = [
-  { name: 'JavaScript', level: 95 },
-  { name: 'PHP', level: 80 },
-  { name: 'Laravel', level: 85 },
-  { name: 'PostgreSQL', level: 80 },
-  { name: 'MySQL', level: 85 },
-  { name: 'OracleDB', level: 75 },
-  { name: 'REST APIs', level: 95 },
-  { name: 'Java', level: 70 },
-  { name: 'Python', level: 65 },
+// Skill categories with their respective skills
+const skillCategories = [
+  {
+    name: "Frontend",
+    skills: [
+      { name: 'React', level: 90 },
+      { name: 'TypeScript', level: 85 },
+      { name: 'HTML/CSS', level: 88 },
+      { name: 'Angular', level: 75 },
+    ],
+    color: "portfolio-highlight"
+  },
+  {
+    name: "Backend",
+    skills: [
+      { name: 'JavaScript', level: 95 },
+      { name: 'PHP', level: 80 },
+      { name: 'Laravel', level: 85 },
+      { name: 'PostgreSQL', level: 80 },
+      { name: 'MySQL', level: 85 },
+      { name: 'OracleDB', level: 75 },
+      { name: 'REST APIs', level: 95 },
+      { name: 'Java', level: 70 },
+      { name: 'Python', level: 65 },
+    ],
+    color: "portfolio-blue"
+  },
+  {
+    name: "Development Tools",
+    skills: [
+      { name: 'Git', level: 90 },
+      { name: 'Docker', level: 75 },
+      { name: 'CI/CD', level: 85 },
+      { name: 'Agile', level: 90 },
+      { name: 'Testing', level: 82 },
+      { name: 'System Design', level: 85 },
+    ],
+    color: "portfolio-slate"
+  }
 ];
 
-const otherSkills = [
-  { name: 'Git', level: 90 },
-  { name: 'Docker', level: 75 },
-  { name: 'CI/CD', level: 85 },
-  { name: 'Agile', level: 90 },
-  { name: 'Testing', level: 82 },
-  { name: 'System Design', level: 85 },
-];
-
-// Group skills for better organization
-const frontendSkills = [
-  { name: 'React', level: 90 },
-  { name: 'TypeScript', level: 85 },
-  { name: 'HTML/CSS', level: 88 },
-  { name: 'Angular', level: 75 },
+// Soft skills for the simplified display
+const softSkills = [
+  { name: "Team Collaboration", icon: "🤝" },
+  { name: "Communication", icon: "💬" },
+  { name: "Time Management", icon: "⏱️" },
+  { name: "Problem-Solving", icon: "💡" },
+  { name: "Adaptability", icon: "🧠" },
+  { name: "Leadership", icon: "🚀" },
 ];
 
 const Skills = () => {
@@ -55,211 +67,48 @@ const Skills = () => {
           </p>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-          {/* Frontend Skills */}
-          <section className="animate-fade-in">
-            <h2 className="section-title mb-6">Frontend Development</h2>
-            <Card className="bg-portfolio-lightNavy border-portfolio-slate/20">
-              <CardContent className="pt-6">
-                <div className="h-80 w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart
-                      data={frontendSkills}
-                      layout="vertical"
-                      margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" stroke="#8892B0" strokeOpacity={0.2} />
-                      <XAxis type="number" domain={[0, 100]} stroke="#8892B0" />
-                      <YAxis dataKey="name" type="category" width={100} stroke="#8892B0" />
-                      <Tooltip 
-                        contentStyle={{ 
-                          backgroundColor: '#112240', 
-                          borderColor: '#2DD4BF',
-                          color: '#E6F1FF'
-                        }}
-                        formatter={(value) => [`${value}%`, 'Proficiency']}
-                      />
-                      <Bar dataKey="level" fill="#2DD4BF" radius={[0, 4, 4, 0]} />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-              </CardContent>
-            </Card>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
-              {frontendSkills.map((skill) => (
-                <div key={skill.name} className="card p-3 text-center">
-                  <h3 className="text-portfolio-white font-semibold mb-2">{skill.name}</h3>
-                  <div className="w-full bg-portfolio-navy rounded-full h-2.5">
-                    <div 
-                      className="bg-portfolio-highlight h-2.5 rounded-full" 
-                      style={{ width: `${skill.level}%` }}
-                    ></div>
+        {/* Technical Skills */}
+        <section className="mb-16">
+          <h2 className="section-title mb-8">Technical Skills</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {skillCategories.map((category, idx) => (
+              <Card key={idx} className="bg-portfolio-lightNavy border-portfolio-slate/20">
+                <CardContent className="pt-6">
+                  <h3 className="text-xl font-semibold mb-6 text-portfolio-white">{category.name}</h3>
+                  <div className="space-y-4">
+                    {category.skills.map((skill, skillIdx) => (
+                      <div key={skillIdx} className="space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span className="text-portfolio-lightSlate">{skill.name}</span>
+                          <span className={`text-${category.color}`}>{skill.level}%</span>
+                        </div>
+                        <div className="w-full bg-portfolio-navy rounded-full h-2">
+                          <div 
+                            className={`bg-${category.color} h-2 rounded-full`} 
+                            style={{ width: `${skill.level}%` }}
+                          ></div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                  <p className="text-portfolio-highlight mt-2">{skill.level}%</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Backend Skills */}
-          <section className="animate-fade-in" style={{ animationDelay: '100ms' }}>
-            <h2 className="section-title mb-6">Backend Development</h2>
-            <Card className="bg-portfolio-lightNavy border-portfolio-slate/20">
-              <CardContent className="pt-6">
-                <div className="h-80 w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart
-                      data={backendSkills.slice(0, 6)}
-                      layout="vertical"
-                      margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" stroke="#8892B0" strokeOpacity={0.2} />
-                      <XAxis type="number" domain={[0, 100]} stroke="#8892B0" />
-                      <YAxis dataKey="name" type="category" width={100} stroke="#8892B0" />
-                      <Tooltip 
-                        contentStyle={{ 
-                          backgroundColor: '#112240', 
-                          borderColor: '#2DD4BF',
-                          color: '#E6F1FF'
-                        }}
-                        formatter={(value) => [`${value}%`, 'Proficiency']}
-                      />
-                      <Bar dataKey="level" fill="#007BFF" radius={[0, 4, 4, 0]} />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-              </CardContent>
-            </Card>
-
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-4">
-              {backendSkills.map((skill) => (
-                <div key={skill.name} className="card p-3 text-center">
-                  <h3 className="text-portfolio-white font-semibold mb-2">{skill.name}</h3>
-                  <div className="w-full bg-portfolio-navy rounded-full h-2.5">
-                    <div 
-                      className="bg-portfolio-blue h-2.5 rounded-full" 
-                      style={{ width: `${skill.level}%` }}
-                    ></div>
-                  </div>
-                  <p className="text-portfolio-blue mt-2">{skill.level}%</p>
-                </div>
-              ))}
-            </div>
-          </section>
-        </div>
-        
-        {/* Tools Section */}
-        <section className="mb-16 animate-fade-in" style={{ animationDelay: '200ms' }}>
-          <h2 className="section-title mb-6">Development Tools</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Card className="bg-portfolio-lightNavy border-portfolio-slate/20">
-              <CardContent className="pt-6">
-                <div className="h-60 w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart
-                      data={otherSkills}
-                      layout="vertical"
-                      margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" stroke="#8892B0" strokeOpacity={0.2} />
-                      <XAxis type="number" domain={[0, 100]} stroke="#8892B0" />
-                      <YAxis dataKey="name" type="category" width={100} stroke="#8892B0" />
-                      <Tooltip 
-                        contentStyle={{ 
-                          backgroundColor: '#112240', 
-                          borderColor: '#2DD4BF',
-                          color: '#E6F1FF'
-                        }}
-                        formatter={(value) => [`${value}%`, 'Proficiency']}
-                      />
-                      <Bar dataKey="level" fill="#8892B0" radius={[0, 4, 4, 0]} />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-              </CardContent>
-            </Card>
-
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-              {otherSkills.map((skill) => (
-                <div key={skill.name} className="card p-4 text-center">
-                  <h3 className="text-portfolio-white font-semibold mb-2">{skill.name}</h3>
-                  <div className="w-full bg-portfolio-navy rounded-full h-2.5">
-                    <div 
-                      className="bg-portfolio-slate h-2.5 rounded-full" 
-                      style={{ width: `${skill.level}%` }}
-                    ></div>
-                  </div>
-                  <p className="text-portfolio-slate mt-2">{skill.level}%</p>
-                </div>
-              ))}
-            </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </section>
 
         {/* Soft Skills */}
-        <section className="animate-fade-in" style={{ animationDelay: '300ms' }}>
+        <section className="mb-16">
           <h2 className="section-title mb-8">Soft Skills</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            <div className="card flex flex-col items-center p-4 text-center">
-              <div className="w-16 h-16 rounded-full bg-portfolio-highlight/20 flex items-center justify-center mb-3">
-                <span className="text-portfolio-highlight text-2xl">🤝</span>
+            {softSkills.map((skill, idx) => (
+              <div key={idx} className="card flex flex-col items-center p-4 text-center">
+                <div className="w-12 h-12 rounded-full bg-portfolio-highlight/20 flex items-center justify-center mb-3">
+                  <span className="text-portfolio-highlight text-2xl">{skill.icon}</span>
+                </div>
+                <h3 className="text-lg font-semibold text-portfolio-white">{skill.name}</h3>
               </div>
-              <h3 className="text-lg font-semibold text-portfolio-white mb-2">Team Collaboration</h3>
-              <p className="text-portfolio-lightSlate text-sm">
-                Working effectively in cross-functional teams
-              </p>
-            </div>
-            
-            <div className="card flex flex-col items-center p-4 text-center">
-              <div className="w-16 h-16 rounded-full bg-portfolio-highlight/20 flex items-center justify-center mb-3">
-                <span className="text-portfolio-highlight text-2xl">💬</span>
-              </div>
-              <h3 className="text-lg font-semibold text-portfolio-white mb-2">Communication</h3>
-              <p className="text-portfolio-lightSlate text-sm">
-                Explaining technical concepts clearly
-              </p>
-            </div>
-            
-            <div className="card flex flex-col items-center p-4 text-center">
-              <div className="w-16 h-16 rounded-full bg-portfolio-highlight/20 flex items-center justify-center mb-3">
-                <span className="text-portfolio-highlight text-2xl">⏱️</span>
-              </div>
-              <h3 className="text-lg font-semibold text-portfolio-white mb-2">Time Management</h3>
-              <p className="text-portfolio-lightSlate text-sm">
-                Prioritizing tasks and meeting deadlines
-              </p>
-            </div>
-            
-            <div className="card flex flex-col items-center p-4 text-center">
-              <div className="w-16 h-16 rounded-full bg-portfolio-highlight/20 flex items-center justify-center mb-3">
-                <span className="text-portfolio-highlight text-2xl">💡</span>
-              </div>
-              <h3 className="text-lg font-semibold text-portfolio-white mb-2">Problem-Solving</h3>
-              <p className="text-portfolio-lightSlate text-sm">
-                Analytical approach to challenges
-              </p>
-            </div>
-            
-            <div className="card flex flex-col items-center p-4 text-center">
-              <div className="w-16 h-16 rounded-full bg-portfolio-highlight/20 flex items-center justify-center mb-3">
-                <span className="text-portfolio-highlight text-2xl">🧠</span>
-              </div>
-              <h3 className="text-lg font-semibold text-portfolio-white mb-2">Adaptability</h3>
-              <p className="text-portfolio-lightSlate text-sm">
-                Quick to learn new technologies
-              </p>
-            </div>
-            
-            <div className="card flex flex-col items-center p-4 text-center">
-              <div className="w-16 h-16 rounded-full bg-portfolio-highlight/20 flex items-center justify-center mb-3">
-                <span className="text-portfolio-highlight text-2xl">🚀</span>
-              </div>
-              <h3 className="text-lg font-semibold text-portfolio-white mb-2">Leadership</h3>
-              <p className="text-portfolio-lightSlate text-sm">
-                Mentoring and leading development teams
-              </p>
-            </div>
+            ))}
           </div>
         </section>
       </div>

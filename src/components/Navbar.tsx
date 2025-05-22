@@ -21,16 +21,28 @@ const Navbar = () => {
   // Effect to handle body scrolling when mobile menu is open
   useEffect(() => {
     if (isMobileMenuOpen) {
-      // Disable scrolling on the body when mobile menu is open
-      document.body.style.overflow = 'hidden';
+      // Save the current scroll position
+      const scrollY = window.scrollY;
+      // Disable scrolling on the body when mobile menu is open and fix position
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
     } else {
       // Re-enable scrolling when mobile menu is closed
-      document.body.style.overflow = '';
+      const scrollY = document.body.style.top;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+      }
     }
 
     // Cleanup function to re-enable scrolling when component unmounts
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
     };
   }, [isMobileMenuOpen]);
 
