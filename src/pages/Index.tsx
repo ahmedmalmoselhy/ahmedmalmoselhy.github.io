@@ -55,10 +55,10 @@ const Index = () => {
                   Get In Touch
                 </Button>
               </Link>
-              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+              <a href="/AhmedAlMoselhy.pdf" target="_blank" rel="noopener noreferrer">
                 <Button variant="outline" className="btn-outline flex items-center gap-2">
                   <FileText size={18} />
-                  View Resume
+                  Download Resume
                 </Button>
               </a>
             </div>
@@ -113,8 +113,8 @@ const Index = () => {
               </div>
             </div>
             <div className="mt-4 text-center">
-              <h3 className="text-portfolio-white text-lg font-medium">Full Stack Developer</h3>
-              <p className="text-portfolio-highlight font-mono">JavaScript | Node.js | React</p>
+              {/* <h3 className="text-portfolio-white text-lg font-medium">Software Engineer</h3> */}
+              {/* <p className="text-portfolio-highlight font-mono">JavaScript | Node.js | React</p> */}
             </div>
           </div>
         </div>
