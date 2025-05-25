@@ -157,7 +157,7 @@ const Index = () => {
             </div>
             <div className="lg:w-1/3 flex justify-center">
               <div className="rounded-lg overflow-hidden w-64 h-64">
-                <img src="/image.png" alt="Ahmed AlMoselhy" className="w-full h-full object-cover" />
+                <img src="/Ahmed-AlMoselhy.png" alt="Ahmed AlMoselhy" className="w-full h-full object-cover" />
               </div>
             </div>
           </div>
@@ -192,7 +192,7 @@ const Index = () => {
                   <Github size={20} />
                   <span>Code</span>
                 </a>
-                <a 
+                {/* <a 
                   href={project.liveUrl} 
                   target="_blank" 
                   rel="noopener noreferrer" 
@@ -200,7 +200,7 @@ const Index = () => {
                 >
                   <ExternalLink size={20} />
                   <span>Demo</span>
-                </a>
+                </a> */}
               </div>
             </div>
           ))}
