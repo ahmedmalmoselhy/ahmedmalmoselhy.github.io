@@ -16,7 +16,12 @@ const App = () => (
       <Toaster />
       <Sonner />
       {isMaintenanceMode ? (
-        <div>Under Maintenance</div>
+        <div className="flex items-center justify-center min-h-screen bg-portfolio-navy text-portfolio-white">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold mb-4">Under Maintenance</h1>
+            <p className="text-portfolio-lightSlate">We'll be back soon!</p>
+          </div>
+        </div>
       ) : (
         <SinglePageApp />
       )}

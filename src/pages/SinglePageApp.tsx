@@ -13,14 +13,14 @@ const SinglePageApp = () => {
   const [currentSection, setCurrentSection] = useState<PageSection>('home');
 
   const handleSectionChange = (section: PageSection) => {
-    console.log('Changing section to:', section);
+    console.log('SinglePageApp: Changing section to:', section);
     setCurrentSection(section);
     // Smooth scroll to top when changing sections
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const renderContent = () => {
-    console.log('Rendering section:', currentSection);
+    console.log('SinglePageApp: Rendering section:', currentSection);
     
     switch (currentSection) {
       case 'home':
