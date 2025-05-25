@@ -1,14 +1,18 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { X } from 'lucide-react';
+import { PageSection } from '@/pages/SinglePageApp';
 
-const Navbar = () => {
+interface NavbarProps {
+  currentSection?: PageSection;
+  onSectionChange?: (section: PageSection) => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ currentSection = 'home', onSectionChange }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
-  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,27 +26,22 @@ const Navbar = () => {
   // Effect to handle body scrolling when mobile menu is open
   useEffect(() => {
     if (isMobileMenuOpen) {
-      // Save the current scroll position
       setScrollPosition(window.scrollY);
-      // Disable scrolling on the body when mobile menu is open and fix position
       document.body.style.position = 'fixed';
       document.body.style.top = `-${window.scrollY}px`;
       document.body.style.width = '100%';
     } else {
-      // Re-enable scrolling when mobile menu is closed
       document.body.style.position = '';
       document.body.style.top = '';
       document.body.style.width = '';
-      // Restore scroll position without jumping to top
       if (scrollPosition) {
         window.scrollTo({
           top: scrollPosition,
-          behavior: 'auto' // Use 'auto' to prevent animation
+          behavior: 'auto'
         });
       }
     }
 
-    // Cleanup function to re-enable scrolling when component unmounts
     return () => {
       document.body.style.position = '';
       document.body.style.top = '';
@@ -50,7 +49,14 @@ const Navbar = () => {
     };
   }, [isMobileMenuOpen, scrollPosition]);
 
-  const isActive = (path: string) => location.pathname === path;
+  const handleSectionChange = (section: PageSection) => {
+    if (onSectionChange) {
+      onSectionChange(section);
+    }
+    closeMobileMenu();
+    // Scroll to top when changing sections
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -68,31 +74,45 @@ const Navbar = () => {
       )}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
-        <Link 
-          to="/" 
-          className="text-portfolio-highlight font-mono text-xl font-semibold"
-          onClick={closeMobileMenu}
+        <button 
+          onClick={() => handleSectionChange('home')}
+          className="text-portfolio-highlight font-mono text-xl font-semibold hover:opacity-80 transition-opacity"
         >
           {'<Ahmed />'}
-        </Link>
+        </button>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-1">
-          <Link to="/" className={cn('nav-link', isActive('/') && 'active')}>
+          <button 
+            onClick={() => handleSectionChange('home')}
+            className={cn('nav-link', currentSection === 'home' && 'active')}
+          >
             Home
-          </Link>
-          <Link to="/resume" className={cn('nav-link', isActive('/resume') && 'active')}>
+          </button>
+          <button 
+            onClick={() => handleSectionChange('resume')}
+            className={cn('nav-link', currentSection === 'resume' && 'active')}
+          >
             Resume
-          </Link>
-          <Link to="/projects" className={cn('nav-link', isActive('/projects') && 'active')}>
+          </button>
+          <button 
+            onClick={() => handleSectionChange('projects')}
+            className={cn('nav-link', currentSection === 'projects' && 'active')}
+          >
             Projects
-          </Link>
-          <Link to="/skills" className={cn('nav-link', isActive('/skills') && 'active')}>
+          </button>
+          <button 
+            onClick={() => handleSectionChange('skills')}
+            className={cn('nav-link', currentSection === 'skills' && 'active')}
+          >
             Skills
-          </Link>
-          <Link to="/contact" className={cn('nav-link', isActive('/contact') && 'active')}>
+          </button>
+          <button 
+            onClick={() => handleSectionChange('contact')}
+            className={cn('nav-link', currentSection === 'contact' && 'active')}
+          >
             Contact
-          </Link>
+          </button>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -123,7 +143,6 @@ const Navbar = () => {
         'md:hidden fixed inset-0 bg-portfolio-lightNavy/95 z-40 transform transition-transform duration-300 pt-24',
         isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
       )}>
-        {/* Close button for mobile menu */}
         <button
           onClick={closeMobileMenu}
           className="absolute top-6 right-6 p-2 text-portfolio-white hover:text-portfolio-highlight transition-colors"
@@ -133,41 +152,36 @@ const Navbar = () => {
         </button>
         
         <div className="flex flex-col items-center space-y-6 text-lg">
-          <Link 
-            to="/" 
-            className={cn('nav-link text-xl', isActive('/') && 'active')}
-            onClick={closeMobileMenu}
+          <button 
+            onClick={() => handleSectionChange('home')}
+            className={cn('nav-link text-xl', currentSection === 'home' && 'active')}
           >
             Home
-          </Link>
-          <Link 
-            to="/resume" 
-            className={cn('nav-link text-xl', isActive('/resume') && 'active')}
-            onClick={closeMobileMenu}
+          </button>
+          <button 
+            onClick={() => handleSectionChange('resume')}
+            className={cn('nav-link text-xl', currentSection === 'resume' && 'active')}
           >
             Resume
-          </Link>
-          <Link 
-            to="/projects" 
-            className={cn('nav-link text-xl', isActive('/projects') && 'active')}
-            onClick={closeMobileMenu}
+          </button>
+          <button 
+            onClick={() => handleSectionChange('projects')}
+            className={cn('nav-link text-xl', currentSection === 'projects' && 'active')}
           >
             Projects
-          </Link>
-          <Link 
-            to="/skills" 
-            className={cn('nav-link text-xl', isActive('/skills') && 'active')}
-            onClick={closeMobileMenu}
+          </button>
+          <button 
+            onClick={() => handleSectionChange('skills')}
+            className={cn('nav-link text-xl', currentSection === 'skills' && 'active')}
           >
             Skills
-          </Link>
-          <Link 
-            to="/contact" 
-            className={cn('nav-link text-xl', isActive('/contact') && 'active')}
-            onClick={closeMobileMenu}
+          </button>
+          <button 
+            onClick={() => handleSectionChange('contact')}
+            className={cn('nav-link text-xl', currentSection === 'contact' && 'active')}
           >
             Contact
-          </Link>
+          </button>
         </div>
       </nav>
     </header>

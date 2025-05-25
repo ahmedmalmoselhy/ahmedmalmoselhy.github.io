@@ -1,19 +1,34 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Github, Linkedin, Mail, Phone } from 'lucide-react';
+import { PageSection } from '@/pages/SinglePageApp';
 
-const Footer = () => {
+interface FooterProps {
+  currentSection?: PageSection;
+  onSectionChange?: (section: PageSection) => void;
+}
+
+const Footer: React.FC<FooterProps> = ({ currentSection, onSectionChange }) => {
   const currentYear = new Date().getFullYear();
+  
+  const handleSectionChange = (section: PageSection) => {
+    if (onSectionChange) {
+      onSectionChange(section);
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
   
   return (
     <footer className="bg-portfolio-lightNavy py-8 mt-16">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center mb-8">
           <div className="mb-6 md:mb-0">
-            <Link to="/" className="text-portfolio-highlight font-mono text-xl font-semibold">
+            <button 
+              onClick={() => handleSectionChange('home')}
+              className="text-portfolio-highlight font-mono text-xl font-semibold hover:opacity-80 transition-opacity"
+            >
               {'<Ahmed />'}
-            </Link>
+            </button>
             <p className="text-portfolio-slate mt-2 max-w-md">
               Software Engineer specialized in building exceptional digital experiences
             </p>
@@ -61,18 +76,30 @@ const Footer = () => {
           </p>
           
           <nav className="flex mt-4 md:mt-0 space-x-4 text-sm">
-            <Link to="/" className="text-portfolio-slate hover:text-portfolio-highlight transition-colors">
+            <button 
+              onClick={() => handleSectionChange('home')}
+              className="text-portfolio-slate hover:text-portfolio-highlight transition-colors"
+            >
               Home
-            </Link>
-            <Link to="/resume" className="text-portfolio-slate hover:text-portfolio-highlight transition-colors">
+            </button>
+            <button 
+              onClick={() => handleSectionChange('resume')}
+              className="text-portfolio-slate hover:text-portfolio-highlight transition-colors"
+            >
               Resume
-            </Link>
-            <Link to="/skills" className="text-portfolio-slate hover:text-portfolio-highlight transition-colors">
+            </button>
+            <button 
+              onClick={() => handleSectionChange('skills')}
+              className="text-portfolio-slate hover:text-portfolio-highlight transition-colors"
+            >
               Skills
-            </Link>
-            <Link to="/contact" className="text-portfolio-slate hover:text-portfolio-highlight transition-colors">
+            </button>
+            <button 
+              onClick={() => handleSectionChange('contact')}
+              className="text-portfolio-slate hover:text-portfolio-highlight transition-colors"
+            >
               Contact
-            </Link>
+            </button>
           </nav>
         </div>
       </div>
