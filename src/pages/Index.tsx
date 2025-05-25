@@ -1,15 +1,19 @@
 
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import Layout from '@/components/Layout';
 import SocialSidebar from '@/components/SocialSidebar';
 import { Button } from '@/components/ui/button';
 import { Mail, FileText, User, Briefcase, Github, ExternalLink, Code, Database, Server } from 'lucide-react';
+import { PageSection } from './SinglePageApp';
 
 // Import project data from the Projects page
 import { projectsData, Project } from './Projects';
 
-const Index = () => {
+interface IndexProps {
+  onSectionChange?: (section: PageSection) => void;
+}
+
+const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
   const [randomProjects, setRandomProjects] = useState<Project[]>([]);
   
   useEffect(() => {
@@ -28,9 +32,15 @@ const Index = () => {
     
     setRandomProjects(getRandomProjects());
   }, []);
+
+  const handleSectionChange = (section: PageSection) => {
+    if (onSectionChange) {
+      onSectionChange(section);
+    }
+  };
   
   return (
-    <Layout>
+    <>
       <SocialSidebar />
       
       {/* Hero Section */}
@@ -49,12 +59,13 @@ const Index = () => {
               Currently, I'm focused on building accessible, human-centered products.
             </p>
             <div className="flex flex-wrap gap-4 animate-slide-up" style={{ animationDelay: '300ms' }}>
-              <Link to="/contact">
-                <Button className="btn-primary flex items-center gap-2">
-                  <Mail size={18} />
-                  Get In Touch
-                </Button>
-              </Link>
+              <Button 
+                className="btn-primary flex items-center gap-2"
+                onClick={() => handleSectionChange('contact')}
+              >
+                <Mail size={18} />
+                Get In Touch
+              </Button>
               <a href="/AhmedAlMoselhy.pdf" download target="_blank" rel="noopener noreferrer">
                 <Button variant="outline" className="btn-outline flex items-center gap-2">
                   <FileText size={18} />
@@ -141,18 +152,21 @@ const Index = () => {
                 brings fresh perspectives to technical challenges.
               </p>
               <div className="flex flex-wrap gap-4">
-                <Link to="/skills">
-                  <Button className="btn-primary flex items-center gap-2">
-                    <User size={18} />
-                    My Skills
-                  </Button>
-                </Link>
-                <Link to="/resume">
-                  <Button variant="outline" className="btn-outline flex items-center gap-2">
-                    <Briefcase size={18} />
-                    Experience
-                  </Button>
-                </Link>
+                <Button 
+                  className="btn-primary flex items-center gap-2"
+                  onClick={() => handleSectionChange('skills')}
+                >
+                  <User size={18} />
+                  My Skills
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="btn-outline flex items-center gap-2"
+                  onClick={() => handleSectionChange('resume')}
+                >
+                  <Briefcase size={18} />
+                  Experience
+                </Button>
               </div>
             </div>
             <div className="lg:w-1/3 flex justify-center">
@@ -206,14 +220,15 @@ const Index = () => {
           ))}
         </div>
         <div className="mt-12 text-center">
-          <Link to="/projects">
-            <Button className="btn-primary">
-              View All Projects
-            </Button>
-          </Link>
+          <Button 
+            className="btn-primary"
+            onClick={() => handleSectionChange('projects')}
+          >
+            View All Projects
+          </Button>
         </div>
       </section>
-    </Layout>
+    </>
   );
 };
 

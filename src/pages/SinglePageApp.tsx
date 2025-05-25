@@ -15,7 +15,7 @@ const SinglePageApp = () => {
   const renderContent = () => {
     switch (currentSection) {
       case 'home':
-        return <Index />;
+        return <Index onSectionChange={handleSectionChange} />;
       case 'resume':
         return <Resume />;
       case 'projects':
@@ -25,7 +25,7 @@ const SinglePageApp = () => {
       case 'contact':
         return <Contact />;
       default:
-        return <Index />;
+        return <Index onSectionChange={handleSectionChange} />;
     }
   };
 
