@@ -12,16 +12,7 @@ export type PageSection = 'home' | 'resume' | 'projects' | 'skills' | 'contact';
 const SinglePageApp = () => {
   const [currentSection, setCurrentSection] = useState<PageSection>('home');
 
-  const handleSectionChange = (section: PageSection) => {
-    console.log('Changing section to:', section);
-    setCurrentSection(section);
-    // Smooth scroll to top when changing sections
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   const renderContent = () => {
-    console.log('Rendering section:', currentSection);
-    
     switch (currentSection) {
       case 'home':
         return <Index onSectionChange={handleSectionChange} />;
@@ -38,10 +29,17 @@ const SinglePageApp = () => {
     }
   };
 
+  const handleSectionChange = (section: PageSection) => {
+    setCurrentSection(section);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <Layout currentSection={currentSection} onSectionChange={handleSectionChange}>
-      {renderContent()}
-    </Layout>
+    <div className="single-page-app">
+      <Layout currentSection={currentSection} onSectionChange={handleSectionChange}>
+        {renderContent()}
+      </Layout>
+    </div>
   );
 };
 
