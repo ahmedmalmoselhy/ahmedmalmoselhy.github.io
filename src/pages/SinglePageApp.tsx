@@ -29,14 +29,9 @@ const SinglePageApp = () => {
     }
   };
 
-  const handleSectionChange = (section: PageSection) => {
-    setCurrentSection(section);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
     <div className="single-page-app">
-      <Layout currentSection={currentSection} onSectionChange={handleSectionChange}>
+      <Layout currentSection={currentSection} onSectionChange={setCurrentSection}>
         {renderContent()}
       </Layout>
     </div>
