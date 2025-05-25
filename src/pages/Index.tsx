@@ -1,6 +1,4 @@
-
 import React, { useEffect, useState } from 'react';
-import Layout from '@/components/Layout';
 import SocialSidebar from '@/components/SocialSidebar';
 import { Button } from '@/components/ui/button';
 import { Mail, FileText, User, Briefcase, Github, ExternalLink, Code, Database, Server } from 'lucide-react';
@@ -34,6 +32,7 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
   }, []);
 
   const handleSectionChange = (section: PageSection) => {
+    console.log('Index: handleSectionChange called with:', section);
     if (onSectionChange) {
       onSectionChange(section);
     }
