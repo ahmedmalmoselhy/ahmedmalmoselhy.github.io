@@ -6,44 +6,58 @@ import { Card, CardContent } from '@/components/ui/card';
 // Skill categories with their respective skills
 const skillCategories = [
   {
-    name: "Languages & Frameworks",
+    name: "Languages",
     skills: [
       { name: 'JavaScript', level: 95 },
       { name: 'PHP', level: 80 },
-      { name: 'Laravel', level: 85 },
       { name: 'Java', level: 70 },
       { name: 'Python', level: 65 },
       { name: 'HTML/CSS', level: 88 },
       { name: 'C#', level: 60 },
-      { name: 'Vue', level: 75 },
-      { name: 'Node.js', level: 75 },
-      { name: 'Express', level: 70 },
     ],
     color: "portfolio-highlight"
   },
   {
-    name: "Databases & APIs",
+    name: "Frameworks",
     skills: [
-      { name: 'PostgreSQL', level: 80 },
-      { name: 'MySQL', level: 85 },
-      { name: 'OracleDB', level: 75 },
-      { name: 'MariaDB', level: 70 },
+      { name: 'Laravel', level: 85 },
+      { name: 'Vue', level: 75 },
+      { name: 'Node.js', level: 75 },
+      { name: 'Express', level: 70 },
       { name: 'REST APIs', level: 95 },
     ],
     color: "portfolio-blue"
   },
   {
-    name: "Development Tools",
+    name: "Database",
+    skills: [
+      { name: 'PostgreSQL', level: 80 },
+      { name: 'MySQL', level: 85 },
+      { name: 'OracleDB', level: 75 },
+      { name: 'MariaDB', level: 70 },
+    ],
+    color: "portfolio-teal"
+  },
+  {
+    name: "Dev Tools",
     skills: [
       { name: 'Git', level: 90 },
       { name: 'GitHub', level: 95 },
       { name: 'VSCode', level: 90 },
-      { name: 'Jira', level: 85 },
-      { name: 'Confluence', level: 80 },
       { name: 'Docker', level: 75 },
       { name: 'Agile', level: 90 },
     ],
     color: "portfolio-slate"
+  },
+  {
+    name: "CRM Tools",
+    skills: [
+      { name: 'Jira', level: 85 },
+      { name: 'Confluence', level: 80 },
+      { name: 'Salesforce', level: 70 },
+      { name: 'HubSpot', level: 65 },
+    ],
+    color: "portfolio-lightSlate"
   }
 ];
 
@@ -105,7 +119,7 @@ const Skills = () => {
         {/* Soft Skills - Updated with dynamic grid */}
         <section className="mb-16">
           <h2 className="section-title mb-8">Soft Skills</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 auto-rows-fr gap-4 justify-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-fr gap-4">
             {softSkills.map((skill, idx) => (
               <div key={idx} className="card flex flex-col items-center p-4 text-center">
                 <div className="w-12 h-12 rounded-full bg-portfolio-highlight/20 flex items-center justify-center mb-3">
