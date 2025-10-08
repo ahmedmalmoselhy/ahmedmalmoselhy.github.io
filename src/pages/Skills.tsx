@@ -3,6 +3,15 @@ import React from 'react';
 import Layout from '@/components/Layout';
 import { Card, CardContent } from '@/components/ui/card';
 
+// Color map for skill categories
+const colorMap: Record<string, string> = {
+  'portfolio-highlight': '#64FFDA',
+  'portfolio-blue': '#007BFF',
+  'portfolio-teal': '#2DD4BF',
+  'portfolio-slate': '#8892B0',
+  'portfolio-lightSlate': '#A8B2D1'
+};
+
 // Skill categories with their respective skills
 const skillCategories = [
   {
@@ -99,12 +108,15 @@ const Skills = () => {
                       <div key={skillIdx} className="space-y-2">
                         <div className="flex justify-between text-sm">
                           <span className="text-portfolio-lightSlate">{skill.name}</span>
-                          <span className={`text-${category.color}`}>{skill.level}%</span>
+                          <span style={{ color: colorMap[category.color] }}>{skill.level}%</span>
                         </div>
                         <div className="w-full bg-portfolio-navy rounded-full h-2">
                           <div 
-                            className={`bg-${category.color} h-2 rounded-full`} 
-                            style={{ width: `${skill.level}%` }}
+                            className="h-2 rounded-full transition-all duration-500" 
+                            style={{ 
+                              width: `${skill.level}%`,
+                              backgroundColor: colorMap[category.color]
+                            }}
                           ></div>
                         </div>
                       </div>
