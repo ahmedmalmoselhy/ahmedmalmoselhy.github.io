@@ -14,61 +14,73 @@ interface ExperienceItem {
 
 const experiences: ExperienceItem[] = [
   {
-    title: "Senior Full Stack Developer",
-    company: "Tech Solutions Inc.",
-    location: "Remote",
-    period: "2022 - Present",
+    title: "EOC/ECM Developer",
+    company: "STC [outsourced from Qeema]",
+    period: "July 2023 - Present",
+    location: "Riyadh, Saudi Arabia",
     responsibilities: [
-      "Led development of enterprise-level web applications using Laravel and Vue.js",
-      "Implemented RESTful APIs and microservices architecture",
-      "Mentored junior developers and conducted code reviews",
-      "Optimized database performance, reducing query time by 40%",
-      "Collaborated with cross-functional teams in Agile environment"
+      "Product Catalog Management: Oversaw catalog components using Ericsson Catalog Manager (ECM), ensuring accurate and efficient handling of product data.",
+      "Technical Support: Delivered advanced support to maintain system reliability and swiftly resolve critical issues in the L3 layer of support.",
+      "System Integration: Contributed to the development efforts, implementing logic to interface with external systems for streamlined operations and improved overall performance.",
     ],
-    technologies: ["Laravel", "Vue.js", "PostgreSQL", "Docker", "AWS"]
+    technologies: [
+      "Ericsson Order Care [EOC]",
+      "Ericsson Catalog Manager [ECM]",
+      "JavaScript",
+      "SQL",
+      "C#",
+      "Oracle DB",
+      "Git",
+      "Docker",
+    ],
   },
   {
-    title: "Full Stack Developer",
-    company: "Digital Innovations Ltd.",
-    location: "City, Country",
-    period: "2020 - 2022",
+    title: "Software Engineer",
+    company: "Qeema",
+    period: "December 2022 - Present",
+    location: "Cairo, Egypt",
     responsibilities: [
-      "Developed and maintained multiple client-facing web applications",
-      "Built custom CRM integrations with Salesforce and HubSpot",
-      "Implemented automated testing procedures, improving code quality",
-      "Designed and implemented database schemas for complex applications",
-      "Participated in daily standups and sprint planning sessions"
+      "Developed and implemented EOC solutions for the Jawwy DT project, customizing CRM solutions to meet telecom industry-specific requirements",
+      "Provided Level 3 advanced application support ensuring optimal performance and rapid issue resolution",
+      "Played a pivotal role in the successful release of the Jawwy DT project by maintaining EOC/ECM modules and supporting the client's operation team",
+      "Led the EOC/ECM upgrade from version 20 to 22, resolving version conflicts while maintaining system integration and implementation flow",
     ],
-    technologies: ["PHP", "JavaScript", "MySQL", "Git", "Jira"]
+    technologies: [
+      "Ericsson Order Care [EOC]",
+      "Ericsson Catalog Manager [ECM]",
+      "Creatio",
+      "JavaScript",
+      "SQL",
+      "C#",
+      "Oracle DB",
+      "Git",
+      "Docker",
+    ],
   },
   {
-    title: "Backend Developer",
-    company: "StartUp Ventures",
-    location: "City, Country",
-    period: "2018 - 2020",
+    title: "Software Engineer",
+    company: "Serv5",
+    period: "October 2021 - November 2022",
+    location: "Mansoura, Egypt",
     responsibilities: [
-      "Developed backend services and APIs for mobile applications",
-      "Implemented authentication and authorization systems",
-      "Worked with Oracle Database for data management",
-      "Participated in system architecture design discussions",
-      "Provided technical support and bug fixes"
+      "Enhanced web application performance through comprehensive front-end and back-end optimizations",
+      "Integrated third-party APIs to support mobile application functionality and improve user experience",
+      "Provided post-sales technical support to address client needs and ensure smooth deployment",
+      "Streamlined development processes by introducing modern tools and frameworks for workflow automation",
+      "Improved codebase quality to align with industry standards and best practices",
     ],
-    technologies: ["Node.js", "Express", "OracleDB", "REST APIs"]
+    technologies: [
+      "PHP",
+      "Laravel",
+      "JavaScript",
+      "Vue.js",
+      "MySQL",
+      "RESTful APIs",
+      "Git",
+      "Node JS",
+      "Express.js",
+    ],
   },
-  {
-    title: "Junior Developer",
-    company: "Web Agency Pro",
-    location: "City, Country",
-    period: "2016 - 2018",
-    responsibilities: [
-      "Assisted in development of client websites and web applications",
-      "Wrote clean, maintainable code following best practices",
-      "Learned modern web development frameworks and tools",
-      "Collaborated with designers to implement responsive designs",
-      "Participated in team meetings and planning sessions"
-    ],
-    technologies: ["HTML/CSS", "JavaScript", "PHP", "WordPress"]
-  }
 ];
 
 const Experience = () => {
@@ -136,7 +148,9 @@ const Experience = () => {
                               key={respIdx}
                               className="text-portfolio-slate flex items-start gap-2"
                             >
-                              <span className="text-portfolio-highlight mt-1.5">▹</span>
+                              <span className="text-portfolio-highlight mt-1.5">
+                                ▹
+                              </span>
                               <span>{resp}</span>
                             </li>
                           ))}
