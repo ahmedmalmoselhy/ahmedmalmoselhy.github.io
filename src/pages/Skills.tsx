@@ -4,11 +4,11 @@ import { Card, CardContent } from "@/components/ui/card";
 
 // Color map for skill categories
 const colorMap: Record<string, string> = {
-  "portfolio-highlight": "#64FFDA",
-  "portfolio-blue": "#007BFF",
-  "portfolio-teal": "#2DD4BF",
-  "portfolio-slate": "#8892B0",
-  "portfolio-lightSlate": "#A8B2D1",
+  "portfolio-highlight": "#FF4D4D",
+  "portfolio-blue": "#C93939",
+  "portfolio-teal": "#E74C3C",
+  "portfolio-slate": "#9B7D7D",
+  "portfolio-lightSlate": "#C4A8A8",
 };
 
 // Skill categories with their respective skills
