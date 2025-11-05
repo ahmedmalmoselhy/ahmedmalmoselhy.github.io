@@ -4,8 +4,8 @@ import Resume from './Resume';
 import Skills from './Skills';
 import Projects from './Projects';
 import Contact from './Contact';
-
-type PageSection = 'home' | 'resume' | 'skills' | 'projects' | 'contact';
+import Experience from './Experience';
+import { PageSection } from '@/App';
 
 interface SinglePageAppProps {
   activeSection: PageSection;
@@ -25,6 +25,8 @@ const SinglePageApp: React.FC<SinglePageAppProps> = ({ activeSection, onSectionC
         return <Projects />;
       case 'contact':
         return <Contact />;
+      case 'experience':
+        return <Experience />;
       default:
         return <Index onSectionChange={onSectionChange} />;
     }
