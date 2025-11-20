@@ -31,7 +31,7 @@ export const projectsData: Project[] = [
     description:
       "Developed a configurable admin dashboard with Laravel Blade templates.",
     technologies: ["Laravel", "MariaDB", "Laravel Blade", "PHP"],
-    image: "/placeholder.svg",
+    image: "/projects-images/laravel-modular-dashboard.png",
     githubUrl: "https://github.com/ahmedmalmoselhy/laravel-dashboard",
     liveUrl: "",
     demo: true,
@@ -42,7 +42,7 @@ export const projectsData: Project[] = [
     description:
       "Extended compatibility to PHP 8.1 and Laravel 9 for multilingual support.",
     technologies: ["PHP", "Laravel"],
-    image: "/placeholder.svg",
+    image: "/projects-images/laravel-gettext-package.png",
     githubUrl: "https://github.com/ahmedmalmoselhy/laravel-gettext",
     liveUrl: "",
     demo: true,
@@ -53,7 +53,7 @@ export const projectsData: Project[] = [
     description:
       "Created a memorial website including backend and layout in Laravel Blade.",
     technologies: ["PHP", "Laravel", "PostgreSQL", "Heroku"],
-    image: "/placeholder.svg",
+    image: "/projects-images/csed-2020-yearbook.png",
     githubUrl: "https://github.com/ahmedmalmoselhy/csed_yearbook",
     liveUrl: "",
     demo: true,
@@ -63,8 +63,15 @@ export const projectsData: Project[] = [
     title: "Curey Healthcare App",
     description:
       "Graduation project focused on backend API and database systems",
-    technologies: ["PHP", "Laravel"],
-    image: "/placeholder.svg",
+    technologies: [
+      "PHP",
+      "Laravel",
+      "MySQL",
+      "Postman",
+      "Heroku",
+      "PostgreSQL",
+    ],
+    image: "/projects-images/curey-healthcare-app.png",
     githubUrl:
       "https://github.com/Curey-HealthCare/Curey-HealthCareApp-Backend",
     liveUrl: "",
@@ -76,7 +83,7 @@ export const projectsData: Project[] = [
     description:
       "My personal portfolio website built with React and Tailwind CSS.",
     technologies: ["React", "TypeScript", "Tailwind CSS"],
-    image: "/placeholder.svg",
+    image: "/projects-images/personal-portfolio.png",
     githubUrl: "https://github.com/ahmedmalmoselhy/ahmedmalmoselhy.github.io",
     liveUrl: "https://https://ahmedmalmoselhy.github.io",
     demo: false,
@@ -106,7 +113,12 @@ const Projects = () => {
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <div className="h-32 md:h-48 bg-portfolio-navy/50 flex items-center justify-center overflow-hidden">
-                <Github size={48} className="text-portfolio-slate/40" />
+                {/*<Github size={48} className="text-portfolio-slate/40" />*/}
+                <img
+                  src={project.image}
+                  alt={`${project.title} screenshot`}
+                  className="object-cover w-full h-full"
+                />
               </div>
               <CardHeader className="pb-2 p-4 md:p-6">
                 <CardTitle className="text-lg md:text-xl font-semibold text-portfolio-white">

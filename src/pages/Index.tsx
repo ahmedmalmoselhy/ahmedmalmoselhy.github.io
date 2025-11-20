@@ -235,7 +235,11 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
           {randomProjects.map((project) => (
             <div key={project.id} className="card">
               <div className="h-40 bg-portfolio-navy/50 flex items-center justify-center overflow-hidden">
-                <Github size={80} className="text-portfolio-slate/40" />
+                <img
+                  src={project.image}
+                  alt={`${project.title} screenshot`}
+                  className="object-cover w-full h-full"
+                />
               </div>
               <h3 className="text-xl font-semibold mb-2 text-portfolio-white">
                 {project.title}
