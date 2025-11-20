@@ -17,7 +17,13 @@ import {
 // Import project data from the Projects page
 import { projectsData, Project } from "./Projects";
 
-type PageSection = "home" | "resume" | "skills" | "projects" | "contact";
+type PageSection =
+  | "home"
+  | "resume"
+  | "skills"
+  | "projects"
+  | "contact"
+  | "experience";
 
 interface IndexProps {
   onSectionChange?: (section: PageSection) => void;
@@ -191,7 +197,7 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
                   My Skills
                 </Button>
                 <Button
-                  onClick={() => onSectionChange?.("resume")}
+                  onClick={() => onSectionChange?.("experience")}
                   variant="outline"
                   className="btn-outline flex items-center gap-2"
                 >
