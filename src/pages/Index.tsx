@@ -104,9 +104,18 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
               </a>
             </div>
           </div>
+          <div className="lg:w-1/3 flex justify-center">
+            <div className="rounded-lg overflow-hidden w-128 h-128">
+              <img
+                src="/Ahmed-AlMoselhy.png"
+                alt="Ahmed AlMoselhy"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
 
           {/* Tech Stack Visual - only visible on desktop */}
-          <div
+          {/*<div
             className="hidden md:flex flex-col items-center animate-fade-in"
             style={{ animationDelay: "400ms" }}
           >
@@ -114,7 +123,7 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
               <div className="absolute inset-0 flex items-center justify-center">
                 <Code size={48} className="text-portfolio-highlight" />
               </div>
-              {/* Tech stack icons positioned around in a circle */}
+              {/* Tech stack icons positioned around in a circle
               <div className="absolute top-4 left-1/2 transform -translate-x-1/2">
                 <div className="bg-portfolio-navy/70 p-3 rounded-full">
                   <Server size={24} className="text-portfolio-highlight" />
@@ -156,7 +165,7 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div>*/}
         </div>
       </section>
 
@@ -165,7 +174,7 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
         <div className="container mx-auto px-4">
           <h2 className="section-title">About Me</h2>
           <div className="flex flex-col lg:flex-row gap-12 items-center">
-            <div className="lg:w-2/3">
+            <div>
               <p className="text-portfolio-lightSlate mb-4">
                 Welcome to my portfolio! I'm Ahmed AlMoselhy, A versatile and
                 detail-oriented Software Engineer with extensive hands-on
@@ -206,7 +215,7 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
                 </Button>
               </div>
             </div>
-            <div className="lg:w-1/3 flex justify-center">
+            {/*<div className="lg:w-1/3 flex justify-center">
               <div className="rounded-lg overflow-hidden w-64 h-64">
                 <img
                   src="/Ahmed-AlMoselhy.png"
@@ -214,7 +223,7 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
                   className="w-full h-full object-cover"
                 />
               </div>
-            </div>
+            </div>*/}
           </div>
         </div>
       </section>
