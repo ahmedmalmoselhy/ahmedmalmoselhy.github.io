@@ -1,14 +1,23 @@
-
-import React, { useEffect, useState } from 'react';
-import Layout from '@/components/Layout';
-import SocialSidebar from '@/components/SocialSidebar';
-import { Button } from '@/components/ui/button';
-import { Mail, FileText, User, Briefcase, Github, Code, Database, Server } from 'lucide-react';
+import React, { useEffect, useState } from "react";
+import Layout from "@/components/Layout";
+import SocialSidebar from "@/components/SocialSidebar";
+import { Button } from "@/components/ui/button";
+import {
+  Mail,
+  FileText,
+  User,
+  Briefcase,
+  Github,
+  Code,
+  Database,
+  Server,
+  ExternalLink,
+} from "lucide-react";
 
 // Import project data from the Projects page
-import { projectsData, Project } from './Projects';
+import { projectsData, Project } from "./Projects";
 
-type PageSection = 'home' | 'resume' | 'skills' | 'projects' | 'contact';
+type PageSection = "home" | "resume" | "skills" | "projects" | "contact";
 
 interface IndexProps {
   onSectionChange?: (section: PageSection) => void;
@@ -16,7 +25,7 @@ interface IndexProps {
 
 const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
   const [randomProjects, setRandomProjects] = useState<Project[]>([]);
-  
+
   useEffect(() => {
     // Function to get 3 random projects from the projectsData array
     const getRandomProjects = () => {
@@ -30,45 +39,71 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
       // Return the first 3 items from the shuffled array
       return projectsCopy.slice(0, 3);
     };
-    
+
     setRandomProjects(getRandomProjects());
   }, []);
-  
+
   return (
     <Layout>
       <SocialSidebar />
-      
+
       {/* Hero Section */}
       <section className="container mx-auto px-4 pt-16 md:pt-24 pb-24">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between max-w-6xl mx-auto">
           <div className="md:max-w-xl">
-            <p className="text-portfolio-highlight font-mono mb-5 animate-fade-in">Hi, my name is</p>
+            <p className="text-portfolio-highlight font-mono mb-5 animate-fade-in">
+              Hi, my name is
+            </p>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-portfolio-white mb-4 animate-slide-up">
               Ahmed AlMoselhy
             </h1>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-portfolio-slate mb-6 animate-slide-up" style={{ animationDelay: '100ms' }}>
+            <h2
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-portfolio-slate mb-6 animate-slide-up"
+              style={{ animationDelay: "100ms" }}
+            >
               I build software!
             </h2>
-            <p className="text-portfolio-lightSlate text-lg max-w-xl mb-12 animate-slide-up" style={{ animationDelay: '200ms' }}>
-              I'm a software engineer specializing in building exceptional digital experiences.
-              Currently, I'm focused on building accessible, human-centered products.
+            <p
+              className="text-portfolio-lightSlate text-lg max-w-xl mb-12 animate-slide-up"
+              style={{ animationDelay: "200ms" }}
+            >
+              I'm a software engineer specializing in building exceptional
+              digital experiences. Currently, I'm focused on building
+              accessible, human-centered products.
             </p>
-            <div className="flex flex-wrap gap-4 animate-slide-up" style={{ animationDelay: '300ms' }}>
-              <Button onClick={() => onSectionChange?.('contact')} className="btn-primary flex items-center gap-2">
+            <div
+              className="flex flex-wrap gap-4 animate-slide-up"
+              style={{ animationDelay: "300ms" }}
+            >
+              <Button
+                onClick={() => onSectionChange?.("contact")}
+                className="btn-primary flex items-center gap-2"
+              >
                 <Mail size={18} />
                 Get In Touch
               </Button>
-              <a href="/AhmedAlMoselhy.pdf" download target="_blank" rel="noopener noreferrer">
-                <Button variant="outline" className="btn-outline flex items-center gap-2">
+              <a
+                href="/AhmedAlMoselhy.pdf"
+                download
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button
+                  variant="outline"
+                  className="btn-outline flex items-center gap-2"
+                >
                   <FileText size={18} />
                   Download Resume
                 </Button>
               </a>
             </div>
           </div>
-          
+
           {/* Tech Stack Visual - only visible on desktop */}
-          <div className="hidden md:flex flex-col items-center animate-fade-in" style={{ animationDelay: '400ms' }}>
+          <div
+            className="hidden md:flex flex-col items-center animate-fade-in"
+            style={{ animationDelay: "400ms" }}
+          >
             <div className="relative w-64 h-64 md:w-80 md:h-80 bg-portfolio-lightNavy/20 rounded-full flex items-center justify-center">
               <div className="absolute inset-0 flex items-center justify-center">
                 <Code size={48} className="text-portfolio-highlight" />
@@ -126,25 +161,40 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
           <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="lg:w-2/3">
               <p className="text-portfolio-lightSlate mb-4">
-                Welcome to my portfolio! I'm Ahmed AlMoselhy, A versatile and detail-oriented Software Engineer with extensive hands-on experience in full-stack development,
-                CRM systems, and Telecom applications. Proven track record in working across various support levels and developing scalable web applications utilizing modern technologies. 
-                Committed to delivering optimized and innovative software solutions that align with business objectives.
+                Welcome to my portfolio! I'm Ahmed AlMoselhy, A versatile and
+                detail-oriented Software Engineer with extensive hands-on
+                experience in full-stack development, CRM systems, and Telecom
+                applications. Proven track record in working across various
+                support levels and developing scalable web applications
+                utilizing modern technologies. Committed to delivering optimized
+                and innovative software solutions that align with business
+                objectives.
               </p>
               <p className="text-portfolio-lightSlate mb-4">
-                With a strong foundation in software development and a keen eye for detail, I strive to create 
-                efficient and elegant solutions. My approach combines technical expertise with a user-centered 
-                focus, ensuring that the end product is both functional and intuitive.
+                With a strong foundation in software development and a keen eye
+                for detail, I strive to create efficient and elegant solutions.
+                My approach combines technical expertise with a user-centered
+                focus, ensuring that the end product is both functional and
+                intuitive.
               </p>
               <p className="text-portfolio-lightSlate mb-6">
-                Outside of coding, I enjoy gaming, reading, photography and being a family man. I believe that a well-rounded individual 
+                Outside of coding, I enjoy gaming, reading, photography and
+                being a family man. I believe that a well-rounded individual
                 brings fresh perspectives to technical challenges.
               </p>
               <div className="flex flex-wrap gap-4">
-                <Button onClick={() => onSectionChange?.('skills')} className="btn-primary flex items-center gap-2">
+                <Button
+                  onClick={() => onSectionChange?.("skills")}
+                  className="btn-primary flex items-center gap-2"
+                >
                   <User size={18} />
                   My Skills
                 </Button>
-                <Button onClick={() => onSectionChange?.('resume')} variant="outline" className="btn-outline flex items-center gap-2">
+                <Button
+                  onClick={() => onSectionChange?.("resume")}
+                  variant="outline"
+                  className="btn-outline flex items-center gap-2"
+                >
                   <Briefcase size={18} />
                   Experience
                 </Button>
@@ -152,7 +202,11 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
             </div>
             <div className="lg:w-1/3 flex justify-center">
               <div className="rounded-lg overflow-hidden w-64 h-64">
-                <img src="/Ahmed-AlMoselhy.png" alt="Ahmed AlMoselhy" className="w-full h-full object-cover" />
+                <img
+                  src="/Ahmed-AlMoselhy.png"
+                  alt="Ahmed AlMoselhy"
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
           </div>
@@ -168,31 +222,55 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
               <div className="h-40 bg-portfolio-navy/50 flex items-center justify-center overflow-hidden">
                 <Github size={80} className="text-portfolio-slate/40" />
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-portfolio-white">{project.title}</h3>
+              <h3 className="text-xl font-semibold mb-2 text-portfolio-white">
+                {project.title}
+              </h3>
               <p className="text-portfolio-lightSlate mb-4">
                 {project.description}
               </p>
               <div className="flex flex-wrap gap-2 mb-4">
                 {project.technologies.slice(0, 3).map((tech, index) => (
-                  <span key={index} className="text-portfolio-highlight font-mono text-sm">{tech}</span>
+                  <span
+                    key={index}
+                    className="text-portfolio-highlight font-mono text-sm"
+                  >
+                    {tech}
+                  </span>
                 ))}
               </div>
               <div className="flex space-x-4 text-portfolio-slate">
-                <a 
-                  href={project.githubUrl} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="hover:text-portfolio-highlight flex items-center gap-1"
                 >
                   <Github size={20} />
                   <span>Code</span>
                 </a>
+                {project.liveUrl ? (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-portfolio-highlight flex items-center gap-1 transition-colors duration-200"
+                    aria-label={`View ${project.title} live ${project.demo ? "demo" : null} `}
+                  >
+                    <ExternalLink size={16} className="md:size-18" />
+                    <span className="text-xs md:text-sm">
+                      View {project.title} Live {project.demo ? "Demo" : null}
+                    </span>
+                  </a>
+                ) : null}
               </div>
             </div>
           ))}
         </div>
         <div className="mt-12 text-center">
-          <Button onClick={() => onSectionChange?.('projects')} className="btn-primary">
+          <Button
+            onClick={() => onSectionChange?.("projects")}
+            className="btn-primary"
+          >
             View All Projects
           </Button>
         </div>
