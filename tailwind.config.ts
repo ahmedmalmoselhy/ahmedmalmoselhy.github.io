@@ -64,14 +64,16 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				portfolio: {
-					navy: '#0A0F1F',
-					lightNavy: '#151B2E',
-					blue: '#4A90E2',
-					teal: '#00D1B2',
-					slate: '#97A4B1',
-					lightSlate: '#B8C5D0',
-					white: '#E6F1FF',
-					highlight: '#00D1B2'
+					navy: '#1E1E1E',
+					lightNavy: '#252526',
+					blue: '#569CD6',
+					teal: '#4EC9B0',
+					slate: '#858585',
+					lightSlate: '#9D9D9D',
+					white: '#CCCCCC',
+					highlight: '#569CD6',
+					orange: '#D19A66',
+					green: '#98C379'
 				}
 			},
 			borderRadius: {
