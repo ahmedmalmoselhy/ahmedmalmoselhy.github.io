@@ -85,7 +85,7 @@ export const projectsData: Project[] = [
     technologies: ["React", "TypeScript", "Tailwind CSS"],
     image: "/projects-images/personal-portfolio.png",
     githubUrl: "https://github.com/ahmedmalmoselhy/ahmedmalmoselhy.github.io",
-    liveUrl: "https://https://ahmedmalmoselhy.github.io",
+    liveUrl: "https://ahmedmalmoselhy.github.io",
     demo: false,
   },
 ];
