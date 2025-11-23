@@ -32,7 +32,7 @@ interface IndexProps {
 
 const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
   const [randomProjects, setRandomProjects] = useState<Project[]>([]);
-  const typedText = useTypingOnce(
+  const { displayText: typedText, isComplete } = useTypingOnce(
     "I'm a software engineer specializing in building exceptional digital experiences. Currently, I'm focused on building accessible, human-centered products.",
     30
   );
@@ -78,7 +78,7 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
               className="text-portfolio-lightSlate text-lg max-w-xl mb-12"
             >
               {typedText}
-              <span className="inline-block w-0.5 h-5 bg-portfolio-highlight ml-1 animate-pulse"></span>
+              {!isComplete && <span className="inline-block w-0.5 h-5 bg-portfolio-highlight ml-1 animate-pulse"></span>}
             </p>
             <div
               className="flex flex-wrap gap-4 animate-slide-up"
