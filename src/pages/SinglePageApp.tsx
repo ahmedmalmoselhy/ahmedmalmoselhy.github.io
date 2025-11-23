@@ -32,7 +32,11 @@ const SinglePageApp: React.FC<SinglePageAppProps> = ({ activeSection, onSectionC
     }
   };
 
-  return <>{renderContent()}</>;
+  return (
+    <div key={activeSection} className="animate-fade-in">
+      {renderContent()}
+    </div>
+  );
 };
 
 export default SinglePageApp;
