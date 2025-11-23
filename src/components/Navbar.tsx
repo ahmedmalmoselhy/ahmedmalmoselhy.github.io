@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { X } from 'lucide-react';
 import { PageSection } from '@/App';
+import { useTypingAnimation } from '@/hooks/use-typing-animation';
 
 interface NavbarProps {
   activeSection: PageSection;
@@ -13,6 +14,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onSectionChange }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
+  const displayName = useTypingAnimation('<Ahmed />', 150, 100, 2000);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -75,7 +77,10 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onSectionChange }) => {
           onClick={() => handleNavClick('home')}
           className="text-portfolio-highlight font-mono text-xl font-semibold hover:opacity-80 transition-opacity"
         >
-          {'<Ahmed />'}
+          <span className="inline-flex items-center">
+            {displayName}
+            <span className="inline-block w-0.5 h-5 bg-portfolio-highlight ml-1 animate-pulse"></span>
+          </span>
         </button>
 
         {/* Desktop Navigation */}
