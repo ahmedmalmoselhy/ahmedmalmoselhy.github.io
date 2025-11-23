@@ -33,8 +33,8 @@ interface IndexProps {
 const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
   const [randomProjects, setRandomProjects] = useState<Project[]>([]);
   const { displayText: typedText, isComplete } = useTypingOnce(
-    "I'm a software engineer specializing in building exceptional digital experiences. Currently, I'm focused on building accessible, human-centered products.",
-    30
+    "I build software!",
+    100
   );
 
   useEffect(() => {
@@ -69,16 +69,18 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
               Ahmed AlMoselhy
             </h1>
             <h2
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-portfolio-slate mb-6 animate-slide-up"
-              style={{ animationDelay: "100ms" }}
-            >
-              I build software!
-            </h2>
-            <p
-              className="text-portfolio-lightSlate text-lg max-w-xl mb-12"
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-portfolio-slate mb-6"
             >
               {typedText}
-              {!isComplete && <span className="inline-block w-0.5 h-5 bg-portfolio-highlight ml-1 animate-pulse"></span>}
+              {!isComplete && <span className="inline-block w-0.5 h-16 bg-portfolio-slate ml-2 animate-pulse"></span>}
+            </h2>
+            <p
+              className="text-portfolio-lightSlate text-lg max-w-xl mb-12 animate-slide-up"
+              style={{ animationDelay: "200ms" }}
+            >
+              I'm a software engineer specializing in building exceptional
+              digital experiences. Currently, I'm focused on building
+              accessible, human-centered products.
             </p>
             <div
               className="flex flex-wrap gap-4 animate-slide-up"
