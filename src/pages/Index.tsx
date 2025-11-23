@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Layout from "@/components/Layout";
 import SocialSidebar from "@/components/SocialSidebar";
 import { Button } from "@/components/ui/button";
+import { useTypingOnce } from "@/hooks/use-typing-once";
 import {
   Mail,
   FileText,
@@ -31,6 +32,10 @@ interface IndexProps {
 
 const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
   const [randomProjects, setRandomProjects] = useState<Project[]>([]);
+  const typedText = useTypingOnce(
+    "I'm a software engineer specializing in building exceptional digital experiences. Currently, I'm focused on building accessible, human-centered products.",
+    30
+  );
 
   useEffect(() => {
     // Function to get 3 random projects from the projectsData array
@@ -70,12 +75,10 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
               I build software!
             </h2>
             <p
-              className="text-portfolio-lightSlate text-lg max-w-xl mb-12 animate-slide-up"
-              style={{ animationDelay: "200ms" }}
+              className="text-portfolio-lightSlate text-lg max-w-xl mb-12"
             >
-              I'm a software engineer specializing in building exceptional
-              digital experiences. Currently, I'm focused on building
-              accessible, human-centered products.
+              {typedText}
+              <span className="inline-block w-0.5 h-5 bg-portfolio-highlight ml-1 animate-pulse"></span>
             </p>
             <div
               className="flex flex-wrap gap-4 animate-slide-up"
