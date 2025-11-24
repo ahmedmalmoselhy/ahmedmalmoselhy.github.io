@@ -254,9 +254,24 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
                   className="object-cover w-full h-full"
                 />
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-portfolio-white">
-                {project.title}
-              </h3>
+              <div className="flex items-start justify-between gap-2 mb-2">
+                <h3 className="text-xl font-semibold text-portfolio-white">
+                  {project.title}
+                </h3>
+                <span
+                  className={`text-xs font-mono px-2 py-1 rounded border ${
+                    project.status === "completed"
+                      ? "bg-portfolio-green/10 text-portfolio-green border-portfolio-green/30"
+                      : project.status === "in-progress"
+                        ? "bg-portfolio-blue/10 text-portfolio-blue border-portfolio-blue/30"
+                        : project.status === "new"
+                          ? "bg-portfolio-highlight/10 text-portfolio-highlight border-portfolio-highlight/30"
+                          : "bg-portfolio-orange/10 text-portfolio-orange border-portfolio-orange/30"
+                  }`}
+                >
+                  {project.status === "in-progress" ? "In Progress" : project.status === "on-hold" ? "On Hold" : project.status.charAt(0).toUpperCase() + project.status.slice(1)}
+                </span>
+              </div>
               <p className="text-portfolio-lightSlate mb-4">
                 {project.description}
               </p>

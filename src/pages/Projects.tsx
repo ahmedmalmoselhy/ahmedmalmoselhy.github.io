@@ -22,6 +22,7 @@ export interface Project {
   githubUrl: string;
   liveUrl: string;
   demo: boolean;
+  status: "completed" | "on-hold" | "in-progress" | "new";
 }
 
 export const projectsData: Project[] = [
@@ -35,6 +36,7 @@ export const projectsData: Project[] = [
     githubUrl: "https://github.com/ahmedmalmoselhy/laravel-dashboard",
     liveUrl: "",
     demo: true,
+    status: "completed",
   },
   {
     id: 2,
@@ -46,6 +48,7 @@ export const projectsData: Project[] = [
     githubUrl: "https://github.com/ahmedmalmoselhy/laravel-gettext",
     liveUrl: "",
     demo: true,
+    status: "completed",
   },
   {
     id: 3,
@@ -57,6 +60,7 @@ export const projectsData: Project[] = [
     githubUrl: "https://github.com/ahmedmalmoselhy/csed_yearbook",
     liveUrl: "",
     demo: true,
+    status: "completed",
   },
   {
     id: 4,
@@ -76,6 +80,7 @@ export const projectsData: Project[] = [
       "https://github.com/Curey-HealthCare/Curey-HealthCareApp-Backend",
     liveUrl: "",
     demo: true,
+    status: "completed",
   },
   {
     id: 5,
@@ -87,6 +92,7 @@ export const projectsData: Project[] = [
     githubUrl: "https://github.com/ahmedmalmoselhy/ahmedmalmoselhy.github.io",
     liveUrl: "https://ahmedmalmoselhy.github.io",
     demo: false,
+    status: "in-progress",
   },
 ];
 
@@ -121,9 +127,25 @@ const Projects = () => {
                 />
               </div>
               <CardHeader className="pb-2 p-4 md:p-6">
-                <CardTitle className="text-lg md:text-xl font-semibold text-portfolio-white">
-                  {project.title}
-                </CardTitle>
+                <div className="flex items-start justify-between gap-2 mb-2">
+                  <CardTitle className="text-lg md:text-xl font-semibold text-portfolio-white">
+                    {project.title}
+                  </CardTitle>
+                  <Badge
+                    variant="outline"
+                    className={`text-xs font-mono ${
+                      project.status === "completed"
+                        ? "bg-portfolio-green/10 text-portfolio-green border-portfolio-green/30"
+                        : project.status === "in-progress"
+                          ? "bg-portfolio-blue/10 text-portfolio-blue border-portfolio-blue/30"
+                          : project.status === "new"
+                            ? "bg-portfolio-highlight/10 text-portfolio-highlight border-portfolio-highlight/30"
+                            : "bg-portfolio-orange/10 text-portfolio-orange border-portfolio-orange/30"
+                    }`}
+                  >
+                    {project.status === "in-progress" ? "In Progress" : project.status === "on-hold" ? "On Hold" : project.status.charAt(0).toUpperCase() + project.status.slice(1)}
+                  </Badge>
+                </div>
                 <CardDescription className="text-portfolio-lightSlate text-sm md:text-base">
                   {project.description}
                 </CardDescription>
