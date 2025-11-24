@@ -103,7 +103,7 @@ export const projectsData: Project[] = [
   },
 ];
 
-const statusStyles: Record<Project["status"], string> = {
+export const statusStyles: Record<Project["status"], string> = {
   completed:
     "bg-portfolio-green/20 text-portfolio-green border-portfolio-green/30",
   "in-progress":
@@ -111,14 +111,14 @@ const statusStyles: Record<Project["status"], string> = {
   "on-hold":
     "bg-portfolio-orange/20 text-portfolio-orange border-portfolio-orange/30",
   archived: "bg-portfolio-red/20 text-portfolio-red border-portfolio-red/30",
-  new: "bg-portfolio-slate/20 text-portfolio-slate border-portfolio-slate/30",
+  new: "bg-portfolio-highlight/20 text-portfolio-highlight border-portfolio-highlight/30",
   planned:
-    "bg-portfolio-slate/20 text-portfolio-slate border-portfolio-slate/30",
+    "bg-portfolio-blue/20 text-portfolio-blue border-portfolio-blue/30",
   canceled:
     "bg-portfolio-slate/20 text-portfolio-slate border-portfolio-slate/30",
 };
 
-const statusLabels: Record<Project["status"], string> = {
+export const statusLabels: Record<Project["status"], string> = {
   completed: "Completed",
   "in-progress": "In Progress",
   "on-hold": "On Hold",
