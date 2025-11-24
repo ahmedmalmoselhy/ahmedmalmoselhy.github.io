@@ -248,7 +248,7 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {randomProjects.map((project) => (
             <div key={project.id} className="card">
-              <div className="h-40 bg-portfolio-navy/50 flex items-center justify-center overflow-hidden">
+              <div className="h-40 bg-portfolio-navy/50 flex items-center justify-center overflow-hidden mb-6">
                 <img
                   src={project.image}
                   alt={`${project.title} screenshot`}
@@ -275,7 +275,7 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
                 {project.technologies.slice(0, 3).map((tech, index) => (
                   <span
                     key={index}
-                    className="text-portfolio-highlight font-mono text-sm"
+                    className="text-portfolio-highlight font-mono text-xs bg-portfolio-highlight/10 px-3 py-1 rounded-full border border-portfolio-highlight/20"
                   >
                     {tech}
                   </span>
