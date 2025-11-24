@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Layout from "@/components/Layout";
 import SocialSidebar from "@/components/SocialSidebar";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { useTypingOnce } from "@/hooks/use-typing-once";
 import {
   Mail,
@@ -254,17 +255,18 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
                   className="object-cover w-full h-full"
                 />
               </div>
-              <div className="flex items-start justify-between gap-2 mb-2">
+              <div className="flex items-start justify-between gap-2 mb-4">
                 <h3 className="text-xl font-semibold text-portfolio-white">
                   {project.title}
                 </h3>
-                <span
-                  className={`text-xs font-mono px-2 py-1 rounded border ${statusStyles[project.status]}`}
+                <Badge
+                  variant="outline"
+                  className={`text-xs font-mono ${statusStyles[project.status]}`}
                 >
                   {statusLabels[project.status] ??
                     project.status.charAt(0).toUpperCase() +
                       project.status.slice(1)}
-                </span>
+                </Badge>
               </div>
               <p className="text-portfolio-lightSlate mb-4">
                 {project.description}
