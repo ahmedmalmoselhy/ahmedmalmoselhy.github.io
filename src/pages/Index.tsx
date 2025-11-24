@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 
 // Import project data from the Projects page
-import { projectsData, Project } from "./Projects";
+import { projectsData, Project, statusStyles, statusLabels } from "./Projects";
 
 type PageSection =
   | "home"
@@ -259,17 +259,11 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
                   {project.title}
                 </h3>
                 <span
-                  className={`text-xs font-mono px-2 py-1 rounded border ${
-                    project.status === "completed"
-                      ? "bg-portfolio-green/10 text-portfolio-green border-portfolio-green/30"
-                      : project.status === "in-progress"
-                        ? "bg-portfolio-blue/10 text-portfolio-blue border-portfolio-blue/30"
-                        : project.status === "new"
-                          ? "bg-portfolio-highlight/10 text-portfolio-highlight border-portfolio-highlight/30"
-                          : "bg-portfolio-orange/10 text-portfolio-orange border-portfolio-orange/30"
-                  }`}
+                  className={`text-xs font-mono px-2 py-1 rounded border ${statusStyles[project.status]}`}
                 >
-                  {project.status === "in-progress" ? "In Progress" : project.status === "on-hold" ? "On Hold" : project.status.charAt(0).toUpperCase() + project.status.slice(1)}
+                  {statusLabels[project.status] ??
+                    project.status.charAt(0).toUpperCase() +
+                      project.status.slice(1)}
                 </span>
               </div>
               <p className="text-portfolio-lightSlate mb-4">
