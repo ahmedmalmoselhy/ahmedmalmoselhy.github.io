@@ -22,6 +22,7 @@ export interface Project {
   githubUrl: string;
   liveUrl: string;
   demo: boolean;
+  date?: string;
   status:
     | "completed"
     | "on-hold"
@@ -44,6 +45,7 @@ export const projectsData: Project[] = [
     liveUrl: "",
     demo: true,
     status: "on-hold",
+    date: "2023-10-15",
   },
   {
     id: 2,
@@ -56,6 +58,7 @@ export const projectsData: Project[] = [
     liveUrl: "",
     demo: true,
     status: "archived",
+    date: "2023-08-10",
   },
   {
     id: 3,
@@ -68,6 +71,7 @@ export const projectsData: Project[] = [
     liveUrl: "",
     demo: true,
     status: "completed",
+    date: "2021-05-20",
   },
   {
     id: 4,
@@ -88,6 +92,7 @@ export const projectsData: Project[] = [
     liveUrl: "",
     demo: true,
     status: "completed",
+    date: "2020-06-15",
   },
   {
     id: 5,
@@ -100,6 +105,7 @@ export const projectsData: Project[] = [
     liveUrl: "https://ahmedmalmoselhy.github.io",
     demo: false,
     status: "completed",
+    date: "2024-01-10",
   },
   {
     id: 6,
@@ -112,6 +118,7 @@ export const projectsData: Project[] = [
     liveUrl: "",
     demo: true,
     status: "new",
+    date: "2024-05-01",
   },
   {
     id: 7,
@@ -124,6 +131,7 @@ export const projectsData: Project[] = [
     liveUrl: "",
     demo: true,
     status: "in-progress",
+    date: "2024-06-01",
   },
 ];
 
@@ -196,6 +204,18 @@ const Projects = () => {
                   </Badge>
                 </div>
                 <CardDescription className="text-portfolio-lightSlate text-sm md:text-base">
+                  {project.date && (
+                    <div className="flex flex-wrap md:gap-2">
+                      <span className="ml-auto text-portfolio-slate text-xs md:text-sm italic">
+                        Last modified:{" "}
+                        {new Date(project.date).toLocaleDateString(undefined, {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                        })}
+                      </span>
+                    </div>
+                  )}
                   {project.description}
                 </CardDescription>
               </CardHeader>
