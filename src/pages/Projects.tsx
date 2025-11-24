@@ -101,6 +101,30 @@ export const projectsData: Project[] = [
     demo: false,
     status: "completed",
   },
+  {
+    id: 6,
+    title: "UniOne",
+    description:
+      "University management system for handling academic operations.",
+    technologies: ["PHP", "Laravel", "MySQL", "JavaScript"],
+    image: "/projects-images/unione.png",
+    githubUrl: "https://github.com/ahmedmalmoselhy/UniOne",
+    liveUrl: "",
+    demo: true,
+    status: "new",
+  },
+  {
+    id: 7,
+    title: "GitHub Profile Readme",
+    description:
+      "Readme document for my github profile showcasing my projects and skills.",
+    technologies: ["README.md"],
+    image: "/placeholder.svg",
+    githubUrl: "https://github.com/ahmedmalmoselhy/ahmedmalmoselhy",
+    liveUrl: "",
+    demo: true,
+    status: "in-progress",
+  },
 ];
 
 export const statusStyles: Record<Project["status"], string> = {
@@ -112,8 +136,7 @@ export const statusStyles: Record<Project["status"], string> = {
     "bg-portfolio-orange/20 text-portfolio-orange border-portfolio-orange/30",
   archived: "bg-portfolio-red/20 text-portfolio-red border-portfolio-red/30",
   new: "bg-portfolio-highlight/20 text-portfolio-highlight border-portfolio-highlight/30",
-  planned:
-    "bg-portfolio-blue/20 text-portfolio-blue border-portfolio-blue/30",
+  planned: "bg-portfolio-blue/20 text-portfolio-blue border-portfolio-blue/30",
   canceled:
     "bg-portfolio-slate/20 text-portfolio-slate border-portfolio-slate/30",
 };
