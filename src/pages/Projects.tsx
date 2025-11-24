@@ -22,7 +22,14 @@ export interface Project {
   githubUrl: string;
   liveUrl: string;
   demo: boolean;
-  status: "completed" | "on-hold" | "in-progress" | "new";
+  status:
+    | "completed"
+    | "on-hold"
+    | "in-progress"
+    | "new"
+    | "archived"
+    | "planned"
+    | "canceled";
 }
 
 export const projectsData: Project[] = [
@@ -36,7 +43,7 @@ export const projectsData: Project[] = [
     githubUrl: "https://github.com/ahmedmalmoselhy/laravel-dashboard",
     liveUrl: "",
     demo: true,
-    status: "completed",
+    status: "on-hold",
   },
   {
     id: 2,
@@ -48,7 +55,7 @@ export const projectsData: Project[] = [
     githubUrl: "https://github.com/ahmedmalmoselhy/laravel-gettext",
     liveUrl: "",
     demo: true,
-    status: "completed",
+    status: "archived",
   },
   {
     id: 3,
@@ -92,9 +99,34 @@ export const projectsData: Project[] = [
     githubUrl: "https://github.com/ahmedmalmoselhy/ahmedmalmoselhy.github.io",
     liveUrl: "https://ahmedmalmoselhy.github.io",
     demo: false,
-    status: "in-progress",
+    status: "completed",
   },
 ];
+
+const statusStyles: Record<Project["status"], string> = {
+  completed:
+    "bg-portfolio-green/20 text-portfolio-green border-portfolio-green/30",
+  "in-progress":
+    "bg-portfolio-yellow/20 text-portfolio-yellow border-portfolio-yellow/30",
+  "on-hold":
+    "bg-portfolio-orange/20 text-portfolio-orange border-portfolio-orange/30",
+  archived: "bg-portfolio-red/20 text-portfolio-red border-portfolio-red/30",
+  new: "bg-portfolio-slate/20 text-portfolio-slate border-portfolio-slate/30",
+  planned:
+    "bg-portfolio-slate/20 text-portfolio-slate border-portfolio-slate/30",
+  canceled:
+    "bg-portfolio-slate/20 text-portfolio-slate border-portfolio-slate/30",
+};
+
+const statusLabels: Record<Project["status"], string> = {
+  completed: "Completed",
+  "in-progress": "In Progress",
+  "on-hold": "On Hold",
+  archived: "Archived",
+  new: "New",
+  planned: "Planned",
+  canceled: "Canceled",
+};
 
 const Projects = () => {
   return (
@@ -133,17 +165,11 @@ const Projects = () => {
                   </CardTitle>
                   <Badge
                     variant="outline"
-                    className={`text-xs font-mono ${
-                      project.status === "completed"
-                        ? "bg-portfolio-green/10 text-portfolio-green border-portfolio-green/30"
-                        : project.status === "in-progress"
-                          ? "bg-portfolio-blue/10 text-portfolio-blue border-portfolio-blue/30"
-                          : project.status === "new"
-                            ? "bg-portfolio-highlight/10 text-portfolio-highlight border-portfolio-highlight/30"
-                            : "bg-portfolio-orange/10 text-portfolio-orange border-portfolio-orange/30"
-                    }`}
+                    className={`text-xs font-mono ${statusStyles[project.status]}`}
                   >
-                    {project.status === "in-progress" ? "In Progress" : project.status === "on-hold" ? "On Hold" : project.status.charAt(0).toUpperCase() + project.status.slice(1)}
+                    {statusLabels[project.status] ??
+                      project.status.charAt(0).toUpperCase() +
+                        project.status.slice(1)}
                   </Badge>
                 </div>
                 <CardDescription className="text-portfolio-lightSlate text-sm md:text-base">
@@ -180,11 +206,11 @@ const Projects = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-portfolio-highlight flex items-center gap-1 transition-colors duration-200"
-                    aria-label={`View ${project.title} live ${project.demo ? "demo" : null} `}
+                    aria-label={`View ${project.title} live ${project.demo ? "demo" : ""}`}
                   >
                     <ExternalLink size={16} className="md:size-18" />
                     <span className="text-xs md:text-sm">
-                      View {project.title} {project.demo ? "Demo" : null}
+                      View {project.title} {project.demo ? "Demo" : ""}
                     </span>
                   </a>
                 ) : null}
