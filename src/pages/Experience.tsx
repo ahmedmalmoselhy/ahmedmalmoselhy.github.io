@@ -6,6 +6,8 @@ import { Briefcase, Calendar, MapPin } from "lucide-react";
 interface ExperienceItem {
   title: string;
   company: string;
+  link?: string;
+  workType: string;
   location: string;
   period: string;
   responsibilities: string[];
@@ -16,6 +18,7 @@ const experiences: ExperienceItem[] = [
   {
     title: "EOC/ECM Developer",
     company: "STC [outsourced from Qeema]",
+    workType: "Outsourced Full-time Remote",
     period: "July 2023 - Present",
     location: "Riyadh, Saudi Arabia",
     responsibilities: [
@@ -36,6 +39,8 @@ const experiences: ExperienceItem[] = [
   {
     title: "Software Engineer",
     company: "Qeema",
+    link: "https://qeema.net/",
+    workType: "Full-time Hybrid",
     period: "December 2022 - Present",
     location: "Cairo, Egypt",
     responsibilities: [
@@ -59,7 +64,23 @@ const experiences: ExperienceItem[] = [
   },
   {
     title: "Software Engineer",
+    company: "Devolum",
+    link: "https://devolum.com/",
+    workType: "Part-time Remote",
+    period: "Sptember 2022 - October 2022",
+    location: "Mansoura, Egypt",
+    responsibilities: [
+      "Enhanced web application performance through comprehensive front-end and back-end optimizations",
+      "Improved codebase quality to align with industry standards and best practices",
+      "Delivered projects with high quality",
+    ],
+    technologies: ["PHP", "Laravel", "JavaScript", "MySQL", "Git"],
+  },
+  {
+    title: "Software Engineer",
     company: "Serv5",
+    link: "https://serv5.com/",
+    workType: "Full-time On-site",
     period: "October 2021 - November 2022",
     location: "Mansoura, Egypt",
     responsibilities: [
@@ -123,7 +144,14 @@ const Experience = () => {
                           </h3>
                           <div className="flex items-center gap-2 text-portfolio-highlight mb-2">
                             <Briefcase size={18} />
-                            <span className="font-semibold">{exp.company}</span>
+                            <span className="font-semibold">
+                              <a
+                                href={exp.link ? exp.link : null}
+                                target="_blank"
+                              >
+                                {exp.company}
+                              </a>
+                            </span>
                           </div>
                         </div>
                         <div className="flex flex-col gap-2 mt-2 md:mt-0 md:text-right">
@@ -134,6 +162,10 @@ const Experience = () => {
                           <div className="flex items-center gap-2 text-portfolio-slate">
                             <MapPin size={16} />
                             <span className="text-sm">{exp.location}</span>
+                          </div>
+                          <div className="flex items-center gap-2 text-portfolio-slate">
+                            <Briefcase size={16} />
+                            <span className="text-sm">{exp.workType}</span>
                           </div>
                         </div>
                       </div>

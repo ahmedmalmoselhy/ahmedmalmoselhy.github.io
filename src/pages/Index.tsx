@@ -34,7 +34,7 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
   const [randomProjects, setRandomProjects] = useState<Project[]>([]);
   const { displayText: typedText, isComplete } = useTypingOnce(
     "I build software!",
-    100
+    100,
   );
 
   useEffect(() => {
@@ -68,11 +68,11 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-portfolio-white mb-4 animate-slide-up">
               Ahmed AlMoselhy
             </h1>
-            <h2
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-portfolio-slate mb-6"
-            >
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-portfolio-slate mb-6">
               {typedText}
-              {!isComplete && <span className="inline-block w-0.5 h-16 bg-portfolio-slate ml-2 animate-pulse"></span>}
+              {!isComplete && (
+                <span className="inline-block w-0.5 h-16 bg-portfolio-slate ml-2 animate-pulse"></span>
+              )}
             </h2>
             <p
               className="text-portfolio-lightSlate text-lg max-w-xl mb-12 animate-slide-up"
@@ -207,7 +207,7 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
                   onClick={() => onSectionChange?.("skills")}
                   className="btn-primary flex items-center gap-2"
                 >
-                  <User size={18} />
+                  <Server size={18} />
                   My Skills
                 </Button>
                 <Button
@@ -217,6 +217,14 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
                 >
                   <Briefcase size={18} />
                   Experience
+                </Button>
+                <Button
+                  onClick={() => onSectionChange?.("resume")}
+                  variant="outline"
+                  className="btn-outline flex items-center gap-2"
+                >
+                  <User size={18} />
+                  Resume
                 </Button>
               </div>
             </div>
@@ -282,7 +290,7 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
                   >
                     <ExternalLink size={16} className="md:size-18" />
                     <span className="text-xs md:text-sm">
-                      View {project.title} Live {project.demo ? "Demo" : null}
+                      View {project.title} {project.demo ? "Demo" : null}
                     </span>
                   </a>
                 ) : null}
@@ -295,7 +303,7 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
             onClick={() => onSectionChange?.("projects")}
             className="btn-primary"
           >
-            View All Projects
+            <Code size={20} /> View All Projects
           </Button>
         </div>
       </section>

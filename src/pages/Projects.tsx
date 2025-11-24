@@ -162,7 +162,7 @@ const Projects = () => {
                   >
                     <ExternalLink size={16} className="md:size-18" />
                     <span className="text-xs md:text-sm">
-                      View {project.title} Live {project.demo ? "Demo" : null}
+                      View {project.title} {project.demo ? "Demo" : null}
                     </span>
                   </a>
                 ) : null}

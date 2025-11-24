@@ -37,6 +37,16 @@ const jobs = [
   },
   {
     title: "Software Engineer",
+    company: "Devolum [Part-time]",
+    duration: "September 2022 - October 2022",
+    roles: [
+      "Enhanced web application performance through comprehensive front-end and back-end optimizations",
+      "Improved codebase quality to align with industry standards and best practices",
+      "Delivered projects with high quality",
+    ],
+  },
+  {
+    title: "Software Engineer",
     company: "Serv5",
     duration: "October 2021 - November 2022",
     roles: [
@@ -61,7 +71,12 @@ const Certifications = [
     year: "2025",
   },
   {
-    name: "Programming for Everybody (Getting Started with Python)",
+    name: "Using Databases with Python",
+    issuer: "Coursera",
+    year: "2018",
+  },
+  {
+    name: "Using Python to Access Web Data",
     issuer: "Coursera",
     year: "2016",
   },
@@ -71,14 +86,9 @@ const Certifications = [
     year: "2016",
   },
   {
-    name: "Using Python to Access Web Data",
+    name: "Programming for Everybody (Getting Started with Python)",
     issuer: "Coursera",
     year: "2016",
-  },
-  {
-    name: "Using Databases with Python",
-    issuer: "Coursera",
-    year: "2018",
   },
 ];
 
