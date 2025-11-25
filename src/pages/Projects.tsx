@@ -18,6 +18,7 @@ export interface Project {
   id: number;
   title: string;
   description: string;
+  extendedDescription: string;
   technologies: string[];
   image: string;
   githubUrl: string;
@@ -32,6 +33,8 @@ export interface Project {
     | "archived"
     | "planned"
     | "canceled";
+  contributors?: string[];
+  relatedProjects?: number[];
 }
 
 export const projectsData: Project[] = [
@@ -40,6 +43,8 @@ export const projectsData: Project[] = [
     title: "Laravel Modular Dashboard",
     description:
       "Developed a configurable admin dashboard with Laravel Blade templates.",
+    extendedDescription:
+      "I developed a highly configurable admin dashboard using Laravel Blade templates, focusing on flexibility, performance, and ease of customization. The solution allows administrators to manage interface components, layouts, and dynamic data displays without modifying core code, making the dashboard scalable and adaptable to different business needs. By leveraging Blade’s templating capabilities, reusable components, and clean structure, the system ensures maintainability while providing a streamlined and user-friendly experience for both developers and end-users.",
     technologies: ["Laravel", "MariaDB", "Laravel Blade", "PHP"],
     image: "/projects-images/laravel-modular-dashboard.png",
     githubUrl: "https://github.com/ahmedmalmoselhy/laravel-dashboard",
@@ -53,6 +58,8 @@ export const projectsData: Project[] = [
     title: "Laravel GetText Package",
     description:
       "Extended compatibility to PHP 8.1 and Laravel 9 for multilingual support.",
+    extendedDescription:
+      "I extended the system’s compatibility to PHP 8.1 and Laravel 9 to ensure improved performance, stability, and long-term maintainability, while also enabling robust multilingual support. This upgrade allowed the application to leverage the latest framework enhancements, modern language features, and better localization tools, ultimately providing a more seamless and scalable environment for serving users across different regions and languages.",
     technologies: ["PHP", "Laravel"],
     image: "/projects-images/laravel-gettext-package.png",
     githubUrl: "https://github.com/ahmedmalmoselhy/laravel-gettext",
@@ -66,6 +73,8 @@ export const projectsData: Project[] = [
     title: "CSED 2020 Yearbook",
     description:
       "Created a memorial website including backend and layout in Laravel Blade.",
+    extendedDescription:
+      "I created a memorial website that included both the backend functionality and the full layout implementation using Laravel Blade. The project focused on delivering a clean, respectful, and user-friendly experience, allowing visitors to view memories, stories, and tributes through an organized and visually appealing interface. By building the backend from scratch and designing the Blade templates for the front-end, I ensured a seamless integration between data management and presentation, resulting in a stable and meaningful platform for preserving and sharing memories.",
     technologies: ["PHP", "Laravel", "PostgreSQL", "Heroku"],
     image: "/projects-images/csed-2020-yearbook.png",
     githubUrl: "https://github.com/ahmedmalmoselhy/csed_yearbook",
@@ -79,6 +88,8 @@ export const projectsData: Project[] = [
     title: "Curey Healthcare App",
     description:
       "Graduation project focused on backend API and database systems",
+    extendedDescription:
+      "My graduation project focused on designing and implementing robust backend APIs and database systems, emphasizing scalability, security, and efficient data management. I structured the API to support clean integration with various front-end clients, while the database architecture was optimized for performance and reliability. Through this project, I gained hands-on experience with system design principles, API lifecycle management, and data modeling, resulting in a solid and well-documented backend foundation.",
     technologies: [
       "PHP",
       "Laravel",
@@ -100,6 +111,8 @@ export const projectsData: Project[] = [
     title: "Personal Portfolio",
     description:
       "My personal portfolio website built with React and Tailwind CSS.",
+    extendedDescription:
+      "I built my personal portfolio website using React and Tailwind CSS, focusing on delivering a clean, modern, and responsive user experience. The site showcases my projects, skills, and professional background through a visually appealing layout powered by reusable React components and Tailwind’s utility-first styling. By optimizing performance and ensuring seamless navigation across devices, the portfolio serves as an effective platform for presenting my work and personal brand.",
     technologies: ["React", "TypeScript", "Tailwind CSS"],
     image: "/projects-images/personal-portfolio.png",
     githubUrl: "https://github.com/ahmedmalmoselhy/ahmedmalmoselhy.github.io",
@@ -113,6 +126,8 @@ export const projectsData: Project[] = [
     title: "UniOne",
     description:
       "University management system for handling academic operations.",
+    extendedDescription:
+      "This is a personal and very dear project to my heart, I've had it in my backlog for a log time, but now I'm officially starting my work on it, this project will have so much details and many many technoligical challanges, which I'm so happy and excited to tackle, and to make matters more exciting, I'll work on this project multiple times wilth more than one framework/technology. I might not be able to finalize every single one of these clones, but I'm excited to tackle and work with something new to me. This repository is just my personal documentations for the project, with links to all other repositories with that house the project with each technology separate, will update this repository with some stuff like database schema, phases of development of each clone, design and APIs documentation.",
     technologies: ["PHP", "Laravel", "MySQL", "JavaScript"],
     image: "/projects-images/unione.png",
     githubUrl: "https://github.com/ahmedmalmoselhy/UniOne",
@@ -120,19 +135,6 @@ export const projectsData: Project[] = [
     demo: true,
     status: "new",
     date: "2024-05-01",
-  },
-  {
-    id: 7,
-    title: "GitHub Profile Readme",
-    description:
-      "Readme document for my github profile showcasing my projects and skills.",
-    technologies: ["README.md"],
-    image: "/placeholder.svg",
-    githubUrl: "https://github.com/ahmedmalmoselhy/ahmedmalmoselhy",
-    liveUrl: "",
-    demo: true,
-    status: "in-progress",
-    date: "2024-06-01",
   },
 ];
 
@@ -216,7 +218,6 @@ const Projects: React.FC<ProjectsProps> = ({ onSectionChange }) => {
                         {new Date(project.date).toLocaleDateString(undefined, {
                           year: "numeric",
                           month: "short",
-                          day: "numeric",
                         })}
                       </span>
                     </div>
@@ -240,7 +241,9 @@ const Projects: React.FC<ProjectsProps> = ({ onSectionChange }) => {
               <CardFooter className="flex flex-wrap gap-3 text-portfolio-slate p-4 md:p-6">
                 {onSectionChange && (
                   <button
-                    onClick={() => onSectionChange('project-detail', project.id)}
+                    onClick={() =>
+                      onSectionChange("project-detail", project.id)
+                    }
                     className="hover:text-portfolio-highlight flex items-center gap-1 transition-colors duration-200"
                     aria-label={`View ${project.title} details`}
                   >

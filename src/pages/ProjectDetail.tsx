@@ -62,7 +62,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
                   {statusLabels[project.status]}
                 </Badge>
               </div>
-              
+
               {project.date && (
                 <div className="flex items-center gap-2 text-portfolio-slate text-sm md:text-base mb-6">
                   <Calendar className="h-4 w-4" />
@@ -93,7 +93,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
                 About this project
               </h2>
               <p className="text-portfolio-lightSlate text-lg leading-relaxed">
-                {project.description}
+                {project.extendedDescription}
               </p>
             </div>
 
