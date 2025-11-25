@@ -16,8 +16,8 @@ import {
   ExternalLink,
 } from "lucide-react";
 
-// Import project data from the Projects page
-import { projectsData, Project, statusStyles, statusLabels } from "./Projects";
+import { projectsData, statusStyles, statusLabels } from "@/data/projects";
+import type { Project } from "@/data/projects";
 
 type PageSection =
   | "home"
