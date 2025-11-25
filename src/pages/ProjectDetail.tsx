@@ -3,7 +3,7 @@ import Layout from "@/components/Layout";
 import { ExternalLink, Github, Calendar, ArrowLeft } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { projectsData, statusStyles, statusLabels } from "./Projects";
+import { projectsData, statusStyles, statusLabels } from "@/data/projects";
 
 interface ProjectDetailProps {
   projectId: number;
