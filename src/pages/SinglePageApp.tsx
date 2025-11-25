@@ -5,16 +5,17 @@ import Skills from './Skills';
 import Projects from './Projects';
 import Contact from './Contact';
 import Experience from './Experience';
-import { PageSection } from '@/App';
+import ProjectDetail from './ProjectDetail';
+import { PageSection, AppState } from '@/App';
 
 interface SinglePageAppProps {
-  activeSection: PageSection;
-  onSectionChange: (section: PageSection) => void;
+  appState: AppState;
+  onSectionChange: (section: PageSection, projectId?: number) => void;
 }
 
-const SinglePageApp: React.FC<SinglePageAppProps> = ({ activeSection, onSectionChange }) => {
+const SinglePageApp: React.FC<SinglePageAppProps> = ({ appState, onSectionChange }) => {
   const renderContent = () => {
-    switch (activeSection) {
+    switch (appState.section) {
       case 'home':
         return <Index onSectionChange={onSectionChange} />;
       case 'resume':
@@ -22,18 +23,25 @@ const SinglePageApp: React.FC<SinglePageAppProps> = ({ activeSection, onSectionC
       case 'skills':
         return <Skills />;
       case 'projects':
-        return <Projects />;
+        return <Projects onSectionChange={onSectionChange} />;
       case 'contact':
         return <Contact />;
       case 'experience':
         return <Experience />;
+      case 'project-detail':
+        return (
+          <ProjectDetail
+            projectId={appState.projectId || 1}
+            onBack={() => onSectionChange('projects')}
+          />
+        );
       default:
         return <Index onSectionChange={onSectionChange} />;
     }
   };
 
   return (
-    <div key={activeSection} className="animate-fade-in">
+    <div key={`${appState.section}-${appState.projectId || ''}`} className="animate-fade-in">
       {renderContent()}
     </div>
   );

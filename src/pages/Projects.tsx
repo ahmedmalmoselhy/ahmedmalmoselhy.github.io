@@ -2,7 +2,8 @@
 
 import React from "react";
 import Layout from "@/components/Layout";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github, Eye } from "lucide-react";
+import { PageSection } from "@/App";
 import {
   Card,
   CardContent,
@@ -159,7 +160,11 @@ export const statusLabels: Record<Project["status"], string> = {
   canceled: "Canceled",
 };
 
-const Projects = () => {
+interface ProjectsProps {
+  onSectionChange?: (section: PageSection, projectId?: number) => void;
+}
+
+const Projects: React.FC<ProjectsProps> = ({ onSectionChange }) => {
   return (
     <Layout>
       <section className="container mx-auto px-4 py-8 md:py-16">
@@ -232,7 +237,17 @@ const Projects = () => {
                   ))}
                 </div>
               </CardContent>
-              <CardFooter className="flex space-x-4 text-portfolio-slate p-4 md:p-6">
+              <CardFooter className="flex flex-wrap gap-3 text-portfolio-slate p-4 md:p-6">
+                {onSectionChange && (
+                  <button
+                    onClick={() => onSectionChange('project-detail', project.id)}
+                    className="hover:text-portfolio-highlight flex items-center gap-1 transition-colors duration-200"
+                    aria-label={`View ${project.title} details`}
+                  >
+                    <Eye size={16} className="md:size-18" />
+                    <span className="text-xs md:text-sm">Details</span>
+                  </button>
+                )}
                 <a
                   href={project.githubUrl}
                   target="_blank"
@@ -253,7 +268,7 @@ const Projects = () => {
                   >
                     <ExternalLink size={16} className="md:size-18" />
                     <span className="text-xs md:text-sm">
-                      View {project.title} {project.demo ? "Demo" : ""}
+                      Live {project.demo ? "Demo" : ""}
                     </span>
                   </a>
                 ) : null}
