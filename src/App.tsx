@@ -9,13 +9,18 @@ import Navbar from "./components/Navbar";
 
 const queryClient = new QueryClient();
 
-export type PageSection = 'home' | 'resume' | 'skills' | 'projects' | 'contact' | 'experience';
+export type PageSection = 'home' | 'resume' | 'skills' | 'projects' | 'contact' | 'experience' | 'project-detail';
+
+export interface AppState {
+  section: PageSection;
+  projectId?: number;
+}
 
 const App = () => {
-  const [activeSection, setActiveSection] = useState<PageSection>('home');
+  const [appState, setAppState] = useState<AppState>({ section: 'home' });
 
-  const handleSectionChange = (section: PageSection) => {
-    setActiveSection(section);
+  const handleSectionChange = (section: PageSection, projectId?: number) => {
+    setAppState({ section, projectId });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -24,8 +29,8 @@ const App = () => {
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <Navbar activeSection={activeSection} onSectionChange={handleSectionChange} />
-        <SinglePageApp activeSection={activeSection} onSectionChange={handleSectionChange} />
+        <Navbar activeSection={appState.section} onSectionChange={handleSectionChange} />
+        <SinglePageApp appState={appState} onSectionChange={handleSectionChange} />
       </TooltipProvider>
     </QueryClientProvider>
   );
