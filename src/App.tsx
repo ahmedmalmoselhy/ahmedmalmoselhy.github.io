@@ -1,9 +1,9 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
+import { ThemeProvider } from "next-themes";
 import SinglePageApp from "./pages/SinglePageApp";
 import Navbar from "./components/Navbar";
 
@@ -25,14 +25,16 @@ const App = () => {
   };
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <Navbar activeSection={appState.section} onSectionChange={handleSectionChange} />
-        <SinglePageApp appState={appState} onSectionChange={handleSectionChange} />
-      </TooltipProvider>
-    </QueryClientProvider>
+    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <Navbar activeSection={appState.section} onSectionChange={handleSectionChange} />
+          <SinglePageApp appState={appState} onSectionChange={handleSectionChange} />
+        </TooltipProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
   );
 };
 

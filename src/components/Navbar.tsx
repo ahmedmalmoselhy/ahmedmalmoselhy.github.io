@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { X } from "lucide-react";
+import { ThemeToggle } from "./ThemeToggle";
 import { PageSection } from "@/App";
 import { useTypingAnimation } from "@/hooks/use-typing-animation";
 
@@ -122,6 +123,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onSectionChange }) => {
           >
             Contact
           </button>
+          <ThemeToggle />
         </nav>
 
         {/* Mobile Menu Button */}
@@ -208,6 +210,9 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onSectionChange }) => {
           >
             Contact
           </button>
+          <div className="pt-4">
+            <ThemeToggle />
+          </div>
         </div>
       </nav>
     </header>
