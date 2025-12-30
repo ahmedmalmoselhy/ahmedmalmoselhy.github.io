@@ -33,6 +33,15 @@ const experiences: ExperienceItem[] = [
           "System Integration: Contributed to the development efforts, implementing logic to interface with external systems for streamlined operations and improved overall performance.",
         ],
       },
+      {
+        title: "EOC/ECM Support Engineer",
+        period: "July 2023 - Present",
+        responsibilities: [
+          "Troubleshooting and resolving complex issues related to Ericsson Order Care (EOC) and Ericsson Catalog Manager (ECM) systems.",
+          "Providing technical guidance and support to end-users, ensuring smooth operations and customer satisfaction.",
+          "Collaborating with cross-functional teams to identify and implement system enhancements and improvements.",
+        ],
+      },
     ],
     technologies: [
       "Ericsson Order Care [EOC]",
@@ -81,7 +90,7 @@ const experiences: ExperienceItem[] = [
     location: "Mansoura, Egypt",
     roles: [
       {
-        title: "Software Engineer",
+        title: "Full-stack Developer",
         period: "September 2022 - October 2022",
         responsibilities: [
           "Enhanced web application performance through comprehensive front-end and back-end optimizations",
@@ -99,13 +108,23 @@ const experiences: ExperienceItem[] = [
     location: "Mansoura, Egypt",
     roles: [
       {
-        title: "Software Engineer",
-        period: "October 2021 - November 2022",
+        title: "Full-stack Developer",
+        period: "July 2022 - November 2022",
         responsibilities: [
           "Enhanced web application performance through comprehensive front-end and back-end optimizations",
-          "Integrated third-party APIs to support mobile application functionality and improve user experience",
           "Provided post-sales technical support to address client needs and ensure smooth deployment",
           "Streamlined development processes by introducing modern tools and frameworks for workflow automation",
+          "Improved codebase quality to align with industry standards and best practices",
+          "Integrated Vue.js components to enhance user experience and improve performance",
+          "Delivered projects with high quality",
+        ],
+      },
+      {
+        title: "Backend Developer",
+        period: "October 2021 - June 2022",
+        responsibilities: [
+          "Enhanced web application performance through comprehensive and back-end optimizations",
+          "Integrated third-party APIs to support mobile application functionality and improve user experience",
           "Improved codebase quality to align with industry standards and best practices",
         ],
       },
