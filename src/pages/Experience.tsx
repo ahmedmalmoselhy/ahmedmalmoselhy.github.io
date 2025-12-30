@@ -3,28 +3,36 @@ import Layout from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Briefcase, Calendar, MapPin } from "lucide-react";
 
-interface ExperienceItem {
+interface Role {
   title: string;
+  period: string;
+  responsibilities: string[];
+}
+
+interface ExperienceItem {
   company: string;
   link?: string;
   workType: string;
   location: string;
-  period: string;
-  responsibilities: string[];
+  roles: Role[];
   technologies?: string[];
 }
 
 const experiences: ExperienceItem[] = [
   {
-    title: "EOC/ECM Developer",
     company: "STC [outsourced from Qeema]",
     workType: "Outsourced Full-time Remote",
-    period: "July 2023 - Present",
     location: "Riyadh, Saudi Arabia",
-    responsibilities: [
-      "Product Catalog Management: Oversaw catalog components using Ericsson Catalog Manager (ECM), ensuring accurate and efficient handling of product data.",
-      "Technical Support: Delivered advanced support to maintain system reliability and swiftly resolve critical issues in the L3 layer of support.",
-      "System Integration: Contributed to the development efforts, implementing logic to interface with external systems for streamlined operations and improved overall performance.",
+    roles: [
+      {
+        title: "EOC/ECM Developer",
+        period: "July 2023 - Present",
+        responsibilities: [
+          "Product Catalog Management: Oversaw catalog components using Ericsson Catalog Manager (ECM), ensuring accurate and efficient handling of product data.",
+          "Technical Support: Delivered advanced support to maintain system reliability and swiftly resolve critical issues in the L3 layer of support.",
+          "System Integration: Contributed to the development efforts, implementing logic to interface with external systems for streamlined operations and improved overall performance.",
+        ],
+      },
     ],
     technologies: [
       "Ericsson Order Care [EOC]",
@@ -37,17 +45,21 @@ const experiences: ExperienceItem[] = [
     ],
   },
   {
-    title: "Software Engineer",
     company: "Qeema",
     link: "https://qeema.net/",
     workType: "Full-time Hybrid",
-    period: "December 2022 - Present",
     location: "Cairo, Egypt",
-    responsibilities: [
-      "Developed and implemented EOC solutions for the Jawwy DT project, customizing CRM solutions to meet telecom industry-specific requirements",
-      "Provided Level 3 advanced application support ensuring optimal performance and rapid issue resolution",
-      "Played a pivotal role in the successful release of the Jawwy DT project by maintaining EOC/ECM modules and supporting the client's operation team",
-      "Led the EOC/ECM upgrade from version 20 to 22, resolving version conflicts while maintaining system integration and implementation flow",
+    roles: [
+      {
+        title: "Software Engineer",
+        period: "December 2022 - Present",
+        responsibilities: [
+          "Developed and implemented EOC solutions for the Jawwy DT project, customizing CRM solutions to meet telecom industry-specific requirements",
+          "Provided Level 3 advanced application support ensuring optimal performance and rapid issue resolution",
+          "Played a pivotal role in the successful release of the Jawwy DT project by maintaining EOC/ECM modules and supporting the client's operation team",
+          "Led the EOC/ECM upgrade from version 20 to 22, resolving version conflicts while maintaining system integration and implementation flow",
+        ],
+      },
     ],
     technologies: [
       "Ericsson Order Care [EOC]",
@@ -63,32 +75,40 @@ const experiences: ExperienceItem[] = [
     ],
   },
   {
-    title: "Software Engineer",
     company: "Devolum",
     link: "https://devolum.com/",
     workType: "Part-time Remote",
-    period: "Sptember 2022 - October 2022",
     location: "Mansoura, Egypt",
-    responsibilities: [
-      "Enhanced web application performance through comprehensive front-end and back-end optimizations",
-      "Improved codebase quality to align with industry standards and best practices",
-      "Delivered projects with high quality",
+    roles: [
+      {
+        title: "Software Engineer",
+        period: "September 2022 - October 2022",
+        responsibilities: [
+          "Enhanced web application performance through comprehensive front-end and back-end optimizations",
+          "Improved codebase quality to align with industry standards and best practices",
+          "Delivered projects with high quality",
+        ],
+      },
     ],
     technologies: ["PHP", "Laravel", "JavaScript", "MySQL", "Git"],
   },
   {
-    title: "Software Engineer",
     company: "Serv5",
     link: "https://serv5.com/",
     workType: "Full-time On-site",
-    period: "October 2021 - November 2022",
     location: "Mansoura, Egypt",
-    responsibilities: [
-      "Enhanced web application performance through comprehensive front-end and back-end optimizations",
-      "Integrated third-party APIs to support mobile application functionality and improve user experience",
-      "Provided post-sales technical support to address client needs and ensure smooth deployment",
-      "Streamlined development processes by introducing modern tools and frameworks for workflow automation",
-      "Improved codebase quality to align with industry standards and best practices",
+    roles: [
+      {
+        title: "Software Engineer",
+        period: "October 2021 - November 2022",
+        responsibilities: [
+          "Enhanced web application performance through comprehensive front-end and back-end optimizations",
+          "Integrated third-party APIs to support mobile application functionality and improve user experience",
+          "Provided post-sales technical support to address client needs and ensure smooth deployment",
+          "Streamlined development processes by introducing modern tools and frameworks for workflow automation",
+          "Improved codebase quality to align with industry standards and best practices",
+        ],
+      },
     ],
     technologies: [
       "PHP",
@@ -137,28 +157,22 @@ const Experience = () => {
                   {/* Content card */}
                   <Card className="md:ml-20 bg-portfolio-lightNavy border-portfolio-slate/20 hover:border-portfolio-highlight/50 transition-all duration-300">
                     <CardContent className="p-6">
-                      <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
-                        <div>
-                          <h3 className="text-xl md:text-2xl font-bold text-portfolio-white mb-2">
-                            {exp.title}
-                          </h3>
-                          <div className="flex items-center gap-2 text-portfolio-highlight mb-2">
-                            <Briefcase size={18} />
-                            <span className="font-semibold">
-                              <a
-                                href={exp.link ? exp.link : null}
-                                target="_blank"
-                              >
-                                {exp.company}
-                              </a>
-                            </span>
-                          </div>
+                      {/* Company Header */}
+                      <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6">
+                        <div className="flex items-center gap-2 text-portfolio-highlight">
+                          <Briefcase size={18} />
+                          <span className="text-xl font-bold">
+                            <a
+                              href={exp.link ? exp.link : undefined}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="hover:underline"
+                            >
+                              {exp.company}
+                            </a>
+                          </span>
                         </div>
                         <div className="flex flex-col gap-2 mt-2 md:mt-0 md:text-right">
-                          <div className="flex items-center gap-2 text-portfolio-slate">
-                            <Calendar size={16} />
-                            <span className="text-sm">{exp.period}</span>
-                          </div>
                           <div className="flex items-center gap-2 text-portfolio-slate">
                             <MapPin size={16} />
                             <span className="text-sm">{exp.location}</span>
@@ -170,27 +184,47 @@ const Experience = () => {
                         </div>
                       </div>
 
-                      <div className="mb-4">
-                        <h4 className="text-portfolio-lightSlate font-semibold mb-3">
-                          Key Responsibilities:
-                        </h4>
-                        <ul className="space-y-2">
-                          {exp.responsibilities.map((resp, respIdx) => (
-                            <li
-                              key={respIdx}
-                              className="text-portfolio-slate flex items-start gap-2"
-                            >
-                              <span className="text-portfolio-highlight mt-1.5">
-                                ▹
-                              </span>
-                              <span>{resp}</span>
-                            </li>
-                          ))}
-                        </ul>
+                      {/* Roles */}
+                      <div className="space-y-6">
+                        {exp.roles.map((role, roleIdx) => (
+                          <div
+                            key={roleIdx}
+                            className={`${roleIdx > 0 ? "pt-6 border-t border-portfolio-slate/20" : ""}`}
+                          >
+                            <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-3">
+                              <h3 className="text-lg md:text-xl font-bold text-portfolio-white">
+                                {role.title}
+                              </h3>
+                              <div className="flex items-center gap-2 text-portfolio-slate mt-1 md:mt-0">
+                                <Calendar size={16} />
+                                <span className="text-sm">{role.period}</span>
+                              </div>
+                            </div>
+
+                            <div>
+                              <h4 className="text-portfolio-lightSlate font-semibold mb-3 text-sm">
+                                Key Responsibilities:
+                              </h4>
+                              <ul className="space-y-2">
+                                {role.responsibilities.map((resp, respIdx) => (
+                                  <li
+                                    key={respIdx}
+                                    className="text-portfolio-slate flex items-start gap-2"
+                                  >
+                                    <span className="text-portfolio-highlight mt-1.5">
+                                      ▹
+                                    </span>
+                                    <span>{resp}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
+                        ))}
                       </div>
 
                       {exp.technologies && (
-                        <div className="mt-4 pt-4 border-t border-portfolio-slate/20">
+                        <div className="mt-6 pt-4 border-t border-portfolio-slate/20">
                           <div className="flex flex-wrap gap-2">
                             {exp.technologies.map((tech, techIdx) => (
                               <span
