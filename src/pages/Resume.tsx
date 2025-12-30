@@ -12,79 +12,7 @@ import {
   Award,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-interface Role {
-  title: string;
-  period: string;
-  responsibilities: string[];
-}
-
-interface JobItem {
-  company: string;
-  roles: Role[];
-}
-
-const jobs: JobItem[] = [
-  {
-    company: "STC [outsourced from Qeema]",
-    roles: [
-      {
-        title: "EOC/ECM Developer",
-        period: "July 2023 - Present",
-        responsibilities: [
-          "Product Catalog Management: Oversaw catalog components using Ericsson Catalog Manager (ECM), ensuring accurate and efficient handling of product data.",
-          "Technical Support: Delivered advanced support to maintain system reliability and swiftly resolve critical issues in the L3 layer of support.",
-          "System Integration: Contributed to the development efforts, implementing logic to interface with external systems for streamlined operations and improved overall performance.",
-        ],
-      },
-    ],
-  },
-  {
-    company: "Qeema",
-    roles: [
-      {
-        title: "Software Engineer",
-        period: "December 2022 - Present",
-        responsibilities: [
-          "Developed and implemented EOC solutions for the Jawwy DT project, customizing CRM solutions to meet telecom industry-specific requirements",
-          "Provided Level 3 advanced application support ensuring optimal performance and rapid issue resolution",
-          "Played a pivotal role in the successful release of the Jawwy DT project by maintaining EOC/ECM modules and supporting the client's operation team",
-          "Led the EOC/ECM upgrade from version 20 to 22, resolving version conflicts while maintaining system integration and implementation flow",
-        ],
-      },
-    ],
-  },
-  {
-    company: "Devolum [Part-time]",
-    roles: [
-      {
-        title: "Software Engineer",
-        period: "September 2022 - October 2022",
-        responsibilities: [
-          "Enhanced web application performance through comprehensive front-end and back-end optimizations",
-          "Improved codebase quality to align with industry standards and best practices",
-          "Delivered projects with high quality",
-        ],
-      },
-    ],
-  },
-  {
-    company: "Serv5",
-    roles: [
-      {
-        title: "Software Engineer",
-        period: "October 2021 - November 2022",
-        responsibilities: [
-          "Enhanced web application performance through comprehensive front-end and back-end optimizations",
-          "Integrated third-party APIs to support mobile application functionality and improve user experience",
-          "Provided post-sales technical support to address client needs and ensure smooth deployment",
-          "Streamlined development processes by introducing modern tools and frameworks for workflow automation",
-          "Improved codebase quality to align with industry standards and best practices",
-        ],
-      },
-    ],
-  },
-];
+import { experiences } from "@/data/experience";
 
 const Certifications = [
   {
@@ -149,22 +77,29 @@ const Resume = () => {
               </h2>
 
               <div className="space-y-8">
-                {jobs.map((job, index) => (
+                {experiences.map((exp, index) => (
                   <div className="card" key={index}>
-                    <h4 className="text-portfolio-highlight font-semibold mb-4">
-                      {job.company}
-                    </h4>
-                    
-                    <div className="space-y-6">
-                      {job.roles.map((role, roleIndex) => (
-                        <div 
+                    <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-3">
+                      <div>
+                        <h3 className="text-xl md:text-2xl font-semibold text-portfolio-white">
+                          {exp.company}
+                        </h3>
+                        <p className="text-sm text-portfolio-slate mt-1">
+                          {exp.workType} &middot; {exp.location}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="space-y-6 mt-4">
+                      {exp.roles.map((role, roleIndex) => (
+                        <div
                           key={roleIndex}
                           className={`${roleIndex > 0 ? "pt-4 border-t border-portfolio-slate/20" : ""}`}
                         >
                           <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-3">
-                            <h3 className="text-xl font-semibold text-portfolio-white">
+                            <h4 className="text-lg md:text-xl font-semibold text-portfolio-white">
                               {role.title}
-                            </h3>
+                            </h4>
                             <span className="text-portfolio-highlight font-mono text-sm mt-1 md:mt-0">
                               {role.period}
                             </span>

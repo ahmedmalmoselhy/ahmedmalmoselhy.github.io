@@ -13,7 +13,6 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ activeSection, onSectionChange }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [scrollPosition, setScrollPosition] = useState(0);
   const displayName = useTypingAnimation("<Ahmed AlMoselhy />", 150, 50, 2000);
 
   useEffect(() => {
@@ -25,30 +24,18 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onSectionChange }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Smooth mobile menu behavior: simple scroll lock via overflow instead of repositioning the body
   useEffect(() => {
     if (isMobileMenuOpen) {
-      setScrollPosition(window.scrollY);
-      document.body.style.position = "fixed";
-      document.body.style.top = `-${window.scrollY}px`;
-      document.body.style.width = "100%";
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.position = "";
-      document.body.style.top = "";
-      document.body.style.width = "";
-      if (scrollPosition) {
-        window.scrollTo({
-          top: scrollPosition,
-          behavior: "auto",
-        });
-      }
+      document.body.style.overflow = "";
     }
 
     return () => {
-      document.body.style.position = "";
-      document.body.style.top = "";
-      document.body.style.width = "";
+      document.body.style.overflow = "";
     };
-  }, [isMobileMenuOpen, scrollPosition]);
+  }, [isMobileMenuOpen]);
 
   const isActive = (section: PageSection) => activeSection === section;
 
@@ -69,9 +56,11 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onSectionChange }) => {
     <header
       className={cn(
         "fixed top-0 w-full z-50 transition-all duration-300",
-        isScrolled
-          ? "py-3 bg-portfolio-navy/90 backdrop-blur-md shadow-md"
-          : "py-5 bg-transparent",
+        isMobileMenuOpen
+          ? "py-3 bg-portfolio-lightNavy/95 backdrop-blur-md shadow-md"
+          : isScrolled
+            ? "py-3 bg-portfolio-navy/90 backdrop-blur-md shadow-md"
+            : "py-5 bg-transparent",
       )}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
@@ -126,33 +115,36 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onSectionChange }) => {
           <ThemeToggle />
         </nav>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden text-portfolio-white p-2 focus:outline-none"
-          onClick={toggleMobileMenu}
-          aria-label="Toggle menu"
-        >
-          <div className="space-y-1.5">
-            <span
-              className={cn(
-                "block h-0.5 w-6 bg-portfolio-white transition-all duration-300",
-                isMobileMenuOpen && "rotate-45 translate-y-2",
-              )}
-            ></span>
-            <span
-              className={cn(
-                "block h-0.5 w-6 bg-portfolio-white transition-all duration-300",
-                isMobileMenuOpen && "opacity-0",
-              )}
-            ></span>
-            <span
-              className={cn(
-                "block h-0.5 w-6 bg-portfolio-white transition-all duration-300",
-                isMobileMenuOpen && "-rotate-45 -translate-y-2",
-              )}
-            ></span>
-          </div>
-        </button>
+        {/* Mobile Controls */}
+        <div className="md:hidden flex items-center gap-2">
+          <ThemeToggle />
+          <button
+            className="text-portfolio-white p-2 focus:outline-none"
+            onClick={toggleMobileMenu}
+            aria-label="Toggle menu"
+          >
+            <div className="space-y-1.5">
+              <span
+                className={cn(
+                  "block h-0.5 w-6 bg-portfolio-white transition-all duration-300",
+                  isMobileMenuOpen && "rotate-45 translate-y-2",
+                )}
+              ></span>
+              <span
+                className={cn(
+                  "block h-0.5 w-6 bg-portfolio-white transition-all duration-300",
+                  isMobileMenuOpen && "opacity-0",
+                )}
+              ></span>
+              <span
+                className={cn(
+                  "block h-0.5 w-6 bg-portfolio-white transition-all duration-300",
+                  isMobileMenuOpen && "-rotate-45 -translate-y-2",
+                )}
+              ></span>
+            </div>
+          </button>
+        </div>
       </div>
 
       {/* Mobile Navigation */}
@@ -210,9 +202,6 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onSectionChange }) => {
           >
             Contact
           </button>
-          <div className="pt-4">
-            <ThemeToggle />
-          </div>
         </div>
       </nav>
     </header>

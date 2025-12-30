@@ -2,146 +2,7 @@ import React from "react";
 import Layout from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Briefcase, Calendar, MapPin } from "lucide-react";
-
-interface Role {
-  title: string;
-  period: string;
-  responsibilities: string[];
-}
-
-interface ExperienceItem {
-  company: string;
-  link?: string;
-  workType: string;
-  location: string;
-  roles: Role[];
-  technologies?: string[];
-}
-
-const experiences: ExperienceItem[] = [
-  {
-    company: "STC [outsourced from Qeema]",
-    workType: "Outsourced Full-time Remote",
-    location: "Riyadh, Saudi Arabia",
-    roles: [
-      {
-        title: "EOC/ECM Developer",
-        period: "July 2023 - Present",
-        responsibilities: [
-          "Product Catalog Management: Oversaw catalog components using Ericsson Catalog Manager (ECM), ensuring accurate and efficient handling of product data.",
-          "Technical Support: Delivered advanced support to maintain system reliability and swiftly resolve critical issues in the L3 layer of support.",
-          "System Integration: Contributed to the development efforts, implementing logic to interface with external systems for streamlined operations and improved overall performance.",
-        ],
-      },
-      {
-        title: "EOC/ECM Support Engineer",
-        period: "July 2023 - Present",
-        responsibilities: [
-          "Troubleshooting and resolving complex issues related to Ericsson Order Care (EOC) and Ericsson Catalog Manager (ECM) systems.",
-          "Providing technical guidance and support to end-users, ensuring smooth operations and customer satisfaction.",
-          "Collaborating with cross-functional teams to identify and implement system enhancements and improvements.",
-        ],
-      },
-    ],
-    technologies: [
-      "Ericsson Order Care [EOC]",
-      "Ericsson Catalog Manager [ECM]",
-      "JavaScript",
-      "SQL",
-      "Oracle DB",
-      "Git",
-      "Docker",
-    ],
-  },
-  {
-    company: "Qeema",
-    link: "https://qeema.net/",
-    workType: "Full-time Hybrid",
-    location: "Cairo, Egypt",
-    roles: [
-      {
-        title: "Software Engineer",
-        period: "December 2022 - Present",
-        responsibilities: [
-          "Developed and implemented EOC solutions for the Jawwy DT project, customizing CRM solutions to meet telecom industry-specific requirements",
-          "Provided Level 3 advanced application support ensuring optimal performance and rapid issue resolution",
-          "Played a pivotal role in the successful release of the Jawwy DT project by maintaining EOC/ECM modules and supporting the client's operation team",
-          "Led the EOC/ECM upgrade from version 20 to 22, resolving version conflicts while maintaining system integration and implementation flow",
-        ],
-      },
-    ],
-    technologies: [
-      "Ericsson Order Care [EOC]",
-      "Ericsson Catalog Manager [ECM]",
-      "Creatio",
-      "JavaScript",
-      "SQL",
-      "C#",
-      "Oracle DB",
-      "Microsoft SQL Server",
-      "Git",
-      "Docker",
-    ],
-  },
-  {
-    company: "Devolum",
-    link: "https://devolum.com/",
-    workType: "Part-time Remote",
-    location: "Mansoura, Egypt",
-    roles: [
-      {
-        title: "Full-stack Developer",
-        period: "September 2022 - October 2022",
-        responsibilities: [
-          "Enhanced web application performance through comprehensive front-end and back-end optimizations",
-          "Improved codebase quality to align with industry standards and best practices",
-          "Delivered projects with high quality",
-        ],
-      },
-    ],
-    technologies: ["PHP", "Laravel", "JavaScript", "MySQL", "Git"],
-  },
-  {
-    company: "Serv5",
-    link: "https://serv5.com/",
-    workType: "Full-time On-site",
-    location: "Mansoura, Egypt",
-    roles: [
-      {
-        title: "Full-stack Developer",
-        period: "July 2022 - November 2022",
-        responsibilities: [
-          "Enhanced web application performance through comprehensive front-end and back-end optimizations",
-          "Provided post-sales technical support to address client needs and ensure smooth deployment",
-          "Streamlined development processes by introducing modern tools and frameworks for workflow automation",
-          "Improved codebase quality to align with industry standards and best practices",
-          "Integrated Vue.js components to enhance user experience and improve performance",
-          "Delivered projects with high quality",
-        ],
-      },
-      {
-        title: "Backend Developer",
-        period: "October 2021 - June 2022",
-        responsibilities: [
-          "Enhanced web application performance through comprehensive and back-end optimizations",
-          "Integrated third-party APIs to support mobile application functionality and improve user experience",
-          "Improved codebase quality to align with industry standards and best practices",
-        ],
-      },
-    ],
-    technologies: [
-      "PHP",
-      "Laravel",
-      "JavaScript",
-      "Vue.js",
-      "MySQL",
-      "RESTful APIs",
-      "Git",
-      "Node JS",
-      "Express.js",
-    ],
-  },
-];
+import { experiences } from "@/data/experience";
 
 const Experience = () => {
   return (
@@ -180,7 +41,7 @@ const Experience = () => {
                       <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6">
                         <div className="flex items-center gap-2 text-portfolio-highlight">
                           <Briefcase size={18} />
-                          <span className="text-xl font-bold">
+                          <span className="text-xl md:text-2xl font-bold text-portfolio-white">
                             <a
                               href={exp.link ? exp.link : undefined}
                               target="_blank"
@@ -211,7 +72,7 @@ const Experience = () => {
                             className={`${roleIdx > 0 ? "pt-6 border-t border-portfolio-slate/20" : ""}`}
                           >
                             <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-3">
-                              <h3 className="text-lg md:text-xl font-bold text-portfolio-white">
+                              <h3 className="text-lg md:text-xl font-semibold text-portfolio-white">
                                 {role.title}
                               </h3>
                               <div className="flex items-center gap-2 text-portfolio-slate mt-1 md:mt-0">
