@@ -150,7 +150,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onSectionChange }) => {
       {/* Mobile Navigation */}
       <nav
         className={cn(
-          "md:hidden fixed inset-0 bg-portfolio-lightNavy/95 z-40 transform transition-transform duration-300 pt-24",
+          "md:hidden fixed top-0 right-0 w-full bg-portfolio-lightNavy/95 z-40 transform transition-transform duration-300 pt-24 pb-12 rounded-b-3xl shadow-2xl",
           isMobileMenuOpen ? "translate-x-0" : "translate-x-full",
         )}
       >
