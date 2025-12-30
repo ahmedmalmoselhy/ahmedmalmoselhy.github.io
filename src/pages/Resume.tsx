@@ -13,48 +13,75 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const jobs = [
+interface Role {
+  title: string;
+  period: string;
+  responsibilities: string[];
+}
+
+interface JobItem {
+  company: string;
+  roles: Role[];
+}
+
+const jobs: JobItem[] = [
   {
-    title: "EOC/ECM Developer",
     company: "STC [outsourced from Qeema]",
-    duration: "July 2023 - Present",
     roles: [
-      "Product Catalog Management: Oversaw catalog components using Ericsson Catalog Manager (ECM), ensuring accurate and efficient handling of product data.",
-      "Technical Support: Delivered advanced support to maintain system reliability and swiftly resolve critical issues in the L3 layer of support.",
-      "System Integration: Contributed to the development efforts, implementing logic to interface with external systems for streamlined operations and improved overall performance.",
+      {
+        title: "EOC/ECM Developer",
+        period: "July 2023 - Present",
+        responsibilities: [
+          "Product Catalog Management: Oversaw catalog components using Ericsson Catalog Manager (ECM), ensuring accurate and efficient handling of product data.",
+          "Technical Support: Delivered advanced support to maintain system reliability and swiftly resolve critical issues in the L3 layer of support.",
+          "System Integration: Contributed to the development efforts, implementing logic to interface with external systems for streamlined operations and improved overall performance.",
+        ],
+      },
     ],
   },
   {
-    title: "Software Engineer",
     company: "Qeema",
-    duration: "December 2022 - Present",
     roles: [
-      "Developed and implemented EOC solutions for the Jawwy DT project, customizing CRM solutions to meet telecom industry-specific requirements",
-      "Provided Level 3 advanced application support ensuring optimal performance and rapid issue resolution",
-      "Played a pivotal role in the successful release of the Jawwy DT project by maintaining EOC/ECM modules and supporting the client's operation team",
-      "Led the EOC/ECM upgrade from version 20 to 22, resolving version conflicts while maintaining system integration and implementation flow",
+      {
+        title: "Software Engineer",
+        period: "December 2022 - Present",
+        responsibilities: [
+          "Developed and implemented EOC solutions for the Jawwy DT project, customizing CRM solutions to meet telecom industry-specific requirements",
+          "Provided Level 3 advanced application support ensuring optimal performance and rapid issue resolution",
+          "Played a pivotal role in the successful release of the Jawwy DT project by maintaining EOC/ECM modules and supporting the client's operation team",
+          "Led the EOC/ECM upgrade from version 20 to 22, resolving version conflicts while maintaining system integration and implementation flow",
+        ],
+      },
     ],
   },
   {
-    title: "Software Engineer",
     company: "Devolum [Part-time]",
-    duration: "September 2022 - October 2022",
     roles: [
-      "Enhanced web application performance through comprehensive front-end and back-end optimizations",
-      "Improved codebase quality to align with industry standards and best practices",
-      "Delivered projects with high quality",
+      {
+        title: "Software Engineer",
+        period: "September 2022 - October 2022",
+        responsibilities: [
+          "Enhanced web application performance through comprehensive front-end and back-end optimizations",
+          "Improved codebase quality to align with industry standards and best practices",
+          "Delivered projects with high quality",
+        ],
+      },
     ],
   },
   {
-    title: "Software Engineer",
     company: "Serv5",
-    duration: "October 2021 - November 2022",
     roles: [
-      "Enhanced web application performance through comprehensive front-end and back-end optimizations",
-      "Integrated third-party APIs to support mobile application functionality and improve user experience",
-      "Provided post-sales technical support to address client needs and ensure smooth deployment",
-      "Streamlined development processes by introducing modern tools and frameworks for workflow automation",
-      "Improved codebase quality to align with industry standards and best practices",
+      {
+        title: "Software Engineer",
+        period: "October 2021 - November 2022",
+        responsibilities: [
+          "Enhanced web application performance through comprehensive front-end and back-end optimizations",
+          "Integrated third-party APIs to support mobile application functionality and improve user experience",
+          "Provided post-sales technical support to address client needs and ensure smooth deployment",
+          "Streamlined development processes by introducing modern tools and frameworks for workflow automation",
+          "Improved codebase quality to align with industry standards and best practices",
+        ],
+      },
     ],
   },
 ];
@@ -124,27 +151,37 @@ const Resume = () => {
               <div className="space-y-8">
                 {jobs.map((job, index) => (
                   <div className="card" key={index}>
-                    <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-3">
-                      <h3 className="text-xl font-semibold text-portfolio-white">
-                        {job.title}
-                      </h3>
-                      <span className="text-portfolio-highlight font-mono text-sm mt-1 md:mt-0">
-                        {job.duration}
-                      </span>
-                    </div>
-                    <h4 className="text-portfolio-lightSlate mb-4">
+                    <h4 className="text-portfolio-highlight font-semibold mb-4">
                       {job.company}
                     </h4>
-                    <ul className="space-y-2 text-portfolio-lightSlate">
+                    
+                    <div className="space-y-6">
                       {job.roles.map((role, roleIndex) => (
-                        <li className="flex items-start" key={roleIndex}>
-                          <span className="text-portfolio-highlight mr-2">
-                            ▹
-                          </span>
-                          {role}
-                        </li>
+                        <div 
+                          key={roleIndex}
+                          className={`${roleIndex > 0 ? "pt-4 border-t border-portfolio-slate/20" : ""}`}
+                        >
+                          <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-3">
+                            <h3 className="text-xl font-semibold text-portfolio-white">
+                              {role.title}
+                            </h3>
+                            <span className="text-portfolio-highlight font-mono text-sm mt-1 md:mt-0">
+                              {role.period}
+                            </span>
+                          </div>
+                          <ul className="space-y-2 text-portfolio-lightSlate">
+                            {role.responsibilities.map((resp, respIndex) => (
+                              <li className="flex items-start" key={respIndex}>
+                                <span className="text-portfolio-highlight mr-2">
+                                  ▹
+                                </span>
+                                {resp}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
                       ))}
-                    </ul>
+                    </div>
                   </div>
                 ))}
               </div>

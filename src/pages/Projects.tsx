@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "@/components/Layout";
-import { ExternalLink, Github, Eye } from "lucide-react";
+import { ExternalLink, Github } from "lucide-react";
 import { PageSection } from "@/App";
 import {
   Card,
@@ -37,20 +37,29 @@ const Projects: React.FC<ProjectsProps> = ({ onSectionChange }) => {
           {projectsData.map((project, index) => (
             <Card
               key={project.id}
-              className="bg-portfolio-lightNavy border-portfolio-slate/20 hover:-translate-y-1 md:hover:-translate-y-2 transition-transform duration-300 overflow-hidden animate-fade-in"
+              className="bg-portfolio-lightNavy border-portfolio-slate/20 hover:-translate-y-1 md:hover:-translate-y-2 transition-transform duration-300 overflow-hidden animate-fade-in cursor-pointer group"
               style={{ animationDelay: `${index * 100}ms` }}
+              onClick={() => onSectionChange?.("project-detail", project.id)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  onSectionChange?.("project-detail", project.id);
+                }
+              }}
+              aria-label={`View ${project.title} details`}
             >
               <div className="h-32 md:h-48 bg-portfolio-navy/50 flex items-center justify-center overflow-hidden">
-                {/*<Github size={48} className="text-portfolio-slate/40" />*/}
                 <img
                   src={project.image}
                   alt={`${project.title} screenshot`}
-                  className="object-cover w-full h-full"
+                  className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
               <CardHeader className="pb-2 p-4 md:p-6">
                 <div className="flex items-start justify-between gap-2 mb-2">
-                  <CardTitle className="text-lg md:text-xl font-semibold text-portfolio-white">
+                  <CardTitle className="text-lg md:text-xl font-semibold text-portfolio-white group-hover:text-portfolio-highlight transition-colors">
                     {project.title}
                   </CardTitle>
                   <Badge
@@ -91,24 +100,13 @@ const Projects: React.FC<ProjectsProps> = ({ onSectionChange }) => {
                 </div>
               </CardContent>
               <CardFooter className="flex flex-wrap gap-3 text-portfolio-slate p-4 md:p-6">
-                {onSectionChange && (
-                  <button
-                    onClick={() =>
-                      onSectionChange("project-detail", project.id)
-                    }
-                    className="hover:text-portfolio-highlight flex items-center gap-1 transition-colors duration-200"
-                    aria-label={`View ${project.title} details`}
-                  >
-                    <Eye size={16} className="md:size-18" />
-                    <span className="text-xs md:text-sm">Details</span>
-                  </button>
-                )}
                 <a
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-portfolio-highlight flex items-center gap-1 transition-colors duration-200"
                   aria-label={`View ${project.title} source code on GitHub`}
+                  onClick={(e) => e.stopPropagation()}
                 >
                   <Github size={16} className="md:size-18" />
                   <span className="text-xs md:text-sm">Code</span>
@@ -120,6 +118,7 @@ const Projects: React.FC<ProjectsProps> = ({ onSectionChange }) => {
                     rel="noopener noreferrer"
                     className="hover:text-portfolio-highlight flex items-center gap-1 transition-colors duration-200"
                     aria-label={`View ${project.title} live ${project.demo ? "demo" : ""}`}
+                    onClick={(e) => e.stopPropagation()}
                   >
                     <ExternalLink size={16} className="md:size-18" />
                     <span className="text-xs md:text-sm">
