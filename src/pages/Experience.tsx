@@ -61,6 +61,10 @@ const Experience = () => {
                             <Briefcase size={16} />
                             <span className="text-sm">{exp.workType}</span>
                           </div>
+                          <div className="flex items-center gap-2 text-portfolio-slate">
+                            <Calendar size={16} />
+                            <span className="text-sm">{exp.period}</span>
+                          </div>
                         </div>
                       </div>
 
@@ -77,7 +81,7 @@ const Experience = () => {
                               </h3>
                               <div className="flex items-center gap-2 text-portfolio-slate mt-1 md:mt-0">
                                 <Calendar size={16} />
-                                <span className="text-sm">{role.period}</span>
+                                <span className="text-sm">[{role.period}]</span>
                               </div>
                             </div>
 

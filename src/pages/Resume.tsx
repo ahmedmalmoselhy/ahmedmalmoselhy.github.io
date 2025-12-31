@@ -85,7 +85,7 @@ const Resume = () => {
                           {exp.company}
                         </h3>
                         <p className="text-sm text-portfolio-slate mt-1">
-                          {exp.workType} &middot; {exp.location}
+                          {exp.workType} &middot; {exp.location} &middot; {exp.period}
                         </p>
                       </div>
                     </div>
@@ -101,7 +101,7 @@ const Resume = () => {
                               {role.title}
                             </h4>
                             <span className="text-portfolio-highlight font-mono text-sm mt-1 md:mt-0">
-                              {role.period}
+                              [{role.period}]
                             </span>
                           </div>
                           <ul className="space-y-2 text-portfolio-lightSlate">

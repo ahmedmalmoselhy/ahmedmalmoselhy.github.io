@@ -6,6 +6,7 @@ export interface Role {
 
 export interface ExperienceItem {
   company: string;
+  period: string;
   link?: string;
   workType: string;
   location: string;
@@ -16,6 +17,7 @@ export interface ExperienceItem {
 export const experiences: ExperienceItem[] = [
   {
     company: "STC [outsourced from Qeema]",
+    period: "July 2023 - Present",
     workType: "Outsourced Full-time Remote",
     location: "Riyadh, Saudi Arabia",
     roles: [
@@ -30,7 +32,7 @@ export const experiences: ExperienceItem[] = [
       },
       {
         title: "EOC/ECM Support Engineer",
-        period: "July 2023 - Present",
+        period: "January 2024 - Present",
         responsibilities: [
           "Troubleshooting and resolving complex issues related to Ericsson Order Care (EOC) and Ericsson Catalog Manager (ECM) systems.",
           "Providing technical guidance and support to end-users, ensuring smooth operations and customer satisfaction.",
@@ -50,6 +52,7 @@ export const experiences: ExperienceItem[] = [
   },
   {
     company: "Qeema",
+    period: "December 2022 - Present",
     link: "https://qeema.net/",
     workType: "Full-time Hybrid",
     location: "Cairo, Egypt",
@@ -80,6 +83,7 @@ export const experiences: ExperienceItem[] = [
   },
   {
     company: "Devolum",
+    period: "September 2022 - October 2022",
     link: "https://devolum.com/",
     workType: "Part-time Remote",
     location: "Mansoura, Egypt",
@@ -98,6 +102,7 @@ export const experiences: ExperienceItem[] = [
   },
   {
     company: "Serv5",
+    period: "October 2021 - November 2022",
     link: "https://serv5.com/",
     workType: "Full-time On-site",
     location: "Mansoura, Egypt",
