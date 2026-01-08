@@ -42,11 +42,19 @@ const Experience = () => {
                       {/* Company Header */}
                       <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6">
                         <div className="flex items-center gap-3">
-                          {/* Company Logo Placeholder */}
-                          <div className="w-12 h-12 rounded-lg bg-portfolio-slate/20 border border-portfolio-slate/30 flex items-center justify-center flex-shrink-0">
-                            <Building2 size={24} className="text-portfolio-highlight" />
+                          {/* Company Logo */}
+                          <div className="w-12 h-12 rounded-lg bg-white border border-portfolio-slate/30 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            {exp.logo ? (
+                              <img
+                                src={exp.logo}
+                                alt={`${exp.company} logo`}
+                                className="w-full h-full object-contain p-1"
+                              />
+                            ) : (
+                              <Building2 size={24} className="text-portfolio-highlight" />
+                            )}
                           </div>
-                          <span className="text-xl md:text-2xl font-bold text-portfolio-white">
+                          <span className="text-xl md:text-2xl font-bold text-portfolio-white flex flex-col md:flex-row md:items-baseline gap-2">
                             <a
                               href={exp.link ? exp.link : undefined}
                               target="_blank"
@@ -55,6 +63,11 @@ const Experience = () => {
                             >
                               {exp.company}
                             </a>
+                            {exp.outsourced && (
+                              <span className="text-sm font-normal text-portfolio-slate/80">
+                                (Contracted via {exp.outsourced})
+                              </span>
+                            )}
                           </span>
                         </div>
                         <div className="flex flex-col gap-2 mt-2 md:mt-0 md:text-right">

@@ -12,44 +12,21 @@ import {
   Award,
   TrendingUp,
   Clock,
+  Building2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { experiences } from "@/data/experience";
+import { certifications } from "@/data/certifications";
 import { calculateDuration } from "@/lib/date-utils";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
-const Certifications = [
-  {
-    name: "Creatio Software Developer [Advanced]",
-    issuer: "Creatio Academy",
-    year: "2025",
-  },
-  {
-    name: "Creatio No-Code Creator [Basic]",
-    issuer: "Creatio Academy",
-    year: "2025",
-  },
-  {
-    name: "Using Databases with Python",
-    issuer: "Coursera",
-    year: "2018",
-  },
-  {
-    name: "Using Python to Access Web Data",
-    issuer: "Coursera",
-    year: "2016",
-  },
-  {
-    name: "Python Data Structures",
-    issuer: "Coursera",
-    year: "2016",
-  },
-  {
-    name: "Programming for Everybody (Getting Started with Python)",
-    issuer: "Coursera",
-    year: "2016",
-  },
-];
+
 
 const Resume = () => {
   return (
@@ -84,13 +61,42 @@ const Resume = () => {
                 {experiences.map((exp, index) => (
                   <div className="card" key={index}>
                     <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-3">
-                      <div>
-                        <h3 className="text-xl md:text-2xl font-semibold text-portfolio-white">
-                          {exp.company}
-                        </h3>
-                        <p className="text-sm text-portfolio-slate mt-1">
-                          {exp.workType} &middot; {exp.location} &middot; {exp.period}
-                        </p>
+                      <div className="flex items-start gap-3">
+                        <div className="w-12 h-12 rounded-lg bg-white border border-portfolio-slate/30 flex items-center justify-center flex-shrink-0 overflow-hidden mt-1">
+                          {exp.logo ? (
+                            <img
+                              src={exp.logo}
+                              alt={`${exp.company} logo`}
+                              className="w-full h-full object-contain p-1"
+                            />
+                          ) : (
+                            <Building2 size={24} className="text-portfolio-highlight" />
+                          )}
+                        </div>
+                        <div>
+                          <h3 className="text-xl md:text-2xl font-semibold text-portfolio-white flex flex-wrap items-baseline gap-2">
+                            {exp.link ? (
+                              <a
+                                href={exp.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hover:text-portfolio-highlight hover:underline transition-colors"
+                              >
+                                {exp.company}
+                              </a>
+                            ) : (
+                              <span>{exp.company}</span>
+                            )}
+                            {exp.outsourced && (
+                              <span className="text-sm font-normal text-portfolio-slate/80">
+                                (via {exp.outsourced})
+                              </span>
+                            )}
+                          </h3>
+                          <p className="text-sm text-portfolio-slate mt-1">
+                            {exp.workType} &middot; {exp.location} &middot; {exp.period}
+                          </p>
+                        </div>
                       </div>
                     </div>
 
@@ -194,18 +200,56 @@ const Resume = () => {
               </h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {Certifications.map((cert, index) => (
-                  <div className="card" key={index}>
-                    <h3 className="text-lg font-semibold text-portfolio-white mb-2">
-                      {cert.name}
-                    </h3>
-                    <p className="text-portfolio-lightSlate">
-                      {cert.issuer} &middot;{" "}
-                      <span className="text-portfolio-highlight">
-                        {cert.year}
-                      </span>
-                    </p>
-                  </div>
+                {certifications.map((cert) => (
+                  <Dialog key={cert.id}>
+                    <DialogTrigger asChild>
+                      <div className="card cursor-pointer hover:border-portfolio-highlight/50 transition-all duration-300 group h-full">
+                        <div className="flex items-start gap-4">
+                          <div className="w-12 h-12 rounded-lg bg-white border border-portfolio-slate/30 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                            {cert.logo ? (
+                              <img
+                                src={cert.logo}
+                                alt={`${cert.issuer} logo`}
+                                className="w-full h-full object-contain p-1"
+                              />
+                            ) : (
+                              <Award size={24} className="text-portfolio-highlight" />
+                            )}
+                          </div>
+                          <div>
+                            <h3 className="text-lg font-semibold text-portfolio-white mb-1 group-hover:text-portfolio-highlight transition-colors">
+                              {cert.name}
+                            </h3>
+                            <p className="text-portfolio-lightSlate text-sm">
+                              {cert.issuer} &middot;{" "}
+                              <span className="text-portfolio-highlight">
+                                {cert.year}
+                              </span>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-3xl bg-portfolio-navy border-portfolio-slate/20">
+                      <DialogTitle className="text-portfolio-white text-xl font-bold">
+                        {cert.name}
+                      </DialogTitle>
+                      <div className="mt-4 relative aspect-video w-full overflow-hidden rounded-lg bg-portfolio-lightNavy border border-portfolio-slate/20">
+                        {cert.image ? (
+                          <img
+                            src={cert.image}
+                            alt={`${cert.name} Certificate`}
+                            className="w-full h-full object-contain"
+                          />
+                        ) : (
+                          <div className="flex flex-col items-center justify-center h-full text-portfolio-slate">
+                            <Award size={48} className="mb-4 opacity-50" />
+                            <p>Certificate image not available</p>
+                          </div>
+                        )}
+                      </div>
+                    </DialogContent>
+                  </Dialog>
                 ))}
               </div>
             </section>

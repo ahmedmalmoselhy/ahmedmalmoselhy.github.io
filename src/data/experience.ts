@@ -6,6 +6,8 @@ export interface Role {
 
 export interface ExperienceItem {
   company: string;
+  logo?: string;
+  outsourced?: string;
   period: string;
   link?: string;
   workType: string;
@@ -16,7 +18,9 @@ export interface ExperienceItem {
 
 export const experiences: ExperienceItem[] = [
   {
-    company: "STC [outsourced from Qeema]",
+    company: "Jawwy by STC",
+    outsourced: "Qeema",
+    logo: "/logos/Jawwy.png",
     period: "July 2023 - Present",
     workType: "Outsourced Full-time Remote",
     location: "Riyadh, Saudi Arabia",
@@ -52,6 +56,7 @@ export const experiences: ExperienceItem[] = [
   },
   {
     company: "Qeema",
+    logo: "/logos/Qeema.png",
     period: "December 2022 - Present",
     link: "https://qeema.net/",
     workType: "Full-time Hybrid",
@@ -83,6 +88,7 @@ export const experiences: ExperienceItem[] = [
   },
   {
     company: "Devolum",
+    logo: "/logos/Devolum.png",
     period: "September 2022 - October 2022",
     link: "https://devolum.com/",
     workType: "Part-time Remote",
@@ -102,6 +108,7 @@ export const experiences: ExperienceItem[] = [
   },
   {
     company: "Serv5",
+    logo: "/logos/Serv5.png",
     period: "October 2021 - November 2022",
     link: "https://serv5.com/",
     workType: "Full-time On-site",
