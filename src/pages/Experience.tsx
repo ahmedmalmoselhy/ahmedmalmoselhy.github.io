@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Briefcase, Calendar, MapPin, TrendingUp, Clock } from "lucide-react";
 import { experiences } from "@/data/experience";
 import { calculateDuration } from "@/lib/date-utils";
-
+import CareerTimeline from "@/components/CareerTimeline";
 const Experience = () => {
   return (
     <Layout className="pt-28">
@@ -19,6 +19,8 @@ const Experience = () => {
             responsibilities, and achievements in software development.
           </p>
         </header>
+
+        <CareerTimeline />
 
         <div className="max-w-4xl mx-auto">
           <div className="relative">
