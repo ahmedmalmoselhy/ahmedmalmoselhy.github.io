@@ -22,21 +22,21 @@ export const experiences: ExperienceItem[] = [
     location: "Riyadh, Saudi Arabia",
     roles: [
       {
-        title: "EOC/ECM Developer",
-        period: "July 2023 - Present",
-        responsibilities: [
-          "Product Catalog Management: Oversaw catalog components using Ericsson Catalog Manager (ECM), ensuring accurate and efficient handling of product data.",
-          "Technical Support: Delivered advanced support to maintain system reliability and swiftly resolve critical issues in the L3 layer of support.",
-          "System Integration: Contributed to the development efforts, implementing logic to interface with external systems for streamlined operations and improved overall performance.",
-        ],
-      },
-      {
         title: "EOC/ECM Support Engineer",
         period: "January 2024 - Present",
         responsibilities: [
           "Troubleshooting and resolving complex issues related to Ericsson Order Care (EOC) and Ericsson Catalog Manager (ECM) systems.",
           "Providing technical guidance and support to end-users, ensuring smooth operations and customer satisfaction.",
           "Collaborating with cross-functional teams to identify and implement system enhancements and improvements.",
+        ],
+      },
+      {
+        title: "EOC/ECM Developer",
+        period: "July 2023 - Present",
+        responsibilities: [
+          "Product Catalog Management: Oversaw catalog components using Ericsson Catalog Manager (ECM), ensuring accurate and efficient handling of product data.",
+          "Technical Support: Delivered advanced support to maintain system reliability and swiftly resolve critical issues in the L3 layer of support.",
+          "System Integration: Contributed to the development efforts, implementing logic to interface with external systems for streamlined operations and improved overall performance.",
         ],
       },
     ],
@@ -142,5 +142,3 @@ export const experiences: ExperienceItem[] = [
     ],
   },
 ];
-
-
