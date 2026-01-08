@@ -10,8 +10,10 @@ import {
   Github,
   Download,
   Award,
+  TrendingUp,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { experiences } from "@/data/experience";
 
 const Certifications = [
@@ -97,9 +99,17 @@ const Resume = () => {
                           className={`${roleIndex > 0 ? "pt-4 border-t border-portfolio-slate/20" : ""}`}
                         >
                           <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-3">
-                            <h4 className="text-lg md:text-xl font-semibold text-portfolio-white">
-                              {role.title}
-                            </h4>
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <h4 className="text-lg md:text-xl font-semibold text-portfolio-white">
+                                {role.title}
+                              </h4>
+                              {exp.roles.length > 1 && roleIndex > 0 && (
+                                <Badge className="bg-green-500/20 text-green-400 border-green-500/30 hover:bg-green-500/30 flex items-center gap-1">
+                                  <TrendingUp size={12} />
+                                  Promoted
+                                </Badge>
+                              )}
+                            </div>
                             <span className="text-portfolio-highlight font-mono text-sm mt-1 md:mt-0">
                               [{role.period}]
                             </span>

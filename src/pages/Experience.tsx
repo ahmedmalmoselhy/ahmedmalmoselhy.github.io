@@ -1,7 +1,8 @@
 import React from "react";
 import Layout from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
-import { Briefcase, Calendar, MapPin } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Briefcase, Calendar, MapPin, TrendingUp } from "lucide-react";
 import { experiences } from "@/data/experience";
 
 const Experience = () => {
@@ -76,9 +77,17 @@ const Experience = () => {
                             className={`${roleIdx > 0 ? "pt-6 border-t border-portfolio-slate/20" : ""}`}
                           >
                             <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-3">
-                              <h3 className="text-lg md:text-xl font-semibold text-portfolio-white">
-                                {role.title}
-                              </h3>
+                              <div className="flex items-center gap-2 flex-wrap">
+                                <h3 className="text-lg md:text-xl font-semibold text-portfolio-white">
+                                  {role.title}
+                                </h3>
+                                {exp.roles.length > 1 && roleIdx > 0 && (
+                                  <Badge className="bg-green-500/20 text-green-400 border-green-500/30 hover:bg-green-500/30 flex items-center gap-1">
+                                    <TrendingUp size={12} />
+                                    Promoted
+                                  </Badge>
+                                )}
+                              </div>
                               <div className="flex items-center gap-2 text-portfolio-slate mt-1 md:mt-0">
                                 <Calendar size={16} />
                                 <span className="text-sm">[{role.period}]</span>
