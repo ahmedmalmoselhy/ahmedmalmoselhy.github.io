@@ -2,10 +2,10 @@ import React from "react";
 import Layout from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Briefcase, Calendar, MapPin, TrendingUp, Clock } from "lucide-react";
+import { Briefcase, Calendar, MapPin, TrendingUp, Clock, Building2 } from "lucide-react";
 import { experiences } from "@/data/experience";
 import { calculateDuration } from "@/lib/date-utils";
-import CareerTimeline from "@/components/CareerTimeline";
+
 const Experience = () => {
   return (
     <Layout className="pt-28">
@@ -19,8 +19,6 @@ const Experience = () => {
             responsibilities, and achievements in software development.
           </p>
         </header>
-
-        <CareerTimeline />
 
         <div className="max-w-4xl mx-auto">
           <div className="relative">
@@ -43,14 +41,17 @@ const Experience = () => {
                     <CardContent className="p-6">
                       {/* Company Header */}
                       <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6">
-                        <div className="flex items-center gap-2 text-portfolio-highlight">
-                          <Briefcase size={18} />
+                        <div className="flex items-center gap-3">
+                          {/* Company Logo Placeholder */}
+                          <div className="w-12 h-12 rounded-lg bg-portfolio-slate/20 border border-portfolio-slate/30 flex items-center justify-center flex-shrink-0">
+                            <Building2 size={24} className="text-portfolio-highlight" />
+                          </div>
                           <span className="text-xl md:text-2xl font-bold text-portfolio-white">
                             <a
                               href={exp.link ? exp.link : undefined}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="hover:underline"
+                              className="hover:underline hover:text-portfolio-highlight transition-colors"
                             >
                               {exp.company}
                             </a>
