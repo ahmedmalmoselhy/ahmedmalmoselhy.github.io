@@ -2,8 +2,9 @@ import React from "react";
 import Layout from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Briefcase, Calendar, MapPin, TrendingUp } from "lucide-react";
+import { Briefcase, Calendar, MapPin, TrendingUp, Clock } from "lucide-react";
 import { experiences } from "@/data/experience";
+import { calculateDuration } from "@/lib/date-utils";
 
 const Experience = () => {
   return (
@@ -88,9 +89,17 @@ const Experience = () => {
                                   </Badge>
                                 )}
                               </div>
-                              <div className="flex items-center gap-2 text-portfolio-slate mt-1 md:mt-0">
-                                <Calendar size={16} />
-                                <span className="text-sm">[{role.period}]</span>
+                              <div className="flex items-center gap-3 text-portfolio-slate mt-1 md:mt-0">
+                                <div className="flex items-center gap-1">
+                                  <Calendar size={14} />
+                                  <span className="text-sm">{role.period}</span>
+                                </div>
+                                {calculateDuration(role.period) && (
+                                  <div className="flex items-center gap-1 text-portfolio-highlight/70">
+                                    <Clock size={14} />
+                                    <span className="text-sm">{calculateDuration(role.period)}</span>
+                                  </div>
+                                )}
                               </div>
                             </div>
 

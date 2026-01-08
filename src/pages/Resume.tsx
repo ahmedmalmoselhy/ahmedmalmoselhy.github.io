@@ -11,10 +11,12 @@ import {
   Download,
   Award,
   TrendingUp,
+  Clock,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { experiences } from "@/data/experience";
+import { calculateDuration } from "@/lib/date-utils";
 
 const Certifications = [
   {
@@ -110,9 +112,17 @@ const Resume = () => {
                                 </Badge>
                               )}
                             </div>
-                            <span className="text-portfolio-highlight font-mono text-sm mt-1 md:mt-0">
-                              [{role.period}]
-                            </span>
+                            <div className="flex items-center gap-3 mt-1 md:mt-0">
+                              <span className="text-portfolio-highlight font-mono text-sm">
+                                {role.period}
+                              </span>
+                              {calculateDuration(role.period) && (
+                                <span className="flex items-center gap-1 text-portfolio-slate text-sm">
+                                  <Clock size={14} />
+                                  {calculateDuration(role.period)}
+                                </span>
+                              )}
+                            </div>
                           </div>
                           <ul className="space-y-2 text-portfolio-lightSlate">
                             {role.responsibilities.map((resp, respIndex) => (
