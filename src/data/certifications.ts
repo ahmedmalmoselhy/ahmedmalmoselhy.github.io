@@ -14,7 +14,7 @@ export const certifications: CertificationItem[] = [
         issuer: "Creatio Academy",
         year: "2025",
         logo: "/logos/creatio.png",
-        // image: "/certificates/creatio-advanced.png",
+        image: "/certificates/creatio-software-developer.jpeg",
     },
     {
         id: "creatio-basic",
@@ -22,7 +22,7 @@ export const certifications: CertificationItem[] = [
         issuer: "Creatio Academy",
         year: "2025",
         logo: "/logos/creatio.png",
-        // image: "/certificates/creatio-basic.png",
+        image: "/certificates/creatio-no-code-creator.png",
     },
     {
         id: "coursera-db-python",
@@ -30,7 +30,7 @@ export const certifications: CertificationItem[] = [
         issuer: "Coursera",
         year: "2018",
         logo: "/logos/coursera.png",
-        // image: "/certificates/coursera-db-python.png",
+        image: "/certificates/coursera-db-python.jpeg",
     },
     {
         id: "coursera-web-data",
@@ -38,7 +38,7 @@ export const certifications: CertificationItem[] = [
         issuer: "Coursera",
         year: "2016",
         logo: "/logos/coursera.png",
-        // image: "/certificates/coursera-web-data.png",
+        image: "/certificates/coursera-web-data.jpeg",
     },
     {
         id: "coursera-python-ds",
@@ -46,7 +46,7 @@ export const certifications: CertificationItem[] = [
         issuer: "Coursera",
         year: "2016",
         logo: "/logos/coursera.png",
-        // image: "/certificates/coursera-python-ds.png",
+        image: "/certificates/coursera-python-ds.jpeg",
     },
     {
         id: "coursera-python-start",
@@ -54,6 +54,6 @@ export const certifications: CertificationItem[] = [
         issuer: "Coursera",
         year: "2016",
         logo: "/logos/coursera.png",
-        // image: "/certificates/coursera-python-start.png",
+        image: "/certificates/coursera-python-start.jpeg",
     },
 ];
