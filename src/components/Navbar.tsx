@@ -175,7 +175,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onSectionChange }) => {
           >
             Resume
           </button>
-          <button
+          {/*<button
             onClick={() => handleNavClick("experience")}
             className={cn(
               "nav-link text-xl",
@@ -183,7 +183,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onSectionChange }) => {
             )}
           >
             Experience
-          </button>
+          </button>*/}
           <button
             onClick={() => handleNavClick("projects")}
             className={cn("nav-link text-xl", isActive("projects") && "active")}
