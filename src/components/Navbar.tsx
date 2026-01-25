@@ -88,12 +88,12 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onSectionChange }) => {
           >
             Resume
           </button>
-          <button
+          {/*<button
             onClick={() => handleNavClick("experience")}
             className={cn("nav-link", isActive("experience") && "active")}
           >
             Experience
-          </button>
+          </button>*/}
           <button
             onClick={() => handleNavClick("projects")}
             className={cn("nav-link", isActive("projects") && "active")}
