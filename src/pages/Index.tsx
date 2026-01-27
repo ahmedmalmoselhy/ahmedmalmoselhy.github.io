@@ -112,8 +112,6 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
               />
             </div>
           </div>
-
-
         </div>
       </section>
 
@@ -129,12 +127,15 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
           <div className="max-w-4xl mx-auto bg-portfolio-navy/50 p-8 md:p-12 rounded-2xl border border-portfolio-slate/20 hover:border-portfolio-highlight/20 transition-all duration-300">
             <div className="flex flex-col gap-6">
               <p className="text-portfolio-lightSlate text-lg leading-relaxed">
-                Welcome to my portfolio! I'm <span className="text-portfolio-highlight font-semibold">Ahmed AlMoselhy</span>, a versatile and
-                detail-oriented Software Engineer with extensive hands-on
-                experience in full-stack development, CRM systems, and Telecom
-                applications. Proven track record in working across various
-                support levels and developing scalable web applications
-                utilizing modern technologies.
+                Welcome to my portfolio! I'm{" "}
+                <span className="text-portfolio-highlight font-semibold">
+                  Ahmed AlMoselhy
+                </span>
+                , a versatile and detail-oriented Software Engineer with
+                extensive hands-on experience in full-stack development, CRM
+                systems, and Telecom applications. Proven track record in
+                working across various support levels and developing scalable
+                web applications utilizing modern technologies.
               </p>
               <p className="text-portfolio-lightSlate text-lg leading-relaxed">
                 With a strong foundation in software development and a keen eye
@@ -157,14 +158,14 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
                   <Server size={18} className="mr-2" />
                   My Skills
                 </Button>
-                <Button
+                {/*<Button
                   onClick={() => onSectionChange?.("experience")}
                   variant="outline"
                   className="h-12 px-8 bg-transparent border-2 border-portfolio-slate/30 text-portfolio-slate hover:border-portfolio-highlight hover:text-portfolio-highlight font-bold rounded-full transition-all hover:scale-105 flex items-center gap-2 shadow-lg shadow-transparent hover:shadow-portfolio-highlight/5"
                 >
                   <Briefcase size={18} className="mr-2" />
                   Experience
-                </Button>
+                </Button>*/}
               </div>
             </div>
           </div>
@@ -177,7 +178,9 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
           <div className="p-2 bg-portfolio-highlight/10 rounded-lg">
             <Code size={24} className="text-portfolio-highlight" />
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-portfolio-white">Featured Projects</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-portfolio-white">
+            Featured Projects
+          </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -209,11 +212,11 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
                 </h3>
                 <Badge
                   variant="outline"
-                  className={`text-xs font-mono py-1 px-2 border-none bg-opacity-20 ${statusStyles[project.status].replace('bg-', 'bg-opacity-10 bg-').replace('text-', 'text-')}`}
+                  className={`text-xs font-mono py-1 px-2 border-none bg-opacity-20 ${statusStyles[project.status].replace("bg-", "bg-opacity-10 bg-").replace("text-", "text-")}`}
                 >
                   {statusLabels[project.status] ??
                     project.status.charAt(0).toUpperCase() +
-                    project.status.slice(1)}
+                      project.status.slice(1)}
                 </Badge>
               </div>
 
