@@ -93,45 +93,50 @@ const softSkills = [
 const Skills = () => {
   return (
     <Layout className="pt-28">
-      <div className="container mx-auto px-4">
-        <header className="mb-12 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-portfolio-white mb-4 animate-fade-in">
-            My Skills
+      <section className="container mx-auto px-4 py-8 md:py-16 relative">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-portfolio-highlight to-transparent opacity-50"></div>
+        <div className="max-w-4xl mx-auto mb-16 text-center">
+          <h1 className="text-4xl md:text-6xl font-bold text-portfolio-white mb-6 animate-fade-in tracking-tight">
+            Technical <span className="text-portfolio-highlight">Expertise</span>
           </h1>
-          <p className="text-portfolio-slate max-w-3xl mx-auto animate-fade-in">
+          <p className="text-portfolio-lightSlate text-lg md:text-xl animate-slide-up leading-relaxed max-w-2xl mx-auto">
             A comprehensive overview of my technical skills and proficiency
             levels. I constantly strive to expand my knowledge and stay current
             with the latest technologies.
           </p>
-        </header>
+        </div>
 
         {/* Technical Skills */}
-        <section className="mb-16">
-          <h2 className="section-title mb-8">Technical Skills</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <section className="mb-20">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-1 h-8 bg-portfolio-highlight rounded-full"></div>
+            <h2 className="text-3xl font-bold text-portfolio-white">Core Competencies</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {skillCategories.map((category, idx) => (
               <Card
                 key={idx}
-                className="bg-portfolio-lightNavy border-portfolio-slate/20"
+                className="bg-portfolio-lightNavy/30 backdrop-blur-sm border-portfolio-slate/10 hover:border-portfolio-highlight/30 transition-all duration-300 shadow-lg shadow-transparent hover:shadow-portfolio-highlight/5 group"
               >
-                <CardContent className="pt-6">
-                  <h3 className="text-xl font-semibold mb-6 text-portfolio-white">
+                <CardContent className="p-6 md:p-8">
+                  <h3 className="text-xl font-bold mb-6 text-portfolio-white group-hover:text-portfolio-highlight transition-colors flex items-center gap-2">
                     {category.name}
                   </h3>
-                  <div className="space-y-4">
+                  <div className="space-y-5">
                     {category.skills.map((skill, skillIdx) => (
                       <div key={skillIdx} className="space-y-2">
-                        <div className="flex justify-between text-sm">
-                          <span className="text-portfolio-lightSlate">
+                        <div className="flex justify-between text-sm font-medium">
+                          <span className="text-portfolio-lightSlate group-hover:text-portfolio-slate transition-colors">
                             {skill.name}
                           </span>
-                          <span style={{ color: colorMap[category.color] }}>
+                          <span style={{ color: colorMap[category.color] }} className="font-mono text-xs opacity-80">
                             {skill.level}%
                           </span>
                         </div>
-                        <div className="w-full bg-portfolio-navy rounded-full h-2">
+                        <div className="w-full bg-portfolio-navy/60 rounded-full h-1.5 overflow-hidden">
                           <div
-                            className="h-2 rounded-full transition-all duration-500"
+                            className="h-full rounded-full transition-all duration-1000 ease-out group-hover:opacity-100 opacity-80"
                             style={{
                               width: `${skill.level}%`,
                               backgroundColor: colorMap[category.color],
@@ -147,28 +152,32 @@ const Skills = () => {
           </div>
         </section>
 
-        {/* Soft Skills - Updated with dynamic grid */}
+        {/* Soft Skills */}
         <section className="mb-16">
-          <h2 className="section-title mb-8">Soft Skills</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-fr gap-4">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-1 h-8 bg-portfolio-highlight rounded-full"></div>
+            <h2 className="text-3xl font-bold text-portfolio-white">Soft Skills & Traits</h2>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
             {softSkills.map((skill, idx) => (
               <div
                 key={idx}
-                className="card flex flex-col items-center p-4 text-center"
+                className="bg-portfolio-lightNavy/20 backdrop-blur-sm border border-portfolio-slate/10 rounded-xl p-6 text-center hover:bg-portfolio-lightNavy/40 hover:-translate-y-1 hover:border-portfolio-highlight/30 transition-all duration-300 group shadow-md hover:shadow-xl"
               >
-                <div className="w-12 h-12 rounded-full bg-portfolio-highlight/20 flex items-center justify-center mb-3">
-                  <span className="text-portfolio-highlight text-2xl">
+                <div className="w-14 h-14 mx-auto rounded-full bg-portfolio-navy flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 border border-portfolio-slate/10 group-hover:border-portfolio-highlight/20">
+                  <span className="text-2xl filter drop-shadow-md">
                     {skill.icon}
                   </span>
                 </div>
-                <h3 className="text-lg font-semibold text-portfolio-white">
+                <h3 className="text-base md:text-lg font-bold text-portfolio-white group-hover:text-portfolio-highlight transition-colors">
                   {skill.name}
                 </h3>
               </div>
             ))}
           </div>
         </section>
-      </div>
+      </section>
     </Layout>
   );
 };

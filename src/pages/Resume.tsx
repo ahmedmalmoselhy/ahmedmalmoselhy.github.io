@@ -13,6 +13,13 @@ import {
   TrendingUp,
   Clock,
   Building2,
+  CheckCircle,
+  Zap,
+  Calendar,
+  MapPin,
+  Globe,
+  Code,
+  Database,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -26,122 +33,193 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-
-
 const Resume = () => {
   return (
     <Layout className="pt-28">
       <div className="container mx-auto px-4">
-        <header className="mb-12 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-portfolio-white mb-4 animate-fade-in">
-            My Resume
+        <header className="mb-20 pt-10 text-center relative">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-portfolio-highlight to-transparent opacity-50"></div>
+          <h1 className="text-5xl md:text-7xl font-bold text-portfolio-white mb-6 animate-fade-in tracking-tight">
+            My <span className="text-portfolio-highlight">Journey</span>
           </h1>
-          <p className="text-portfolio-slate max-w-2xl mx-auto mb-8 animate-fade-in">
-            A comprehensive overview of my professional experience, education,
-            and skills
+          <p className="text-portfolio-slate max-w-2xl mx-auto mb-10 text-lg md:text-xl leading-relaxed animate-fade-in">
+            Architecting scalable solutions and crafting exceptional digital experiences.
+            Here is a chronological overview of my professional path.
           </p>
-          <a href="/AhmedAlMoselhy.pdf" download className="inline-block">
-            <Button className="btn-primary animate-fade-in flex items-center gap-2">
-              <Download size={18} />
-              Download CV
-            </Button>
-          </a>
+
+          <div className="flex justify-center gap-4 animate-fade-in">
+            <a href="/AhmedAlMoselhy.pdf" download>
+              <Button className="h-12 px-8 bg-portfolio-highlight hover:bg-portfolio-highlight/90 text-portfolio-navy font-bold rounded-full transition-all hover:scale-105 flex items-center gap-2">
+                <Download size={20} />
+                Download CV
+              </Button>
+            </a>
+          </div>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-12">
             {/* Work Experience */}
             <section>
-              <h2 className="section-title flex items-center gap-3">
-                <Briefcase size={24} className="text-portfolio-highlight" />
-                Work Experience
-              </h2>
+              <div className="flex items-center gap-3 mb-8">
+                <div className="p-3 bg-portfolio-highlight/10 rounded-xl">
+                  <Briefcase size={28} className="text-portfolio-highlight" />
+                </div>
+                <h2 className="text-3xl font-bold text-portfolio-white">
+                  Professional Journey
+                </h2>
+              </div>
 
-              <div className="space-y-8">
+              <div className="relative border-l-2 border-portfolio-slate/20 ml-3 md:ml-6 space-y-12 pb-4">
                 {experiences.map((exp, index) => (
-                  <div className="card" key={index}>
-                    <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-3">
-                      <div className="flex items-start gap-3">
-                        <div className="w-12 h-12 rounded-lg bg-white border border-portfolio-slate/30 flex items-center justify-center flex-shrink-0 overflow-hidden mt-1">
-                          {exp.logo ? (
-                            <img
-                              src={exp.logo}
-                              alt={`${exp.company} logo`}
-                              className="w-full h-full object-contain p-1"
-                            />
-                          ) : (
-                            <Building2 size={24} className="text-portfolio-highlight" />
-                          )}
-                        </div>
+                  <div className="relative pl-8 md:pl-12" key={index}>
+                    {/* Glowing Timeline Node */}
+                    <div className="absolute -left-[21px] md:-left-[26px] top-0 transition-transform duration-300 hover:scale-110">
+                      <div className="w-11 h-11 md:w-14 md:h-14 rounded-xl bg-portfolio-navy border-2 border-portfolio-highlight/30 flex items-center justify-center overflow-hidden shadow-[0_0_15px_rgba(100,255,218,0.15)] z-10">
+                        {exp.logo ? (
+                          <img
+                            src={exp.logo}
+                            alt={`${exp.company} logo`}
+                            className="w-full h-full object-contain p-1.5 bg-white"
+                          />
+                        ) : (
+                          <Building2
+                            size={24}
+                            className="text-portfolio-highlight"
+                          />
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Content Card */}
+                    <div className="group relative">
+                      <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-6">
                         <div>
-                          <h3 className="text-xl md:text-2xl font-semibold text-portfolio-white flex flex-wrap items-baseline gap-2">
+                          <h3 className="text-2xl md:text-3xl font-bold text-portfolio-white flex flex-wrap items-center gap-2 mb-2">
                             {exp.link ? (
                               <a
                                 href={exp.link}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="hover:text-portfolio-highlight hover:underline transition-colors"
+                                className="hover:text-portfolio-highlight transition-colors flex items-center gap-2"
                               >
                                 {exp.company}
+                                <Globe size={18} className="opacity-50" />
                               </a>
                             ) : (
                               <span>{exp.company}</span>
                             )}
+                          </h3>
+                          <div className="flex flex-wrap items-center gap-3 text-portfolio-slate text-sm md:text-base">
                             {exp.outsourced && (
-                              <span className="text-sm font-normal text-portfolio-slate/80">
-                                (via {exp.outsourced})
+                              <span className="bg-portfolio-lightNavy/50 px-2 py-1 rounded text-portfolio-slate border border-portfolio-slate/20">
+                                via {exp.outsourced}
                               </span>
                             )}
-                          </h3>
-                          <p className="text-sm text-portfolio-slate mt-1">
-                            {exp.workType} &middot; {exp.location} &middot; {exp.period}
-                          </p>
+                            <span className="flex items-center gap-1">
+                              <MapPin size={14} /> {exp.location}
+                            </span>
+                            <span className="hidden md:inline text-portfolio-slate/30">|</span>
+                            <span>{exp.workType}</span>
+                          </div>
+                        </div>
+                        <div className="mt-2 md:mt-0 flex items-center gap-2 text-portfolio-highlight font-mono bg-portfolio-highlight/5 px-3 py-1 rounded-full border border-portfolio-highlight/10">
+                          <Calendar size={14} />
+                          {exp.period}
                         </div>
                       </div>
-                    </div>
 
-                    <div className="space-y-6 mt-4">
-                      {exp.roles.map((role, roleIndex) => (
-                        <div
-                          key={roleIndex}
-                          className={`${roleIndex > 0 ? "pt-4 border-t border-portfolio-slate/20" : ""}`}
-                        >
-                          <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-3">
-                            <div className="flex items-center gap-2 flex-wrap">
-                              <h4 className="text-lg md:text-xl font-semibold text-portfolio-white">
-                                {role.title}
-                              </h4>
-                              {exp.roles.length > 1 && roleIndex > 0 && (
-                                <Badge className="bg-green-500/20 text-green-400 border-green-500/30 hover:bg-green-500/30 flex items-center gap-1">
-                                  <TrendingUp size={12} />
-                                  Promoted
-                                </Badge>
-                              )}
+                      <div className="space-y-6">
+                        {exp.roles.map((roleItem, roleIndex) => {
+                          const isParallel = Array.isArray(roleItem);
+                          const roles = isParallel ? roleItem : [roleItem];
+
+                          return (
+                            <div
+                              key={roleIndex}
+                              className={
+                                isParallel
+                                  ? "grid grid-cols-1 md:grid-cols-2 gap-4"
+                                  : "bg-portfolio-lightNavy/20 rounded-xl p-0"
+                              }
+                            >
+                              {roles.map((role, rIndex) => (
+                                <div
+                                  key={rIndex}
+                                  className={`
+                                    ${isParallel
+                                      ? "bg-portfolio-lightNavy/30 border border-portfolio-slate/10 p-5 rounded-xl hover:border-portfolio-highlight/30 transition-all duration-300"
+                                      : "relative border-l-2 border-portfolio-highlight/20 pl-4 py-2"
+                                    }
+                                  `}
+                                >
+                                  <div className="mb-4">
+                                    <div className="flex items-center gap-2 flex-wrap mb-1">
+                                      <h4
+                                        className={`${isParallel ? "text-lg md:text-xl font-bold" : "text-xl md:text-2xl font-semibold"} text-portfolio-white`}
+                                      >
+                                        {role.title}
+                                      </h4>
+                                      {/* Logic for badges if needed, e.g. Promoted */}
+                                      {/* Simplified logic: if not parallel and index > 0, it's a promotion in a linear stack usually */}
+                                      {exp.roles.length > 1 && roleIndex > 0 && rIndex === 0 && (
+                                        <Badge variant="outline" className="border-green-500/50 text-green-400 bg-green-500/10 gap-1">
+                                          <TrendingUp size={12} /> Promoted
+                                        </Badge>
+                                      )}
+                                    </div>
+                                    <div className="flex items-center gap-2 text-sm text-portfolio-slate font-mono">
+                                      {role.period}
+                                      {calculateDuration(role.period) && (
+                                        <>
+                                          <span className="text-portfolio-slate/30">•</span>
+                                          <span>{calculateDuration(role.period)}</span>
+                                        </>
+                                      )}
+                                    </div>
+                                  </div>
+
+                                  <ul className="space-y-3">
+                                    {role.responsibilities.map(
+                                      (resp, respIndex) => (
+                                        <li
+                                          key={respIndex}
+                                          className="flex items-start text-portfolio-lightSlate/90 group/item"
+                                        >
+                                          <span className="mt-1.5 mr-3 flex-shrink-0 text-portfolio-highlight/70 group-hover/item:text-portfolio-highlight transition-colors">
+                                            <Zap size={14} className="fill-current" />
+                                          </span>
+                                          <span className="leading-relaxed">
+                                            {resp}
+                                          </span>
+                                        </li>
+                                      )
+                                    )}
+                                  </ul>
+                                </div>
+                              ))}
                             </div>
-                            <div className="flex items-center gap-3 mt-1 md:mt-0">
-                              <span className="text-portfolio-highlight font-mono text-sm">
-                                {role.period}
-                              </span>
-                              {calculateDuration(role.period) && (
-                                <span className="flex items-center gap-1 text-portfolio-slate text-sm">
-                                  <Clock size={14} />
-                                  {calculateDuration(role.period)}
-                                </span>
-                              )}
-                            </div>
+                          );
+                        })}
+                      </div>
+
+                      {/* Tech Stack Footer */}
+                      {exp.technologies && (
+                        <div className="mt-6 pt-6 border-t border-portfolio-slate/10 flex flex-wrap gap-2">
+                          <div className="flex items-center gap-2 mr-2 text-portfolio-slate text-sm">
+                            <Code size={16} />
+                            <span>Tech Stack:</span>
                           </div>
-                          <ul className="space-y-2 text-portfolio-lightSlate">
-                            {role.responsibilities.map((resp, respIndex) => (
-                              <li className="flex items-start" key={respIndex}>
-                                <span className="text-portfolio-highlight mr-2">
-                                  ▹
-                                </span>
-                                {resp}
-                              </li>
-                            ))}
-                          </ul>
+                          {exp.technologies.map((tech, tIndex) => (
+                            <span
+                              key={tIndex}
+                              className="px-2.5 py-1 text-xs rounded-md bg-portfolio-navy border border-portfolio-slate/20 text-portfolio-lightSlate hover:text-portfolio-highlight hover:border-portfolio-highlight/30 transition-colors cursor-default"
+                            >
+                              {tech}
+                            </span>
+                          ))}
                         </div>
-                      ))}
+                      )}
                     </div>
                   </div>
                 ))}
@@ -150,39 +228,31 @@ const Resume = () => {
 
             {/* Education */}
             <section>
-              <h2 className="section-title flex items-center gap-3">
-                <GraduationCap size={24} className="text-portfolio-highlight" />
-                Education
-              </h2>
+              <div className="flex items-center gap-3 mb-8">
+                <div className="p-3 bg-portfolio-highlight/10 rounded-xl">
+                  <GraduationCap size={28} className="text-portfolio-highlight" />
+                </div>
+                <h2 className="text-3xl font-bold text-portfolio-white">
+                  Education
+                </h2>
+              </div>
 
-              <div className="space-y-8">
-                {/* Education 1 */}
-                {/* <div className="card">
-                  <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-3">
-                    <h3 className="text-xl font-semibold text-portfolio-white">Master's Degree in Computer Science</h3>
-                    <span className="text-portfolio-highlight font-mono text-sm mt-1 md:mt-0">2017 - 2019</span>
-                  </div>
-                  <h4 className="text-portfolio-lightSlate mb-4">University Name</h4>
-                  <p className="text-portfolio-lightSlate">
-                    Specialized in Software Engineering with focus on web technologies and distributed systems.
-                    Graduated with honors.
-                  </p>
-                </div> */}
-
-                {/* Education 2 */}
-                <div className="card">
-                  <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-3">
-                    <h3 className="text-xl font-semibold text-portfolio-white">
-                      Bachelor's Degree in Computers & Systems Engineering
-                    </h3>
-                    <span className="text-portfolio-highlight font-mono text-sm mt-1 md:mt-0">
+              <div className="space-y-6">
+                <div className="bg-portfolio-lightNavy/30 backdrop-blur-sm border border-portfolio-slate/10 p-6 rounded-2xl hover:border-portfolio-highlight/30 transition-all duration-300">
+                  <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
+                    <div>
+                      <h3 className="text-xl font-bold text-portfolio-white mb-2">
+                        Bachelor's Degree in Computers & Systems Engineering
+                      </h3>
+                      <h4 className="text-lg text-portfolio-highlight mb-1">
+                        Mansoura University
+                      </h4>
+                    </div>
+                    <span className="md:text-right text-portfolio-slate font-mono bg-portfolio-navy/50 px-3 py-1 rounded-full border border-portfolio-slate/20 text-sm">
                       2014 - 2020
                     </span>
                   </div>
-                  <h4 className="text-portfolio-lightSlate mb-4">
-                    Mansoura University
-                  </h4>
-                  <p className="text-portfolio-lightSlate">
+                  <p className="text-portfolio-lightSlate leading-relaxed">
                     Algorithms, Data Structures, Programming Languages, Agile
                     Methodology, Waterfall Methodology, Software Development,
                     Work Ethics, Classic Control Systems, PLC, Embedded Systems,
@@ -194,35 +264,42 @@ const Resume = () => {
 
             {/* Certifications */}
             <section>
-              <h2 className="section-title flex items-center gap-3">
-                <Award size={24} className="text-portfolio-highlight" />
-                Certifications
-              </h2>
+              <div className="flex items-center gap-3 mb-8">
+                <div className="p-3 bg-portfolio-highlight/10 rounded-xl">
+                  <Award size={28} className="text-portfolio-highlight" />
+                </div>
+                <h2 className="text-3xl font-bold text-portfolio-white">
+                  Certifications
+                </h2>
+              </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {certifications.map((cert) => (
                   <Dialog key={cert.id}>
                     <DialogTrigger asChild>
-                      <div className="card cursor-pointer hover:border-portfolio-highlight/50 transition-all duration-300 group h-full">
-                        <div className="flex items-start gap-4">
-                          <div className="w-12 h-12 rounded-lg bg-white border border-portfolio-slate/30 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                      <div className="bg-portfolio-lightNavy/30 backdrop-blur-sm border border-portfolio-slate/10 p-6 rounded-2xl cursor-pointer hover:border-portfolio-highlight/50 hover:bg-portfolio-lightNavy/50 hover:-translate-y-1 transition-all duration-300 group h-full shadow-lg shadow-transparent hover:shadow-portfolio-highlight/5">
+                        <div className="flex items-start gap-4 h-full">
+                          <div className="w-14 h-14 rounded-xl bg-white flex items-center justify-center flex-shrink-0 overflow-hidden shadow-md p-2">
                             {cert.logo ? (
                               <img
                                 src={cert.logo}
                                 alt={`${cert.issuer} logo`}
-                                className="w-full h-full object-contain p-1"
+                                className="w-full h-full object-contain"
                               />
                             ) : (
-                              <Award size={24} className="text-portfolio-highlight" />
+                              <Award
+                                size={24}
+                                className="text-portfolio-highlight"
+                              />
                             )}
                           </div>
                           <div>
-                            <h3 className="text-lg font-semibold text-portfolio-white mb-1 group-hover:text-portfolio-highlight transition-colors">
+                            <h3 className="text-lg font-bold text-portfolio-white mb-2 group-hover:text-portfolio-highlight transition-colors line-clamp-2">
                               {cert.name}
                             </h3>
-                            <p className="text-portfolio-lightSlate text-sm">
-                              {cert.issuer} &middot;{" "}
-                              <span className="text-portfolio-highlight">
+                            <p className="text-portfolio-slate text-sm flex flex-col gap-1">
+                              <span className="font-semibold">{cert.issuer}</span>
+                              <span className="text-portfolio-highlight/80 font-mono text-xs">
                                 {cert.year}
                               </span>
                             </p>
@@ -230,23 +307,27 @@ const Resume = () => {
                         </div>
                       </div>
                     </DialogTrigger>
-                    <DialogContent className="max-w-3xl bg-portfolio-navy border-portfolio-slate/20">
-                      <DialogTitle className="text-portfolio-white text-xl font-bold">
-                        {cert.name}
-                      </DialogTitle>
-                      <div className="mt-4 relative aspect-video w-full overflow-hidden rounded-lg bg-portfolio-lightNavy border border-portfolio-slate/20">
-                        {cert.image ? (
-                          <img
-                            src={cert.image}
-                            alt={`${cert.name} Certificate`}
-                            className="w-full h-full object-contain"
-                          />
-                        ) : (
-                          <div className="flex flex-col items-center justify-center h-full text-portfolio-slate">
-                            <Award size={48} className="mb-4 opacity-50" />
-                            <p>Certificate image not available</p>
-                          </div>
-                        )}
+                    <DialogContent className="max-w-3xl bg-portfolio-navy border-portfolio-slate/20 p-0 overflow-hidden">
+                      <div className="p-6 border-b border-portfolio-slate/10">
+                        <DialogTitle className="text-portfolio-white text-2xl font-bold">
+                          {cert.name}
+                        </DialogTitle>
+                      </div>
+                      <div className="bg-portfolio-lightNavy/50 p-6 flex justify-center">
+                        <div className="relative w-full max-w-2xl rounded-lg overflow-hidden shadow-2xl border border-portfolio-slate/20">
+                          {cert.image ? (
+                            <img
+                              src={cert.image}
+                              alt={`${cert.name} Certificate`}
+                              className="w-full h-auto object-contain"
+                            />
+                          ) : (
+                            <div className="flex flex-col items-center justify-center h-64 text-portfolio-slate bg-portfolio-navy">
+                              <Award size={48} className="mb-4 opacity-50" />
+                              <p>Certificate image not available</p>
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </DialogContent>
                   </Dialog>
@@ -258,199 +339,146 @@ const Resume = () => {
           {/* Sidebar */}
           <div className="lg:col-span-1 space-y-8">
             {/* Contact Info */}
-            <div className="card">
-              <h3 className="text-xl font-semibold text-portfolio-white mb-4">
-                Contact Information
+            <div className="bg-portfolio-lightNavy/30 backdrop-blur-sm border border-portfolio-slate/10 p-6 rounded-2xl hover:border-portfolio-highlight/20 transition-all duration-300">
+              <h3 className="text-xl font-bold text-portfolio-white mb-6 flex items-center gap-2">
+                <span className="w-1 h-6 bg-portfolio-highlight rounded-full"></span>
+                Contact Info
               </h3>
-              <div className="space-y-3 text-portfolio-lightSlate">
-                <div className="flex items-center gap-3">
-                  <Mail size={18} className="text-portfolio-highlight" />
-                  <span>
-                    <span>
-                      <a
-                        href="mailto:ahmedalmoselhy.slm@gmail.com"
-                        className="hover:text-portfolio-highlight"
-                      >
-                        ahmedalmoselhy.slm@gmail.com
-                      </a>
-                    </span>
+              <div className="space-y-4 text-portfolio-lightSlate">
+                <a
+                  href="mailto:ahmedalmoselhy.slm@gmail.com"
+                  className="flex items-center gap-4 group p-3 rounded-lg hover:bg-portfolio-highlight/5 transition-colors"
+                >
+                  <div className="w-10 h-10 rounded-full bg-portfolio-navy flex items-center justify-center text-portfolio-highlight group-hover:scale-110 transition-transform">
+                    <Mail size={18} />
+                  </div>
+                  <span className="group-hover:text-portfolio-highlight transition-colors text-sm break-all">
+                    ahmedalmoselhy.slm@gmail.com
                   </span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Phone size={18} className="text-portfolio-highlight" />
-                  <span>
-                    <a
-                      href="tel:+201117001262"
-                      className="hover:text-portfolio-highlight"
-                    >
-                      +20 111 700 1262
-                    </a>
+                </a>
+                <a
+                  href="tel:+201117001262"
+                  className="flex items-center gap-4 group p-3 rounded-lg hover:bg-portfolio-highlight/5 transition-colors"
+                >
+                  <div className="w-10 h-10 rounded-full bg-portfolio-navy flex items-center justify-center text-portfolio-highlight group-hover:scale-110 transition-transform">
+                    <Phone size={18} />
+                  </div>
+                  <span className="group-hover:text-portfolio-highlight transition-colors text-sm">
+                    +20 111 700 1262
                   </span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Linkedin size={18} className="text-portfolio-highlight" />
-                  <a
-                    href="https://www.linkedin.com/in/ahmedmalmoselhy/"
-                    className="hover:text-portfolio-highlight"
-                  >
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/ahmedmalmoselhy/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 group p-3 rounded-lg hover:bg-portfolio-highlight/5 transition-colors"
+                >
+                  <div className="w-10 h-10 rounded-full bg-portfolio-navy flex items-center justify-center text-portfolio-highlight group-hover:scale-110 transition-transform">
+                    <Linkedin size={18} />
+                  </div>
+                  <span className="group-hover:text-portfolio-highlight transition-colors text-sm">
                     LinkedIn Profile
-                  </a>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Github size={18} className="text-portfolio-highlight" />
-                  <a
-                    href="https://github.com/ahmedmalmoselhy"
-                    className="hover:text-portfolio-highlight"
-                  >
+                  </span>
+                </a>
+                <a
+                  href="https://github.com/ahmedmalmoselhy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 group p-3 rounded-lg hover:bg-portfolio-highlight/5 transition-colors"
+                >
+                  <div className="w-10 h-10 rounded-full bg-portfolio-navy flex items-center justify-center text-portfolio-highlight group-hover:scale-110 transition-transform">
+                    <Github size={18} />
+                  </div>
+                  <span className="group-hover:text-portfolio-highlight transition-colors text-sm">
                     GitHub Profile
-                  </a>
-                </div>
+                  </span>
+                </a>
               </div>
             </div>
 
             {/* Skills Overview */}
-            <div className="card">
-              <h3 className="text-xl font-semibold text-portfolio-white mb-4">
+            <div className="bg-portfolio-lightNavy/30 backdrop-blur-sm border border-portfolio-slate/10 p-6 rounded-2xl hover:border-portfolio-highlight/20 transition-all duration-300">
+              <h3 className="text-xl font-bold text-portfolio-white mb-6 flex items-center gap-2">
+                <span className="w-1 h-6 bg-portfolio-highlight rounded-full"></span>
                 Skills Overview
               </h3>
 
-              <div className="space-y-4">
-                <div>
-                  {/* <h4 className="text-portfolio-white mb-2">Frontend</h4> */}
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">
-                      JavaScript
-                    </span>
-                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">
-                      Node JS
-                    </span>
-                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">
-                      Express JS
-                    </span>
-                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">
-                      Vue JS
-                    </span>
-                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">
-                      HTML/CSS
-                    </span>
-                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">
-                      Python
-                    </span>
-                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">
-                      PHP
-                    </span>
-                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">
-                      Laravel
-                    </span>
-                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">
-                      C#
-                    </span>
-                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">
-                      Oracle DB
-                    </span>
-                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">
-                      Maria DB
-                    </span>
-                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">
-                      MySQL
-                    </span>
-                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">
-                      PostgreSQL
-                    </span>
-                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">
-                      SQL
-                    </span>
-                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">
-                      Git
-                    </span>
-                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">
-                      Docker
-                    </span>
-                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">
-                      Ericsson Order Care [EOC]
-                    </span>
-                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">
-                      Ericsson Catalog Manager [ECM]
-                    </span>
-                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">
-                      Creatio
-                    </span>
-                    <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-highlight">
-                      Jira
-                    </span>
-                  </div>
-                </div>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  "JavaScript", "Node JS", "Express JS", "Vue JS", "HTML/CSS",
+                  "Python", "PHP", "Laravel", "C#", "Oracle DB", "Maria DB",
+                  "MySQL", "PostgreSQL", "SQL", "Git", "Docker",
+                  "Ericsson Order Care", "Ericsson Catalog Manager",
+                  "Creatio", "Jira"
+                ].map((skill, i) => (
+                  <span
+                    key={i}
+                    className="px-3 py-1.5 bg-portfolio-navy/60 hover:bg-portfolio-navy rounded-lg text-xs font-mono border border-portfolio-highlight/10 hover:border-portfolio-highlight/40 text-portfolio-highlight transition-all cursor-default"
+                  >
+                    {skill}
+                  </span>
+                ))}
               </div>
             </div>
 
             {/* Languages */}
-            <div className="card">
-              <h3 className="text-xl font-semibold text-portfolio-white mb-4">
+            <div className="bg-portfolio-lightNavy/30 backdrop-blur-sm border border-portfolio-slate/10 p-6 rounded-2xl hover:border-portfolio-highlight/20 transition-all duration-300">
+              <h3 className="text-xl font-bold text-portfolio-white mb-6 flex items-center gap-2">
+                <span className="w-1 h-6 bg-portfolio-highlight rounded-full"></span>
                 Languages
               </h3>
-              <ul className="space-y-2 text-portfolio-lightSlate">
-                <li className="flex justify-between">
-                  <span>English</span>
-                  <span className="text-portfolio-highlight">Professional</span>
+              <ul className="space-y-4">
+                <li className="flex justify-between items-center group">
+                  <span className="text-portfolio-lightSlate group-hover:text-portfolio-white transition-colors">English</span>
+                  <Badge variant="outline" className="text-portfolio-highlight border-portfolio-highlight/30 bg-portfolio-highlight/5">Professional</Badge>
                 </li>
-                <li className="flex justify-between">
-                  <span>Arabic</span>
-                  <span className="text-portfolio-highlight">Native</span>
+                <li className="flex justify-between items-center group">
+                  <span className="text-portfolio-lightSlate group-hover:text-portfolio-white transition-colors">Arabic</span>
+                  <Badge variant="outline" className="text-portfolio-highlight border-portfolio-highlight/30 bg-portfolio-highlight/5">Native</Badge>
                 </li>
               </ul>
             </div>
 
             {/* Personal Details */}
-            <div className="card">
-              <h3 className="text-xl font-semibold text-portfolio-white mb-4">
+            <div className="bg-portfolio-lightNavy/30 backdrop-blur-sm border border-portfolio-slate/10 p-6 rounded-2xl hover:border-portfolio-highlight/20 transition-all duration-300">
+              <h3 className="text-xl font-bold text-portfolio-white mb-6 flex items-center gap-2">
+                <span className="w-1 h-6 bg-portfolio-highlight rounded-full"></span>
                 Personal Details
               </h3>
-              <ul className="space-y-2 text-portfolio-lightSlate">
-                <li>
-                  Date of Birth:{" "}
-                  <span className="text-portfolio-highlight">1996</span>
+              <ul className="space-y-4 text-portfolio-lightSlate text-sm">
+                <li className="flex justify-between border-b border-portfolio-slate/10 pb-2">
+                  <span>Date of Birth</span>
+                  <span className="text-portfolio-white font-mono">1996</span>
                 </li>
-                <li>
-                  Military Service:{" "}
-                  <span className="text-portfolio-highlight">Completed</span>
+                <li className="flex justify-between border-b border-portfolio-slate/10 pb-2">
+                  <span>Military Service</span>
+                  <span className="text-portfolio-white font-mono">Completed</span>
                 </li>
-                <li>
-                  Marital Status:{" "}
-                  <span className="text-portfolio-highlight">Married</span>
+                <li className="flex justify-between">
+                  <span>Marital Status</span>
+                  <span className="text-portfolio-white font-mono">Married</span>
                 </li>
               </ul>
             </div>
 
             {/* Interests */}
-            <div className="card">
-              <h3 className="text-xl font-semibold text-portfolio-white mb-4">
+            <div className="bg-portfolio-lightNavy/30 backdrop-blur-sm border border-portfolio-slate/10 p-6 rounded-2xl hover:border-portfolio-highlight/20 transition-all duration-300">
+              <h3 className="text-xl font-bold text-portfolio-white mb-6 flex items-center gap-2">
+                <span className="w-1 h-6 bg-portfolio-highlight rounded-full"></span>
                 Interests
               </h3>
               <div className="flex flex-wrap gap-2">
-                <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-slate">
-                  Open Source
-                </span>
-                <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-slate">
-                  Web Development
-                </span>
-                <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-slate">
-                  Database Design
-                </span>
-                <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-slate">
-                  CRM Development
-                </span>
-                <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-slate">
-                  Photography
-                </span>
-                <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-slate">
-                  Reading
-                </span>
-                <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-slate">
-                  Traveling
-                </span>
-                <span className="px-2 py-1 bg-portfolio-navy rounded text-sm border border-portfolio-highlight/30 text-portfolio-slate">
-                  Gaming
-                </span>
+                {[
+                  "Open Source", "Web Development", "Database Design", "CRM Development",
+                  "Photography", "Reading", "Traveling", "Gaming"
+                ].map((interest, i) => (
+                  <span
+                    key={i}
+                    className="px-3 py-1 bg-portfolio-navy/40 rounded-full text-xs border border-portfolio-slate/10 text-portfolio-slate hover:text-portfolio-highlight hover:border-portfolio-highlight/30 transition-colors cursor-default"
+                  >
+                    {interest}
+                  </span>
+                ))}
               </div>
             </div>
           </div>
