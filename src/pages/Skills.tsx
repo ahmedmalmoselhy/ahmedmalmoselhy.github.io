@@ -1,15 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Layout from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
-
-// Color map for skill categories
-const colorMap: Record<string, string> = {
-  "portfolio-highlight": "#569CD6",
-  "portfolio-blue": "#569CD6",
-  "portfolio-teal": "#4EC9B0",
-  "portfolio-slate": "#858585",
-  "portfolio-lightSlate": "#9D9D9D",
-};
+import SkillRadarChart from "@/components/SkillRadarChart";
+import TechStackIcons from "@/components/TechStackIcons";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // Skill categories with their respective skills
 const skillCategories = [
@@ -29,10 +23,10 @@ const skillCategories = [
     name: "Frameworks",
     skills: [
       { name: "Laravel", level: 85 },
-      { name: "Vue", level: 75 },
+      { name: "Vue.js", level: 75 },
       { name: "Node.js", level: 75 },
-      { name: "Express", level: 70 },
-      { name: "REST APIs", level: 95 },
+      { name: "Express.js", level: 70 },
+      { name: "RESTful APIs", level: 95 },
     ],
     color: "portfolio-blue",
   },
@@ -90,7 +84,18 @@ const softSkills = [
   { name: "Accountability", icon: "📊" },
 ];
 
+// Color map for skill categories
+const colorMap: Record<string, string> = {
+  "portfolio-highlight": "#569CD6",
+  "portfolio-blue": "#569CD6",
+  "portfolio-teal": "#4EC9B0",
+  "portfolio-slate": "#858585",
+  "portfolio-lightSlate": "#9D9D9D",
+};
+
 const Skills = () => {
+  const [viewMode, setViewMode] = useState<"icons" | "radar">("icons");
+
   return (
     <Layout className="pt-28">
       <section className="container mx-auto px-4 py-8 md:py-16 relative">
@@ -106,6 +111,26 @@ const Skills = () => {
           </p>
         </div>
 
+        {/* View Mode Toggle */}
+        <div className="flex justify-center mb-12">
+          <Tabs value={viewMode} onValueChange={(v) => setViewMode(v as "icons" | "radar")} className="w-auto">
+            <TabsList className="bg-portfolio-lightNavy/50 border border-portfolio-slate/20">
+              <TabsTrigger 
+                value="icons" 
+                className="data-[state=active]:bg-portfolio-highlight data-[state=active]:text-portfolio-navy"
+              >
+                Tech Stack Icons
+              </TabsTrigger>
+              <TabsTrigger 
+                value="radar"
+                className="data-[state=active]:bg-portfolio-highlight data-[state=active]:text-portfolio-navy"
+              >
+                Skill Radar
+              </TabsTrigger>
+            </TabsList>
+          </Tabs>
+        </div>
+
         {/* Technical Skills */}
         <section className="mb-20">
           <div className="flex items-center gap-3 mb-8">
@@ -113,43 +138,35 @@ const Skills = () => {
             <h2 className="text-3xl font-bold text-portfolio-white">Core Competencies</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {skillCategories.map((category, idx) => (
-              <Card
-                key={idx}
-                className="bg-portfolio-lightNavy/30 backdrop-blur-sm border-portfolio-slate/10 hover:border-portfolio-highlight/30 transition-all duration-300 shadow-lg shadow-transparent hover:shadow-portfolio-highlight/5 group"
-              >
-                <CardContent className="p-6 md:p-8">
-                  <h3 className="text-xl font-bold mb-6 text-portfolio-white group-hover:text-portfolio-highlight transition-colors flex items-center gap-2">
-                    {category.name}
-                  </h3>
-                  <div className="space-y-5">
-                    {category.skills.map((skill, skillIdx) => (
-                      <div key={skillIdx} className="space-y-2">
-                        <div className="flex justify-between text-sm font-medium">
-                          <span className="text-portfolio-lightSlate group-hover:text-portfolio-slate transition-colors">
-                            {skill.name}
-                          </span>
-                          <span style={{ color: colorMap[category.color] }} className="font-mono text-xs opacity-80">
-                            {skill.level}%
-                          </span>
-                        </div>
-                        <div className="w-full bg-portfolio-navy/60 rounded-full h-1.5 overflow-hidden">
-                          <div
-                            className="h-full rounded-full transition-all duration-1000 ease-out group-hover:opacity-100 opacity-80"
-                            style={{
-                              width: `${skill.level}%`,
-                              backgroundColor: colorMap[category.color],
-                            }}
-                          ></div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          {viewMode === "icons" ? (
+            <div className="space-y-12">
+              {skillCategories.map((category, idx) => (
+                <Card
+                  key={idx}
+                  className="bg-portfolio-lightNavy/30 backdrop-blur-sm border-portfolio-slate/10 hover:border-portfolio-highlight/30 transition-all duration-300 shadow-lg overflow-hidden"
+                >
+                  <CardContent className="p-6 md:p-8">
+                    <h3 
+                      className="text-xl font-bold mb-6 text-center"
+                      style={{ color: colorMap[category.color] }}
+                    >
+                      {category.name}
+                    </h3>
+                    <TechStackIcons 
+                      skills={category.skills} 
+                      categoryColor={category.color} 
+                    />
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <Card className="bg-portfolio-lightNavy/30 backdrop-blur-sm border-portfolio-slate/10 shadow-lg">
+              <CardContent className="p-6 md:p-8">
+                <SkillRadarChart categories={skillCategories} />
+              </CardContent>
+            </Card>
+          )}
         </section>
 
         {/* Soft Skills */}
