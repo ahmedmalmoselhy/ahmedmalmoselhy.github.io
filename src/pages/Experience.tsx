@@ -88,57 +88,61 @@ const Experience = () => {
 
                       {/* Roles */}
                       <div className="space-y-6">
-                        {exp.roles.map((role, roleIdx) => (
-                          <div
-                            key={roleIdx}
-                            className={`${roleIdx > 0 ? "pt-6 border-t border-portfolio-slate/20" : ""}`}
-                          >
-                            <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-3">
-                              <div className="flex items-center gap-2 flex-wrap">
-                                <h3 className="text-lg md:text-xl font-semibold text-portfolio-white">
-                                  {role.title}
-                                </h3>
-                                {exp.roles.length > 1 && roleIdx > 0 && (
-                                  <Badge className="bg-green-500/20 text-green-400 border-green-500/30 hover:bg-green-500/30 flex items-center gap-1">
-                                    <TrendingUp size={12} />
-                                    Promoted
-                                  </Badge>
-                                )}
-                              </div>
-                              <div className="flex items-center gap-3 text-portfolio-slate mt-1 md:mt-0">
-                                <div className="flex items-center gap-1">
-                                  <Calendar size={14} />
-                                  <span className="text-sm">{role.period}</span>
+                        {exp.roles.map((role, roleIdx) => {
+                          // Handle both single Role and Role[] cases
+                          const roles = Array.isArray(role) ? role : [role];
+                          return roles.map((singleRole, singleRoleIdx) => (
+                            <div
+                              key={`${roleIdx}-${singleRoleIdx}`}
+                              className={`${roleIdx > 0 || singleRoleIdx > 0 ? "pt-6 border-t border-portfolio-slate/20" : ""}`}
+                            >
+                              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-3">
+                                <div className="flex items-center gap-2 flex-wrap">
+                                  <h3 className="text-lg md:text-xl font-semibold text-portfolio-white">
+                                    {singleRole.title}
+                                  </h3>
+                                  {(exp.roles.length > 1 || roles.length > 1) && (roleIdx > 0 || singleRoleIdx > 0) && (
+                                    <Badge className="bg-green-500/20 text-green-400 border-green-500/30 hover:bg-green-500/30 flex items-center gap-1">
+                                      <TrendingUp size={12} />
+                                      Promoted
+                                    </Badge>
+                                  )}
                                 </div>
-                                {calculateDuration(role.period) && (
-                                  <div className="flex items-center gap-1 text-portfolio-highlight/70">
-                                    <Clock size={14} />
-                                    <span className="text-sm">{calculateDuration(role.period)}</span>
+                                <div className="flex items-center gap-3 text-portfolio-slate mt-1 md:mt-0">
+                                  <div className="flex items-center gap-1">
+                                    <Calendar size={14} />
+                                    <span className="text-sm">{singleRole.period}</span>
                                   </div>
-                                )}
+                                  {calculateDuration(singleRole.period) && (
+                                    <div className="flex items-center gap-1 text-portfolio-highlight/70">
+                                      <Clock size={14} />
+                                      <span className="text-sm">{calculateDuration(singleRole.period)}</span>
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+
+                              <div>
+                                <h4 className="text-portfolio-lightSlate font-semibold mb-3 text-sm">
+                                  Key Responsibilities:
+                                </h4>
+                                <ul className="space-y-2">
+                                  {singleRole.responsibilities.map((resp, respIdx) => (
+                                    <li
+                                      key={respIdx}
+                                      className="text-portfolio-slate flex items-start gap-2"
+                                    >
+                                      <span className="text-portfolio-highlight mt-1.5">
+                                        ▹
+                                      </span>
+                                      <span>{resp}</span>
+                                    </li>
+                                  ))}
+                                </ul>
                               </div>
                             </div>
-
-                            <div>
-                              <h4 className="text-portfolio-lightSlate font-semibold mb-3 text-sm">
-                                Key Responsibilities:
-                              </h4>
-                              <ul className="space-y-2">
-                                {role.responsibilities.map((resp, respIdx) => (
-                                  <li
-                                    key={respIdx}
-                                    className="text-portfolio-slate flex items-start gap-2"
-                                  >
-                                    <span className="text-portfolio-highlight mt-1.5">
-                                      ▹
-                                    </span>
-                                    <span>{resp}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          </div>
-                        ))}
+                          ));
+                        })}
                       </div>
 
                       {exp.technologies && (
