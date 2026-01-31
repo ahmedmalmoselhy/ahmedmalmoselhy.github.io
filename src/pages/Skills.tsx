@@ -1,20 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import Layout from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import SkillRadarChart from "@/components/SkillRadarChart";
 import TechStackIcons from "@/components/TechStackIcons";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 // Skill categories with their respective skills
 const skillCategories = [
   {
-    name: "Languages",
+    name: "Programming Languages",
     skills: [
       { name: "JavaScript", level: 95 },
-      { name: "PHP", level: 80 },
+      { name: "PHP", level: 85 },
       { name: "Java", level: 70 },
-      { name: "Python", level: 65 },
-      { name: "HTML/CSS", level: 88 },
+      { name: "Python", level: 70 },
+      { name: "HTML/CSS", level: 90 },
       { name: "C#", level: 60 },
     ],
     color: "portfolio-highlight",
@@ -22,21 +21,21 @@ const skillCategories = [
   {
     name: "Frameworks",
     skills: [
-      { name: "Laravel", level: 85 },
-      { name: "Vue.js", level: 75 },
-      { name: "Node.js", level: 75 },
-      { name: "Express.js", level: 70 },
-      { name: "RESTful APIs", level: 95 },
+      { name: "Laravel", level: 90 },
+      { name: "Vue.js", level: 60 },
+      { name: "Node.js", level: 70 },
+      { name: "Express.js", level: 50 },
+      { name: "React.js", level: 40 }
     ],
     color: "portfolio-blue",
   },
   {
     name: "Database",
     skills: [
-      { name: "PostgreSQL", level: 80 },
-      { name: "MySQL", level: 85 },
-      { name: "OracleDB", level: 75 },
-      { name: "MariaDB", level: 70 },
+      { name: "PostgreSQL", level: 90 },
+      { name: "MySQL", level: 90 },
+      { name: "OracleDB", level: 85 },
+      { name: "MariaDB", level: 90 },
     ],
     color: "portfolio-teal",
   },
@@ -47,28 +46,17 @@ const skillCategories = [
       { name: "GitHub", level: 95 },
       { name: "VSCode", level: 90 },
       { name: "Docker", level: 75 },
-      { name: "Agile", level: 90 },
     ],
-    color: "portfolio-blue",
+    color: "portfolio-lightSlate",
   },
   {
     name: "CRM Systems",
     skills: [
-      { name: "EOC", level: 70 },
-      { name: "ECM", level: 40 },
+      { name: "Ericsson Order Care [EOC]", level: 70 },
+      { name: "Ericsson Catalog Manager [ECM]", level: 40 },
       { name: "Creatio", level: 50 },
     ],
-    color: "portfolio-teal",
-  },
-  {
-    name: "Other Tools",
-    skills: [
-      { name: "Jira", level: 85 },
-      { name: "Confluence", level: 80 },
-      { name: "Salesforce", level: 70 },
-      { name: "HubSpot", level: 65 },
-    ],
-    color: "portfolio-blue",
+    color: "portfolio-slate",
   },
 ];
 
@@ -94,8 +82,6 @@ const colorMap: Record<string, string> = {
 };
 
 const Skills = () => {
-  const [viewMode, setViewMode] = useState<"icons" | "radar">("icons");
-
   return (
     <Layout className="pt-28">
       <section className="container mx-auto px-4 py-8 md:py-16 relative">
@@ -111,62 +97,47 @@ const Skills = () => {
           </p>
         </div>
 
-        {/* View Mode Toggle */}
-        <div className="flex justify-center mb-12">
-          <Tabs value={viewMode} onValueChange={(v) => setViewMode(v as "icons" | "radar")} className="w-auto">
-            <TabsList className="bg-portfolio-lightNavy/50 border border-portfolio-slate/20">
-              <TabsTrigger 
-                value="icons" 
-                className="data-[state=active]:bg-portfolio-highlight data-[state=active]:text-portfolio-navy"
-              >
-                Tech Stack Icons
-              </TabsTrigger>
-              <TabsTrigger 
-                value="radar"
-                className="data-[state=active]:bg-portfolio-highlight data-[state=active]:text-portfolio-navy"
-              >
-                Skill Radar
-              </TabsTrigger>
-            </TabsList>
-          </Tabs>
-        </div>
+        {/* Skill Radar Chart Section */}
+        <section className="mb-20 animate-slide-up">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-1 h-8 bg-portfolio-highlight rounded-full"></div>
+            <h2 className="text-3xl font-bold text-portfolio-white">Skill Analysis</h2>
+          </div>
+          <Card className="bg-portfolio-lightNavy/30 backdrop-blur-sm border-portfolio-slate/10 shadow-lg">
+            <CardContent className="p-6 md:p-8">
+              <SkillRadarChart categories={skillCategories} />
+            </CardContent>
+          </Card>
+        </section>
 
-        {/* Technical Skills */}
+        {/* Technical Skills Grid Section */}
         <section className="mb-20">
           <div className="flex items-center gap-3 mb-8">
             <div className="w-1 h-8 bg-portfolio-highlight rounded-full"></div>
             <h2 className="text-3xl font-bold text-portfolio-white">Core Competencies</h2>
           </div>
 
-          {viewMode === "icons" ? (
-            <div className="space-y-12">
-              {skillCategories.map((category, idx) => (
-                <Card
-                  key={idx}
-                  className="bg-portfolio-lightNavy/30 backdrop-blur-sm border-portfolio-slate/10 hover:border-portfolio-highlight/30 transition-all duration-300 shadow-lg overflow-hidden"
-                >
-                  <CardContent className="p-6 md:p-8">
-                    <h3 
-                      className="text-xl font-bold mb-6 text-center"
-                      style={{ color: colorMap[category.color] }}
-                    >
-                      {category.name}
-                    </h3>
-                    <TechStackIcons 
-                      skills={category.skills} 
-                      categoryColor={category.color} 
-                    />
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          ) : (
-            <Card className="bg-portfolio-lightNavy/30 backdrop-blur-sm border-portfolio-slate/10 shadow-lg">
-              <CardContent className="p-6 md:p-8">
-                <SkillRadarChart categories={skillCategories} />
-              </CardContent>
-            </Card>
-          )}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {skillCategories.map((category, idx) => (
+              <Card
+                key={idx}
+                className="bg-portfolio-lightNavy/20 backdrop-blur-sm border-portfolio-slate/10 hover:border-portfolio-highlight/30 transition-all duration-300 shadow-lg group hover:-translate-y-1 hover:z-[100] relative"
+              >
+                <CardContent className="p-6">
+                  <h3
+                    className="text-xl font-bold mb-6 text-center group-hover:bg-clip-text group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-portfolio-white group-hover:to-portfolio-slate transition-all duration-300"
+                    style={{ color: colorMap[category.color] }}
+                  >
+                    {category.name}
+                  </h3>
+                  <TechStackIcons
+                    skills={category.skills}
+                    categoryColor={category.color}
+                  />
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </section>
 
         {/* Soft Skills */}
