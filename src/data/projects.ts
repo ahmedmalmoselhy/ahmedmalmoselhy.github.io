@@ -117,7 +117,7 @@ export const projectsData: Project[] = [
     githubUrl: "https://github.com/ahmedmalmoselhy/UniOne",
     liveUrl: "",
     demo: true,
-    status: "new",
+    status: "in-progress",
     date: "2024-05-01",
   },
 ];
