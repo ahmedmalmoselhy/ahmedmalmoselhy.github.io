@@ -8,6 +8,17 @@ interface ContributionDay {
   level: 0 | 1 | 2 | 3 | 4;
 }
 
+interface ApiContributionDay {
+  date: string;
+  count: number;
+  level?: 0 | 1 | 2 | 3 | 4;
+}
+
+function parseDateAsLocal(dateStr: string): Date {
+  const [year, month, day] = dateStr.split("-").map(Number);
+  return new Date(year, month - 1, day);
+}
+
 function getLevel(count: number, max: number): 0 | 1 | 2 | 3 | 4 {
   if (count === 0) return 0;
   const ratio = count / Math.max(max, 1);
@@ -32,10 +43,18 @@ const GitHubGraph: React.FC = () => {
         if (!res.ok) throw new Error("Failed to fetch");
         const data = await res.json();
 
-        const allDays: { date: string; count: number }[] = [];
-        if (data.contributions) {
-          for (const [date, count] of Object.entries(data.contributions)) {
-            allDays.push({ date, count: count as number });
+        const allDays: ApiContributionDay[] = [];
+        if (Array.isArray(data.contributions)) {
+          for (const item of data.contributions as ApiContributionDay[]) {
+            if (typeof item?.date === "string" && typeof item?.count === "number") {
+              allDays.push({ date: item.date, count: item.count, level: item.level });
+            }
+          }
+        } else if (data.contributions && typeof data.contributions === "object") {
+          for (const [date, count] of Object.entries(data.contributions as Record<string, unknown>)) {
+            if (typeof count === "number") {
+              allDays.push({ date, count });
+            }
           }
         }
 
@@ -45,7 +64,7 @@ const GitHubGraph: React.FC = () => {
         const mapped: ContributionDay[] = allDays.map((d) => ({
           date: d.date,
           count: d.count,
-          level: getLevel(d.count, maxCount),
+          level: d.level ?? getLevel(d.count, maxCount),
         }));
 
         setContributions(mapped);
@@ -64,7 +83,7 @@ const GitHubGraph: React.FC = () => {
   const weeks: ContributionDay[][] = [];
   let currentWeek: ContributionDay[] = [];
   contributions.forEach((day) => {
-    const dayOfWeek = new Date(day.date).getDay();
+    const dayOfWeek = parseDateAsLocal(day.date).getDay();
     if (dayOfWeek === 0 && currentWeek.length > 0) {
       weeks.push(currentWeek);
       currentWeek = [];
@@ -77,7 +96,7 @@ const GitHubGraph: React.FC = () => {
   const monthLabels: { label: string; col: number }[] = [];
   let lastMonth = -1;
   weeks.forEach((week, weekIdx) => {
-    const month = new Date(week[0].date).getMonth();
+    const month = parseDateAsLocal(week[0].date).getMonth();
     if (month !== lastMonth) {
       monthLabels.push({ label: months[month], col: weekIdx });
       lastMonth = month;
@@ -161,7 +180,7 @@ const GitHubGraph: React.FC = () => {
             >
               {weeks.flatMap((week, wi) =>
                 Array.from({ length: 7 }).map((_, di) => {
-                  const day = week.find((d) => new Date(d.date).getDay() === di);
+                  const day = week.find((d) => parseDateAsLocal(d.date).getDay() === di);
                   if (!day) return <div key={`${wi}-${di}`} />;
                   return (
                     <div
