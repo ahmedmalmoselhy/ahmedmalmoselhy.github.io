@@ -123,6 +123,10 @@ const Projects: React.FC<ProjectsProps> = ({ onSectionChange }) => {
             </Card>
           ))}
         </div>
+
+        <div className="mt-12">
+          <GitHubGraph />
+        </div>
       </section>
     </Layout>
   );
