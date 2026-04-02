@@ -8,45 +8,56 @@ interface ContributionDay {
   level: 0 | 1 | 2 | 3 | 4;
 }
 
+function getLevel(count: number, max: number): 0 | 1 | 2 | 3 | 4 {
+  if (count === 0) return 0;
+  const ratio = count / Math.max(max, 1);
+  if (ratio <= 0.25) return 1;
+  if (ratio <= 0.5) return 2;
+  if (ratio <= 0.75) return 3;
+  return 4;
+}
+
 const GitHubGraph: React.FC = () => {
   const [contributions, setContributions] = useState<ContributionDay[]>([]);
   const [totalContributions, setTotalContributions] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-    const days: ContributionDay[] = [];
-    const today = new Date();
-    const startDate = new Date(today);
-    startDate.setDate(startDate.getDate() - 364);
-    startDate.setDate(startDate.getDate() - startDate.getDay());
+    const fetchContributions = async () => {
+      try {
+        const res = await fetch(
+          `https://github-contributions-api.jogruber.de/v4/${GITHUB_USERNAME}?y=last`
+        );
+        if (!res.ok) throw new Error("Failed to fetch");
+        const data = await res.json();
 
-    let total = 0;
-    for (let i = 0; i < 371; i++) {
-      const date = new Date(startDate);
-      date.setDate(date.getDate() + i);
-      if (date > today) break;
+        const allDays: { date: string; count: number }[] = [];
+        if (data.contributions) {
+          for (const [date, count] of Object.entries(data.contributions)) {
+            allDays.push({ date, count: count as number });
+          }
+        }
 
-      const dayOfWeek = date.getDay();
-      const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
-      const rand = Math.random();
-      let count = 0;
-      let level: 0 | 1 | 2 | 3 | 4 = 0;
+        allDays.sort((a, b) => a.date.localeCompare(b.date));
 
-      if (isWeekend) {
-        if (rand > 0.6) { count = Math.floor(Math.random() * 3) + 1; level = 1; }
-        if (rand > 0.85) { count = Math.floor(Math.random() * 5) + 3; level = 2; }
-      } else {
-        if (rand > 0.3) { count = Math.floor(Math.random() * 3) + 1; level = 1; }
-        if (rand > 0.5) { count = Math.floor(Math.random() * 5) + 3; level = 2; }
-        if (rand > 0.75) { count = Math.floor(Math.random() * 8) + 5; level = 3; }
-        if (rand > 0.9) { count = Math.floor(Math.random() * 12) + 8; level = 4; }
+        const maxCount = Math.max(...allDays.map((d) => d.count), 1);
+        const mapped: ContributionDay[] = allDays.map((d) => ({
+          date: d.date,
+          count: d.count,
+          level: getLevel(d.count, maxCount),
+        }));
+
+        setContributions(mapped);
+        setTotalContributions(data.total?.lastYear ?? allDays.reduce((s, d) => s + d.count, 0));
+      } catch {
+        setError(true);
+      } finally {
+        setLoading(false);
       }
+    };
 
-      total += count;
-      days.push({ date: date.toISOString().split("T")[0], count, level });
-    }
-
-    setContributions(days);
-    setTotalContributions(total);
+    fetchContributions();
   }, []);
 
   // Group by weeks
@@ -81,7 +92,6 @@ const GitHubGraph: React.FC = () => {
     "bg-portfolio-highlight dark:bg-portfolio-highlight",
   ];
 
-  // Use CSS grid approach that scales to fit container
   const totalWeeks = weeks.length;
 
   return (
@@ -105,47 +115,41 @@ const GitHubGraph: React.FC = () => {
             </a>
           </div>
         </div>
-        <span className="text-portfolio-lightSlate text-xs font-mono">
-          {totalContributions.toLocaleString()} contributions in the last year
-        </span>
+        {!loading && !error && (
+          <span className="text-portfolio-lightSlate text-xs font-mono">
+            {totalContributions.toLocaleString()} contributions in the last year
+          </span>
+        )}
       </div>
 
-      {contributions.length === 0 ? (
+      {loading ? (
         <div className="h-24 flex items-center justify-center text-portfolio-slate text-sm">
-          Loading...
+          Loading contributions...
+        </div>
+      ) : error ? (
+        <div className="h-24 flex items-center justify-center text-portfolio-slate text-sm">
+          Unable to load contribution data.
         </div>
       ) : (
         <div className="w-full">
-          {/* Month labels row */}
+          {/* Month labels */}
           <div
             className="grid mb-1 text-[10px] text-portfolio-slate font-mono pl-6"
-            style={{
-              gridTemplateColumns: `repeat(${totalWeeks}, 1fr)`,
-            }}
+            style={{ gridTemplateColumns: `repeat(${totalWeeks}, 1fr)` }}
           >
             {Array.from({ length: totalWeeks }).map((_, i) => {
               const ml = monthLabels.find((m) => m.col === i);
-              return (
-                <span key={i} className="truncate">
-                  {ml ? ml.label : ""}
-                </span>
-              );
+              return <span key={i} className="truncate">{ml ? ml.label : ""}</span>;
             })}
           </div>
 
           <div className="flex gap-0 w-full">
             {/* Day labels */}
             <div className="flex flex-col justify-between w-6 shrink-0 text-[10px] text-portfolio-slate font-mono pr-1">
-              <span></span>
-              <span>Mon</span>
-              <span></span>
-              <span>Wed</span>
-              <span></span>
-              <span>Fri</span>
-              <span></span>
+              <span></span><span>Mon</span><span></span><span>Wed</span><span></span><span>Fri</span><span></span>
             </div>
 
-            {/* Contribution grid - uses CSS grid to auto-fit */}
+            {/* Grid */}
             <div
               className="grid gap-[2px] w-full"
               style={{
@@ -158,14 +162,12 @@ const GitHubGraph: React.FC = () => {
               {weeks.flatMap((week, wi) =>
                 Array.from({ length: 7 }).map((_, di) => {
                   const day = week.find((d) => new Date(d.date).getDay() === di);
-                  if (!day) {
-                    return <div key={`${wi}-${di}`} />;
-                  }
+                  if (!day) return <div key={`${wi}-${di}`} />;
                   return (
                     <div
                       key={`${wi}-${di}`}
                       className={`rounded-[2px] ${levelClasses[day.level]} transition-colors hover:ring-1 hover:ring-portfolio-highlight/50`}
-                      title={`${day.count} contributions on ${day.date}`}
+                      title={`${day.count} contribution${day.count !== 1 ? "s" : ""} on ${day.date}`}
                     />
                   );
                 })
