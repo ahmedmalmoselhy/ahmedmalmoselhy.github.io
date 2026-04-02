@@ -60,30 +60,34 @@ src/
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js 16+ 
+
+- Node.js 16+
 - npm or bun package manager
 
 ### Installation
 
 1. Clone the repository:
-```bash
-git clone https://github.com/ahmedmalmoselhy/ahmedmalmoselhy.github.io.git
-cd ahmedmalmoselhy.github.io
-```
+
+    ```bash
+    git clone https://github.com/ahmedmalmoselhy/ahmedmalmoselhy.github.io.git
+    cd ahmedmalmoselhy.github.io
+    ```
 
 2. Install dependencies:
-```bash
-npm install
-# or
-bun install
-```
+
+    ```bash
+    npm install
+    # or
+    bun install
+    ```
 
 3. Start the development server:
-```bash
-npm run dev
-# or
-bun run dev
-```
+
+    ```bash
+    npm run dev
+    # or
+    bun run dev
+    ```
 
 The app will be available at `http://localhost:5173/`
 
@@ -99,21 +103,27 @@ The app will be available at `http://localhost:5173/`
 ## 🌐 Key Components
 
 ### GitHub Graph
+
 Interactive contribution graph that displays real-time data from GitHub API with:
+
 - Daily contribution heatmap
 - Month and day labels
 - Contribution count legend
 - Hover tooltips with detailed information
 
 ### Skills Radar Chart
+
 Visual representation of technical proficiency across multiple domains:
+
 - Full-stack development
 - Frontend technologies
 - Backend frameworks
 - Databases and tools
 
 ### Project Cards
+
 Detailed project showcases featuring:
+
 - Project images and descriptions
 - Technology stack badges
 - Status indicators (completed, in-progress, etc.)
@@ -122,6 +132,7 @@ Detailed project showcases featuring:
 ## 🎨 Customization
 
 The portfolio uses a custom Tailwind CSS theme defined in `tailwind.config.ts` with portfolio-specific colors:
+
 - `portfolio-highlight`: Primary accent color
 - `portfolio-navy`: Dark background
 - `portfolio-slate`: Text and borders
@@ -137,6 +148,7 @@ The portfolio uses a custom Tailwind CSS theme defined in `tailwind.config.ts` w
 ## 🔄 GitHub Integration
 
 The portfolio fetches real-time GitHub contribution data using the [GitHub Contributions API](https://github-contributions-api.jogruber.de/). The contribution graph automatically updates and displays:
+
 - Last year's contributions
 - Daily activity heatmap
 - Contribution intensity levels
@@ -144,9 +156,10 @@ The portfolio fetches real-time GitHub contribution data using the [GitHub Contr
 ## 📧 Contact
 
 For inquiries or collaboration opportunities, visit the Contact section on the portfolio or reach out via:
-- Email: [Contact form on portfolio]
+
+- Email: <ahmedalmoselhy.slm@gmail.com>
 - GitHub: [@ahmedmalmoselhy](https://github.com/ahmedmalmoselhy)
-- LinkedIn: [Profile link]
+- LinkedIn: [Ahmed AlMoselhy](https://www.linkedin.com/in/ahmedmalmoselhy/)
 
 ## 📄 License
 
