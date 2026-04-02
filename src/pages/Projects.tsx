@@ -13,6 +13,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { projectsData, statusStyles, statusLabels } from "@/data/projects";
 import type { Project } from "@/data/projects";
+import GitHubGraph from "@/components/GitHubGraph";
 
 interface ProjectsProps {
   onSectionChange?: (section: PageSection, projectId?: number) => void;
