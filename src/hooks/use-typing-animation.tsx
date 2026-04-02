@@ -6,7 +6,7 @@ export const useTypingAnimation = (text: string, typingSpeed = 150, erasingSpeed
   const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout;
+    let timeout: ReturnType<typeof setTimeout>;
 
     if (isPaused) {
       timeout = setTimeout(() => {
