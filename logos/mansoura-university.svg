@@ -1,0 +1,10 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="128" height="128" rx="24" fill="#0F172A" />
+  <circle cx="64" cy="64" r="48" fill="#64FFDA" fill-opacity="0.12" />
+  <path d="M30 54L64 38L98 54L64 70L30 54Z" fill="#64FFDA" fill-opacity="0.18" />
+  <path d="M40 59V76C40 82.6274 50.7452 88 64 88C77.2548 88 88 82.6274 88 76V59" stroke="#64FFDA" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M52 66V81" stroke="#64FFDA" stroke-width="6" stroke-linecap="round" />
+  <path d="M64 70V85" stroke="#64FFDA" stroke-width="6" stroke-linecap="round" />
+  <path d="M76 66V81" stroke="#64FFDA" stroke-width="6" stroke-linecap="round" />
+  <text x="64" y="49" text-anchor="middle" fill="#E2E8F0" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700">MU</text>
+</svg>
