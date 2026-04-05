@@ -10,10 +10,11 @@ export interface TrainingItem {
 export const training: TrainingItem[] = [
   {
     id: "training-1",
-    name: "Sample Training Course",
-    provider: "Training Provider",
-    year: "2024",
-    description: "Description of the training course.",
+    name: "ITI Summer Internship for students [Front End]",
+    provider: "ITI - Mansoura University",
+    year: "2018",
+    description:
+      "A Front-End web development internship included : (HTML, CSS, JavaScript, jQuery, HTML5, CSS3, Angular JS)",
     logo: "",
   },
 ];
