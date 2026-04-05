@@ -11,6 +11,7 @@ import {
   Download,
   Award,
   TrendingUp,
+  BookOpen,
   Clock,
   Building2,
   CheckCircle,
@@ -25,6 +26,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { experiences } from "@/data/experience";
 import { certifications } from "@/data/certifications";
+import { training } from "@/data/training";
 import { calculateDuration } from "@/lib/date-utils";
 import {
   Dialog,
@@ -331,6 +333,60 @@ const Resume = () => {
                       </div>
                     </DialogContent>
                   </Dialog>
+                ))}
+              </div>
+            </section>
+
+            {/* Training */}
+            <section>
+              <div className="flex items-center gap-3 mb-8">
+                <div className="p-3 bg-portfolio-highlight/10 rounded-xl">
+                  <BookOpen size={28} className="text-portfolio-highlight" />
+                </div>
+                <h2 className="text-3xl font-bold text-portfolio-white">
+                  Training
+                </h2>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {training.map((item) => (
+                  <div
+                    key={item.id}
+                    className="bg-portfolio-lightNavy/30 backdrop-blur-sm border border-portfolio-slate/10 p-6 rounded-2xl hover:border-portfolio-highlight/30 hover:bg-portfolio-lightNavy/50 hover:-translate-y-1 transition-all duration-300 group h-full shadow-lg shadow-transparent hover:shadow-portfolio-highlight/5"
+                  >
+                    <div className="flex items-start gap-4 h-full">
+                      <div className="w-14 h-14 rounded-xl bg-white flex items-center justify-center flex-shrink-0 overflow-hidden shadow-md p-2">
+                        {item.logo ? (
+                          <img
+                            src={item.logo}
+                            alt={`${item.provider} logo`}
+                            className="w-full h-full object-contain"
+                          />
+                        ) : (
+                          <BookOpen
+                            size={24}
+                            className="text-portfolio-highlight"
+                          />
+                        )}
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-portfolio-white mb-2 group-hover:text-portfolio-highlight transition-colors line-clamp-2">
+                          {item.name}
+                        </h3>
+                        <p className="text-portfolio-slate text-sm flex flex-col gap-1">
+                          <span className="font-semibold">{item.provider}</span>
+                          <span className="text-portfolio-highlight/80 font-mono text-xs">
+                            {item.year}
+                          </span>
+                        </p>
+                        {item.description && (
+                          <p className="text-portfolio-lightSlate/70 text-sm mt-3 leading-relaxed">
+                            {item.description}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
                 ))}
               </div>
             </section>
