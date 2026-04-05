@@ -26,6 +26,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { experiences } from "@/data/experience";
 import { certifications } from "@/data/certifications";
+import { education } from "@/data/education";
 import { training } from "@/data/training";
 import { calculateDuration } from "@/lib/date-utils";
 import {
@@ -240,27 +241,47 @@ const Resume = () => {
               </div>
 
               <div className="space-y-6">
-                <div className="bg-portfolio-lightNavy/30 backdrop-blur-sm border border-portfolio-slate/10 p-6 rounded-2xl hover:border-portfolio-highlight/30 transition-all duration-300">
-                  <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
-                    <div>
-                      <h3 className="text-xl font-bold text-portfolio-white mb-2">
-                        Bachelor's Degree in Computers & Systems Engineering
-                      </h3>
-                      <h4 className="text-lg text-portfolio-highlight mb-1">
-                        Mansoura University
-                      </h4>
+                {education.map((item) => (
+                  <div
+                    key={item.id}
+                    className="bg-portfolio-lightNavy/30 backdrop-blur-sm border border-portfolio-slate/10 p-6 rounded-2xl hover:border-portfolio-highlight/30 transition-all duration-300"
+                  >
+                    <div className="flex items-start gap-4 mb-5">
+                      <div className="w-14 h-14 rounded-xl bg-white flex items-center justify-center flex-shrink-0 overflow-hidden shadow-md p-2 border border-portfolio-slate/10">
+                        {item.logo ? (
+                          <img
+                            src={item.logo}
+                            alt={`${item.institution} logo`}
+                            className="w-full h-full object-contain"
+                          />
+                        ) : (
+                          <GraduationCap
+                            size={24}
+                            className="text-portfolio-highlight"
+                          />
+                        )}
+                      </div>
+
+                      <div className="flex-1 flex flex-col md:flex-row md:justify-between md:items-start gap-3">
+                        <div>
+                          <h3 className="text-xl font-bold text-portfolio-white mb-2">
+                            {item.degree}
+                          </h3>
+                          <h4 className="text-lg text-portfolio-highlight mb-1">
+                            {item.institution}
+                          </h4>
+                        </div>
+                        <span className="md:text-right text-portfolio-slate font-mono bg-portfolio-navy/50 px-3 py-1 rounded-full border border-portfolio-slate/20 text-sm whitespace-nowrap">
+                          {item.period}
+                        </span>
+                      </div>
                     </div>
-                    <span className="md:text-right text-portfolio-slate font-mono bg-portfolio-navy/50 px-3 py-1 rounded-full border border-portfolio-slate/20 text-sm">
-                      2014 - 2020
-                    </span>
+
+                    <p className="text-portfolio-lightSlate leading-relaxed">
+                      {item.description}
+                    </p>
                   </div>
-                  <p className="text-portfolio-lightSlate leading-relaxed">
-                    Algorithms, Data Structures, Programming Languages, Agile
-                    Methodology, Waterfall Methodology, Software Development,
-                    Work Ethics, Classic Control Systems, PLC, Embedded Systems,
-                    Databases.
-                  </p>
-                </div>
+                ))}
               </div>
             </section>
 
@@ -354,19 +375,37 @@ const Resume = () => {
                     key={item.id}
                     className="bg-portfolio-lightNavy/30 backdrop-blur-sm border border-portfolio-slate/10 p-6 rounded-2xl hover:border-portfolio-highlight/30 transition-all duration-300"
                   >
-                    <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
-                      <div>
-                        <h3 className="text-xl font-bold text-portfolio-white mb-2">
-                          {item.name}
-                        </h3>
-                        <h4 className="text-lg text-portfolio-highlight mb-1">
-                          {item.provider}
-                        </h4>
+                    <div className="flex items-start gap-4 mb-5">
+                      <div className="w-14 h-14 rounded-xl bg-white flex items-center justify-center flex-shrink-0 overflow-hidden shadow-md p-2 border border-portfolio-slate/10">
+                        {item.logo ? (
+                          <img
+                            src={item.logo}
+                            alt={`${item.provider} logo`}
+                            className="w-full h-full object-contain"
+                          />
+                        ) : (
+                          <BookOpen
+                            size={24}
+                            className="text-portfolio-highlight"
+                          />
+                        )}
                       </div>
-                      <span className="md:text-right text-portfolio-slate font-mono bg-portfolio-navy/50 px-3 py-1 rounded-full border border-portfolio-slate/20 text-sm">
-                        {item.year}
-                      </span>
+
+                      <div className="flex-1 flex flex-col md:flex-row md:justify-between md:items-start gap-3">
+                        <div>
+                          <h3 className="text-xl font-bold text-portfolio-white mb-2">
+                            {item.name}
+                          </h3>
+                          <h4 className="text-lg text-portfolio-highlight mb-1">
+                            {item.provider}
+                          </h4>
+                        </div>
+                        <span className="md:text-right text-portfolio-slate font-mono bg-portfolio-navy/50 px-3 py-1 rounded-full border border-portfolio-slate/20 text-sm whitespace-nowrap">
+                          {item.year}
+                        </span>
+                      </div>
                     </div>
+
                     {item.description && (
                       <p className="text-portfolio-lightSlate leading-relaxed">
                         {item.description}

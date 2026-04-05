@@ -15,6 +15,6 @@ export const training: TrainingItem[] = [
     year: "2018",
     description:
       "A Front-End web development internship included : (HTML, CSS, JavaScript, jQuery, HTML5, CSS3, Angular JS)",
-    logo: "",
+    logo: "/logos/logoITI.png",
   },
 ];
