@@ -25,6 +25,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { experiences } from "@/data/experience";
 import { certifications } from "@/data/certifications";
+import { training } from "@/data/training";
 import { calculateDuration } from "@/lib/date-utils";
 import {
   Dialog,
