@@ -38,7 +38,7 @@ const Projects: React.FC<ProjectsProps> = ({ onSectionChange }) => {
           {projectsData.map((project, index) => (
             <Card
               key={project.id}
-              className="bg-portfolio-lightNavy/30 backdrop-blur-sm border-portfolio-slate/10 hover:border-portfolio-highlight/30 hover:-translate-y-2 transition-all duration-300 overflow-hidden animate-fade-in cursor-pointer group shadow-lg shadow-transparent hover:shadow-portfolio-highlight/5"
+              className="relative bg-portfolio-lightNavy/30 backdrop-blur-sm border-portfolio-slate/10 hover:border-portfolio-highlight/30 hover:-translate-y-2 transition-all duration-300 overflow-hidden animate-fade-in cursor-pointer group shadow-lg shadow-transparent hover:shadow-portfolio-highlight/5"
               style={{ animationDelay: `${index * 100}ms` }}
               onClick={() => onSectionChange?.("project-detail", project.id)}
               role="button"
