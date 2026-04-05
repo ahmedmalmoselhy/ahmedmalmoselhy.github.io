@@ -11,6 +11,7 @@ import {
   Download,
   Award,
   TrendingUp,
+  BookOpen,
   Clock,
   Building2,
   CheckCircle,
