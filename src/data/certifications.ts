@@ -9,6 +9,14 @@ export interface CertificationItem {
 
 export const certifications: CertificationItem[] = [
     {
+        id: "creatio-ai",
+        name: "Creatio.AI",
+        issuer: "Creatio Academy",
+        year: "2026",
+        logo: "/logos/creatio.png",
+        image: "/certificates/creatio-ai.png",
+    },
+    {
         id: "creatio-advanced",
         name: "Creatio Software Developer [Advanced]",
         issuer: "Creatio Academy",
