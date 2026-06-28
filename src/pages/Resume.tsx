@@ -427,7 +427,7 @@ const Resume = () => {
               </h3>
               <div className="space-y-4 text-portfolio-lightSlate">
                 <a
-                  href="mailto:ahmedalmoselhy.slm@gmail.com"
+                  href="mailto:ahmed.malmoselhy@gmail.com"
                   className="flex items-center gap-4 group p-3 rounded-lg hover:bg-portfolio-highlight/5 transition-colors"
                 >
                   <div className="w-10 h-10 rounded-full bg-portfolio-navy flex items-center justify-center text-portfolio-highlight group-hover:scale-110 transition-transform">
