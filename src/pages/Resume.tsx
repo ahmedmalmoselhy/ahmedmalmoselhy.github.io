@@ -434,7 +434,7 @@ const Resume = () => {
                     <Mail size={18} />
                   </div>
                   <span className="group-hover:text-portfolio-highlight transition-colors text-sm break-all">
-                    ahmedalmoselhy.slm@gmail.com
+                    ahmed.malmoselhy@gmail.com
                   </span>
                 </a>
                 <a
