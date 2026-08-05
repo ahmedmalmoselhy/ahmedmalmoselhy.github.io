@@ -427,14 +427,14 @@ const Resume = () => {
               </h3>
               <div className="space-y-4 text-portfolio-lightSlate">
                 <a
-                  href="mailto:ahmed.malmoselhy@gmail.com"
+                  href="mailto:ahmedmalmoselhy@gmail.com"
                   className="flex items-center gap-4 group p-3 rounded-lg hover:bg-portfolio-highlight/5 transition-colors"
                 >
                   <div className="w-10 h-10 rounded-full bg-portfolio-navy flex items-center justify-center text-portfolio-highlight group-hover:scale-110 transition-transform">
                     <Mail size={18} />
                   </div>
                   <span className="group-hover:text-portfolio-highlight transition-colors text-sm break-all">
-                    ahmed.malmoselhy@gmail.com
+                    ahmedmalmoselhy@gmail.com
                   </span>
                 </a>
                 <a

@@ -25,7 +25,7 @@ const SocialSidebar = () => {
           <Linkedin size={20} />
         </a>
         <a 
-          href="mailto:ahmed.malmoselhy@gmail.com" 
+          href="mailto:ahmedmalmoselhy@gmail.com" 
           className="text-portfolio-slate hover:text-portfolio-highlight transition-transform hover:-translate-y-1"
           aria-label="Email"
         >
