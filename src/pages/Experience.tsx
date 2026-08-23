@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Briefcase, Calendar, MapPin, TrendingUp, Clock, Building2 } from "lucide-react";
 import { experiences } from "@/data/experience";
-import { calculateDuration } from "@/lib/date-utils";
+import { calculateDuration, isPromotedRole } from "@/lib/date-utils";
 
 const Experience = () => {
   return (
@@ -101,7 +101,7 @@ const Experience = () => {
                                   <h3 className="text-lg md:text-xl font-semibold text-portfolio-white">
                                     {singleRole.title}
                                   </h3>
-                                  {(exp.roles.length > 1 || roles.length > 1) && (roleIdx > 0 || singleRoleIdx > 0) && (
+                                  {exp.roles.length > 1 && isPromotedRole(roleIdx, singleRoleIdx) && (
                                     <Badge className="bg-green-500/20 text-green-400 border-green-500/30 hover:bg-green-500/30 flex items-center gap-1">
                                       <TrendingUp size={12} />
                                       Promoted

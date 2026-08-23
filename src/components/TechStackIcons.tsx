@@ -5,11 +5,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-
-interface Skill {
-  name: string;
-  level: number;
-}
+import { skillColorMap, type Skill } from "@/data/skills";
 
 interface TechStackIconsProps {
   skills: Skill[];
@@ -58,14 +54,6 @@ export const FallbackIcon = ({ name }: { name: string }) => (
   </div>
 );
 
-const colorMap: Record<string, string> = {
-  "portfolio-highlight": "#569CD6",
-  "portfolio-blue": "#569CD6",
-  "portfolio-teal": "#4EC9B0",
-  "portfolio-slate": "#858585",
-  "portfolio-lightSlate": "#9D9D9D",
-};
-
 const TechStackIcons: React.FC<TechStackIconsProps> = ({
   skills,
   categoryColor,
@@ -79,9 +67,11 @@ const TechStackIcons: React.FC<TechStackIconsProps> = ({
             <Tooltip key={idx}>
               <TooltipTrigger asChild>
                 <div
-                  className="group relative w-14 h-14 md:w-16 md:h-16 rounded-xl bg-portfolio-lightNavy/30 border border-portfolio-slate/10 hover:border-portfolio-highlight/30 p-2.5 cursor-pointer transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-portfolio-highlight/10 flex items-center justify-center"
+                  tabIndex={0}
+                  aria-label={`${skill.name}: ${skill.level}% proficiency`}
+                  className="group relative w-14 h-14 md:w-16 md:h-16 rounded-xl bg-portfolio-lightNavy/30 border border-portfolio-slate/10 hover:border-portfolio-highlight/30 p-2.5 cursor-pointer transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-portfolio-highlight/10 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-portfolio-highlight/50"
                   style={{
-                    ["--hover-color" as any]: colorMap[categoryColor],
+                    ["--hover-color" as any]: skillColorMap[categoryColor],
                   }}
                 >
                   <div className="w-full h-full flex items-center justify-center p-1">
@@ -93,7 +83,7 @@ const TechStackIcons: React.FC<TechStackIconsProps> = ({
                     style={{
                       width: `${skill.level}%`,
                       maxWidth: "80%",
-                      backgroundColor: colorMap[categoryColor],
+                      backgroundColor: skillColorMap[categoryColor],
                     }}
                   />
                 </div>
@@ -108,7 +98,7 @@ const TechStackIcons: React.FC<TechStackIconsProps> = ({
                   </p>
                   <p
                     className="text-sm font-mono"
-                    style={{ color: colorMap[categoryColor] }}
+                    style={{ color: skillColorMap[categoryColor] }}
                   >
                     {skill.level}% proficiency
                   </p>

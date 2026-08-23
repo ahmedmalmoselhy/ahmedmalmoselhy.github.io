@@ -8,26 +8,12 @@ import {
   ResponsiveContainer,
   Tooltip,
 } from "recharts";
-
-interface SkillCategory {
-  name: string;
-  skills: { name: string; level: number }[];
-  color: string;
-}
+import { skillColorMap, type SkillCategory } from "@/data/skills";
+import { techIcons, FallbackIcon } from "@/components/TechStackIcons";
 
 interface SkillRadarChartProps {
   categories: SkillCategory[];
 }
-
-const colorMap: Record<string, string> = {
-  "portfolio-highlight": "#569CD6",
-  "portfolio-blue": "#569CD6",
-  "portfolio-teal": "#4EC9B0",
-  "portfolio-slate": "#858585",
-  "portfolio-lightSlate": "#9D9D9D",
-};
-
-import TechStackIcons, { techIcons, FallbackIcon } from "@/components/TechStackIcons";
 
 const SkillRadarChart: React.FC<SkillRadarChartProps> = ({ categories }) => {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
@@ -43,7 +29,7 @@ const SkillRadarChart: React.FC<SkillRadarChartProps> = ({ categories }) => {
         subject: skill.name,
         level: skill.level,
         fullMark: 100,
-        color: colorMap[category.color] || "#569CD6",
+        color: skillColorMap[category.color] || "#569CD6",
       }));
     } else {
       // Show averages for all categories
@@ -55,7 +41,7 @@ const SkillRadarChart: React.FC<SkillRadarChartProps> = ({ categories }) => {
           subject: category.name,
           level: Math.round(avgLevel),
           fullMark: 100,
-          color: colorMap[category.color] || "#569CD6",
+          color: skillColorMap[category.color] || "#569CD6",
         };
       });
     }
@@ -142,7 +128,7 @@ const SkillRadarChart: React.FC<SkillRadarChartProps> = ({ categories }) => {
             style={{
               backgroundColor:
                 activeCategory === category.name
-                  ? colorMap[category.color]
+                  ? skillColorMap[category.color]
                   : undefined,
             }}
           >
@@ -155,6 +141,19 @@ const SkillRadarChart: React.FC<SkillRadarChartProps> = ({ categories }) => {
       <div className="flex flex-col lg:flex-row items-center justify-center gap-8">
         {/* Radar Chart */}
         <div className="h-[400px] w-full lg:w-1/2">
+          <table className="sr-only">
+            <caption>
+              {activeCategory ? `${activeCategory} skill proficiency` : "Skill category averages"}
+            </caption>
+            <tbody>
+              {radarData.map((row) => (
+                <tr key={row.subject}>
+                  <th scope="row">{row.subject}</th>
+                  <td>{row.level}%</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
           <ResponsiveContainer width="100%" height="100%">
             <RadarChart data={radarData} cx="50%" cy="50%" outerRadius="70%">
               <PolarGrid
@@ -215,7 +214,7 @@ const SkillRadarChart: React.FC<SkillRadarChartProps> = ({ categories }) => {
                   >
                     <h3
                       className="text-xl font-bold mb-4"
-                      style={{ color: colorMap[category.color] }}
+                      style={{ color: skillColorMap[category.color] }}
                     >
                       {category.name} Skills
                     </h3>
@@ -235,7 +234,7 @@ const SkillRadarChart: React.FC<SkillRadarChartProps> = ({ categories }) => {
                           </div>
                           <span
                             className="font-mono text-sm"
-                            style={{ color: colorMap[category.color] }}
+                            style={{ color: skillColorMap[category.color] }}
                           >
                             {skill.level}%
                           </span>
@@ -270,13 +269,13 @@ const SkillRadarChart: React.FC<SkillRadarChartProps> = ({ categories }) => {
                             className="h-full rounded-full"
                             style={{
                               width: `${avgLevel}%`,
-                              backgroundColor: colorMap[category.color]
+                              backgroundColor: skillColorMap[category.color]
                             }}
                           />
                         </div>
                         <span
                           className="font-mono text-sm w-8 text-right"
-                          style={{ color: colorMap[category.color] }}
+                          style={{ color: skillColorMap[category.color] }}
                         >
                           {avgLevel}%
                         </span>

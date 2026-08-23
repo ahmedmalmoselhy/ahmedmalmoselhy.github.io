@@ -28,7 +28,8 @@ import { experiences } from "@/data/experience";
 import { certifications } from "@/data/certifications";
 import { education } from "@/data/education";
 import { training } from "@/data/training";
-import { calculateDuration } from "@/lib/date-utils";
+import { skillsOverview, languages, personalDetails, interests } from "@/data/personal";
+import { calculateDuration, isPromotedRole } from "@/lib/date-utils";
 import {
   Dialog,
   DialogContent,
@@ -165,7 +166,7 @@ const Resume = () => {
                                       </h4>
                                       {/* Logic for badges if needed, e.g. Promoted */}
                                       {/* Simplified logic: if not parallel and index > 0, it's a promotion in a linear stack usually */}
-                                      {exp.roles.length > 1 && roleIndex > 0 && rIndex === 0 && (
+                                      {exp.roles.length > 1 && isPromotedRole(roleIndex, rIndex) && (
                                         <Badge variant="outline" className="border-green-500/50 text-green-400 bg-green-500/10 gap-1">
                                           <TrendingUp size={12} /> Promoted
                                         </Badge>
@@ -485,13 +486,7 @@ const Resume = () => {
               </h3>
 
               <div className="flex flex-wrap gap-2">
-                {[
-                  "JavaScript", "Node JS", "Express JS", "Vue JS", "HTML/CSS",
-                  "Python", "PHP", "Laravel", "C#", "Oracle DB", "Maria DB",
-                  "MySQL", "PostgreSQL", "SQL", "Git", "Docker",
-                  "Ericsson Order Care", "Ericsson Catalog Manager",
-                  "Creatio", "Jira"
-                ].map((skill, i) => (
+                {skillsOverview.map((skill, i) => (
                   <span
                     key={i}
                     className="px-3 py-1.5 bg-portfolio-navy/60 hover:bg-portfolio-navy rounded-lg text-xs font-mono border border-portfolio-highlight/10 hover:border-portfolio-highlight/40 text-portfolio-highlight transition-all cursor-default"
@@ -509,14 +504,12 @@ const Resume = () => {
                 Languages
               </h3>
               <ul className="space-y-4">
-                <li className="flex justify-between items-center group">
-                  <span className="text-portfolio-lightSlate group-hover:text-portfolio-white transition-colors">English</span>
-                  <Badge variant="outline" className="text-portfolio-highlight border-portfolio-highlight/30 bg-portfolio-highlight/5">Professional</Badge>
-                </li>
-                <li className="flex justify-between items-center group">
-                  <span className="text-portfolio-lightSlate group-hover:text-portfolio-white transition-colors">Arabic</span>
-                  <Badge variant="outline" className="text-portfolio-highlight border-portfolio-highlight/30 bg-portfolio-highlight/5">Native</Badge>
-                </li>
+                {languages.map((lang) => (
+                  <li key={lang.name} className="flex justify-between items-center group">
+                    <span className="text-portfolio-lightSlate group-hover:text-portfolio-white transition-colors">{lang.name}</span>
+                    <Badge variant="outline" className="text-portfolio-highlight border-portfolio-highlight/30 bg-portfolio-highlight/5">{lang.level}</Badge>
+                  </li>
+                ))}
               </ul>
             </div>
 
@@ -527,18 +520,15 @@ const Resume = () => {
                 Personal Details
               </h3>
               <ul className="space-y-4 text-portfolio-lightSlate text-sm">
-                <li className="flex justify-between border-b border-portfolio-slate/10 pb-2">
-                  <span>Date of Birth</span>
-                  <span className="text-portfolio-white font-mono">1996</span>
-                </li>
-                <li className="flex justify-between border-b border-portfolio-slate/10 pb-2">
-                  <span>Military Service</span>
-                  <span className="text-portfolio-white font-mono">Completed</span>
-                </li>
-                <li className="flex justify-between">
-                  <span>Marital Status</span>
-                  <span className="text-portfolio-white font-mono">Married</span>
-                </li>
+                {personalDetails.map((detail, i) => (
+                  <li
+                    key={detail.label}
+                    className={`flex justify-between ${i < personalDetails.length - 1 ? "border-b border-portfolio-slate/10 pb-2" : ""}`}
+                  >
+                    <span>{detail.label}</span>
+                    <span className="text-portfolio-white font-mono">{detail.value}</span>
+                  </li>
+                ))}
               </ul>
             </div>
 
@@ -549,10 +539,7 @@ const Resume = () => {
                 Interests
               </h3>
               <div className="flex flex-wrap gap-2">
-                {[
-                  "Open Source", "Web Development", "Database Design", "CRM Development",
-                  "Photography", "Reading", "Traveling", "Gaming"
-                ].map((interest, i) => (
+                {interests.map((interest, i) => (
                   <span
                     key={i}
                     className="px-3 py-1 bg-portfolio-navy/40 rounded-full text-xs border border-portfolio-slate/10 text-portfolio-slate hover:text-portfolio-highlight hover:border-portfolio-highlight/30 transition-colors cursor-default"

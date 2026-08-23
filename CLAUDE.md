@@ -36,5 +36,5 @@ There is no test runner configured. `bun` is also usable (`bun.lock`/`bun.lockb`
 
 - Import alias `@/` → `src/` (configured in both `vite.config.ts` and `tsconfig`). Prefer it over relative paths.
 - shadcn-ui components live in `src/components/ui/` and are configured via `components.json`; treat them as generated primitives and compose rather than editing heavily.
-- Custom Tailwind theme colors use the `portfolio-*` namespace (`portfolio-highlight`, `portfolio-navy`, `portfolio-slate`, `portfolio-white`, `portfolio-lightSlate`) defined in `tailwind.config.ts`.
+- Custom Tailwind theme colors use the `portfolio-*` namespace (`portfolio-navy`, `portfolio-lightNavy`, `portfolio-slate`, `portfolio-lightSlate`, `portfolio-white`, `portfolio-highlight`, `portfolio-teal`, plus syntax-style accents `portfolio-blue/orange/green/yellow/red`) defined in `tailwind.config.ts`.
 - `base` is `/` in Vite config because this is a user GitHub Pages repo (served from the domain root, not a subpath).

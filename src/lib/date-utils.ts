@@ -37,3 +37,9 @@ export function calculateDuration(period: string): string {
     return "";
   }
 }
+
+// A role is a "promotion" only when it's the first role of a later role group
+// (i.e. the group order represents sequential title changes, not concurrent roles).
+export function isPromotedRole(roleGroupIndex: number, roleWithinGroupIndex: number): boolean {
+  return roleGroupIndex > 0 && roleWithinGroupIndex === 0;
+}
