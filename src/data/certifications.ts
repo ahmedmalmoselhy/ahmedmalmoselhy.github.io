@@ -17,6 +17,14 @@ export const certifications: CertificationItem[] = [
         image: "/certificates/creatio-ai.png",
     },
     {
+        id: "creatio-solution-consultant",
+        name: "Creatio Solution Consultant",
+        issuer: "Creatio Academy",
+        year: "2026",
+        logo: "/logos/creatio.png",
+        image: "/certificates/creatio-solution-consultant.png",
+    },
+    {
         id: "creatio-advanced",
         name: "Creatio Software Developer [Advanced]",
         issuer: "Creatio Academy",
