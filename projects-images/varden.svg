@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-label="Varden placeholder">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1e2a38"/>
+      <stop offset="1" stop-color="#0f1620"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#g)"/>
+  <g fill="none" stroke="#5ba3d9" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" opacity="0.9" transform="translate(600 235)">
+    <circle cx="0" cy="-40" r="20"/>
+    <circle cx="-80" cy="50" r="16"/>
+    <circle cx="80" cy="50" r="16"/>
+    <path d="M0 -20 V10 M0 10 L-80 34 M0 10 L80 34"/>
+  </g>
+  <text x="600" y="420" text-anchor="middle" font-family="system-ui, sans-serif" font-size="72" font-weight="700" fill="#e6edf5">Varden</text>
+  <text x="600" y="475" text-anchor="middle" font-family="system-ui, sans-serif" font-size="26" fill="#8a97a6">HR &amp; resource management</text>
+</svg>
