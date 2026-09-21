@@ -1,6 +1,7 @@
 import React from "react";
 import Layout from "@/components/Layout";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github, Mail } from "lucide-react";
+import ContactForDemo from "@/components/ContactForDemo";
 import { PageSection } from "@/App";
 import {
   Card,
@@ -95,17 +96,29 @@ const Projects: React.FC<ProjectsProps> = ({ onSectionChange }) => {
                 </div>
               </CardContent>
               <CardFooter className="flex items-center gap-4 p-6 pt-2 border-t border-portfolio-slate/5 mt-auto">
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-portfolio-slate hover:text-portfolio-highlight flex items-center gap-2 text-sm transition-colors"
-                  aria-label={`View ${project.title} source code on GitHub`}
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <Github size={18} />
-                  <span>Code</span>
-                </a>
+                {project.monetized ? (
+                  <ContactForDemo
+                    title={project.title}
+                    className="text-portfolio-slate hover:text-portfolio-highlight flex items-center gap-2 text-sm transition-colors"
+                  >
+                    <Mail size={18} />
+                    <span>Request a demo</span>
+                  </ContactForDemo>
+                ) : (
+                  project.githubUrl && (
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-portfolio-slate hover:text-portfolio-highlight flex items-center gap-2 text-sm transition-colors"
+                      aria-label={`View ${project.title} source code on GitHub`}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <Github size={18} />
+                      <span>Code</span>
+                    </a>
+                  )
+                )}
                 {project.liveUrl ? (
                   <a
                     href={project.liveUrl}

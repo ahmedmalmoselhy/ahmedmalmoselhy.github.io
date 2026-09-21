@@ -5,9 +5,12 @@ export interface Project {
   extendedDescription: string;
   technologies: string[];
   image: string;
-  githubUrl: string;
+  /** Omitted for monetized projects: source isn't public. */
+  githubUrl?: string;
   liveUrl: string;
   demo: boolean;
+  /** Commercial product: shows a "request a demo / buy" contact button instead of source links. */
+  monetized?: boolean;
   date?: string;
   status:
     | "completed"
@@ -119,6 +122,55 @@ export const projectsData: Project[] = [
     demo: true,
     status: "in-progress",
     date: "2024-05-01",
+  },
+  {
+    id: 7,
+    title: "Kiro Pet Supplies",
+    description:
+      "Bulk-ordering platform that replaces a pet-supply wholesaler's paper notes and chat threads.",
+    extendedDescription:
+      "A catalog and ordering platform built for a pet-supply wholesaler that used to run bulk orders through paper notes, phone calls and memory. Shop owners register their store locations, browse a price-free catalog, and submit an order that becomes a durable record from the first moment. The admin reviews each order, adjusts quantities and prices against real availability, and every change is logged as a discrete event, so there is always a clear audit trail of what was agreed. Finalised orders produce a PDF invoice that is sent to the customer over WhatsApp. The system is bilingual (English and Arabic), ships as installable PWAs for both customers and admins, and includes a Filament admin dashboard with spreadsheet import/export. This is a commercial product: the source code is not public, and installations are available on request.",
+    technologies: [
+      "PHP",
+      "Laravel",
+      "Filament",
+      "Tailwind CSS",
+      "Vite",
+      "PWA",
+      "mPDF",
+      "PhpSpreadsheet",
+    ],
+    image: "/projects-images/kiro-pet-supplies.svg",
+    liveUrl: "",
+    demo: true,
+    monetized: true,
+    status: "completed",
+    date: "2026-09-21",
+  },
+  {
+    id: 8,
+    title: "Varden",
+    description:
+      "HR and resource management platform: timesheets, PTO, leave and HR requests with a versioned API.",
+    extendedDescription:
+      "An HR and resource management system covering the employee lifecycle end to end. HR manages employees, departments, work locations and the reporting hierarchy, with a full employment-history trail. Employees log monthly timesheets across projects and leave types, and submissions flow through a one-level manager-then-HR approval engine. A PTO ledger keeps append-only balances with per-location policies, holiday calendars, weekend and holiday work credits, sick-leave documentation review and year-end payouts, alongside a yearly vacation planner and team calendar. A request-type builder lets HR configure their own request workflows without a developer. It ships with a Blade UI and a documented, versioned JSON API (Sanctum-authenticated) on the same business logic, and is tested on both PostgreSQL and MySQL. This is a commercial product: the source code is not public, and installations are available on request.",
+    technologies: [
+      "PHP",
+      "Laravel",
+      "Laravel Blade",
+      "Alpine.js",
+      "Tailwind CSS",
+      "PostgreSQL",
+      "MySQL",
+      "REST API",
+      "Sanctum",
+    ],
+    image: "/projects-images/varden.svg",
+    liveUrl: "",
+    demo: true,
+    monetized: true,
+    status: "in-progress",
+    date: "2026-09-21",
   },
 ];
 

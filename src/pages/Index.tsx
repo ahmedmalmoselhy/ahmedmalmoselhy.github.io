@@ -16,6 +16,7 @@ import {
   Server,
   ExternalLink,
 } from "lucide-react";
+import ContactForDemo from "@/components/ContactForDemo";
 
 import { projectsData, statusStyles, statusLabels } from "@/data/projects";
 import type { Project } from "@/data/projects";
@@ -242,16 +243,28 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
                 </div>
 
                 <div className="flex items-center gap-4 pt-4 border-t border-portfolio-slate/10">
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-portfolio-slate hover:text-portfolio-highlight flex items-center gap-2 text-sm transition-colors"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <Github size={18} />
-                    <span>Source</span>
-                  </a>
+                  {project.monetized ? (
+                    <ContactForDemo
+                      title={project.title}
+                      className="text-portfolio-slate hover:text-portfolio-highlight flex items-center gap-2 text-sm transition-colors"
+                    >
+                      <Mail size={18} />
+                      <span>Request a demo</span>
+                    </ContactForDemo>
+                  ) : (
+                    project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-portfolio-slate hover:text-portfolio-highlight flex items-center gap-2 text-sm transition-colors"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Github size={18} />
+                        <span>Source</span>
+                      </a>
+                    )
+                  )}
                   {project.liveUrl && (
                     <a
                       href={project.liveUrl}

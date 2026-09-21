@@ -1,6 +1,7 @@
 import React from "react";
 import Layout from "@/components/Layout";
-import { ExternalLink, Github, Calendar, ArrowLeft } from "lucide-react";
+import { ExternalLink, Github, Calendar, ArrowLeft, Mail } from "lucide-react";
+import ContactForDemo from "@/components/ContactForDemo";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { projectsData, statusStyles, statusLabels } from "@/data/projects";
@@ -121,15 +122,27 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
 
             {/* Links */}
             <div className="flex flex-wrap gap-4 pt-4 border-t border-portfolio-slate/10 mt-8">
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="h-12 px-8 bg-transparent border-2 border-portfolio-slate/30 text-portfolio-slate hover:border-portfolio-highlight hover:text-portfolio-highlight font-bold rounded-full transition-all hover:scale-105 flex items-center gap-2 shadow-lg shadow-transparent hover:shadow-portfolio-highlight/10"
-              >
-                <Github size={20} />
-                <span>View Source Code</span>
-              </a>
+              {project.monetized ? (
+                <ContactForDemo
+                  title={project.title}
+                  className="h-12 px-8 bg-portfolio-highlight hover:bg-portfolio-highlight/90 text-portfolio-navy font-bold rounded-full transition-all hover:scale-105 flex items-center gap-2 shadow-lg shadow-portfolio-highlight/20"
+                >
+                  <Mail size={20} />
+                  <span>Request a Demo / Buy an Installation</span>
+                </ContactForDemo>
+              ) : (
+                project.githubUrl && (
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="h-12 px-8 bg-transparent border-2 border-portfolio-slate/30 text-portfolio-slate hover:border-portfolio-highlight hover:text-portfolio-highlight font-bold rounded-full transition-all hover:scale-105 flex items-center gap-2 shadow-lg shadow-transparent hover:shadow-portfolio-highlight/10"
+                  >
+                    <Github size={20} />
+                    <span>View Source Code</span>
+                  </a>
+                )
+              )}
               {project.liveUrl && (
                 <a
                   href={project.liveUrl}
