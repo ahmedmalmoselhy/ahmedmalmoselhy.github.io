@@ -6,23 +6,7 @@ export interface Skill {
 export interface SkillCategory {
   name: string;
   skills: Skill[];
-  color: string;
 }
-
-export interface SoftSkill {
-  name: string;
-  icon: string;
-}
-
-// Shared color map for skill category accents, used by the radar chart,
-// tech stack icons, and the skills grid.
-export const skillColorMap: Record<string, string> = {
-  "portfolio-highlight": "#569CD6",
-  "portfolio-blue": "#569CD6",
-  "portfolio-teal": "#4EC9B0",
-  "portfolio-slate": "#858585",
-  "portfolio-lightSlate": "#9D9D9D",
-};
 
 export const skillCategories: SkillCategory[] = [
   {
@@ -35,7 +19,6 @@ export const skillCategories: SkillCategory[] = [
       { name: "HTML/CSS", level: 90 },
       { name: "C#", level: 60 },
     ],
-    color: "portfolio-highlight",
   },
   {
     name: "Frameworks",
@@ -46,7 +29,6 @@ export const skillCategories: SkillCategory[] = [
       { name: "Express.js", level: 50 },
       { name: "React.js", level: 40 },
     ],
-    color: "portfolio-blue",
   },
   {
     name: "Database",
@@ -56,7 +38,6 @@ export const skillCategories: SkillCategory[] = [
       { name: "OracleDB", level: 85 },
       { name: "MariaDB", level: 90 },
     ],
-    color: "portfolio-teal",
   },
   {
     name: "Dev Tools",
@@ -66,26 +47,24 @@ export const skillCategories: SkillCategory[] = [
       { name: "VSCode", level: 90 },
       { name: "Docker", level: 75 },
     ],
-    color: "portfolio-lightSlate",
   },
   {
-    name: "CRM Systems",
+    name: "CRM Development",
     skills: [
       { name: "Ericsson Order Care [EOC]", level: 70 },
       { name: "Ericsson Catalog Manager [ECM]", level: 40 },
       { name: "Creatio", level: 50 },
     ],
-    color: "portfolio-slate",
   },
 ];
 
-export const softSkills: SoftSkill[] = [
-  { name: "Team Collaboration", icon: "🤝" },
-  { name: "Communication", icon: "💬" },
-  { name: "Time Management", icon: "⏱️" },
-  { name: "Problem-Solving", icon: "💡" },
-  { name: "Adaptability", icon: "🧠" },
-  { name: "Leadership", icon: "🚀" },
-  { name: "Creativity", icon: "🎨" },
-  { name: "Accountability", icon: "📊" },
+export const softSkills: string[] = [
+  "Team Collaboration",
+  "Communication",
+  "Time Management",
+  "Problem-Solving",
+  "Adaptability",
+  "Leadership",
+  "Creativity",
+  "Accountability",
 ];

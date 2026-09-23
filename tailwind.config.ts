@@ -1,8 +1,8 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
-	darkMode: ["class"],
+	// Appearance follows the system setting; see src/index.css.
+	darkMode: "media",
 	content: [
 		"./pages/**/*.{ts,tsx}",
 		"./components/**/*.{ts,tsx}",
@@ -13,9 +13,9 @@ export default {
 	theme: {
 		container: {
 			center: true,
-			padding: '2rem',
+			padding: '1.25rem',
 			screens: {
-				'2xl': '1400px'
+				'2xl': '1120px'
 			}
 		},
 		extend: {
@@ -53,35 +53,32 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				sidebar: {
-					DEFAULT: 'hsl(var(--sidebar-background))',
-					foreground: 'hsl(var(--sidebar-foreground))',
-					primary: 'hsl(var(--sidebar-primary))',
-					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-					accent: 'hsl(var(--sidebar-accent))',
-					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-					border: 'hsl(var(--sidebar-border))',
-					ring: 'hsl(var(--sidebar-ring))'
-				},
-				portfolio: {
-					navy: 'hsl(var(--portfolio-navy))',
-					lightNavy: 'hsl(var(--portfolio-light-navy))',
-					slate: 'hsl(var(--portfolio-slate))',
-					lightSlate: 'hsl(var(--portfolio-light-slate))',
-					white: 'hsl(var(--portfolio-white))',
-					highlight: 'hsl(var(--portfolio-highlight))',
-					teal: 'hsl(var(--portfolio-teal))',
-					blue: '#569CD6',
-					orange: '#D19A66',
-					green: '#98C379',
-					yellow: '#DCDCAA',
-					red: '#F48771'
+				signal: {
+					green: 'var(--signal-green)',
+					orange: 'var(--signal-orange)',
+					red: 'var(--signal-red)',
+					blue: 'var(--signal-blue)',
+					yellow: 'var(--signal-yellow)',
+					gray: 'var(--signal-gray)'
 				}
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
+			},
+			// Apple text styles in rem so they follow the browser's font-size setting.
+			fontSize: {
+				largetitle: ['clamp(2.5rem, 5vw + 1rem, 4.5rem)', { lineHeight: '1.05', letterSpacing: '-0.03em' }],
+				title1: ['2.125rem', { lineHeight: '1.18', letterSpacing: '-0.02em' }],
+				title2: ['1.75rem', { lineHeight: '1.21', letterSpacing: '-0.015em' }],
+				title3: ['1.375rem', { lineHeight: '1.27', letterSpacing: '-0.01em' }],
+				headline: ['1.0625rem', { lineHeight: '1.41', fontWeight: '600' }],
+				body: ['1.0625rem', { lineHeight: '1.47' }],
+				callout: ['1rem', { lineHeight: '1.5' }],
+				subhead: ['0.9375rem', { lineHeight: '1.4' }],
+				footnote: ['0.8125rem', { lineHeight: '1.38' }],
+				caption: ['0.75rem', { lineHeight: '1.33' }]
 			},
 			keyframes: {
 				'accordion-down': {
@@ -103,21 +100,16 @@ export default {
 				fadeIn: {
 					'0%': { opacity: '0' },
 					'100%': { opacity: '1' }
-				},
-				slideUp: {
-					'0%': { transform: 'translateY(20px)', opacity: '0' },
-					'100%': { transform: 'translateY(0)', opacity: '1' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-				'fade-in': 'fadeIn 0.5s ease-in-out',
-				'slide-up': 'slideUp 0.5s ease-in-out'
+				'fade-in': 'fadeIn 0.2s ease-out'
 			},
 			fontFamily: {
-				sans: ['Inter', 'sans-serif'],
-				mono: ['Roboto Mono', 'monospace']
+				sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Text"', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+				mono: ['ui-monospace', '"SF Mono"', 'Menlo', 'Consolas', 'monospace']
 			}
 		}
 	},

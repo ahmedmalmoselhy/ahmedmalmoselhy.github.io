@@ -1,210 +1,90 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { cn } from "@/lib/utils";
-import { X } from "lucide-react";
-import { ThemeToggle } from "./ThemeToggle";
+import { Code, FileText, FolderOpen, Home, Mail } from "lucide-react";
 import { PageSection } from "@/App";
-import { useTypingAnimation } from "@/hooks/use-typing-animation";
 
 interface NavbarProps {
   activeSection: PageSection;
   onSectionChange: (section: PageSection) => void;
 }
 
+const tabs = [
+  { section: "home", label: "Home", icon: Home },
+  { section: "resume", label: "Resume", icon: FileText },
+  { section: "projects", label: "Projects", icon: FolderOpen },
+  { section: "skills", label: "Skills", icon: Code },
+  { section: "contact", label: "Contact", icon: Mail },
+] as const;
+
+/**
+ * Desktop: translucent top bar. Mobile: bottom tab bar, always visible.
+ * Both float over content as the functional layer.
+ */
 const Navbar: React.FC<NavbarProps> = ({ activeSection, onSectionChange }) => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const displayName = useTypingAnimation("<Ahmed AlMoselhy />", 150, 50, 2000);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Smooth mobile menu behavior: simple scroll lock via overflow instead of repositioning the body
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isMobileMenuOpen]);
-
-  const isActive = (section: PageSection) => activeSection === section;
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-
-  const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false);
-  };
-
-  const handleNavClick = (section: PageSection) => {
-    onSectionChange(section);
-    closeMobileMenu();
-  };
+  // A project detail page lives under the Projects tab.
+  const current = activeSection === "project-detail" ? "projects" : activeSection;
 
   return (
-    <header
-      className={cn(
-        "fixed top-0 w-full z-50 transition-all duration-300",
-        isMobileMenuOpen
-          ? "py-3 bg-portfolio-lightNavy/95 backdrop-blur-md shadow-md"
-          : isScrolled
-            ? "py-3 bg-portfolio-navy/90 backdrop-blur-md shadow-md"
-            : "py-5 bg-transparent",
-      )}
-    >
-      <div className="container mx-auto px-4 flex justify-between items-center">
-        <button
-          onClick={() => handleNavClick("home")}
-          className="text-portfolio-highlight font-mono text-xl font-semibold hover:opacity-80 transition-opacity"
+    <>
+      <header className="glass fixed inset-x-0 top-0 z-50 hidden border-b md:block">
+        <nav
+          aria-label="Primary"
+          className="container flex h-12 items-center justify-between"
         >
-          <span className="inline-flex items-center">
-            {displayName}
-            <span className="inline-block w-0.5 h-5 bg-portfolio-highlight ml-1 animate-pulse"></span>
-          </span>
-        </button>
-
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-1">
           <button
-            onClick={() => handleNavClick("home")}
-            className={cn("nav-link", isActive("home") && "active")}
+            onClick={() => onSectionChange("home")}
+            aria-current={current === "home" ? "page" : undefined}
+            className="text-headline"
           >
-            Home
+            Ahmed AlMoselhy
           </button>
-          <button
-            onClick={() => handleNavClick("resume")}
-            className={cn("nav-link", isActive("resume") && "active")}
-          >
-            Resume
-          </button>
-          {/*<button
-            onClick={() => handleNavClick("experience")}
-            className={cn("nav-link", isActive("experience") && "active")}
-          >
-            Experience
-          </button>*/}
-          <button
-            onClick={() => handleNavClick("projects")}
-            className={cn("nav-link", isActive("projects") && "active")}
-          >
-            Projects
-          </button>
-          <button
-            onClick={() => handleNavClick("skills")}
-            className={cn("nav-link", isActive("skills") && "active")}
-          >
-            Skills
-          </button>
-          <button
-            onClick={() => handleNavClick("contact")}
-            className={cn("nav-link", isActive("contact") && "active")}
-          >
-            Contact
-          </button>
-          <ThemeToggle />
+          <ul className="flex items-center gap-1">
+            {tabs.slice(1).map(({ section, label }) => (
+              <li key={section}>
+                <button
+                  onClick={() => onSectionChange(section)}
+                  aria-current={current === section ? "page" : undefined}
+                  className={cn(
+                    "rounded-full px-3.5 py-1.5 text-subhead transition-colors",
+                    current === section
+                      ? "bg-secondary font-medium text-foreground"
+                      : "text-muted-foreground hover:text-foreground",
+                  )}
+                >
+                  {label}
+                </button>
+              </li>
+            ))}
+          </ul>
         </nav>
+      </header>
 
-        {/* Mobile Controls */}
-        <div className="md:hidden flex items-center gap-2">
-          <ThemeToggle />
-          <button
-            className="text-portfolio-white p-2 focus:outline-none"
-            onClick={toggleMobileMenu}
-            aria-label="Toggle menu"
-          >
-            <div className="space-y-1.5">
-              <span
-                className={cn(
-                  "block h-0.5 w-6 bg-portfolio-white transition-all duration-300",
-                  isMobileMenuOpen && "rotate-45 translate-y-2",
-                )}
-              ></span>
-              <span
-                className={cn(
-                  "block h-0.5 w-6 bg-portfolio-white transition-all duration-300",
-                  isMobileMenuOpen && "opacity-0",
-                )}
-              ></span>
-              <span
-                className={cn(
-                  "block h-0.5 w-6 bg-portfolio-white transition-all duration-300",
-                  isMobileMenuOpen && "-rotate-45 -translate-y-2",
-                )}
-              ></span>
-            </div>
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Navigation */}
       <nav
-        className={cn(
-          "md:hidden fixed top-0 right-0 w-full bg-portfolio-lightNavy/95 z-40 transform transition-transform duration-300 pt-24 pb-12 rounded-b-3xl shadow-2xl",
-          isMobileMenuOpen ? "translate-x-0" : "translate-x-full",
-        )}
+        aria-label="Primary"
+        className="glass fixed inset-x-0 bottom-0 z-50 border-t pb-[env(safe-area-inset-bottom)] md:hidden"
       >
-        <button
-          onClick={closeMobileMenu}
-          className="absolute top-6 right-6 p-2 text-portfolio-white hover:text-portfolio-highlight transition-colors"
-          aria-label="Close menu"
-        >
-          <X size={24} />
-        </button>
-
-        <div className="flex flex-col items-center space-y-6 text-lg">
-          <button
-            onClick={() => handleNavClick("home")}
-            className={cn("nav-link text-xl", isActive("home") && "active")}
-          >
-            Home
-          </button>
-          <button
-            onClick={() => handleNavClick("resume")}
-            className={cn("nav-link text-xl", isActive("resume") && "active")}
-          >
-            Resume
-          </button>
-          {/*<button
-            onClick={() => handleNavClick("experience")}
-            className={cn(
-              "nav-link text-xl",
-              isActive("experience") && "active",
-            )}
-          >
-            Experience
-          </button>*/}
-          <button
-            onClick={() => handleNavClick("projects")}
-            className={cn("nav-link text-xl", isActive("projects") && "active")}
-          >
-            Projects
-          </button>
-          <button
-            onClick={() => handleNavClick("skills")}
-            className={cn("nav-link text-xl", isActive("skills") && "active")}
-          >
-            Skills
-          </button>
-          <button
-            onClick={() => handleNavClick("contact")}
-            className={cn("nav-link text-xl", isActive("contact") && "active")}
-          >
-            Contact
-          </button>
-        </div>
+        <ul className="grid grid-cols-5">
+          {tabs.map(({ section, label, icon: Icon }) => {
+            const active = current === section;
+            return (
+              <li key={section}>
+                <button
+                  onClick={() => onSectionChange(section)}
+                  aria-current={active ? "page" : undefined}
+                  className={cn(
+                    "flex h-[3.25rem] w-full flex-col items-center justify-center gap-0.5 text-[0.6875rem] font-medium",
+                    active ? "text-primary" : "text-muted-foreground",
+                  )}
+                >
+                  <Icon aria-hidden className="h-6 w-6" strokeWidth={active ? 2.25 : 1.75} />
+                  {label}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
       </nav>
-    </header>
+    </>
   );
 };
 

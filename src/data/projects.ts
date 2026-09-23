@@ -175,18 +175,15 @@ export const projectsData: Project[] = [
   },
 ];
 
+/** Text color per status; always shown next to the status label, never alone. */
 export const statusStyles: Record<Project["status"], string> = {
-  completed:
-    "bg-portfolio-green/20 text-portfolio-green border-portfolio-green/30",
-  "in-progress":
-    "bg-portfolio-yellow/20 text-portfolio-yellow border-portfolio-yellow/30",
-  "on-hold":
-    "bg-portfolio-orange/20 text-portfolio-orange border-portfolio-orange/30",
-  archived: "bg-portfolio-red/20 text-portfolio-red border-portfolio-red/30",
-  new: "bg-portfolio-highlight/20 text-portfolio-highlight border-portfolio-highlight/30",
-  planned: "bg-portfolio-blue/20 text-portfolio-blue border-portfolio-blue/30",
-  canceled:
-    "bg-portfolio-slate/20 text-portfolio-slate border-portfolio-slate/30",
+  completed: "text-signal-green",
+  "in-progress": "text-signal-yellow",
+  "on-hold": "text-signal-orange",
+  archived: "text-signal-gray",
+  new: "text-signal-blue",
+  planned: "text-signal-gray",
+  canceled: "text-signal-red",
 };
 
 export const statusLabels: Record<Project["status"], string> = {

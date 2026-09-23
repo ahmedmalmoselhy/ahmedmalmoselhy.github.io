@@ -1,163 +1,110 @@
 import React from "react";
 import Layout from "@/components/Layout";
-import { ExternalLink, Github, Calendar, ArrowLeft, Mail } from "lucide-react";
+import { ProjectStatus } from "@/components/ProjectCard";
 import ContactForDemo from "@/components/ContactForDemo";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { projectsData, statusStyles, statusLabels } from "@/data/projects";
+import { ArrowUpRight, ChevronLeft, Github, Mail } from "lucide-react";
+import { projectsData } from "@/data/projects";
 
 interface ProjectDetailProps {
   projectId: number;
   onBack: () => void;
 }
 
+const buttonClass = "rounded-full px-6 text-callout";
+
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
   const project = projectsData.find((p) => p.id === projectId);
+
+  const back = (
+    <button
+      onClick={onBack}
+      className="-ml-1.5 mb-6 inline-flex min-h-[44px] items-center text-body text-primary hover:underline"
+    >
+      <ChevronLeft aria-hidden size={22} /> Projects
+    </button>
+  );
 
   if (!project) {
     return (
       <Layout>
-        <section className="container mx-auto px-4 py-8 md:py-16">
-          <div className="max-w-4xl mx-auto">
-            <Button
-              onClick={onBack}
-              variant="ghost"
-              className="mb-8 text-portfolio-highlight hover:text-portfolio-highlight/80"
-            >
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Projects
-            </Button>
-            <h1 className="text-3xl md:text-5xl font-bold text-portfolio-white">
-              Project not found
-            </h1>
-          </div>
-        </section>
+        {back}
+        <h1 className="text-title1 font-bold">This project doesn't exist</h1>
+        <p className="mt-3 text-body text-muted-foreground">
+          It may have been removed. Go back to Projects to see everything that's listed.
+        </p>
       </Layout>
     );
   }
 
   return (
     <Layout>
-      <section className="container mx-auto px-4 py-8 md:py-16 relative">
-        {/* Background Gradient */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-portfolio-highlight to-transparent opacity-50"></div>
+      <article className="mx-auto max-w-3xl">
+        {back}
 
-        <div className="max-w-4xl mx-auto">
-          <Button
-            onClick={onBack}
-            variant="ghost"
-            className="mb-8 text-portfolio-highlight hover:text-portfolio-highlight/80 animate-fade-in hover:bg-portfolio-highlight/10 -ml-4"
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Projects
-          </Button>
+        <header>
+          <ProjectStatus status={project.status} />
+          <h1 className="mt-2 text-largetitle font-bold">{project.title}</h1>
+          <p className="mt-4 text-title3 text-muted-foreground">{project.description}</p>
+          {project.date && (
+            <p className="mt-3 text-footnote text-muted-foreground">
+              Updated{" "}
+              {new Date(project.date).toLocaleDateString(undefined, {
+                year: "numeric",
+                month: "long",
+              })}
+            </p>
+          )}
 
-          <div className="animate-fade-in bg-portfolio-lightNavy/30 backdrop-blur-sm border border-portfolio-slate/10 p-6 md:p-10 rounded-2xl shadow-xl space-y-10">
-            {/* Header */}
-            <div className="border-b border-portfolio-slate/10 pb-8">
-              <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
-                <h1 className="text-3xl md:text-5xl font-bold text-portfolio-white">
-                  {project.title}
-                </h1>
-                <Badge
-                  variant="outline"
-                  className={`text-sm font-mono py-1.5 px-3 border-none bg-opacity-20 ${statusStyles[project.status].replace('bg-', 'bg-opacity-10 bg-').replace('text-', 'text-')}`}
-                >
-                  {statusLabels[project.status]}
-                </Badge>
-              </div>
-
-              {project.date && (
-                <div className="flex items-center gap-2 text-portfolio-slate text-sm md:text-base">
-                  <Calendar className="h-4 w-4" />
-                  <span>
-                    Last modified:{" "}
-                    {new Date(project.date).toLocaleDateString(undefined, {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </span>
-                </div>
-              )}
-            </div>
-
-            {/* Project Image */}
-            <div className="rounded-xl overflow-hidden border border-portfolio-slate/20 bg-portfolio-navy/50 shadow-lg">
-              <img
-                src={project.image}
-                alt={`${project.title} screenshot`}
-                className="w-full h-auto object-cover"
-              />
-            </div>
-
-            {/* Description */}
-            <div className="space-y-4">
-              <h2 className="text-2xl font-bold text-portfolio-white flex items-center gap-2">
-                <span className="w-1 h-6 bg-portfolio-highlight rounded-full"></span>
-                About this project
-              </h2>
-              <p className="text-portfolio-lightSlate text-lg leading-relaxed">
-                {project.extendedDescription}
-              </p>
-            </div>
-
-            {/* Technologies */}
-            <div className="space-y-4">
-              <h2 className="text-2xl font-bold text-portfolio-white flex items-center gap-2">
-                <span className="w-1 h-6 bg-portfolio-highlight rounded-full"></span>
-                Technologies Used
-              </h2>
-              <div className="flex flex-wrap gap-2">
-                {project.technologies.map((tech, index) => (
-                  <span
-                    key={index}
-                    className="text-portfolio-highlight font-mono text-sm bg-portfolio-navy/60 px-3 py-1.5 rounded-md border border-portfolio-highlight/20"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Links */}
-            <div className="flex flex-wrap gap-4 pt-4 border-t border-portfolio-slate/10 mt-8">
-              {project.monetized ? (
-                <ContactForDemo
-                  title={project.title}
-                  className="h-12 px-8 bg-portfolio-highlight hover:bg-portfolio-highlight/90 text-portfolio-navy font-bold rounded-full transition-all hover:scale-105 flex items-center gap-2 shadow-lg shadow-portfolio-highlight/20"
-                >
-                  <Mail size={20} />
-                  <span>Request a Demo / Buy an Installation</span>
-                </ContactForDemo>
-              ) : (
-                project.githubUrl && (
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="h-12 px-8 bg-transparent border-2 border-portfolio-slate/30 text-portfolio-slate hover:border-portfolio-highlight hover:text-portfolio-highlight font-bold rounded-full transition-all hover:scale-105 flex items-center gap-2 shadow-lg shadow-transparent hover:shadow-portfolio-highlight/10"
-                  >
-                    <Github size={20} />
-                    <span>View Source Code</span>
+          <div className="mt-6 flex flex-wrap gap-3">
+            {project.monetized ? (
+              <ContactForDemo
+                title={project.title}
+                className="inline-flex h-11 items-center gap-2 rounded-full bg-primary px-6 text-callout font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+              >
+                <Mail aria-hidden size={18} /> Request a Demo or Installation
+              </ContactForDemo>
+            ) : (
+              project.githubUrl && (
+                <Button asChild size="lg" variant="secondary" className={buttonClass}>
+                  <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                    <Github aria-hidden /> View Source Code
                   </a>
-                )
-              )}
-              {project.liveUrl && (
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="h-12 px-8 bg-portfolio-highlight hover:bg-portfolio-highlight/90 text-portfolio-navy font-bold rounded-full transition-all hover:scale-105 flex items-center gap-2 shadow-lg shadow-portfolio-highlight/20"
-                >
-                  <ExternalLink size={20} />
-                  <span>View Live {project.demo ? "Demo" : "Site"}</span>
+                </Button>
+              )
+            )}
+            {project.liveUrl && (
+              <Button asChild size="lg" className={buttonClass}>
+                <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                  Visit Live {project.demo ? "Demo" : "Site"} <ArrowUpRight aria-hidden />
                 </a>
-              )}
-            </div>
+              </Button>
+            )}
           </div>
-        </div>
-      </section>
+        </header>
+
+        <img
+          src={project.image}
+          alt={`${project.title} screenshot`}
+          className="mt-10 w-full rounded-3xl bg-secondary"
+        />
+
+        <section aria-labelledby="about-project" className="mt-12">
+          <h2 id="about-project" className="text-title2 font-bold">About This Project</h2>
+          <p className="mt-4 text-body text-muted-foreground">{project.extendedDescription}</p>
+        </section>
+
+        <section aria-labelledby="technologies" className="mt-12">
+          <h2 id="technologies" className="text-title2 font-bold">Technologies</h2>
+          <ul className="mt-4 flex flex-wrap gap-2">
+            {project.technologies.map((tech) => (
+              <li key={tech} className="rounded-full bg-card px-3.5 py-1.5 text-subhead">
+                {tech}
+              </li>
+            ))}
+          </ul>
+        </section>
+      </article>
     </Layout>
   );
 };

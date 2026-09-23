@@ -7,285 +7,122 @@ import {
   Radar,
   ResponsiveContainer,
   Tooltip,
+  type TooltipProps,
 } from "recharts";
-import { skillColorMap, type SkillCategory } from "@/data/skills";
+import { cn } from "@/lib/utils";
+import { type SkillCategory } from "@/data/skills";
 import { techIcons, FallbackIcon } from "@/components/TechStackIcons";
 
 interface SkillRadarChartProps {
   categories: SkillCategory[];
 }
 
+const average = (category: SkillCategory) =>
+  Math.round(category.skills.reduce((sum, s) => sum + s.level, 0) / category.skills.length);
+
+const reduceMotion =
+  typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// SVG presentation attributes can't read CSS variables, so the chart draws in
+// currentColor and the wrapper sets it to the accent.
+const CustomAngleTick = ({ x, y, payload }: { x?: number; y?: number; payload?: { value: string } }) => (
+  <text
+    x={x}
+    y={y}
+    textAnchor="middle"
+    dominantBaseline="middle"
+    fontSize={12}
+    style={{ fill: "hsl(var(--muted-foreground))" }}
+  >
+    {payload?.value}
+  </text>
+);
+
+const CustomTooltip = ({ active, payload }: TooltipProps<number, string>) =>
+  active && payload?.length ? (
+    <div className="rounded-xl border bg-popover px-3 py-2 text-popover-foreground shadow-lg">
+      <p className="text-subhead font-semibold">{payload[0].payload.subject}</p>
+      <p className="text-footnote text-muted-foreground">{payload[0].value}%</p>
+    </div>
+  ) : null;
+
 const SkillRadarChart: React.FC<SkillRadarChartProps> = ({ categories }) => {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const selected = categories.find((c) => c.name === activeCategory);
 
-  // Prepare data for the radar chart based on selection
-  const radarData = React.useMemo(() => {
-    if (activeCategory) {
-      // Show specific skills for the selected category
-      const category = categories.find((c) => c.name === activeCategory);
-      if (!category) return [];
+  // One category: its skills. Otherwise: each category's average.
+  const rows = selected
+    ? selected.skills.map((s) => ({ subject: s.name, level: s.level }))
+    : categories.map((c) => ({ subject: c.name, level: average(c) }));
 
-      return category.skills.map((skill) => ({
-        subject: skill.name,
-        level: skill.level,
-        fullMark: 100,
-        color: skillColorMap[category.color] || "#569CD6",
-      }));
-    } else {
-      // Show averages for all categories
-      return categories.map((category) => {
-        const avgLevel =
-          category.skills.reduce((sum, skill) => sum + skill.level, 0) /
-          category.skills.length;
-        return {
-          subject: category.name,
-          level: Math.round(avgLevel),
-          fullMark: 100,
-          color: skillColorMap[category.color] || "#569CD6",
-        };
-      });
-    }
-  }, [activeCategory, categories]);
-
-  // Custom tooltip
-  const CustomTooltip = ({ active, payload }: any) => {
-    if (active && payload && payload.length) {
-      const data = payload[0].payload;
-      // If drilling down, we don't have a category object to look up, 
-      // but we can find the skill or just show the level.
-
-      return (
-        <div className="bg-portfolio-lightNavy/95 backdrop-blur-sm border border-portfolio-slate/30 rounded-lg p-4 shadow-xl">
-          <h4 className="text-portfolio-white font-semibold mb-2">
-            {data.subject}
-          </h4>
-          <p className="text-portfolio-highlight text-sm">
-            {activeCategory ? "Proficiency" : "Average"}: {data.level}%
-          </p>
-        </div>
-      );
-    }
-    return null;
-  };
-
-  // Custom Angle Tick to allow smooth label movement
-  const CustomAngleTick = (props: any) => {
-    const { x, y, payload, index } = props;
-    return (
-      <g
-        transform={`translate(${x},${y})`}
-        style={{ transition: 'transform 0.6s ease-in-out' }}
-      >
-        <text
-          x={0}
-          y={0}
-          textAnchor="middle"
-          dominantBaseline="middle"
-          fill="#9D9D9D"
-          fontSize={12}
-          className="transition-opacity duration-500"
-        >
-          {payload.value}
-        </text>
-      </g>
-    );
-  };
+  const filters = [{ name: "All", value: null }, ...categories.map((c) => ({ name: c.name, value: c.name }))];
 
   return (
-    <div className="w-full">
-      <style>{`
-        .recharts-polar-grid-concentric-path,
-        .recharts-polar-grid-angular-path {
-          transition: d 0.6s ease-in-out, opacity 0.6s ease-in-out !important;
-        }
-        .recharts-polar-angle-axis-tick {
-          transition: transform 0.6s ease-in-out !important;
-        }
-      `}</style>
-      {/* Category Toggle Buttons */}
-      <div className="flex flex-wrap justify-center gap-2 mb-6">
-        <button
-          onClick={() => setActiveCategory(null)}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${activeCategory === null
-            ? "bg-portfolio-highlight text-portfolio-navy"
-            : "bg-portfolio-lightNavy/50 text-portfolio-slate hover:text-portfolio-white border border-portfolio-slate/20"
-            }`}
-        >
-          All Categories
-        </button>
-        {categories.map((category) => (
+    <div>
+      <div role="group" aria-label="Skill category" className="flex flex-wrap gap-2">
+        {filters.map(({ name, value }) => (
           <button
-            key={category.name}
-            onClick={() =>
-              setActiveCategory(
-                activeCategory === category.name ? null : category.name
-              )
-            }
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${activeCategory === category.name
-              ? "text-portfolio-navy"
-              : "bg-portfolio-lightNavy/50 text-portfolio-slate hover:text-portfolio-white border border-portfolio-slate/20"
-              }`}
-            style={{
-              backgroundColor:
-                activeCategory === category.name
-                  ? skillColorMap[category.color]
-                  : undefined,
-            }}
+            key={name}
+            onClick={() => setActiveCategory(value)}
+            aria-pressed={activeCategory === value}
+            className={cn(
+              "h-9 rounded-full px-4 text-subhead font-medium transition-colors",
+              activeCategory === value
+                ? "bg-primary text-primary-foreground"
+                : "bg-secondary text-foreground hover:bg-secondary/70",
+            )}
           >
-            {category.name}
+            {name}
           </button>
         ))}
       </div>
 
-      {/* Content Container - Side by Side on Desktop */}
-      <div className="flex flex-col lg:flex-row items-center justify-center gap-8">
-        {/* Radar Chart */}
-        <div className="h-[400px] w-full lg:w-1/2">
-          <table className="sr-only">
-            <caption>
-              {activeCategory ? `${activeCategory} skill proficiency` : "Skill category averages"}
-            </caption>
-            <tbody>
-              {radarData.map((row) => (
-                <tr key={row.subject}>
-                  <th scope="row">{row.subject}</th>
-                  <td>{row.level}%</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      <div className="mt-8 grid items-center gap-8 lg:grid-cols-2">
+        <div aria-hidden className="h-[22rem] text-primary">
           <ResponsiveContainer width="100%" height="100%">
-            <RadarChart data={radarData} cx="50%" cy="50%" outerRadius="70%">
-              <PolarGrid
-                stroke="#858585"
-                strokeOpacity={0.3}
-                gridType="polygon"
-              />
-              <PolarAngleAxis
-                dataKey="subject"
-                tick={<CustomAngleTick />}
-                tickLine={false}
-              />
-              <PolarRadiusAxis
-                angle={30}
-                domain={[0, 100]}
-                tick={{ fill: "#858585", fontSize: 10 }}
-                tickCount={5}
-                axisLine={false}
-              />
+            <RadarChart data={rows} cx="50%" cy="50%" outerRadius="68%">
+              <PolarGrid stroke="currentColor" strokeOpacity={0.18} gridType="polygon" />
+              <PolarAngleAxis dataKey="subject" tick={<CustomAngleTick />} tickLine={false} />
+              <PolarRadiusAxis domain={[0, 100]} tick={false} axisLine={false} />
               <Tooltip content={<CustomTooltip />} />
               <Radar
-                name="Skills"
                 dataKey="level"
-                stroke="#569CD6"
-                fill="#569CD6"
-                fillOpacity={0.3}
+                stroke="currentColor"
+                fill="currentColor"
+                fillOpacity={0.2}
                 strokeWidth={2}
-                isAnimationActive={true}
-                animationDuration={500}
-                animationEasing="ease-in-out"
-                dot={{
-                  r: 4,
-                  fill: "#569CD6",
-                  stroke: "#1E1E1E",
-                  strokeWidth: 2,
-                }}
-                activeDot={{
-                  r: 6,
-                  fill: "#4EC9B0",
-                  stroke: "#1E1E1E",
-                  strokeWidth: 2,
-                }}
+                isAnimationActive={!reduceMotion}
+                animationDuration={300}
+                dot={{ r: 3, fill: "currentColor", stroke: "none" }}
+                activeDot={{ r: 5, fill: "currentColor", stroke: "none" }}
               />
             </RadarChart>
           </ResponsiveContainer>
         </div>
 
-        {/* Active Category Details */}
-        <div className="w-full lg:w-1/2 min-h-[200px] flex flex-col justify-center">
-          {activeCategory ? (
-            <div className="animate-fade-in w-full">
-              {categories
-                .filter((c) => c.name === activeCategory)
-                .map((category) => (
-                  <div
-                    key={category.name}
-                    className="bg-portfolio-lightNavy/30 rounded-xl p-6 border border-portfolio-slate/10"
-                  >
-                    <h3
-                      className="text-xl font-bold mb-4"
-                      style={{ color: skillColorMap[category.color] }}
-                    >
-                      {category.name} Skills
-                    </h3>
-                    <div className="grid grid-cols-2 gap-4">
-                      {category.skills.map((skill, idx) => (
-                        <div
-                          key={idx}
-                          className="flex items-center justify-between bg-portfolio-navy/40 rounded-lg px-4 py-3"
-                        >
-                          <div className="flex items-center gap-3">
-                            <div className="w-6 h-6 flex-shrink-0">
-                              {techIcons[skill.name] || <FallbackIcon name={skill.name} />}
-                            </div>
-                            <span className="text-portfolio-white text-sm">
-                              {skill.name}
-                            </span>
-                          </div>
-                          <span
-                            className="font-mono text-sm"
-                            style={{ color: skillColorMap[category.color] }}
-                          >
-                            {skill.level}%
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-            </div>
-          ) : (
-            <div className="w-full bg-portfolio-lightNavy/30 rounded-xl p-6 border border-portfolio-slate/10 animate-fade-in">
-              <h3 className="text-xl font-bold mb-4 text-portfolio-white">
-                Category Averages
-              </h3>
-              <div className="space-y-4">
-                {categories.map((category, idx) => {
-                  const avgLevel = Math.round(
-                    category.skills.reduce((sum, skill) => sum + skill.level, 0) /
-                    category.skills.length
-                  );
-                  return (
-                    <div
-                      key={idx}
-                      className="flex items-center justify-between bg-portfolio-navy/40 rounded-lg px-4 py-3"
-                    >
-                      <span className="text-portfolio-white text-sm">
-                        {category.name}
-                      </span>
-                      <div className="flex items-center gap-3">
-                        <div className="w-32 h-2 bg-portfolio-navy rounded-full overflow-hidden">
-                          <div
-                            className="h-full rounded-full"
-                            style={{
-                              width: `${avgLevel}%`,
-                              backgroundColor: skillColorMap[category.color]
-                            }}
-                          />
-                        </div>
-                        <span
-                          className="font-mono text-sm w-8 text-right"
-                          style={{ color: skillColorMap[category.color] }}
-                        >
-                          {avgLevel}%
-                        </span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
+        {/* The list carries the same numbers as the chart, readable by everyone. */}
+        <div>
+          <h3 className="mb-3 text-headline">
+            {selected ? selected.name : "Category Averages"}
+          </h3>
+          <ul className="divide-y overflow-hidden rounded-2xl bg-secondary/50">
+            {rows.map((row) => (
+              <li key={row.subject} className="flex min-h-[44px] items-center gap-3 px-4 py-2.5">
+                {selected && (
+                  <span className="h-6 w-6 shrink-0">
+                    {techIcons[row.subject] || <FallbackIcon name={row.subject} />}
+                  </span>
+                )}
+                <span className="min-w-0 flex-1 text-subhead">{row.subject}</span>
+                <span aria-hidden className="hidden h-1.5 w-24 overflow-hidden rounded-full bg-secondary sm:block">
+                  <span className="block h-full rounded-full bg-primary" style={{ width: `${row.level}%` }} />
+                </span>
+                <span className="w-10 text-right text-subhead tabular-nums text-muted-foreground">
+                  {row.level}%
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>

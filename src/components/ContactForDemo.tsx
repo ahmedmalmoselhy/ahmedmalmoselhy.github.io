@@ -27,34 +27,25 @@ const ContactForDemo: React.FC<ContactForDemoProps> = ({
   const whatsapp = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`;
 
   return (
-    // The menu is portaled, but React events still bubble to the parent card; keep them here.
-    <span
-      onClick={(e) => e.stopPropagation()}
-      onKeyDown={(e) => e.stopPropagation()}
-    >
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <button type="button" className={className}>
-            {children}
-          </button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent
-          align="start"
-          className="bg-portfolio-lightNavy border-portfolio-slate/20 text-portfolio-lightSlate"
-        >
-          <DropdownMenuItem asChild className="cursor-pointer gap-2">
-            <a href={mailto}>
-              <Mail size={16} /> Send an email
-            </a>
-          </DropdownMenuItem>
-          <DropdownMenuItem asChild className="cursor-pointer gap-2">
-            <a href={whatsapp} target="_blank" rel="noopener noreferrer">
-              <MessageCircle size={16} /> Message on WhatsApp
-            </a>
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </span>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button type="button" className={className}>
+          {children}
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="start" className="min-w-[14rem] rounded-xl p-1.5">
+        <DropdownMenuItem asChild className="min-h-[44px] cursor-pointer gap-3 rounded-lg px-3 text-callout">
+          <a href={mailto}>
+            <Mail aria-hidden size={18} /> Send Email
+          </a>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild className="min-h-[44px] cursor-pointer gap-3 rounded-lg px-3 text-callout">
+          <a href={whatsapp} target="_blank" rel="noopener noreferrer">
+            <MessageCircle aria-hidden size={18} /> Message on WhatsApp
+          </a>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
 

@@ -104,74 +104,84 @@ const GitHubGraph: React.FC = () => {
   });
 
   const levelClasses = [
-    "bg-portfolio-slate/20 hover:bg-portfolio-slate/30",
-    "bg-portfolio-highlight/30 hover:bg-portfolio-highlight/40",
-    "bg-portfolio-highlight/50 hover:bg-portfolio-highlight/60",
-    "bg-portfolio-highlight/70 hover:bg-portfolio-highlight/80",
-    "bg-portfolio-highlight hover:bg-portfolio-highlight/95",
+    "bg-secondary",
+    "bg-primary/25",
+    "bg-primary/50",
+    "bg-primary/75",
+    "bg-primary",
   ];
 
   const totalWeeks = weeks.length;
+  const profileUrl = `https://github.com/${GITHUB_USERNAME}`;
 
   return (
-    <div className="w-full bg-gradient-to-b from-portfolio-lightNavy/40 to-portfolio-lightNavy/20 backdrop-blur-md border border-portfolio-slate/20 rounded-2xl p-6 md:p-8 shadow-lg shadow-portfolio-navy/5">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-portfolio-slate/10">
-        <div className="flex items-center gap-4">
+    <section aria-labelledby="github-activity" className="surface p-6 md:p-8">
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
           <img
-            src={`https://github.com/${GITHUB_USERNAME}.png`}
-            alt={`${GITHUB_USERNAME}'s avatar`}
-            className="w-10 h-10 rounded-full border-2 border-portfolio-highlight/30 shadow-md shadow-portfolio-highlight/10"
+            src={`${profileUrl}.png`}
+            alt=""
+            className="h-10 w-10 rounded-full bg-secondary"
           />
           <div>
-            <h3 className="text-portfolio-white font-bold text-lg tracking-tight">GitHub Activity</h3>
+            <h2 id="github-activity" className="text-headline">GitHub Activity</h2>
             <a
-              href={`https://github.com/${GITHUB_USERNAME}`}
+              href={profileUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-portfolio-highlight text-xs font-mono hover:text-portfolio-highlight/80 transition-colors duration-200"
+              className="text-subhead text-primary hover:underline"
             >
               @{GITHUB_USERNAME}
             </a>
           </div>
         </div>
         {!loading && !error && (
-          <div className="text-right sm:text-center">
-            <div className="text-portfolio-white font-bold text-sm">{totalContributions.toLocaleString()}</div>
-            <div className="text-portfolio-lightSlate text-xs font-mono">contributions this year</div>
-          </div>
+          <p className="text-subhead text-muted-foreground">
+            <span className="font-semibold text-foreground tabular-nums">
+              {totalContributions.toLocaleString()}
+            </span>{" "}
+            contributions in the last year
+          </p>
         )}
       </div>
 
       {loading ? (
-        <div className="h-32 flex items-center justify-center text-portfolio-slate text-sm font-medium">
-          Loading contributions...
-        </div>
+        <p className="flex h-32 items-center justify-center text-subhead text-muted-foreground">
+          Loading contributions…
+        </p>
       ) : error ? (
-        <div className="h-32 flex items-center justify-center text-portfolio-slate text-sm font-medium">
-          Unable to load contribution data.
-        </div>
+        <p className="flex h-32 items-center justify-center gap-1 text-subhead text-muted-foreground">
+          Couldn't load GitHub activity.{" "}
+          <a href={profileUrl} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+            View it on GitHub
+          </a>
+        </p>
       ) : (
-        <div className="w-full pt-6">
+        <div
+          role="img"
+          aria-label={`${totalContributions.toLocaleString()} GitHub contributions in the last year`}
+          className="mt-6"
+        >
           {/* Month labels */}
           <div
-            className="grid mb-3 text-[11px] text-portfolio-slate/70 font-mono font-medium pl-7"
+            aria-hidden
+            className="mb-2 grid pl-8 text-caption text-muted-foreground"
             style={{ gridTemplateColumns: `repeat(${totalWeeks}, 1fr)` }}
           >
             {Array.from({ length: totalWeeks }).map((_, i) => {
               const ml = monthLabels.find((m) => m.col === i);
-              return <span key={i} className="truncate">{ml ? ml.label : ""}</span>;
+              return <span key={i} className="overflow-visible whitespace-nowrap">{ml ? ml.label : ""}</span>;
             })}
           </div>
 
-          <div className="flex gap-1 w-full bg-portfolio-navy/30 rounded-xl p-3">
+          <div aria-hidden className="flex gap-1">
             {/* Day labels */}
-            <div className="flex flex-col justify-between w-7 shrink-0 text-[11px] text-portfolio-slate/60 font-mono font-medium pr-2">
+            <div className="flex w-8 shrink-0 flex-col justify-between pr-1 text-caption text-muted-foreground">
               <span></span><span>Mon</span><span></span><span>Wed</span><span></span><span>Fri</span><span></span>
             </div>
 
-            {/* Grid */}
             <div
-              className="grid gap-1 w-full flex-1"
+              className="grid flex-1 gap-[3px]"
               style={{
                 gridTemplateColumns: `repeat(${totalWeeks}, 1fr)`,
                 gridTemplateRows: "repeat(7, 1fr)",
@@ -186,7 +196,7 @@ const GitHubGraph: React.FC = () => {
                   return (
                     <div
                       key={`${wi}-${di}`}
-                      className={`rounded-md ${levelClasses[day.level]} transition-all duration-150 cursor-pointer transform hover:scale-125 hover:shadow-lg hover:shadow-portfolio-highlight/20 z-10`}
+                      className={`rounded-[3px] ${levelClasses[day.level]}`}
                       title={`${day.count} contribution${day.count !== 1 ? "s" : ""} on ${day.date}`}
                     />
                   );
@@ -196,16 +206,16 @@ const GitHubGraph: React.FC = () => {
           </div>
 
           {/* Legend */}
-          <div className="flex items-center justify-end gap-2 mt-4 pt-4 border-t border-portfolio-slate/10 text-[11px] text-portfolio-slate/70 font-mono">
-            <span className="font-medium">Less</span>
+          <div aria-hidden className="mt-4 flex items-center justify-end gap-1.5 text-caption text-muted-foreground">
+            <span>Less</span>
             {levelClasses.map((cls, i) => (
-              <div key={i} className={`w-3 h-3 rounded-sm ${cls} shadow-sm shadow-portfolio-highlight/5`} />
+              <div key={i} className={`h-3 w-3 rounded-[3px] ${cls}`} />
             ))}
-            <span className="font-medium">More</span>
+            <span>More</span>
           </div>
         </div>
       )}
-    </div>
+    </section>
   );
 };
 
