@@ -1,3 +1,5 @@
+import { Handshake, MessageSquare, Clock, Lightbulb, Brain, Rocket, Palette, BarChart3, type LucideIcon } from "lucide-react";
+
 export interface Skill {
   name: string;
   level: number;
@@ -11,7 +13,7 @@ export interface SkillCategory {
 
 export interface SoftSkill {
   name: string;
-  icon: string;
+  icon: LucideIcon;
 }
 
 // Shared color map for skill category accents, used by the radar chart,
@@ -80,12 +82,12 @@ export const skillCategories: SkillCategory[] = [
 ];
 
 export const softSkills: SoftSkill[] = [
-  { name: "Team Collaboration", icon: "🤝" },
-  { name: "Communication", icon: "💬" },
-  { name: "Time Management", icon: "⏱️" },
-  { name: "Problem-Solving", icon: "💡" },
-  { name: "Adaptability", icon: "🧠" },
-  { name: "Leadership", icon: "🚀" },
-  { name: "Creativity", icon: "🎨" },
-  { name: "Accountability", icon: "📊" },
+  { name: "Team Collaboration", icon: Handshake },
+  { name: "Communication", icon: MessageSquare },
+  { name: "Time Management", icon: Clock },
+  { name: "Problem-Solving", icon: Lightbulb },
+  { name: "Adaptability", icon: Brain },
+  { name: "Leadership", icon: Rocket },
+  { name: "Creativity", icon: Palette },
+  { name: "Accountability", icon: BarChart3 },
 ];

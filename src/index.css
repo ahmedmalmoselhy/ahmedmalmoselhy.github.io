@@ -1,107 +1,117 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Palette: neutral graphite + one amber "signal" accent (terminal / IDE feel).
+ * One accent only; everything else is grayscale so content carries the page.
+ */
 @layer base {
   :root {
-    /* Light mode - Clean, readable with warm accents */
-    --background: 210 20% 98%;
-    --foreground: 220 20% 20%;
+    /* Light mode - warm paper, burnt-amber accent */
+    --background: 40 12% 97%;
+    --foreground: 220 12% 10%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 20% 20%;
+    --card-foreground: 220 12% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 20% 20%;
+    --popover-foreground: 220 12% 10%;
 
-    --primary: 207 58% 45%;
+    --primary: 28 90% 36%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 15% 92%;
-    --secondary-foreground: 220 20% 25%;
+    --secondary: 40 8% 92%;
+    --secondary-foreground: 220 12% 14%;
 
-    --muted: 210 15% 90%;
-    --muted-foreground: 220 10% 45%;
+    --muted: 40 8% 92%;
+    --muted-foreground: 220 8% 36%;
 
-    --accent: 29 54% 50%;
+    --accent: 207 60% 38%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 60% 50%;
+    --destructive: 0 70% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 210 15% 85%;
-    --input: 210 15% 85%;
-    --ring: 207 58% 45%;
+    --border: 40 8% 86%;
+    --input: 40 8% 86%;
+    --ring: 28 90% 36%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
-    --sidebar-background: 210 20% 96%;
-    --sidebar-foreground: 220 20% 20%;
-    --sidebar-primary: 207 58% 45%;
+    --sidebar-background: 40 12% 97%;
+    --sidebar-foreground: 220 12% 10%;
+    --sidebar-primary: 28 90% 36%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 15% 90%;
-    --sidebar-accent-foreground: 220 20% 25%;
-    --sidebar-border: 210 15% 85%;
-    --sidebar-ring: 207 58% 45%;
+    --sidebar-accent: 40 8% 92%;
+    --sidebar-accent-foreground: 220 12% 14%;
+    --sidebar-border: 40 8% 86%;
+    --sidebar-ring: 28 90% 36%;
 
     /* Portfolio specific - Light mode */
-    --portfolio-navy: 210 20% 96%;
+    --portfolio-navy: 40 12% 97%;
     --portfolio-light-navy: 0 0% 100%;
-    --portfolio-slate: 220 10% 45%;
-    --portfolio-light-slate: 220 20% 30%;
-    --portfolio-white: 220 20% 20%;
-    --portfolio-highlight: 207 58% 45%;
-    --portfolio-teal: 207 58% 45%;
+    --portfolio-slate: 220 8% 36%;
+    --portfolio-light-slate: 220 10% 24%;
+    --portfolio-white: 220 12% 10%;
+    --portfolio-highlight: 28 90% 36%;
+    --portfolio-teal: 207 60% 38%;
+
+    /* Background glow strength (tuning knob) */
+    --glow: 0.16;
   }
 
   .dark {
-    --background: 0 0% 12%;
-    --foreground: 0 0% 80%;
+    /* Dark mode - graphite, amber accent */
+    --background: 220 8% 7%;
+    --foreground: 210 10% 92%;
 
-    --card: 0 0% 15%;
-    --card-foreground: 0 0% 80%;
+    --card: 220 7% 10%;
+    --card-foreground: 210 10% 92%;
 
-    --popover: 0 0% 15%;
-    --popover-foreground: 0 0% 80%;
+    --popover: 220 7% 10%;
+    --popover-foreground: 210 10% 92%;
 
-    --primary: 207 58% 59%;
-    --primary-foreground: 0 0% 12%;
+    --primary: 36 95% 58%;
+    --primary-foreground: 220 8% 7%;
 
-    --secondary: 0 0% 18%;
-    --secondary-foreground: 0 0% 80%;
+    --secondary: 220 6% 14%;
+    --secondary-foreground: 210 10% 92%;
 
-    --muted: 0 0% 22%;
-    --muted-foreground: 0 0% 65%;
+    --muted: 220 6% 14%;
+    --muted-foreground: 215 8% 64%;
 
-    --accent: 29 54% 61%;
-    --accent-foreground: 0 0% 12%;
+    --accent: 207 58% 62%;
+    --accent-foreground: 220 8% 7%;
 
-    --destructive: 0 60% 50%;
-    --destructive-foreground: 0 0% 80%;
+    --destructive: 0 70% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 25%;
-    --input: 0 0% 25%;
-    --ring: 207 58% 59%;
+    --border: 220 6% 18%;
+    --input: 220 6% 18%;
+    --ring: 36 95% 58%;
 
-    --sidebar-background: 0 0% 10%;
-    --sidebar-foreground: 0 0% 80%;
-    --sidebar-primary: 207 58% 59%;
-    --sidebar-primary-foreground: 0 0% 12%;
-    --sidebar-accent: 0 0% 18%;
-    --sidebar-accent-foreground: 0 0% 80%;
-    --sidebar-border: 0 0% 20%;
-    --sidebar-ring: 207 58% 59%;
+    --sidebar-background: 220 8% 7%;
+    --sidebar-foreground: 210 10% 92%;
+    --sidebar-primary: 36 95% 58%;
+    --sidebar-primary-foreground: 220 8% 7%;
+    --sidebar-accent: 220 6% 14%;
+    --sidebar-accent-foreground: 210 10% 92%;
+    --sidebar-border: 220 6% 18%;
+    --sidebar-ring: 36 95% 58%;
 
     /* Portfolio specific - Dark mode */
-    --portfolio-navy: 0 0% 12%;
-    --portfolio-light-navy: 0 0% 15%;
-    --portfolio-slate: 0 0% 55%;
-    --portfolio-light-slate: 0 0% 70%;
-    --portfolio-white: 0 0% 85%;
-    --portfolio-highlight: 207 58% 59%;
-    --portfolio-teal: 207 58% 59%;
+    --portfolio-navy: 220 8% 7%;
+    --portfolio-light-navy: 220 7% 10%;
+    --portfolio-slate: 215 8% 64%;
+    --portfolio-light-slate: 215 10% 78%;
+    --portfolio-white: 210 10% 94%;
+    --portfolio-highlight: 36 95% 58%;
+    --portfolio-teal: 207 58% 62%;
+
+    --glow: 0.22;
   }
 }
 
@@ -110,50 +120,170 @@
     @apply border-border;
   }
 
-  body {
-    @apply bg-background text-foreground font-sans;
-  }
-  
   html {
     scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    /* Amber glow from the top + faint blue counter-glow, fixed so it stays put on scroll */
+    background-image:
+      radial-gradient(ellipse 70% 45% at 50% -8%, hsl(var(--portfolio-highlight) / var(--glow)), transparent 70%),
+      radial-gradient(ellipse 45% 40% at 100% 100%, hsl(var(--accent) / calc(var(--glow) * 0.6)), transparent 70%);
+    background-attachment: fixed;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display tracking-tight;
+    text-wrap: balance;
+  }
+
+  button, a, [role="button"] {
+    touch-action: manipulation;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-portfolio-highlight ring-offset-2 ring-offset-background;
+  }
+
+  ::selection {
+    background: hsl(var(--portfolio-highlight) / 0.3);
   }
 }
 
 @layer components {
-  .nav-link {
-    @apply px-4 py-2 text-portfolio-slate hover:text-portfolio-highlight transition-colors duration-200 relative;
+  /* Faint engineering grid behind every page, rendered once in App */
+  .bg-grid {
+    @apply pointer-events-none fixed inset-0 -z-10;
+    /* Blueprint grid: major lines every 4 cells, minor lines every cell */
+    background-image:
+      linear-gradient(hsl(var(--foreground) / 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--foreground) / 0.07) 1px, transparent 1px),
+      linear-gradient(hsl(var(--foreground) / 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--foreground) / 0.035) 1px, transparent 1px);
+    background-size: 192px 192px, 192px 192px, 48px 48px, 48px 48px;
+    mask-image: radial-gradient(ellipse 90% 75% at 50% 0%, black 20%, transparent 80%);
   }
-  
-  .nav-link::after {
-    @apply content-[''] absolute bottom-0 left-0 w-0 h-[2px] bg-portfolio-highlight transition-all duration-300;
+
+  .panel {
+    @apply rounded-xl border border-border bg-card;
+    box-shadow: 0 1px 2px hsl(220 20% 4% / 0.06);
   }
-  
-  .nav-link:hover::after,
-  .nav-link.active::after {
-    @apply w-full;
+
+  /* Hover lift + accent border for clickable cards */
+  .card-interactive {
+    @apply cursor-pointer;
+    transition:
+      transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
   }
-  
-  .nav-link.active {
-    @apply text-portfolio-highlight;
+
+  .card-interactive:hover,
+  .card-interactive:focus-visible {
+    @apply border-portfolio-highlight/60;
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px -16px hsl(220 20% 4% / 0.35);
   }
-  
-  .section-title {
-    @apply text-3xl font-bold text-portfolio-white mb-6 flex items-center;
+
+  .card-interactive:active {
+    transform: translateY(-1px) scale(0.99);
+    transition-duration: 0.12s;
   }
-  
-  .section-title::after {
-    @apply content-[''] h-[1px] bg-portfolio-lightSlate ml-4 flex-grow opacity-20;
-  }
-  
+
   .btn-primary {
-    @apply px-6 py-3 rounded border border-portfolio-teal text-portfolio-teal hover:bg-portfolio-teal/10 transition-all duration-300;
+    @apply inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-primary px-6 font-semibold text-primary-foreground;
+    transition: transform 0.2s ease, filter 0.2s ease;
   }
-  
-  .btn-outline {
-    @apply px-4 py-2 rounded border border-portfolio-slate text-portfolio-slate hover:bg-portfolio-slate/10 transition-all duration-300;
+
+  .btn-primary:hover {
+    filter: brightness(1.08);
+    transform: translateY(-2px);
   }
-  
-  .card {
-    @apply bg-portfolio-lightNavy rounded-lg p-6 transition-transform duration-300 hover:-translate-y-2 border border-portfolio-slate/20;
+
+  .btn-secondary {
+    @apply inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-border bg-card px-6 font-semibold text-portfolio-white;
+    transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .btn-secondary:hover {
+    @apply border-portfolio-highlight/60 text-portfolio-highlight;
+    transform: translateY(-2px);
+  }
+
+  .btn-primary:active,
+  .btn-secondary:active {
+    transform: scale(0.97);
+  }
+
+  .chip {
+    @apply inline-flex items-center rounded-md border border-border bg-muted px-2.5 py-1 font-mono text-xs text-portfolio-lightSlate;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-md border border-portfolio-highlight/30 bg-portfolio-highlight/10 px-3 py-1 font-mono text-xs uppercase tracking-widest text-portfolio-highlight;
+  }
+
+  .page-title {
+    @apply font-display text-[clamp(2.5rem,7vw,4.5rem)] font-bold leading-[1.05] text-portfolio-white;
+  }
+
+  .nav-link {
+    @apply relative rounded-lg px-4 py-2 text-sm font-medium text-portfolio-slate transition-colors duration-200 hover:text-portfolio-white;
+  }
+
+  .nav-link.active {
+    @apply bg-muted text-portfolio-white;
+  }
+
+  .nav-link.active::after {
+    content: "";
+    @apply absolute inset-x-4 -bottom-px h-0.5 rounded-full bg-portfolio-highlight;
+  }
+
+  .section-title {
+    @apply mb-6 flex items-center font-display text-3xl font-bold text-portfolio-white;
+  }
+
+  .section-title::after {
+    @apply ml-4 h-px flex-grow bg-border content-[''];
+  }
+
+  /* Page switch animation (SinglePageApp re-keys on section change) */
+  .page-enter {
+    animation: page-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
+/* Scroll-driven reveal: native, zero JS; browsers without support just show content */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 25%;
+    }
+  }
+}
+
+/* Uses translate/scale (not transform) so it composes with hover transforms */
+@keyframes reveal-up {
+  from { opacity: 0; translate: 0 32px; scale: 0.98; }
+  to { opacity: 1; translate: 0 0; scale: 1; }
+}
+
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

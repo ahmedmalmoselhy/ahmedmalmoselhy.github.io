@@ -41,7 +41,7 @@ const SinglePageApp: React.FC<SinglePageAppProps> = ({ appState, onSectionChange
   };
 
   return (
-    <div key={`${appState.section}-${appState.projectId || ''}`} className="animate-fade-in">
+    <div key={`${appState.section}-${appState.projectId || ''}`} className="page-enter">
       {renderContent()}
     </div>
   );

@@ -1,121 +1,72 @@
-
 import React from 'react';
 import Layout from '@/components/Layout';
-import { Mail, Phone, Github, Linkedin } from 'lucide-react';
+import { ArrowUpRight, Mail, Phone, Github, Linkedin, Briefcase, Building2, Lightbulb, Users } from 'lucide-react';
+
+const channels = [
+  { label: 'Email', value: 'ahmedmalmoselhy@gmail.com', href: 'mailto:ahmedmalmoselhy@gmail.com', icon: Mail },
+  { label: 'Phone', value: '+20 111 700 1262', href: 'tel:+201117001262', icon: Phone },
+  { label: 'LinkedIn', value: 'linkedin.com/in/ahmedmalmoselhy', href: 'https://www.linkedin.com/in/ahmedmalmoselhy/', icon: Linkedin, external: true },
+  { label: 'GitHub', value: 'github.com/ahmedmalmoselhy', href: 'https://github.com/ahmedmalmoselhy', icon: Github, external: true },
+];
+
+const availability = [
+  { title: 'Freelance Work', text: 'Available for short to medium-term projects', icon: Briefcase },
+  { title: 'Full-time Positions', text: 'Open to discussing new opportunities', icon: Building2 },
+  { title: 'Consulting', text: 'Technical consulting for your projects', icon: Lightbulb },
+  { title: 'Collaboration', text: 'Interested in partnering on innovative projects', icon: Users },
+];
 
 const Contact = () => {
   return (
-    <Layout className="pt-20 md:pt-28">
-      <section className="container mx-auto px-4 py-8 md:py-16 relative">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-portfolio-highlight to-transparent opacity-50"></div>
-        <div className="max-w-4xl mx-auto mb-16 text-center">
-          <h1 className="text-5xl md:text-7xl font-bold text-portfolio-white mb-6 animate-fade-in tracking-tight">
-            Get In <span className="text-portfolio-highlight">Touch</span>
+    <Layout className="pt-28">
+      <section className="container mx-auto px-4 py-8 md:py-12">
+        <header className="mx-auto mb-14 max-w-3xl text-center">
+          <span className="eyebrow mb-5 animate-fade-in">Contact</span>
+          <h1 className="page-title mb-5 animate-slide-up">
+            Let's build something <span className="text-portfolio-highlight">together</span>
           </h1>
-          <p className="text-portfolio-slate max-w-2xl mx-auto text-lg md:text-xl animate-fade-in leading-relaxed">
-            Have a question, a project idea, or just want to say hi?
-            Feel free to contact me through any of the channels below.
+          <p className="text-lg leading-relaxed text-portfolio-slate animate-slide-up md:text-xl" style={{ animationDelay: '120ms' }}>
+            Have a question, a project idea, or just want to say hi? Reach out
+            through any of the channels below.
           </p>
+        </header>
+
+        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6">
+          {channels.map(({ label, value, href, icon: Icon, external }) => (
+            <a
+              key={label}
+              href={href}
+              {...(external && { target: '_blank', rel: 'noopener noreferrer' })}
+              className="panel card-interactive reveal group flex items-center gap-4 p-5 md:p-6"
+            >
+              <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-portfolio-highlight/10 text-portfolio-highlight ring-1 ring-inset ring-portfolio-highlight/25 shadow-lg transition-transform duration-500 group-hover:rotate-[-8deg] group-hover:scale-110">
+                <Icon size={24} aria-hidden="true" />
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block text-sm text-portfolio-slate">{label}</span>
+                <span className="block font-mono text-sm text-portfolio-white [overflow-wrap:anywhere] md:text-base">
+                  {value}
+                </span>
+              </span>
+              <ArrowUpRight
+                size={20}
+                aria-hidden="true"
+                className="shrink-0 text-portfolio-slate transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-portfolio-highlight"
+              />
+            </a>
+          ))}
         </div>
 
-        <div className="max-w-5xl mx-auto">
-          {/* Contact Info - Now better responsive sizing */}
-          <div className="space-y-8 md:space-y-12 animate-fade-in">
-            <div className="bg-portfolio-lightNavy/30 backdrop-blur-sm border border-portfolio-slate/10 p-8 md:p-10 rounded-3xl shadow-2xl">
-              <h2 className="text-2xl md:text-3xl font-bold text-portfolio-white mb-8 flex items-center gap-3">
-                <span className="w-1 h-8 bg-portfolio-highlight rounded-full"></span>
-                Contact Information
-              </h2>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
-                <div className="group flex items-start space-x-4 p-4 rounded-xl hover:bg-portfolio-lightNavy/40 transition-colors duration-300">
-                  <div className="bg-portfolio-navy p-4 rounded-full flex-shrink-0 border border-portfolio-slate/10 group-hover:border-portfolio-highlight/30 group-hover:scale-110 transition-all duration-300 shadow-lg">
-                    <Mail size={28} className="text-portfolio-highlight" />
-                  </div>
-                  <div className="min-w-0 pt-1">
-                    <h3 className="text-portfolio-white font-bold mb-1 text-lg">Email</h3>
-                    <a href="mailto:ahmedmalmoselhy@gmail.com" className="text-portfolio-slate hover:text-portfolio-highlight transition-colors text-base md:text-lg break-all font-mono">
-                      ahmedmalmoselhy@gmail.com
-                    </a>
-                  </div>
-                </div>
-
-                <div className="group flex items-start space-x-4 p-4 rounded-xl hover:bg-portfolio-lightNavy/40 transition-colors duration-300">
-                  <div className="bg-portfolio-navy p-4 rounded-full flex-shrink-0 border border-portfolio-slate/10 group-hover:border-portfolio-highlight/30 group-hover:scale-110 transition-all duration-300 shadow-lg">
-                    <Phone size={28} className="text-portfolio-highlight" />
-                  </div>
-                  <div className="min-w-0 pt-1">
-                    <h3 className="text-portfolio-white font-bold mb-1 text-lg">Phone</h3>
-                    <a href="tel:+201117001262" className="text-portfolio-slate hover:text-portfolio-highlight transition-colors text-base md:text-lg font-mono">
-                      +20 111 700 1262
-                    </a>
-                  </div>
-                </div>
-
-                <div className="group flex items-start space-x-4 p-4 rounded-xl hover:bg-portfolio-lightNavy/40 transition-colors duration-300">
-                  <div className="bg-portfolio-navy p-4 rounded-full flex-shrink-0 border border-portfolio-slate/10 group-hover:border-portfolio-highlight/30 group-hover:scale-110 transition-all duration-300 shadow-lg">
-                    <Linkedin size={28} className="text-portfolio-highlight" />
-                  </div>
-                  <div className="min-w-0 pt-1">
-                    <h3 className="text-portfolio-white font-bold mb-1 text-lg">LinkedIn</h3>
-                    <a
-                      href="https://www.linkedin.com/in/ahmedmalmoselhy/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-portfolio-slate hover:text-portfolio-highlight transition-colors text-base md:text-lg break-all"
-                    >
-                      linkedin.com/in/ahmedmalmoselhy
-                    </a>
-                  </div>
-                </div>
-
-                <div className="group flex items-start space-x-4 p-4 rounded-xl hover:bg-portfolio-lightNavy/40 transition-colors duration-300">
-                  <div className="bg-portfolio-navy p-4 rounded-full flex-shrink-0 border border-portfolio-slate/10 group-hover:border-portfolio-highlight/30 group-hover:scale-110 transition-all duration-300 shadow-lg">
-                    <Github size={28} className="text-portfolio-highlight" />
-                  </div>
-                  <div className="min-w-0 pt-1">
-                    <h3 className="text-portfolio-white font-bold mb-1 text-lg">GitHub</h3>
-                    <a
-                      href="https://github.com/ahmedmalmoselhy"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-portfolio-slate hover:text-portfolio-highlight transition-colors text-base md:text-lg break-all"
-                    >
-                      github.com/ahmedmalmoselhy
-                    </a>
-                  </div>
-                </div>
+        <div className="mx-auto mt-20 max-w-5xl">
+          <h2 className="section-title reveal">Available for</h2>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4 md:gap-6">
+            {availability.map(({ title, text, icon: Icon }) => (
+              <div key={title} className="panel reveal p-6">
+                <Icon size={22} className="mb-4 text-portfolio-highlight" aria-hidden="true" />
+                <h3 className="mb-2 text-lg font-bold text-portfolio-white">{title}</h3>
+                <p className="text-sm leading-relaxed text-portfolio-slate">{text}</p>
               </div>
-            </div>
-
-            <div className="animate-fade-in" style={{ animationDelay: '200ms' }}>
-              <h2 className="text-2xl md:text-3xl font-bold text-portfolio-white mb-6 md:mb-8 text-center flex items-center justify-center gap-3">
-                <span className="w-8 h-1 bg-portfolio-slate/20 rounded-full"></span>
-                Available For
-                <span className="w-8 h-1 bg-portfolio-slate/20 rounded-full"></span>
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-                <div className="bg-portfolio-lightNavy/20 backdrop-blur-sm rounded-xl p-6 border border-portfolio-slate/10 hover:border-portfolio-highlight/20 hover:bg-portfolio-lightNavy/40 transition-all duration-300 text-center group hover:-translate-y-1">
-                  <h3 className="text-portfolio-white font-bold mb-2 text-lg group-hover:text-portfolio-highlight transition-colors">Freelance Work</h3>
-                  <p className="text-portfolio-slate text-sm leading-relaxed">Available for short to medium-term projects</p>
-                </div>
-
-                <div className="bg-portfolio-lightNavy/20 backdrop-blur-sm rounded-xl p-6 border border-portfolio-slate/10 hover:border-portfolio-highlight/20 hover:bg-portfolio-lightNavy/40 transition-all duration-300 text-center group hover:-translate-y-1">
-                  <h3 className="text-portfolio-white font-bold mb-2 text-lg group-hover:text-portfolio-highlight transition-colors">Full-time Positions</h3>
-                  <p className="text-portfolio-slate text-sm leading-relaxed">Open to discussing new opportunities</p>
-                </div>
-
-                <div className="bg-portfolio-lightNavy/20 backdrop-blur-sm rounded-xl p-6 border border-portfolio-slate/10 hover:border-portfolio-highlight/20 hover:bg-portfolio-lightNavy/40 transition-all duration-300 text-center group hover:-translate-y-1">
-                  <h3 className="text-portfolio-white font-bold mb-2 text-lg group-hover:text-portfolio-highlight transition-colors">Consulting</h3>
-                  <p className="text-portfolio-slate text-sm leading-relaxed">Technical consulting for your projects</p>
-                </div>
-
-                <div className="bg-portfolio-lightNavy/20 backdrop-blur-sm rounded-xl p-6 border border-portfolio-slate/10 hover:border-portfolio-highlight/20 hover:bg-portfolio-lightNavy/40 transition-all duration-300 text-center group hover:-translate-y-1">
-                  <h3 className="text-portfolio-white font-bold mb-2 text-lg group-hover:text-portfolio-highlight transition-colors">Collaboration</h3>
-                  <p className="text-portfolio-slate text-sm leading-relaxed">Interested in partnering on innovative projects</p>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
