@@ -10,7 +10,15 @@
     <meta name="author" content="Ahmed AlMoselhy" />
     <link rel="canonical" href="https://ahmedmalmoselhy.github.io/" />
     <link rel="icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" href="/Ahmed-AlMoselhy.png" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+
+    <!-- Installable web app. Deliberately no service worker: nothing is cached offline,
+         so a deploy is picked up by a normal reload (see src/hooks/use-app-updates.ts). -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="AlMoselhy" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
     <meta property="og:title" content="Ahmed AlMoselhy | Software Engineer" />
     <meta property="og:description" content="Portfolio of Ahmed AlMoselhy, a software engineer specializing in Laravel, CRM systems (Creatio, Ericsson EOC/ECM), and full-stack web development." />

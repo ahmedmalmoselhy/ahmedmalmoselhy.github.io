@@ -1,8 +1,29 @@
 import React from "react";
 import { cn } from "@/lib/utils";
-import { Home, FileText, FolderGit2, Cpu, Send } from "lucide-react";
+import { Home, FileText, FolderGit2, Cpu, Send, RotateCw } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { PageSection } from "@/App";
+import { Button } from "@/components/ui/button";
+import { reloadApp } from "@/hooks/use-app-updates";
+
+// Installed as an app (Android/desktop PWA or iOS home-screen web app): there is no
+// browser reload button or pull-to-refresh, so the header gets its own refresh button.
+const isInstalledApp =
+  window.matchMedia("(display-mode: standalone)").matches ||
+  (navigator as Navigator & { standalone?: boolean }).standalone === true;
+
+const RefreshButton = () =>
+  isInstalledApp ? (
+    <Button
+      variant="ghost"
+      size="icon"
+      onClick={reloadApp}
+      aria-label="Refresh"
+      className="text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+    >
+      <RotateCw className="h-5 w-5" />
+    </Button>
+  ) : null;
 
 interface NavbarProps {
   activeSection: PageSection;
@@ -54,10 +75,12 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onSectionChange }) => {
               </button>
             ))}
             <span className="mx-2 h-5 w-px bg-border" aria-hidden="true" />
+            <RefreshButton />
             <ThemeToggle />
           </nav>
 
-          <div className="md:hidden">
+          <div className="flex items-center gap-1 md:hidden">
+            <RefreshButton />
             <ThemeToggle />
           </div>
         </div>
