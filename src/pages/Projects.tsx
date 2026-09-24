@@ -1,6 +1,7 @@
 import React from "react";
 import Layout from "@/components/Layout";
 import ProjectCard from "@/components/ProjectCard";
+import PageHeader, { SectionHeading } from "@/components/PageHeader";
 import { PageSection } from "@/App";
 import { projectsData } from "@/data/projects";
 import GitHubGraph from "@/components/GitHubGraph";
@@ -9,22 +10,28 @@ interface ProjectsProps {
   onSectionChange?: (section: PageSection, projectId?: number) => void;
 }
 
+const countStatus = (status: string) => projectsData.filter((p) => p.status === status).length;
+
+const stats = [
+  { value: String(projectsData.length), label: "Total projects" },
+  { value: String(countStatus("completed")), label: "Completed" },
+  { value: String(countStatus("in-progress")), label: "In progress" },
+  { value: String(new Set(projectsData.flatMap((p) => p.technologies)).size), label: "Technologies used" },
+];
+
 const Projects: React.FC<ProjectsProps> = ({ onSectionChange }) => {
   return (
-    <Layout className="pt-28">
-      <section className="container mx-auto px-4 py-8 md:py-12">
-        <header className="mx-auto mb-14 max-w-3xl text-center">
-          <span className="eyebrow mb-5 animate-fade-in">Portfolio</span>
-          <h1 className="page-title mb-5 animate-slide-up">
-            Featured <span className="text-portfolio-highlight">Works</span>
-          </h1>
-          <p className="text-lg leading-relaxed text-portfolio-slate animate-slide-up md:text-xl" style={{ animationDelay: "120ms" }}>
-            A curated selection of projects demonstrating my expertise in
-            full-stack development and system architecture.
-          </p>
-        </header>
+    <Layout className="pt-16">
+      <PageHeader
+        eyebrow="Portfolio"
+        title="Projects"
+        description="A curated selection of work across full-stack development, CRM, and system architecture."
+        stats={stats}
+      />
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+      <section className="container mx-auto px-4 py-16 md:py-20">
+        <SectionHeading eyebrow="All work" title="Project catalogue" />
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {projectsData.map((project) => (
             <ProjectCard
               key={project.id}
@@ -33,8 +40,11 @@ const Projects: React.FC<ProjectsProps> = ({ onSectionChange }) => {
             />
           ))}
         </div>
+      </section>
 
-        <div className="reveal mt-16">
+      <section className="container mx-auto px-4 pb-16 md:pb-24">
+        <SectionHeading eyebrow="Open source" title="GitHub activity" />
+        <div className="reveal">
           <GitHubGraph />
         </div>
       </section>

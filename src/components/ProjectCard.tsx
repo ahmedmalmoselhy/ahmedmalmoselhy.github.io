@@ -29,14 +29,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpen, style }) => 
     }}
     aria-label={`View ${project.title} details`}
   >
-    <div className="relative aspect-[16/10] overflow-hidden">
+    <div className="relative aspect-[16/10] overflow-hidden border-b border-border">
       <img
         src={project.image}
         alt=""
         loading="lazy"
         className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0" />
       <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-black/55 px-2.5 py-1 font-mono text-[11px] text-white backdrop-blur-md">
         <span className={cn(statusStyles[project.status], "h-1.5 w-1.5 rounded-full bg-current")} />
         {statusLabels[project.status]}

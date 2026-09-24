@@ -143,3 +143,8 @@ export const experiences: ExperienceItem[] = [
     ],
   },
 ];
+
+/** Earliest year mentioned in any experience period (used for "years of experience"). */
+export const careerStartYear = Math.min(
+  ...experiences.map((e) => Number(e.period.match(/\d{4}/)?.[0] ?? new Date().getFullYear())),
+);

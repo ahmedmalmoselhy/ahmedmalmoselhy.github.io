@@ -1,5 +1,6 @@
 import React from "react";
 import Layout from "@/components/Layout";
+import PageHeader from "@/components/PageHeader";
 import {
   Briefcase,
   GraduationCap,
@@ -23,7 +24,7 @@ import {
   Database,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { experiences } from "@/data/experience";
+import { experiences, careerStartYear } from "@/data/experience";
 import { certifications } from "@/data/certifications";
 import { education } from "@/data/education";
 import { training } from "@/data/training";
@@ -36,39 +37,37 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
+const stats = [
+  { value: `${new Date().getFullYear() - careerStartYear}+`, label: "Years of experience" },
+  { value: String(experiences.length), label: "Companies" },
+  { value: String(certifications.length), label: "Certifications" },
+  { value: String(languages.length), label: "Languages" },
+];
+
 const Resume = () => {
   return (
-    <Layout className="pt-28">
-      <div className="container mx-auto px-4">
-        <header className="mb-16 pt-4 text-center relative">
-          <span className="eyebrow mb-5 animate-fade-in">Resume</span>
-          <h1 className="page-title mb-6 animate-slide-up">
-            My <span className="text-portfolio-highlight">Journey</span>
-          </h1>
-          <p className="text-portfolio-slate max-w-2xl mx-auto mb-10 text-lg md:text-xl leading-relaxed animate-fade-in">
-            Architecting scalable solutions and crafting exceptional digital experiences.
-            Here is a chronological overview of my professional path.
-          </p>
-
-          <div className="flex justify-center gap-4 animate-fade-in">
-            <a href="/AhmedAlMoselhy.pdf" download className="btn-primary">
-              <Download size={20} aria-hidden="true" />
-              Download CV
-            </a>
-          </div>
-        </header>
-
+    <Layout className="pt-16">
+      <PageHeader
+        eyebrow="Resume"
+        title="Professional experience"
+        description="A chronological overview of my professional path — telecom BSS, CRM, and full-stack web engineering."
+        actions={
+          <a href="/AhmedAlMoselhy.pdf" download className="btn-band">
+            <Download size={17} aria-hidden="true" /> Download CV
+          </a>
+        }
+        stats={stats}
+      />
+      <div className="container mx-auto px-4 py-16 md:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-12">
             {/* Work Experience */}
             <section>
-              <div className="flex items-center gap-3 mb-8">
-                <div className="p-3 rounded-2xl bg-portfolio-highlight/10">
-                  <Briefcase size={28} className="text-portfolio-highlight" />
-                </div>
-                <h2 className="text-3xl font-bold text-portfolio-white">
-                  Professional Journey
-                </h2>
+              <div className="mb-8 flex items-center gap-3">
+                <span className="grid h-11 w-11 place-items-center rounded-md bg-portfolio-highlight/10 text-portfolio-highlight">
+                  <Briefcase size={22} aria-hidden="true" />
+                </span>
+                <h2 className="text-2xl font-semibold text-portfolio-white md:text-3xl">Professional Journey</h2>
               </div>
 
               <div className="relative border-l-2 border-portfolio-highlight/25 ml-3 md:ml-6 space-y-12 pb-4">
@@ -96,7 +95,7 @@ const Resume = () => {
                     <div className="panel reveal group relative p-5 md:p-7">
                       <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-6">
                         <div>
-                          <h3 className="text-2xl md:text-3xl font-bold text-portfolio-white flex flex-wrap items-center gap-2 mb-2">
+                          <h3 className="text-2xl md:text-3xl font-semibold text-portfolio-white flex flex-wrap items-center gap-2 mb-2">
                             {exp.link ? (
                               <a
                                 href={exp.link}
@@ -113,7 +112,7 @@ const Resume = () => {
                           </h3>
                           <div className="flex flex-wrap items-center gap-3 text-portfolio-slate text-sm md:text-base">
                             {exp.outsourced && (
-                              <span className="bg-portfolio-lightNavy/50 px-2 py-1 rounded text-portfolio-slate border border-portfolio-slate/20">
+                              <span className="chip">
                                 via {exp.outsourced}
                               </span>
                             )}
@@ -124,7 +123,7 @@ const Resume = () => {
                             <span>{exp.workType}</span>
                           </div>
                         </div>
-                        <div className="mt-2 md:mt-0 flex items-center gap-2 text-portfolio-highlight font-mono bg-portfolio-highlight/5 px-3 py-1 rounded-full border border-portfolio-highlight/10">
+                        <div className="mt-2 md:mt-0 inline-flex items-center gap-2 self-start whitespace-nowrap rounded-md bg-portfolio-highlight/10 px-3 py-1 text-sm font-medium text-portfolio-highlight">
                           <Calendar size={14} />
                           {exp.period}
                         </div>
@@ -157,7 +156,7 @@ const Resume = () => {
                                   <div className="mb-4">
                                     <div className="flex items-center gap-2 flex-wrap mb-1">
                                       <h4
-                                        className={`${isParallel ? "text-lg md:text-xl font-bold" : "text-xl md:text-2xl font-semibold"} text-portfolio-white`}
+                                        className={`${isParallel ? "text-lg md:text-xl font-semibold" : "text-xl md:text-2xl font-semibold"} text-portfolio-white`}
                                       >
                                         {role.title}
                                       </h4>
@@ -214,7 +213,7 @@ const Resume = () => {
                           {exp.technologies.map((tech, tIndex) => (
                             <span
                               key={tIndex}
-                              className="px-2.5 py-1 text-xs rounded-md bg-portfolio-navy border border-portfolio-slate/20 text-portfolio-lightSlate hover:text-portfolio-highlight hover:border-portfolio-highlight/30 transition-colors cursor-default"
+                              className="chip"
                             >
                               {tech}
                             </span>
@@ -229,13 +228,11 @@ const Resume = () => {
 
             {/* Education */}
             <section>
-              <div className="flex items-center gap-3 mb-8">
-                <div className="p-3 rounded-2xl bg-portfolio-highlight/10">
-                  <GraduationCap size={28} className="text-portfolio-highlight" />
-                </div>
-                <h2 className="text-3xl font-bold text-portfolio-white">
-                  Education
-                </h2>
+              <div className="mb-8 flex items-center gap-3">
+                <span className="grid h-11 w-11 place-items-center rounded-md bg-portfolio-highlight/10 text-portfolio-highlight">
+                  <GraduationCap size={22} aria-hidden="true" />
+                </span>
+                <h2 className="text-2xl font-semibold text-portfolio-white md:text-3xl">Education</h2>
               </div>
 
               <div className="space-y-6">
@@ -262,14 +259,14 @@ const Resume = () => {
 
                       <div className="flex-1 flex flex-col md:flex-row md:justify-between md:items-start gap-3">
                         <div>
-                          <h3 className="text-xl font-bold text-portfolio-white mb-2">
+                          <h3 className="text-xl font-semibold text-portfolio-white mb-2">
                             {item.degree}
                           </h3>
                           <h4 className="text-lg text-portfolio-highlight mb-1">
                             {item.institution}
                           </h4>
                         </div>
-                        <span className="md:text-right text-portfolio-slate font-mono bg-portfolio-navy/50 px-3 py-1 rounded-full border border-portfolio-slate/20 text-sm whitespace-nowrap">
+                        <span className="chip self-start whitespace-nowrap">
                           {item.period}
                         </span>
                       </div>
@@ -285,13 +282,11 @@ const Resume = () => {
 
             {/* Certifications */}
             <section>
-              <div className="flex items-center gap-3 mb-8">
-                <div className="p-3 rounded-2xl bg-portfolio-highlight/10">
-                  <Award size={28} className="text-portfolio-highlight" />
-                </div>
-                <h2 className="text-3xl font-bold text-portfolio-white">
-                  Certifications
-                </h2>
+              <div className="mb-8 flex items-center gap-3">
+                <span className="grid h-11 w-11 place-items-center rounded-md bg-portfolio-highlight/10 text-portfolio-highlight">
+                  <Award size={22} aria-hidden="true" />
+                </span>
+                <h2 className="text-2xl font-semibold text-portfolio-white md:text-3xl">Certifications</h2>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -315,7 +310,7 @@ const Resume = () => {
                             )}
                           </div>
                           <div>
-                            <h3 className="text-lg font-bold text-portfolio-white mb-2 group-hover:text-portfolio-highlight transition-colors line-clamp-2">
+                            <h3 className="text-lg font-semibold text-portfolio-white mb-2 group-hover:text-portfolio-highlight transition-colors line-clamp-2">
                               {cert.name}
                             </h3>
                             <p className="text-portfolio-slate text-sm flex flex-col gap-1">
@@ -330,7 +325,7 @@ const Resume = () => {
                     </DialogTrigger>
                     <DialogContent className="max-w-3xl bg-portfolio-navy border-portfolio-slate/20 p-0 overflow-hidden">
                       <div className="p-6 border-b border-portfolio-slate/10">
-                        <DialogTitle className="text-portfolio-white text-2xl font-bold">
+                        <DialogTitle className="text-portfolio-white text-2xl font-semibold">
                           {cert.name}
                         </DialogTitle>
                       </div>
@@ -358,13 +353,11 @@ const Resume = () => {
 
             {/* Training */}
             <section>
-              <div className="flex items-center gap-3 mb-8">
-                <div className="p-3 rounded-2xl bg-portfolio-highlight/10">
-                  <BookOpen size={28} className="text-portfolio-highlight" />
-                </div>
-                <h2 className="text-3xl font-bold text-portfolio-white">
-                  Training
-                </h2>
+              <div className="mb-8 flex items-center gap-3">
+                <span className="grid h-11 w-11 place-items-center rounded-md bg-portfolio-highlight/10 text-portfolio-highlight">
+                  <BookOpen size={22} aria-hidden="true" />
+                </span>
+                <h2 className="text-2xl font-semibold text-portfolio-white md:text-3xl">Training</h2>
               </div>
 
               <div className="space-y-6">
@@ -391,14 +384,14 @@ const Resume = () => {
 
                       <div className="flex-1 flex flex-col md:flex-row md:justify-between md:items-start gap-3">
                         <div>
-                          <h3 className="text-xl font-bold text-portfolio-white mb-2">
+                          <h3 className="text-xl font-semibold text-portfolio-white mb-2">
                             {item.name}
                           </h3>
                           <h4 className="text-lg text-portfolio-highlight mb-1">
                             {item.provider}
                           </h4>
                         </div>
-                        <span className="md:text-right text-portfolio-slate font-mono bg-portfolio-navy/50 px-3 py-1 rounded-full border border-portfolio-slate/20 text-sm whitespace-nowrap">
+                        <span className="chip self-start whitespace-nowrap">
                           {item.year}
                         </span>
                       </div>
@@ -419,16 +412,13 @@ const Resume = () => {
           <div className="lg:col-span-1 space-y-8">
             {/* Contact Info */}
             <div className="panel reveal p-6">
-              <h3 className="text-xl font-bold text-portfolio-white mb-6 flex items-center gap-2">
-                <span className="w-1 h-6 rounded-full bg-portfolio-highlight"></span>
-                Contact Info
-              </h3>
+              <h3 className="eyebrow mb-5">Contact Info</h3>
               <div className="space-y-4 text-portfolio-lightSlate">
                 <a
                   href="mailto:ahmedmalmoselhy@gmail.com"
                   className="flex items-center gap-4 group p-3 rounded-lg hover:bg-portfolio-highlight/5 transition-colors"
                 >
-                  <div className="w-10 h-10 rounded-full bg-portfolio-navy flex items-center justify-center text-portfolio-highlight group-hover:scale-110 transition-transform">
+                  <div className="w-10 h-10 rounded-md bg-portfolio-highlight/10 flex items-center justify-center text-portfolio-highlight">
                     <Mail size={18} />
                   </div>
                   <span className="group-hover:text-portfolio-highlight transition-colors text-sm break-all">
@@ -439,7 +429,7 @@ const Resume = () => {
                   href="tel:+201117001262"
                   className="flex items-center gap-4 group p-3 rounded-lg hover:bg-portfolio-highlight/5 transition-colors"
                 >
-                  <div className="w-10 h-10 rounded-full bg-portfolio-navy flex items-center justify-center text-portfolio-highlight group-hover:scale-110 transition-transform">
+                  <div className="w-10 h-10 rounded-md bg-portfolio-highlight/10 flex items-center justify-center text-portfolio-highlight">
                     <Phone size={18} />
                   </div>
                   <span className="group-hover:text-portfolio-highlight transition-colors text-sm">
@@ -452,7 +442,7 @@ const Resume = () => {
                   rel="noopener noreferrer"
                   className="flex items-center gap-4 group p-3 rounded-lg hover:bg-portfolio-highlight/5 transition-colors"
                 >
-                  <div className="w-10 h-10 rounded-full bg-portfolio-navy flex items-center justify-center text-portfolio-highlight group-hover:scale-110 transition-transform">
+                  <div className="w-10 h-10 rounded-md bg-portfolio-highlight/10 flex items-center justify-center text-portfolio-highlight">
                     <Linkedin size={18} />
                   </div>
                   <span className="group-hover:text-portfolio-highlight transition-colors text-sm">
@@ -465,7 +455,7 @@ const Resume = () => {
                   rel="noopener noreferrer"
                   className="flex items-center gap-4 group p-3 rounded-lg hover:bg-portfolio-highlight/5 transition-colors"
                 >
-                  <div className="w-10 h-10 rounded-full bg-portfolio-navy flex items-center justify-center text-portfolio-highlight group-hover:scale-110 transition-transform">
+                  <div className="w-10 h-10 rounded-md bg-portfolio-highlight/10 flex items-center justify-center text-portfolio-highlight">
                     <Github size={18} />
                   </div>
                   <span className="group-hover:text-portfolio-highlight transition-colors text-sm">
@@ -477,16 +467,13 @@ const Resume = () => {
 
             {/* Skills Overview */}
             <div className="panel reveal p-6">
-              <h3 className="text-xl font-bold text-portfolio-white mb-6 flex items-center gap-2">
-                <span className="w-1 h-6 rounded-full bg-portfolio-highlight"></span>
-                Skills Overview
-              </h3>
+              <h3 className="eyebrow mb-5">Skills Overview</h3>
 
               <div className="flex flex-wrap gap-2">
                 {skillsOverview.map((skill, i) => (
                   <span
                     key={i}
-                    className="px-3 py-1.5 bg-portfolio-navy/60 hover:bg-portfolio-navy rounded-lg text-xs font-mono border border-portfolio-highlight/10 hover:border-portfolio-highlight/40 text-portfolio-highlight transition-all cursor-default"
+                    className="chip"
                   >
                     {skill}
                   </span>
@@ -496,10 +483,7 @@ const Resume = () => {
 
             {/* Languages */}
             <div className="panel reveal p-6">
-              <h3 className="text-xl font-bold text-portfolio-white mb-6 flex items-center gap-2">
-                <span className="w-1 h-6 rounded-full bg-portfolio-highlight"></span>
-                Languages
-              </h3>
+              <h3 className="eyebrow mb-5">Languages</h3>
               <ul className="space-y-4">
                 {languages.map((lang) => (
                   <li key={lang.name} className="flex justify-between items-center group">
@@ -512,10 +496,7 @@ const Resume = () => {
 
             {/* Personal Details */}
             <div className="panel reveal p-6">
-              <h3 className="text-xl font-bold text-portfolio-white mb-6 flex items-center gap-2">
-                <span className="w-1 h-6 rounded-full bg-portfolio-highlight"></span>
-                Personal Details
-              </h3>
+              <h3 className="eyebrow mb-5">Personal Details</h3>
               <ul className="space-y-4 text-portfolio-lightSlate text-sm">
                 {personalDetails.map((detail, i) => (
                   <li
@@ -531,15 +512,12 @@ const Resume = () => {
 
             {/* Interests */}
             <div className="panel reveal p-6">
-              <h3 className="text-xl font-bold text-portfolio-white mb-6 flex items-center gap-2">
-                <span className="w-1 h-6 rounded-full bg-portfolio-highlight"></span>
-                Interests
-              </h3>
+              <h3 className="eyebrow mb-5">Interests</h3>
               <div className="flex flex-wrap gap-2">
                 {interests.map((interest, i) => (
                   <span
                     key={i}
-                    className="px-3 py-1 bg-portfolio-navy/40 rounded-full text-xs border border-portfolio-slate/10 text-portfolio-slate hover:text-portfolio-highlight hover:border-portfolio-highlight/30 transition-colors cursor-default"
+                    className="chip"
                   >
                     {interest}
                   </span>

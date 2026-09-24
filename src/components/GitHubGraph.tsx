@@ -114,7 +114,7 @@ const GitHubGraph: React.FC = () => {
   const totalWeeks = weeks.length;
 
   return (
-    <div className="w-full bg-gradient-to-b from-portfolio-lightNavy/40 to-portfolio-lightNavy/20 backdrop-blur-md border border-portfolio-slate/20 rounded-2xl p-6 md:p-8 shadow-lg shadow-portfolio-navy/5">
+    <div className="panel w-full p-6 md:p-8">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-portfolio-slate/10">
         <div className="flex items-center gap-4">
           <img

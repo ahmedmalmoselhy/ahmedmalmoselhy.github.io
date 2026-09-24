@@ -26,12 +26,11 @@ const App = () => {
   };
 
   return (
-    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+    <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <Toaster />
           <Sonner />
-          <div className="bg-grid" aria-hidden="true" />
           <Navbar activeSection={appState.section} onSectionChange={handleSectionChange} />
           <SinglePageApp appState={appState} onSectionChange={handleSectionChange} />
         </TooltipProvider>

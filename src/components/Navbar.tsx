@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { cn } from "@/lib/utils";
 import { Home, FileText, FolderGit2, Cpu, Send } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { PageSection } from "@/App";
-import { useTypingAnimation } from "@/hooks/use-typing-animation";
 
 interface NavbarProps {
   activeSection: PageSection;
@@ -19,15 +18,6 @@ const links: { section: PageSection; label: string; icon: typeof Home }[] = [
 ];
 
 const Navbar: React.FC<NavbarProps> = ({ activeSection, onSectionChange }) => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const displayName = useTypingAnimation("<Ahmed AlMoselhy />", 150, 50, 2000);
-
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   // A project page lives under "Projects" in the nav
   const isActive = (section: PageSection) =>
     activeSection === section ||
@@ -35,36 +25,24 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onSectionChange }) => {
 
   return (
     <>
-      <header
-        className={cn(
-          "fixed inset-x-0 top-0 z-50 pt-[env(safe-area-inset-top)] transition-all duration-500",
-          isScrolled
-            ? "border-b border-border bg-background/85 backdrop-blur-xl"
-            : "bg-transparent",
-        )}
-      >
-        <div
-          className={cn(
-            "container mx-auto flex items-center justify-between px-4 transition-all duration-500",
-            isScrolled ? "h-16" : "h-20",
-          )}
-        >
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-border bg-card/95 pt-[env(safe-area-inset-top)] backdrop-blur-md">
+        <div className="container mx-auto flex h-16 items-center justify-between px-4">
           <button
             onClick={() => onSectionChange("home")}
-            className="rounded-lg font-mono text-base font-semibold text-portfolio-highlight transition-opacity hover:opacity-80 sm:text-lg"
+            className="flex items-center gap-3 rounded-md"
             aria-label="Ahmed AlMoselhy, go to home"
           >
-            <span className="inline-flex min-h-6 items-center">
-              {displayName}
-              <span className="ml-1 inline-block h-5 w-0.5 animate-pulse bg-portfolio-highlight" />
+            <span className="grid h-9 w-9 place-items-center rounded-md bg-primary font-mono text-sm font-semibold text-primary-foreground">
+              AA
+            </span>
+            <span className="text-left leading-tight">
+              <span className="block text-sm font-semibold text-portfolio-white">Ahmed AlMoselhy</span>
+              <span className="block text-xs text-portfolio-slate">Software Engineer</span>
             </span>
           </button>
 
           {/* Desktop navigation */}
-          <nav
-            aria-label="Main"
-            className="panel hidden items-center gap-1 p-1.5 md:flex"
-          >
+          <nav aria-label="Main" className="hidden h-full items-center gap-1 md:flex">
             {links.map(({ section, label }) => (
               <button
                 key={section}
@@ -75,7 +53,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onSectionChange }) => {
                 {label}
               </button>
             ))}
-            <span className="mx-1 h-5 w-px bg-border" aria-hidden="true" />
+            <span className="mx-2 h-5 w-px bg-border" aria-hidden="true" />
             <ThemeToggle />
           </nav>
 
@@ -88,10 +66,9 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onSectionChange }) => {
       {/* Mobile bottom tab bar: thumb-reachable, always visible */}
       <nav
         aria-label="Main"
-        className="fixed inset-x-3 bottom-3 z-50 md:hidden"
-        style={{ marginBottom: "env(safe-area-inset-bottom)" }}
+        className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-card/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md md:hidden"
       >
-        <ul className="panel grid grid-cols-5 bg-card/95 p-1.5 backdrop-blur-md">
+        <ul className="grid grid-cols-5">
           {links.map(({ section, label, icon: Icon }) => {
             const active = isActive(section);
             return (
@@ -100,17 +77,13 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onSectionChange }) => {
                   onClick={() => onSectionChange(section)}
                   aria-current={active ? "page" : undefined}
                   className={cn(
-                    "flex min-h-[52px] w-full flex-col items-center justify-center gap-1 rounded-lg text-[11px] font-medium transition-all duration-300 active:scale-95",
+                    "relative flex min-h-[60px] w-full flex-col items-center justify-center gap-1 text-[11px] font-medium transition-colors duration-300 active:scale-95",
                     active
-                      ? "bg-portfolio-highlight/15 text-portfolio-highlight"
+                      ? "text-portfolio-highlight before:absolute before:inset-x-5 before:top-0 before:h-0.5 before:rounded-full before:bg-portfolio-highlight"
                       : "text-portfolio-slate",
                   )}
                 >
-                  <Icon
-                    size={20}
-                    aria-hidden="true"
-                    className={cn("transition-transform duration-300", active && "-translate-y-0.5")}
-                  />
+                  <Icon size={20} aria-hidden="true" />
                   {label}
                 </button>
               </li>

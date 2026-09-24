@@ -12,16 +12,20 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="container mx-auto mt-24 px-4 pb-8">
-      <div className="panel flex flex-col items-center gap-6 px-6 py-8 text-center md:flex-row md:justify-between md:text-left">
+    <footer className="mt-8 border-t border-border bg-card">
+      <div className="container mx-auto flex flex-col items-center gap-6 px-4 py-8 text-center md:flex-row md:justify-between md:text-left">
         <div>
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="rounded-lg font-mono text-lg font-semibold text-portfolio-highlight transition-opacity hover:opacity-80"
+            className="inline-flex items-center gap-3 rounded-md"
+            aria-label="Back to top"
           >
-            {"<Ahmed AlMoselhy />"}
+            <span className="grid h-9 w-9 place-items-center rounded-md bg-primary font-mono text-sm font-semibold text-primary-foreground">
+              AA
+            </span>
+            <span className="text-sm font-semibold text-portfolio-white">Ahmed AlMoselhy</span>
           </button>
-          <p className="mt-1 text-sm text-portfolio-slate">
+          <p className="mt-2 text-sm text-portfolio-slate">
             © {currentYear} · Built with React, TypeScript & Tailwind CSS
           </p>
         </div>

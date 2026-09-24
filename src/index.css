@@ -1,117 +1,119 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /*
- * Palette: neutral graphite + one amber "signal" accent (terminal / IDE feel).
- * One accent only; everything else is grayscale so content carries the page.
+ * Style: enterprise profile. Ink navy + copper, IBM Plex type,
+ * structured cards with light elevation. Hero sits on a navy "band"
+ * that stays navy in both themes.
  */
 @layer base {
   :root {
-    /* Light mode - warm paper, burnt-amber accent */
-    --background: 40 12% 97%;
-    --foreground: 220 12% 10%;
+    /* Light mode (default) - cool paper, navy text, deep copper accent */
+    --background: 216 33% 97%;
+    --foreground: 218 45% 13%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 12% 10%;
+    --card-foreground: 218 45% 13%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 12% 10%;
+    --popover-foreground: 218 45% 13%;
 
-    --primary: 28 90% 36%;
+    --primary: 22 65% 38%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 40 8% 92%;
-    --secondary-foreground: 220 12% 14%;
+    --secondary: 216 25% 92%;
+    --secondary-foreground: 218 45% 13%;
 
-    --muted: 40 8% 92%;
-    --muted-foreground: 220 8% 36%;
+    --muted: 216 25% 92%;
+    --muted-foreground: 218 15% 38%;
 
-    --accent: 207 60% 38%;
+    --accent: 215 55% 35%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 70% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 40 8% 86%;
-    --input: 40 8% 86%;
-    --ring: 28 90% 36%;
+    --border: 216 20% 86%;
+    --input: 216 20% 86%;
+    --ring: 22 65% 38%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
-    --sidebar-background: 40 12% 97%;
-    --sidebar-foreground: 220 12% 10%;
-    --sidebar-primary: 28 90% 36%;
+    --sidebar-background: 216 33% 97%;
+    --sidebar-foreground: 218 45% 13%;
+    --sidebar-primary: 22 65% 38%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 40 8% 92%;
-    --sidebar-accent-foreground: 220 12% 14%;
-    --sidebar-border: 40 8% 86%;
-    --sidebar-ring: 28 90% 36%;
+    --sidebar-accent: 216 25% 92%;
+    --sidebar-accent-foreground: 218 45% 13%;
+    --sidebar-border: 216 20% 86%;
+    --sidebar-ring: 22 65% 38%;
 
-    /* Portfolio specific - Light mode */
-    --portfolio-navy: 40 12% 97%;
+    /* Portfolio specific */
+    --portfolio-navy: 216 33% 97%;
     --portfolio-light-navy: 0 0% 100%;
-    --portfolio-slate: 220 8% 36%;
-    --portfolio-light-slate: 220 10% 24%;
-    --portfolio-white: 220 12% 10%;
-    --portfolio-highlight: 28 90% 36%;
-    --portfolio-teal: 207 60% 38%;
+    --portfolio-slate: 218 15% 38%;
+    --portfolio-light-slate: 218 25% 24%;
+    --portfolio-white: 218 45% 13%;
+    --portfolio-highlight: 22 65% 38%;
+    --portfolio-teal: 215 55% 35%;
 
-    /* Background glow strength (tuning knob) */
-    --glow: 0.16;
+    /* Hero band: always navy, with the bright copper that reads on navy */
+    --band: 217 46% 11%;
+    --band-accent: 24 65% 65%;
   }
 
   .dark {
-    /* Dark mode - graphite, amber accent */
-    --background: 220 8% 7%;
-    --foreground: 210 10% 92%;
+    /* Dark mode - ink navy, copper accent */
+    --background: 217 46% 9%;
+    --foreground: 218 30% 95%;
 
-    --card: 220 7% 10%;
-    --card-foreground: 210 10% 92%;
+    --card: 218 46% 13%;
+    --card-foreground: 218 30% 95%;
 
-    --popover: 220 7% 10%;
-    --popover-foreground: 210 10% 92%;
+    --popover: 218 46% 13%;
+    --popover-foreground: 218 30% 95%;
 
-    --primary: 36 95% 58%;
-    --primary-foreground: 220 8% 7%;
+    --primary: 24 65% 65%;
+    --primary-foreground: 25 58% 7%;
 
-    --secondary: 220 6% 14%;
-    --secondary-foreground: 210 10% 92%;
+    --secondary: 218 45% 16%;
+    --secondary-foreground: 218 30% 95%;
 
-    --muted: 220 6% 14%;
-    --muted-foreground: 215 8% 64%;
+    --muted: 218 45% 16%;
+    --muted-foreground: 219 17% 66%;
 
-    --accent: 207 58% 62%;
-    --accent-foreground: 220 8% 7%;
+    --accent: 213 50% 60%;
+    --accent-foreground: 25 58% 7%;
 
     --destructive: 0 70% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 6% 18%;
-    --input: 220 6% 18%;
-    --ring: 36 95% 58%;
+    --border: 219 37% 20%;
+    --input: 219 37% 20%;
+    --ring: 24 65% 65%;
 
-    --sidebar-background: 220 8% 7%;
-    --sidebar-foreground: 210 10% 92%;
-    --sidebar-primary: 36 95% 58%;
-    --sidebar-primary-foreground: 220 8% 7%;
-    --sidebar-accent: 220 6% 14%;
-    --sidebar-accent-foreground: 210 10% 92%;
-    --sidebar-border: 220 6% 18%;
-    --sidebar-ring: 36 95% 58%;
+    --sidebar-background: 217 46% 9%;
+    --sidebar-foreground: 218 30% 95%;
+    --sidebar-primary: 24 65% 65%;
+    --sidebar-primary-foreground: 25 58% 7%;
+    --sidebar-accent: 218 45% 16%;
+    --sidebar-accent-foreground: 218 30% 95%;
+    --sidebar-border: 219 37% 20%;
+    --sidebar-ring: 24 65% 65%;
 
-    /* Portfolio specific - Dark mode */
-    --portfolio-navy: 220 8% 7%;
-    --portfolio-light-navy: 220 7% 10%;
-    --portfolio-slate: 215 8% 64%;
-    --portfolio-light-slate: 215 10% 78%;
-    --portfolio-white: 210 10% 94%;
-    --portfolio-highlight: 36 95% 58%;
-    --portfolio-teal: 207 58% 62%;
+    --portfolio-navy: 217 46% 9%;
+    --portfolio-light-navy: 218 46% 13%;
+    --portfolio-slate: 219 17% 66%;
+    --portfolio-light-slate: 219 22% 81%;
+    --portfolio-white: 218 30% 95%;
+    --portfolio-highlight: 24 65% 65%;
+    --portfolio-teal: 213 50% 60%;
 
-    --glow: 0.22;
+    --band: 218 50% 6%;
+    --band-accent: 24 65% 65%;
   }
 }
 
@@ -127,11 +129,6 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    /* Amber glow from the top + faint blue counter-glow, fixed so it stays put on scroll */
-    background-image:
-      radial-gradient(ellipse 70% 45% at 50% -8%, hsl(var(--portfolio-highlight) / var(--glow)), transparent 70%),
-      radial-gradient(ellipse 45% 40% at 100% 100%, hsl(var(--accent) / calc(var(--glow) * 0.6)), transparent 70%);
-    background-attachment: fixed;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
 
@@ -149,102 +146,113 @@
   }
 
   ::selection {
-    background: hsl(var(--portfolio-highlight) / 0.3);
+    background: hsl(var(--portfolio-highlight) / 0.25);
   }
 }
 
 @layer components {
-  /* Faint engineering grid behind every page, rendered once in App */
-  .bg-grid {
-    @apply pointer-events-none fixed inset-0 -z-10;
-    /* Blueprint grid: major lines every 4 cells, minor lines every cell */
-    background-image:
-      linear-gradient(hsl(var(--foreground) / 0.07) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(var(--foreground) / 0.07) 1px, transparent 1px),
-      linear-gradient(hsl(var(--foreground) / 0.035) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(var(--foreground) / 0.035) 1px, transparent 1px);
-    background-size: 192px 192px, 192px 192px, 48px 48px, 48px 48px;
-    mask-image: radial-gradient(ellipse 90% 75% at 50% 0%, black 20%, transparent 80%);
-  }
-
   .panel {
-    @apply rounded-xl border border-border bg-card;
-    box-shadow: 0 1px 2px hsl(220 20% 4% / 0.06);
+    @apply rounded-lg border border-border bg-card;
+    box-shadow: 0 1px 2px hsl(218 45% 13% / 0.05), 0 1px 1px hsl(218 45% 13% / 0.03);
   }
 
-  /* Hover lift + accent border for clickable cards */
+  /* Clickable cards: copper border + soft elevation on hover */
   .card-interactive {
     @apply cursor-pointer;
     transition:
       transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-      border-color 0.3s ease,
+      border-color 0.25s ease,
       box-shadow 0.3s ease;
   }
 
   .card-interactive:hover,
   .card-interactive:focus-visible {
-    @apply border-portfolio-highlight/60;
-    transform: translateY(-4px);
-    box-shadow: 0 16px 32px -16px hsl(220 20% 4% / 0.35);
+    @apply border-portfolio-highlight/50;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px -12px hsl(218 45% 13% / 0.25);
   }
 
   .card-interactive:active {
-    transform: translateY(-1px) scale(0.99);
+    transform: translateY(0) scale(0.99);
     transition-duration: 0.12s;
   }
 
   .btn-primary {
-    @apply inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-primary px-6 font-semibold text-primary-foreground;
-    transition: transform 0.2s ease, filter 0.2s ease;
+    @apply inline-flex h-11 items-center justify-center gap-2 rounded-md bg-primary px-5 text-sm font-semibold text-primary-foreground;
+    transition: filter 0.2s ease, transform 0.2s ease;
   }
 
   .btn-primary:hover {
     filter: brightness(1.08);
-    transform: translateY(-2px);
+    transform: translateY(-1px);
   }
 
   .btn-secondary {
-    @apply inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-border bg-card px-6 font-semibold text-portfolio-white;
-    transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    @apply inline-flex h-11 items-center justify-center gap-2 rounded-md border border-border bg-card px-5 text-sm font-semibold text-portfolio-white;
+    transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
   }
 
   .btn-secondary:hover {
     @apply border-portfolio-highlight/60 text-portfolio-highlight;
-    transform: translateY(-2px);
+    transform: translateY(-1px);
+  }
+
+  /* Buttons that sit on the navy band (same look in both themes) */
+  .btn-band {
+    @apply inline-flex h-11 items-center justify-center gap-2 rounded-md bg-[hsl(var(--band-accent))] px-5 text-sm font-semibold text-[hsl(var(--band))];
+    transition: filter 0.2s ease, transform 0.2s ease;
+  }
+
+  .btn-band:hover {
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+  }
+
+  .btn-band-outline {
+    @apply inline-flex h-11 items-center justify-center gap-2 rounded-md border border-white/25 px-5 text-sm font-semibold text-white;
+    transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .btn-band-outline:hover {
+    @apply border-white/60 bg-white/5;
+    transform: translateY(-1px);
   }
 
   .btn-primary:active,
-  .btn-secondary:active {
+  .btn-secondary:active,
+  .btn-band:active,
+  .btn-band-outline:active {
     transform: scale(0.97);
   }
 
   .chip {
-    @apply inline-flex items-center rounded-md border border-border bg-muted px-2.5 py-1 font-mono text-xs text-portfolio-lightSlate;
+    @apply inline-flex items-center rounded border border-border bg-muted px-2 py-0.5 text-xs font-medium text-portfolio-slate;
   }
 
   .eyebrow {
-    @apply inline-flex items-center gap-2 rounded-md border border-portfolio-highlight/30 bg-portfolio-highlight/10 px-3 py-1 font-mono text-xs uppercase tracking-widest text-portfolio-highlight;
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-portfolio-highlight;
   }
 
   .page-title {
-    @apply font-display text-[clamp(2.5rem,7vw,4.5rem)] font-bold leading-[1.05] text-portfolio-white;
+    @apply font-display text-[clamp(2.25rem,5vw,3.5rem)] font-semibold leading-tight text-portfolio-white;
   }
 
+  /* Header links: copper underline sits on the header's bottom border */
   .nav-link {
-    @apply relative rounded-lg px-4 py-2 text-sm font-medium text-portfolio-slate transition-colors duration-200 hover:text-portfolio-white;
+    @apply relative flex h-full items-center px-3 text-sm font-medium text-portfolio-slate transition-colors duration-200 hover:text-portfolio-white;
   }
 
   .nav-link.active {
-    @apply bg-muted text-portfolio-white;
+    @apply text-portfolio-white;
   }
 
   .nav-link.active::after {
     content: "";
-    @apply absolute inset-x-4 -bottom-px h-0.5 rounded-full bg-portfolio-highlight;
+    @apply absolute inset-x-3 -bottom-px h-0.5 rounded-full bg-portfolio-highlight;
   }
 
   .section-title {
-    @apply mb-6 flex items-center font-display text-3xl font-bold text-portfolio-white;
+    @apply mb-6 flex items-center font-display text-2xl font-semibold text-portfolio-white;
   }
 
   .section-title::after {
@@ -253,7 +261,7 @@
 
   /* Page switch animation (SinglePageApp re-keys on section change) */
   .page-enter {
-    animation: page-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: page-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 }
 
@@ -268,14 +276,14 @@
   }
 }
 
-/* Uses translate/scale (not transform) so it composes with hover transforms */
+/* Uses translate (not transform) so it composes with hover transforms */
 @keyframes reveal-up {
-  from { opacity: 0; translate: 0 32px; scale: 0.98; }
-  to { opacity: 1; translate: 0 0; scale: 1; }
+  from { opacity: 0; translate: 0 24px; }
+  to { opacity: 1; translate: 0 0; }
 }
 
 @keyframes page-in {
-  from { opacity: 0; transform: translateY(16px); }
+  from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: none; }
 }
 

@@ -116,9 +116,9 @@ export default {
 				'slide-up': 'slideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both'
 			},
 			fontFamily: {
-				sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
-				display: ['"Space Grotesk"', '"DM Sans"', 'sans-serif'],
-				mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace']
+				sans: ['"IBM Plex Sans"', 'system-ui', 'sans-serif'],
+				display: ['"IBM Plex Sans"', 'system-ui', 'sans-serif'],
+				mono: ['"IBM Plex Mono"', 'ui-monospace', 'monospace']
 			}
 		}
 	},
