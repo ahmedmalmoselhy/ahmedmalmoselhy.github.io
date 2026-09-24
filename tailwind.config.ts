@@ -112,12 +112,13 @@ export default {
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-				'fade-in': 'fadeIn 0.5s ease-in-out',
-				'slide-up': 'slideUp 0.5s ease-in-out'
+				'fade-in': 'fadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both',
+				'slide-up': 'slideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both'
 			},
 			fontFamily: {
-				sans: ['Inter', 'sans-serif'],
-				mono: ['Roboto Mono', 'monospace']
+				sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
+				display: ['"Space Grotesk"', '"DM Sans"', 'sans-serif'],
+				mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace']
 			}
 		}
 	},

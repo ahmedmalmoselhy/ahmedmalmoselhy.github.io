@@ -22,7 +22,6 @@ import {
   Code,
   Database,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { experiences } from "@/data/experience";
 import { certifications } from "@/data/certifications";
@@ -41,9 +40,9 @@ const Resume = () => {
   return (
     <Layout className="pt-28">
       <div className="container mx-auto px-4">
-        <header className="mb-20 pt-10 text-center relative">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-portfolio-highlight to-transparent opacity-50"></div>
-          <h1 className="text-5xl md:text-7xl font-bold text-portfolio-white mb-6 animate-fade-in tracking-tight">
+        <header className="mb-16 pt-4 text-center relative">
+          <span className="eyebrow mb-5 animate-fade-in">Resume</span>
+          <h1 className="page-title mb-6 animate-slide-up">
             My <span className="text-portfolio-highlight">Journey</span>
           </h1>
           <p className="text-portfolio-slate max-w-2xl mx-auto mb-10 text-lg md:text-xl leading-relaxed animate-fade-in">
@@ -52,11 +51,9 @@ const Resume = () => {
           </p>
 
           <div className="flex justify-center gap-4 animate-fade-in">
-            <a href="/AhmedAlMoselhy.pdf" download>
-              <Button className="h-12 px-8 bg-portfolio-highlight hover:bg-portfolio-highlight/90 text-portfolio-navy font-bold rounded-full transition-all hover:scale-105 flex items-center gap-2">
-                <Download size={20} />
-                Download CV
-              </Button>
+            <a href="/AhmedAlMoselhy.pdf" download className="btn-primary">
+              <Download size={20} aria-hidden="true" />
+              Download CV
             </a>
           </div>
         </header>
@@ -66,7 +63,7 @@ const Resume = () => {
             {/* Work Experience */}
             <section>
               <div className="flex items-center gap-3 mb-8">
-                <div className="p-3 bg-portfolio-highlight/10 rounded-xl">
+                <div className="p-3 rounded-2xl bg-portfolio-highlight/10">
                   <Briefcase size={28} className="text-portfolio-highlight" />
                 </div>
                 <h2 className="text-3xl font-bold text-portfolio-white">
@@ -74,12 +71,12 @@ const Resume = () => {
                 </h2>
               </div>
 
-              <div className="relative border-l-2 border-portfolio-slate/20 ml-3 md:ml-6 space-y-12 pb-4">
+              <div className="relative border-l-2 border-portfolio-highlight/25 ml-3 md:ml-6 space-y-12 pb-4">
                 {experiences.map((exp, index) => (
                   <div className="relative pl-8 md:pl-12" key={index}>
                     {/* Glowing Timeline Node */}
                     <div className="absolute -left-[21px] md:-left-[26px] top-0 transition-transform duration-300 hover:scale-110">
-                      <div className="w-11 h-11 md:w-14 md:h-14 rounded-xl bg-portfolio-navy border-2 border-portfolio-highlight/30 flex items-center justify-center overflow-hidden shadow-[0_0_15px_rgba(100,255,218,0.15)] z-10">
+                      <div className="w-11 h-11 md:w-14 md:h-14 rounded-xl bg-portfolio-navy border-2 border-portfolio-highlight/30 flex items-center justify-center overflow-hidden z-10">
                         {exp.logo ? (
                           <img
                             src={exp.logo}
@@ -96,7 +93,7 @@ const Resume = () => {
                     </div>
 
                     {/* Content Card */}
-                    <div className="group relative">
+                    <div className="panel reveal group relative p-5 md:p-7">
                       <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-6">
                         <div>
                           <h3 className="text-2xl md:text-3xl font-bold text-portfolio-white flex flex-wrap items-center gap-2 mb-2">
@@ -152,7 +149,7 @@ const Resume = () => {
                                   key={rIndex}
                                   className={`
                                     ${isParallel
-                                      ? "bg-portfolio-lightNavy/30 border border-portfolio-slate/10 p-5 rounded-xl hover:border-portfolio-highlight/30 transition-all duration-300"
+                                      ? "panel rounded-2xl p-5"
                                       : "relative border-l-2 border-portfolio-highlight/20 pl-4 py-2"
                                     }
                                   `}
@@ -167,7 +164,7 @@ const Resume = () => {
                                       {/* Logic for badges if needed, e.g. Promoted */}
                                       {/* Simplified logic: if not parallel and index > 0, it's a promotion in a linear stack usually */}
                                       {exp.roles.length > 1 && isPromotedRole(roleIndex, rIndex) && (
-                                        <Badge variant="outline" className="border-green-500/50 text-green-400 bg-green-500/10 gap-1">
+                                        <Badge variant="outline" className="border-emerald-500/50 text-emerald-700 dark:text-emerald-400 bg-emerald-500/10 gap-1">
                                           <TrendingUp size={12} /> Promoted
                                         </Badge>
                                       )}
@@ -233,7 +230,7 @@ const Resume = () => {
             {/* Education */}
             <section>
               <div className="flex items-center gap-3 mb-8">
-                <div className="p-3 bg-portfolio-highlight/10 rounded-xl">
+                <div className="p-3 rounded-2xl bg-portfolio-highlight/10">
                   <GraduationCap size={28} className="text-portfolio-highlight" />
                 </div>
                 <h2 className="text-3xl font-bold text-portfolio-white">
@@ -245,7 +242,7 @@ const Resume = () => {
                 {education.map((item) => (
                   <div
                     key={item.id}
-                    className="bg-portfolio-lightNavy/30 backdrop-blur-sm border border-portfolio-slate/10 p-6 rounded-2xl hover:border-portfolio-highlight/30 transition-all duration-300"
+                    className="panel reveal p-6"
                   >
                     <div className="flex items-start gap-4 mb-5">
                       <div className="w-14 h-14 rounded-xl bg-white flex items-center justify-center flex-shrink-0 overflow-hidden shadow-md p-2 border border-portfolio-slate/10">
@@ -289,7 +286,7 @@ const Resume = () => {
             {/* Certifications */}
             <section>
               <div className="flex items-center gap-3 mb-8">
-                <div className="p-3 bg-portfolio-highlight/10 rounded-xl">
+                <div className="p-3 rounded-2xl bg-portfolio-highlight/10">
                   <Award size={28} className="text-portfolio-highlight" />
                 </div>
                 <h2 className="text-3xl font-bold text-portfolio-white">
@@ -301,7 +298,7 @@ const Resume = () => {
                 {certifications.map((cert) => (
                   <Dialog key={cert.id}>
                     <DialogTrigger asChild>
-                      <div className="bg-portfolio-lightNavy/30 backdrop-blur-sm border border-portfolio-slate/10 p-6 rounded-2xl cursor-pointer hover:border-portfolio-highlight/50 hover:bg-portfolio-lightNavy/50 hover:-translate-y-1 transition-all duration-300 group h-full shadow-lg shadow-transparent hover:shadow-portfolio-highlight/5">
+                      <div className="panel card-interactive reveal group h-full p-6">
                         <div className="flex items-start gap-4 h-full">
                           <div className="w-14 h-14 rounded-xl bg-white flex items-center justify-center flex-shrink-0 overflow-hidden shadow-md p-2">
                             {cert.logo ? (
@@ -337,7 +334,7 @@ const Resume = () => {
                           {cert.name}
                         </DialogTitle>
                       </div>
-                      <div className="bg-portfolio-lightNavy/50 p-6 flex justify-center">
+                      <div className="bg-muted/40 p-6 flex justify-center">
                         <div className="relative w-full max-w-2xl rounded-lg overflow-hidden shadow-2xl border border-portfolio-slate/20">
                           {cert.image ? (
                             <img
@@ -362,7 +359,7 @@ const Resume = () => {
             {/* Training */}
             <section>
               <div className="flex items-center gap-3 mb-8">
-                <div className="p-3 bg-portfolio-highlight/10 rounded-xl">
+                <div className="p-3 rounded-2xl bg-portfolio-highlight/10">
                   <BookOpen size={28} className="text-portfolio-highlight" />
                 </div>
                 <h2 className="text-3xl font-bold text-portfolio-white">
@@ -374,7 +371,7 @@ const Resume = () => {
                 {training.map((item) => (
                   <div
                     key={item.id}
-                    className="bg-portfolio-lightNavy/30 backdrop-blur-sm border border-portfolio-slate/10 p-6 rounded-2xl hover:border-portfolio-highlight/30 transition-all duration-300"
+                    className="panel reveal p-6"
                   >
                     <div className="flex items-start gap-4 mb-5">
                       <div className="w-14 h-14 rounded-xl bg-white flex items-center justify-center flex-shrink-0 overflow-hidden shadow-md p-2 border border-portfolio-slate/10">
@@ -421,9 +418,9 @@ const Resume = () => {
           {/* Sidebar */}
           <div className="lg:col-span-1 space-y-8">
             {/* Contact Info */}
-            <div className="bg-portfolio-lightNavy/30 backdrop-blur-sm border border-portfolio-slate/10 p-6 rounded-2xl hover:border-portfolio-highlight/20 transition-all duration-300">
+            <div className="panel reveal p-6">
               <h3 className="text-xl font-bold text-portfolio-white mb-6 flex items-center gap-2">
-                <span className="w-1 h-6 bg-portfolio-highlight rounded-full"></span>
+                <span className="w-1 h-6 rounded-full bg-portfolio-highlight"></span>
                 Contact Info
               </h3>
               <div className="space-y-4 text-portfolio-lightSlate">
@@ -479,9 +476,9 @@ const Resume = () => {
             </div>
 
             {/* Skills Overview */}
-            <div className="bg-portfolio-lightNavy/30 backdrop-blur-sm border border-portfolio-slate/10 p-6 rounded-2xl hover:border-portfolio-highlight/20 transition-all duration-300">
+            <div className="panel reveal p-6">
               <h3 className="text-xl font-bold text-portfolio-white mb-6 flex items-center gap-2">
-                <span className="w-1 h-6 bg-portfolio-highlight rounded-full"></span>
+                <span className="w-1 h-6 rounded-full bg-portfolio-highlight"></span>
                 Skills Overview
               </h3>
 
@@ -498,9 +495,9 @@ const Resume = () => {
             </div>
 
             {/* Languages */}
-            <div className="bg-portfolio-lightNavy/30 backdrop-blur-sm border border-portfolio-slate/10 p-6 rounded-2xl hover:border-portfolio-highlight/20 transition-all duration-300">
+            <div className="panel reveal p-6">
               <h3 className="text-xl font-bold text-portfolio-white mb-6 flex items-center gap-2">
-                <span className="w-1 h-6 bg-portfolio-highlight rounded-full"></span>
+                <span className="w-1 h-6 rounded-full bg-portfolio-highlight"></span>
                 Languages
               </h3>
               <ul className="space-y-4">
@@ -514,9 +511,9 @@ const Resume = () => {
             </div>
 
             {/* Personal Details */}
-            <div className="bg-portfolio-lightNavy/30 backdrop-blur-sm border border-portfolio-slate/10 p-6 rounded-2xl hover:border-portfolio-highlight/20 transition-all duration-300">
+            <div className="panel reveal p-6">
               <h3 className="text-xl font-bold text-portfolio-white mb-6 flex items-center gap-2">
-                <span className="w-1 h-6 bg-portfolio-highlight rounded-full"></span>
+                <span className="w-1 h-6 rounded-full bg-portfolio-highlight"></span>
                 Personal Details
               </h3>
               <ul className="space-y-4 text-portfolio-lightSlate text-sm">
@@ -533,9 +530,9 @@ const Resume = () => {
             </div>
 
             {/* Interests */}
-            <div className="bg-portfolio-lightNavy/30 backdrop-blur-sm border border-portfolio-slate/10 p-6 rounded-2xl hover:border-portfolio-highlight/20 transition-all duration-300">
+            <div className="panel reveal p-6">
               <h3 className="text-xl font-bold text-portfolio-white mb-6 flex items-center gap-2">
-                <span className="w-1 h-6 bg-portfolio-highlight rounded-full"></span>
+                <span className="w-1 h-6 rounded-full bg-portfolio-highlight"></span>
                 Interests
               </h3>
               <div className="flex flex-wrap gap-2">

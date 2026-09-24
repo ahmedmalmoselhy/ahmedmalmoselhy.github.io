@@ -21,7 +21,8 @@ const App = () => {
 
   const handleSectionChange = (section: PageSection, projectId?: number) => {
     setAppState({ section, projectId });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Jump (not smooth-scroll) so the page-enter animation plays at the top
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   return (
@@ -30,6 +31,7 @@ const App = () => {
         <TooltipProvider>
           <Toaster />
           <Sonner />
+          <div className="bg-grid" aria-hidden="true" />
           <Navbar activeSection={appState.section} onSectionChange={handleSectionChange} />
           <SinglePageApp appState={appState} onSectionChange={handleSectionChange} />
         </TooltipProvider>
