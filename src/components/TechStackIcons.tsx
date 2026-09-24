@@ -48,7 +48,7 @@ export const techIcons: Record<string, React.ReactNode> = {
 // Fallback icon for skills without custom icons
 export const FallbackIcon = ({ name }: { name: string }) => (
   <div className="w-full h-full flex items-center justify-center bg-portfolio-lightNavy/50 rounded-lg">
-    <span className="text-xs font-bold text-portfolio-lightSlate">
+    <span className="font-mono text-xs font-semibold text-portfolio-lightSlate">
       {name.substring(0, 2).toUpperCase()}
     </span>
   </div>
@@ -69,7 +69,7 @@ const TechStackIcons: React.FC<TechStackIconsProps> = ({
                 <div
                   tabIndex={0}
                   aria-label={`${skill.name}: ${skill.level}% proficiency`}
-                  className="group relative w-14 h-14 md:w-16 md:h-16 rounded-xl bg-portfolio-lightNavy/30 border border-portfolio-slate/10 hover:border-portfolio-highlight/30 p-2.5 cursor-pointer transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-portfolio-highlight/10 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-portfolio-highlight/50"
+                  className="group relative w-14 h-14 md:w-16 md:h-16 rounded bg-background border border-border hover:border-portfolio-highlight/60 p-2.5 cursor-pointer transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-portfolio-highlight/10 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-portfolio-highlight/50"
                   style={{
                     ["--hover-color" as any]: skillColorMap[categoryColor],
                   }}

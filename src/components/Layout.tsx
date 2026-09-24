@@ -1,6 +1,4 @@
-
 import React from 'react';
-import Footer from './Footer';
 import { cn } from '@/lib/utils';
 
 interface LayoutProps {
@@ -8,14 +6,12 @@ interface LayoutProps {
   className?: string;
 }
 
+/** Editor pane content: IdeShell owns the chrome (tabs, explorer, status bar). */
 const Layout: React.FC<LayoutProps> = ({ children, className }) => {
   return (
-    <div className="flex flex-col min-h-screen bg-portfolio-navy text-portfolio-white">
-      <main className={cn("flex-grow pt-24", className)}>
-        {children}
-      </main>
-      <Footer />
-    </div>
+    <main className={cn("mx-auto min-h-[calc(100dvh-7rem)] max-w-6xl px-4 py-8 text-portfolio-white md:px-8 md:py-10", className)}>
+      {children}
+    </main>
   );
 };
 

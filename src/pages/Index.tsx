@@ -1,297 +1,162 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Layout from "@/components/Layout";
-import SocialSidebar from "@/components/SocialSidebar";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { useTypingOnce } from "@/hooks/use-typing-once";
+import { CodeView } from "@/components/CodeView";
+import { projectSlug } from "@/lib/utils";
 import { PageSection } from "@/App";
-import {
-  Mail,
-  FileText,
-  User,
-  Briefcase,
-  Github,
-  Code,
-  Database,
-  Server,
-  ExternalLink,
-} from "lucide-react";
-import ContactForDemo from "@/components/ContactForDemo";
-
-import { projectsData, statusStyles, statusLabels } from "@/data/projects";
-import type { Project } from "@/data/projects";
+import { Download, Mail } from "lucide-react";
+import { projectsData } from "@/data/projects";
+import { experiences } from "@/data/experience";
+import { certifications } from "@/data/certifications";
 
 interface IndexProps {
   onSectionChange?: (section: PageSection, projectId?: number) => void;
 }
 
-const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
-  const [randomProjects, setRandomProjects] = useState<Project[]>([]);
-  const { displayText: typedText, isComplete } = useTypingOnce(
-    "I build software!",
-    100,
+// Fisher-Yates shuffle, first 3
+const pickRandomProjects = () => {
+  const copy = [...projectsData];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy.slice(0, 3);
+};
+
+// Career start = earliest year mentioned in any experience period
+const startYear = Math.min(
+  ...experiences.map((e) => Number(e.period.match(/\d{4}/)?.[0] ?? new Date().getFullYear())),
+);
+
+/* Markdown-looking tokens */
+const H = ({ level, children }: { level: 1 | 2; children: React.ReactNode }) => (
+  <>
+    <span className="syn-keyword">{"#".repeat(level)} </span>
+    <span className={level === 1 ? "text-base font-semibold text-portfolio-white md:text-lg" : "font-semibold text-portfolio-white"}>
+      {children}
+    </span>
+  </>
+);
+const Li = ({ children }: { children: React.ReactNode }) => (
+  <>
+    <span className="syn-number">- </span>
+    {children}
+  </>
+);
+/** Markdown link whose [text] is a real, clickable control. */
+const MdLink = ({ label, target, onClick, href }: { label: string; target: string; onClick?: () => void; href?: string }) => {
+  const cls = "syn-string rounded-sm underline decoration-dotted underline-offset-4 hover:decoration-solid";
+  return (
+    <>
+      <span className="text-portfolio-slate">[</span>
+      {href ? (
+        <a href={href} className={cls} {...(href.startsWith("http") && { target: "_blank", rel: "noopener noreferrer" })}>
+          {label}
+        </a>
+      ) : (
+        <button onClick={onClick} className={cls}>
+          {label}
+        </button>
+      )}
+      <span className="text-portfolio-slate">](</span>
+      <span className="syn-comment">{target}</span>
+      <span className="text-portfolio-slate">)</span>
+    </>
   );
+};
 
-  useEffect(() => {
-    // Function to get 3 random projects from the projectsData array
-    const getRandomProjects = () => {
-      // Create a copy of the projects array to avoid mutating the original
-      const projectsCopy = [...projectsData];
-      // Shuffle the array using Fisher-Yates (Knuth) shuffle algorithm
-      for (let i = projectsCopy.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [projectsCopy[i], projectsCopy[j]] = [projectsCopy[j], projectsCopy[i]];
-      }
-      // Return the first 3 items from the shuffled array
-      return projectsCopy.slice(0, 3);
-    };
+const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
+  const [featured] = useState(pickRandomProjects);
+  const go = (section: PageSection, id?: number) => () => onSectionChange?.(section, id);
 
-    setRandomProjects(getRandomProjects());
-  }, []);
+  const lines: React.ReactNode[] = [
+    <H level={1}>Ahmed AlMoselhy</H>,
+    "",
+    <>
+      <span className="syn-comment">&gt; </span>
+      <span className="syn-type">Software Engineer · CRM &amp; Telecom Solutions · Cairo, Egypt</span>
+    </>,
+    "",
+    <H level={2}>About</H>,
+    <span className="text-portfolio-lightSlate">Versatile engineer across full-stack web, CRM systems, and telecom BSS —</span>,
+    <span className="text-portfolio-lightSlate">from L3 production support to scalable web platforms built to be maintained.</span>,
+    "",
+    <H level={2}>Stack</H>,
+    <Li><span className="syn-fn">Telecom</span>: Ericsson Order Care (EOC) · Catalog Manager (ECM)</Li>,
+    <Li><span className="syn-fn">CRM</span>: Creatio · business-process design</Li>,
+    <Li><span className="syn-fn">Web</span>: Laravel · Node.js · React · TypeScript · SQL</Li>,
+    "",
+    <H level={2}>Featured projects</H>,
+    ...featured.map((p) => (
+      <Li>
+        <MdLink label={p.title} target={`./projects/${projectSlug(p.title)}.md`} onClick={go("project-detail", p.id)} />
+        <span className="text-portfolio-slate"> — {p.description}</span>
+      </Li>
+    )),
+    <Li><MdLink label="All projects" target="./projects.ts" onClick={go("projects")} /></Li>,
+    "",
+    <H level={2}>Links</H>,
+    <Li><MdLink label="Resume" target="./resume.json" onClick={go("resume")} /></Li>,
+    <Li><MdLink label="Skills" target="./skills.yaml" onClick={go("skills")} /></Li>,
+    <Li><MdLink label="Contact" target="./contact.sh" onClick={go("contact")} /></Li>,
+    <Li><MdLink label="GitHub" target="github.com/ahmedmalmoselhy" href="https://github.com/ahmedmalmoselhy" /></Li>,
+    <Li><MdLink label="LinkedIn" target="linkedin.com/in/ahmedmalmoselhy" href="https://www.linkedin.com/in/ahmedmalmoselhy/" /></Li>,
+    <span className="caret" aria-hidden="true" />,
+  ];
+
+  const stats = [
+    { value: `${new Date().getFullYear() - startYear}+`, label: "years" },
+    { value: experiences.length, label: "companies" },
+    { value: projectsData.length, label: "projects" },
+    { value: certifications.length, label: "certs" },
+  ];
 
   return (
-    <Layout>
-      <SocialSidebar />
+    <Layout className="max-w-7xl">
+      <h1 className="sr-only">Ahmed AlMoselhy — Software Engineer</h1>
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_300px]">
+        {/* Source */}
+        <section aria-label="README source" className="panel order-2 overflow-hidden bg-background lg:order-1">
+          <CodeView lines={lines} />
+        </section>
 
-      {/* Hero Section */}
-      <section className="container mx-auto px-4 pt-16 md:pt-24 pb-24">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between max-w-6xl mx-auto">
-          <div className="md:max-w-xl">
-            <p className="text-portfolio-highlight font-mono mb-5 animate-fade-in">
-              Hi, my name is
-            </p>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-portfolio-white mb-4 animate-slide-up">
-              Ahmed AlMoselhy
-            </h1>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-portfolio-slate mb-6">
-              {typedText}
-              {!isComplete && (
-                <span className="inline-block w-0.5 h-16 bg-portfolio-slate ml-2 animate-pulse"></span>
-              )}
-            </h2>
-            <p
-              className="text-portfolio-lightSlate text-lg max-w-xl mb-12 animate-slide-up"
-              style={{ animationDelay: "200ms" }}
-            >
-              I'm a software engineer specializing in building exceptional
-              digital experiences. Currently, I'm focused on building
-              accessible, human-centered products.
-            </p>
-            <div
-              className="flex flex-wrap gap-4 animate-slide-up"
-              style={{ animationDelay: "300ms" }}
-            >
-              <Button
-                onClick={() => onSectionChange?.("contact")}
-                className="h-12 px-8 bg-portfolio-highlight hover:bg-portfolio-highlight/90 text-portfolio-navy font-bold rounded-full transition-all hover:scale-105 flex items-center gap-2 shadow-lg shadow-portfolio-highlight/20"
-              >
-                <Mail size={18} />
-                Get In Touch
-              </Button>
-              <a
-                href="/AhmedAlMoselhy.pdf"
-                download
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button
-                  variant="outline"
-                  className="h-12 px-8 bg-transparent border-2 border-portfolio-highlight text-portfolio-highlight hover:bg-portfolio-highlight/10 font-bold rounded-full transition-all hover:scale-105 flex items-center gap-2 shadow-lg shadow-transparent hover:shadow-portfolio-highlight/10"
-                >
-                  <FileText size={18} />
-                  Download Resume
-                </Button>
-              </a>
+        {/* Rendered preview */}
+        <aside aria-label="Preview" className="order-1 lg:order-2">
+          <div className="panel sticky top-[77px] overflow-hidden animate-fade-in">
+            <div className="flex items-center justify-between border-b border-border px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-portfolio-slate">
+              Preview
+              <span className="syn-string">● live</span>
             </div>
-          </div>
-          <div className="lg:w-1/3 flex justify-center">
-            <div className="rounded-lg overflow-hidden w-128 h-128">
+            <div className="p-5 text-center">
               <img
                 src="/Ahmed-AlMoselhy.png"
-                alt="Ahmed AlMoselhy"
-                className="w-full h-full object-cover"
+                alt="Portrait of Ahmed AlMoselhy"
+                width={120}
+                height={120}
+                className="mx-auto h-28 w-28 rounded-full border-2 border-portfolio-highlight bg-muted object-cover"
               />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section className="bg-portfolio-lightNavy/10 backdrop-blur-sm border-y border-portfolio-slate/10 py-24">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center gap-3 mb-10 justify-center">
-            <div className="w-16 h-1 bg-portfolio-slate/30 rounded-full"></div>
-            <h2 className="section-title mb-0">About Me</h2>
-            <div className="w-16 h-1 bg-portfolio-slate/30 rounded-full"></div>
-          </div>
-
-          <div className="max-w-4xl mx-auto bg-portfolio-navy/50 p-8 md:p-12 rounded-2xl border border-portfolio-slate/20 hover:border-portfolio-highlight/20 transition-all duration-300">
-            <div className="flex flex-col gap-6">
-              <p className="text-portfolio-lightSlate text-lg leading-relaxed">
-                Welcome to my portfolio! I'm{" "}
-                <span className="text-portfolio-highlight font-semibold">
-                  Ahmed AlMoselhy
-                </span>
-                , a versatile and detail-oriented Software Engineer with
-                extensive hands-on experience in full-stack development, CRM
-                systems, and Telecom applications. Proven track record in
-                working across various support levels and developing scalable
-                web applications utilizing modern technologies.
-              </p>
-              <p className="text-portfolio-lightSlate text-lg leading-relaxed">
-                With a strong foundation in software development and a keen eye
-                for detail, I strive to create efficient and elegant solutions.
-                My approach combines technical expertise with a user-centered
-                focus, ensuring that the end product is both functional and
-                intuitive.
-              </p>
-              <p className="text-portfolio-lightSlate text-lg leading-relaxed">
-                Outside of coding, I enjoy gaming, reading, photography and
-                being a family man. I believe that a well-rounded individual
-                brings fresh perspectives to technical challenges.
-              </p>
-
-              <div className="flex flex-wrap gap-4 pt-4">
-                <Button
-                  onClick={() => onSectionChange?.("skills")}
-                  className="h-12 px-8 bg-portfolio-navy hover:bg-portfolio-lightNavy border border-portfolio-highlight/30 text-portfolio-highlight font-bold rounded-full transition-all hover:scale-105 flex items-center gap-2 shadow-lg shadow-portfolio-highlight/5"
-                >
-                  <Server size={18} className="mr-2" />
-                  My Skills
-                </Button>
-                {/*<Button
-                  onClick={() => onSectionChange?.("experience")}
-                  variant="outline"
-                  className="h-12 px-8 bg-transparent border-2 border-portfolio-slate/30 text-portfolio-slate hover:border-portfolio-highlight hover:text-portfolio-highlight font-bold rounded-full transition-all hover:scale-105 flex items-center gap-2 shadow-lg shadow-transparent hover:shadow-portfolio-highlight/5"
-                >
-                  <Briefcase size={18} className="mr-2" />
-                  Experience
-                </Button>*/}
+              <p className="mt-4 text-lg font-semibold text-portfolio-white">Ahmed AlMoselhy</p>
+              <p className="text-sm text-portfolio-slate">Software Engineer</p>
+              <dl className="mt-5 grid grid-cols-4 gap-1 border-y border-border py-3">
+                {stats.map(({ value, label }) => (
+                  <div key={label}>
+                    <dt className="sr-only">{label}</dt>
+                    <dd className="syn-number font-mono text-lg font-semibold">{value}</dd>
+                    <dd className="font-mono text-[10px] uppercase text-portfolio-slate">{label}</dd>
+                  </div>
+                ))}
+              </dl>
+              <div className="mt-5 grid gap-2">
+                <button onClick={go("contact")} className="btn-primary w-full">
+                  <Mail size={16} aria-hidden="true" /> ./contact.sh
+                </button>
+                <a href="/AhmedAlMoselhy.pdf" download className="btn-secondary w-full">
+                  <Download size={16} aria-hidden="true" /> resume.pdf
+                </a>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Featured Projects Preview */}
-      <section className="container mx-auto px-4 py-24">
-        <div className="flex items-center gap-3 mb-12">
-          <div className="p-2 bg-portfolio-highlight/10 rounded-lg">
-            <Code size={24} className="text-portfolio-highlight" />
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-portfolio-white">
-            Featured Projects
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {randomProjects.map((project) => (
-            <div
-              key={project.id}
-              className="bg-portfolio-lightNavy/30 backdrop-blur-sm border border-portfolio-slate/10 p-6 rounded-2xl hover:border-portfolio-highlight/30 hover:-translate-y-2 transition-all duration-300 group flex flex-col h-full shadow-lg shadow-transparent hover:shadow-portfolio-highlight/5 cursor-pointer"
-              onClick={() => onSectionChange?.("project-detail", project.id)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  onSectionChange?.("project-detail", project.id);
-                }
-              }}
-            >
-              <div className="h-48 bg-portfolio-navy/50 rounded-xl overflow-hidden mb-6 border border-portfolio-slate/10 group-hover:border-portfolio-highlight/20 transition-all">
-                <img
-                  src={project.image}
-                  alt={`${project.title} screenshot`}
-                  className="object-cover w-full h-full opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
-                />
-              </div>
-
-              <div className="flex items-start justify-between gap-2 mb-4">
-                <h3 className="text-xl font-bold text-portfolio-white group-hover:text-portfolio-highlight transition-colors">
-                  {project.title}
-                </h3>
-                <Badge
-                  variant="outline"
-                  className={`text-xs font-mono py-1 px-2 border-none bg-opacity-20 ${statusStyles[project.status].replace("bg-", "bg-opacity-10 bg-").replace("text-", "text-")}`}
-                >
-                  {statusLabels[project.status] ??
-                    project.status.charAt(0).toUpperCase() +
-                      project.status.slice(1)}
-                </Badge>
-              </div>
-
-              <p className="text-portfolio-lightSlate mb-6 flex-grow leading-relaxed line-clamp-3">
-                {project.description}
-              </p>
-
-              <div className="space-y-6 mt-auto">
-                <div className="flex flex-wrap gap-2">
-                  {project.technologies.slice(0, 3).map((tech, index) => (
-                    <span
-                      key={index}
-                      className="text-portfolio-highlight/90 font-mono text-xs bg-portfolio-highlight/5 px-2.5 py-1 rounded-md border border-portfolio-highlight/10"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                  {project.technologies.length > 3 && (
-                    <span className="text-portfolio-slate font-mono text-xs px-1 py-1">
-                      +{project.technologies.length - 3}
-                    </span>
-                  )}
-                </div>
-
-                <div className="flex items-center gap-4 pt-4 border-t border-portfolio-slate/10">
-                  {project.monetized ? (
-                    <ContactForDemo
-                      title={project.title}
-                      className="text-portfolio-slate hover:text-portfolio-highlight flex items-center gap-2 text-sm transition-colors"
-                    >
-                      <Mail size={18} />
-                      <span>Request a demo</span>
-                    </ContactForDemo>
-                  ) : (
-                    project.githubUrl && (
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-portfolio-slate hover:text-portfolio-highlight flex items-center gap-2 text-sm transition-colors"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <Github size={18} />
-                        <span>Source</span>
-                      </a>
-                    )
-                  )}
-                  {project.liveUrl && (
-                    <a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-portfolio-slate hover:text-portfolio-highlight flex items-center gap-2 text-sm transition-colors ml-auto"
-                      aria-label={`View ${project.title} live ${project.demo ? "demo" : null} `}
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <span>Live Demo</span>
-                      <ExternalLink size={16} />
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="mt-16 text-center">
-          <Button
-            onClick={() => onSectionChange?.("projects")}
-            className="h-12 px-8 bg-transparent border-2 border-portfolio-highlight text-portfolio-highlight hover:bg-portfolio-highlight/10 font-bold rounded-full transition-all hover:scale-105 flex items-center gap-2 mx-auto"
-          >
-            <Code size={20} /> View All Projects
-          </Button>
-        </div>
-      </section>
+        </aside>
+      </div>
     </Layout>
   );
 };

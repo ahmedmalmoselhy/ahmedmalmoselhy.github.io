@@ -4,7 +4,6 @@ import Resume from './Resume';
 import Skills from './Skills';
 import Projects from './Projects';
 import Contact from './Contact';
-import Experience from './Experience';
 import ProjectDetail from './ProjectDetail';
 import { PageSection, AppState } from '@/App';
 
@@ -26,8 +25,6 @@ const SinglePageApp: React.FC<SinglePageAppProps> = ({ appState, onSectionChange
         return <Projects onSectionChange={onSectionChange} />;
       case 'contact':
         return <Contact />;
-      case 'experience':
-        return <Experience />;
       case 'project-detail':
         return (
           <ProjectDetail
@@ -41,7 +38,7 @@ const SinglePageApp: React.FC<SinglePageAppProps> = ({ appState, onSectionChange
   };
 
   return (
-    <div key={`${appState.section}-${appState.projectId || ''}`} className="animate-fade-in">
+    <div key={`${appState.section}-${appState.projectId || ''}`} className="page-enter">
       {renderContent()}
     </div>
   );

@@ -21,9 +21,9 @@ There is no test runner configured. `bun` is also usable (`bun.lock`/`bun.lockb`
 
 **Single-page app with custom state-based navigation — NOT react-router.** Although `react-router-dom` is a dependency, routing is hand-rolled:
 
-- `App.tsx` holds the single source of truth: `appState: { section: PageSection, projectId? }`, mutated by `handleSectionChange`. `PageSection` is a union type (`'home' | 'resume' | 'skills' | 'projects' | 'contact' | 'experience' | 'project-detail'`) exported from `App.tsx`.
+- `App.tsx` holds the single source of truth: `appState: { section: PageSection, projectId? }`, mutated by `handleSectionChange`. `PageSection` is a union type (`'home' | 'resume' | 'skills' | 'projects' | 'contact' | 'project-detail'`) exported from `App.tsx`.
 - `SinglePageApp.tsx` is a `switch` over `appState.section` that renders the matching page component. There are no URL routes — section changes are in-memory state, and every section change scrolls to top.
-- To add a "page": extend the `PageSection` union in `App.tsx`, add a `case` in `SinglePageApp.tsx`, and wire a trigger (usually `Navbar`) to call `onSectionChange`.
+- To add a "page": extend the `PageSection` union in `App.tsx`, add a `case` in `SinglePageApp.tsx`, and add it as a "file" in the `files` list in `components/IdeShell.tsx` (explorer, tabs, mobile strip, status-bar language all derive from it).
 - `onSectionChange(section, projectId?)` is threaded as a prop down to any component that needs to navigate (e.g. project cards pass a `projectId` to open `project-detail`).
 
 **Content is data-driven.** Page content lives in typed arrays under `src/data/` (`projects.ts`, `experience.ts`, `education.ts`, `certifications.ts`, `training.ts`), each exporting a TypeScript `interface` plus the data. Editing the portfolio's content means editing these files, not the page components. Project images and logos referenced by these files live in `public/` (e.g. `/projects-images/...`).

@@ -1,163 +1,93 @@
 import React from "react";
 import Layout from "@/components/Layout";
-import { ExternalLink, Github, Calendar, ArrowLeft, Mail } from "lucide-react";
+import { ArrowLeft, ExternalLink, Github, Mail } from "lucide-react";
 import ContactForDemo from "@/components/ContactForDemo";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { projectsData, statusStyles, statusLabels } from "@/data/projects";
+import { CodeHeading, PanelBar, StackLine, StatusLabel } from "@/components/CodeView";
+import { projectsData } from "@/data/projects";
+import { projectSlug } from "@/lib/utils";
 
 interface ProjectDetailProps {
   projectId: number;
   onBack: () => void;
 }
 
+const BackButton = ({ onBack }: { onBack: () => void }) => (
+  <button onClick={onBack} className="btn-secondary mb-8">
+    <ArrowLeft size={16} aria-hidden="true" /> cd ../projects
+  </button>
+);
+
 const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
   const project = projectsData.find((p) => p.id === projectId);
 
   if (!project) {
     return (
-      <Layout>
-        <section className="container mx-auto px-4 py-8 md:py-16">
-          <div className="max-w-4xl mx-auto">
-            <Button
-              onClick={onBack}
-              variant="ghost"
-              className="mb-8 text-portfolio-highlight hover:text-portfolio-highlight/80"
-            >
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Projects
-            </Button>
-            <h1 className="text-3xl md:text-5xl font-bold text-portfolio-white">
-              Project not found
-            </h1>
-          </div>
-        </section>
+      <Layout className="max-w-4xl">
+        <BackButton onBack={onBack} />
+        <p className="syn-comment font-mono text-sm">// error: ENOENT</p>
+        <h1 className="mt-2 font-mono text-3xl font-semibold text-portfolio-white">Project not found</h1>
       </Layout>
     );
   }
 
+  const file = `${projectSlug(project.title)}.md`;
+
   return (
-    <Layout>
-      <section className="container mx-auto px-4 py-8 md:py-16 relative">
-        {/* Background Gradient */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-portfolio-highlight to-transparent opacity-50"></div>
+    <Layout className="max-w-4xl">
+      <BackButton onBack={onBack} />
 
-        <div className="max-w-4xl mx-auto">
-          <Button
-            onClick={onBack}
-            variant="ghost"
-            className="mb-8 text-portfolio-highlight hover:text-portfolio-highlight/80 animate-fade-in hover:bg-portfolio-highlight/10 -ml-4"
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Projects
-          </Button>
+      <header className="mb-8 border-b border-border pb-6 animate-fade-in">
+        <p className="syn-comment font-mono text-sm">// projects/{file}</p>
+        <h1 className="mt-2 text-[clamp(1.75rem,5vw,2.5rem)] font-semibold leading-tight text-portfolio-white">
+          <span className="syn-keyword font-mono"># </span>
+          {project.title}
+        </h1>
+        <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1">
+          <StatusLabel status={project.status} />
+          {project.date && (
+            <span className="syn-comment font-mono text-xs">
+              last modified{" "}
+              {new Date(project.date).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })}
+            </span>
+          )}
+        </div>
+      </header>
 
-          <div className="animate-fade-in bg-portfolio-lightNavy/30 backdrop-blur-sm border border-portfolio-slate/10 p-6 md:p-10 rounded-2xl shadow-xl space-y-10">
-            {/* Header */}
-            <div className="border-b border-portfolio-slate/10 pb-8">
-              <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
-                <h1 className="text-3xl md:text-5xl font-bold text-portfolio-white">
-                  {project.title}
-                </h1>
-                <Badge
-                  variant="outline"
-                  className={`text-sm font-mono py-1.5 px-3 border-none bg-opacity-20 ${statusStyles[project.status].replace('bg-', 'bg-opacity-10 bg-').replace('text-', 'text-')}`}
-                >
-                  {statusLabels[project.status]}
-                </Badge>
-              </div>
+      <figure className="panel mb-10 overflow-hidden">
+        <PanelBar>assets/{projectSlug(project.title)}.png</PanelBar>
+        <img src={project.image} alt={`${project.title} screenshot`} className="h-auto w-full object-cover" />
+      </figure>
 
-              {project.date && (
-                <div className="flex items-center gap-2 text-portfolio-slate text-sm md:text-base">
-                  <Calendar className="h-4 w-4" />
-                  <span>
-                    Last modified:{" "}
-                    {new Date(project.date).toLocaleDateString(undefined, {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </span>
-                </div>
-              )}
-            </div>
+      <section className="mb-10">
+        <CodeHeading>about</CodeHeading>
+        <p className="text-lg leading-relaxed text-portfolio-lightSlate">{project.extendedDescription}</p>
+      </section>
 
-            {/* Project Image */}
-            <div className="rounded-xl overflow-hidden border border-portfolio-slate/20 bg-portfolio-navy/50 shadow-lg">
-              <img
-                src={project.image}
-                alt={`${project.title} screenshot`}
-                className="w-full h-auto object-cover"
-              />
-            </div>
-
-            {/* Description */}
-            <div className="space-y-4">
-              <h2 className="text-2xl font-bold text-portfolio-white flex items-center gap-2">
-                <span className="w-1 h-6 bg-portfolio-highlight rounded-full"></span>
-                About this project
-              </h2>
-              <p className="text-portfolio-lightSlate text-lg leading-relaxed">
-                {project.extendedDescription}
-              </p>
-            </div>
-
-            {/* Technologies */}
-            <div className="space-y-4">
-              <h2 className="text-2xl font-bold text-portfolio-white flex items-center gap-2">
-                <span className="w-1 h-6 bg-portfolio-highlight rounded-full"></span>
-                Technologies Used
-              </h2>
-              <div className="flex flex-wrap gap-2">
-                {project.technologies.map((tech, index) => (
-                  <span
-                    key={index}
-                    className="text-portfolio-highlight font-mono text-sm bg-portfolio-navy/60 px-3 py-1.5 rounded-md border border-portfolio-highlight/20"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Links */}
-            <div className="flex flex-wrap gap-4 pt-4 border-t border-portfolio-slate/10 mt-8">
-              {project.monetized ? (
-                <ContactForDemo
-                  title={project.title}
-                  className="h-12 px-8 bg-portfolio-highlight hover:bg-portfolio-highlight/90 text-portfolio-navy font-bold rounded-full transition-all hover:scale-105 flex items-center gap-2 shadow-lg shadow-portfolio-highlight/20"
-                >
-                  <Mail size={20} />
-                  <span>Request a Demo / Buy an Installation</span>
-                </ContactForDemo>
-              ) : (
-                project.githubUrl && (
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="h-12 px-8 bg-transparent border-2 border-portfolio-slate/30 text-portfolio-slate hover:border-portfolio-highlight hover:text-portfolio-highlight font-bold rounded-full transition-all hover:scale-105 flex items-center gap-2 shadow-lg shadow-transparent hover:shadow-portfolio-highlight/10"
-                  >
-                    <Github size={20} />
-                    <span>View Source Code</span>
-                  </a>
-                )
-              )}
-              {project.liveUrl && (
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="h-12 px-8 bg-portfolio-highlight hover:bg-portfolio-highlight/90 text-portfolio-navy font-bold rounded-full transition-all hover:scale-105 flex items-center gap-2 shadow-lg shadow-portfolio-highlight/20"
-                >
-                  <ExternalLink size={20} />
-                  <span>View Live {project.demo ? "Demo" : "Site"}</span>
-                </a>
-              )}
-            </div>
-          </div>
+      <section className="mb-10">
+        <CodeHeading>stack</CodeHeading>
+        <div className="panel p-4">
+          <StackLine items={project.technologies} />
         </div>
       </section>
+
+      <div className="flex flex-wrap gap-3 border-t border-border pt-6">
+        {project.monetized ? (
+          <ContactForDemo title={project.title} className="btn-primary">
+            <Mail size={16} aria-hidden="true" /> Request a demo / installation
+          </ContactForDemo>
+        ) : (
+          project.githubUrl && (
+            <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="btn-secondary">
+              <Github size={16} aria-hidden="true" /> git clone
+            </a>
+          )
+        )}
+        {project.liveUrl && (
+          <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="btn-primary">
+            <ExternalLink size={16} aria-hidden="true" /> open {project.demo ? "demo" : "live site"}
+          </a>
+        )}
+      </div>
     </Layout>
   );
 };

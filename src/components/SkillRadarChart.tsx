@@ -55,7 +55,7 @@ const SkillRadarChart: React.FC<SkillRadarChartProps> = ({ categories }) => {
       // but we can find the skill or just show the level.
 
       return (
-        <div className="bg-portfolio-lightNavy/95 backdrop-blur-sm border border-portfolio-slate/30 rounded-lg p-4 shadow-xl">
+        <div className="rounded border border-border bg-popover p-3 font-mono text-xs">
           <h4 className="text-portfolio-white font-semibold mb-2">
             {data.subject}
           </h4>
@@ -106,9 +106,9 @@ const SkillRadarChart: React.FC<SkillRadarChartProps> = ({ categories }) => {
       <div className="flex flex-wrap justify-center gap-2 mb-6">
         <button
           onClick={() => setActiveCategory(null)}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${activeCategory === null
-            ? "bg-portfolio-highlight text-portfolio-navy"
-            : "bg-portfolio-lightNavy/50 text-portfolio-slate hover:text-portfolio-white border border-portfolio-slate/20"
+          className={`min-h-9 rounded px-3 font-mono text-xs transition-colors duration-200 ${activeCategory === null
+            ? "bg-primary text-primary-foreground"
+            : "border border-border text-portfolio-slate hover:text-portfolio-white"
             }`}
         >
           All Categories
@@ -121,9 +121,9 @@ const SkillRadarChart: React.FC<SkillRadarChartProps> = ({ categories }) => {
                 activeCategory === category.name ? null : category.name
               )
             }
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${activeCategory === category.name
+            className={`min-h-9 rounded px-3 font-mono text-xs transition-colors duration-200 ${activeCategory === category.name
               ? "text-portfolio-navy"
-              : "bg-portfolio-lightNavy/50 text-portfolio-slate hover:text-portfolio-white border border-portfolio-slate/20"
+              : "border border-border text-portfolio-slate hover:text-portfolio-white"
               }`}
             style={{
               backgroundColor:
@@ -213,7 +213,7 @@ const SkillRadarChart: React.FC<SkillRadarChartProps> = ({ categories }) => {
                     className="bg-portfolio-lightNavy/30 rounded-xl p-6 border border-portfolio-slate/10"
                   >
                     <h3
-                      className="text-xl font-bold mb-4"
+                      className="mb-4 font-mono text-base font-semibold"
                       style={{ color: skillColorMap[category.color] }}
                     >
                       {category.name} Skills
@@ -246,7 +246,7 @@ const SkillRadarChart: React.FC<SkillRadarChartProps> = ({ categories }) => {
             </div>
           ) : (
             <div className="w-full bg-portfolio-lightNavy/30 rounded-xl p-6 border border-portfolio-slate/10 animate-fade-in">
-              <h3 className="text-xl font-bold mb-4 text-portfolio-white">
+              <h3 className="mb-4 font-mono text-base font-semibold text-portfolio-white">
                 Category Averages
               </h3>
               <div className="space-y-4">
@@ -264,9 +264,9 @@ const SkillRadarChart: React.FC<SkillRadarChartProps> = ({ categories }) => {
                         {category.name}
                       </span>
                       <div className="flex items-center gap-3">
-                        <div className="w-32 h-2 bg-portfolio-navy rounded-full overflow-hidden">
+                        <div className="w-32 h-2 bg-muted rounded-sm overflow-hidden">
                           <div
-                            className="h-full rounded-full"
+                            className="h-full rounded-sm"
                             style={{
                               width: `${avgLevel}%`,
                               backgroundColor: skillColorMap[category.color]

@@ -114,16 +114,16 @@ const GitHubGraph: React.FC = () => {
   const totalWeeks = weeks.length;
 
   return (
-    <div className="w-full bg-gradient-to-b from-portfolio-lightNavy/40 to-portfolio-lightNavy/20 backdrop-blur-md border border-portfolio-slate/20 rounded-2xl p-6 md:p-8 shadow-lg shadow-portfolio-navy/5">
+    <div className="panel w-full p-4 md:p-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-portfolio-slate/10">
         <div className="flex items-center gap-4">
           <img
             src={`https://github.com/${GITHUB_USERNAME}.png`}
             alt={`${GITHUB_USERNAME}'s avatar`}
-            className="w-10 h-10 rounded-full border-2 border-portfolio-highlight/30 shadow-md shadow-portfolio-highlight/10"
+            className="w-10 h-10 rounded-full border border-border"
           />
           <div>
-            <h3 className="text-portfolio-white font-bold text-lg tracking-tight">GitHub Activity</h3>
+            <h3 className="font-mono text-sm font-semibold text-portfolio-white">git log --since=1.year</h3>
             <a
               href={`https://github.com/${GITHUB_USERNAME}`}
               target="_blank"
@@ -136,7 +136,7 @@ const GitHubGraph: React.FC = () => {
         </div>
         {!loading && !error && (
           <div className="text-right sm:text-center">
-            <div className="text-portfolio-white font-bold text-sm">{totalContributions.toLocaleString()}</div>
+            <div className="syn-number font-mono text-sm font-semibold">{totalContributions.toLocaleString()}</div>
             <div className="text-portfolio-lightSlate text-xs font-mono">contributions this year</div>
           </div>
         )}
@@ -186,7 +186,7 @@ const GitHubGraph: React.FC = () => {
                   return (
                     <div
                       key={`${wi}-${di}`}
-                      className={`rounded-md ${levelClasses[day.level]} transition-all duration-150 cursor-pointer transform hover:scale-125 hover:shadow-lg hover:shadow-portfolio-highlight/20 z-10`}
+                      className={`rounded-sm ${levelClasses[day.level]} transition-transform duration-150 hover:scale-125`}
                       title={`${day.count} contribution${day.count !== 1 ? "s" : ""} on ${day.date}`}
                     />
                   );

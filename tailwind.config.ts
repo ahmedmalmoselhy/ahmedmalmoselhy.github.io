@@ -79,6 +79,10 @@ export default {
 				}
 			},
 			borderRadius: {
+				// IDE style: everything stays tight; larger tiers collapse to the base radius
+				'3xl': 'var(--radius)',
+				'2xl': 'var(--radius)',
+				xl: 'var(--radius)',
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
@@ -112,12 +116,12 @@ export default {
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-				'fade-in': 'fadeIn 0.5s ease-in-out',
-				'slide-up': 'slideUp 0.5s ease-in-out'
+				'fade-in': 'fadeIn 0.4s ease-out both',
+				'slide-up': 'slideUp 0.4s ease-out both'
 			},
 			fontFamily: {
-				sans: ['Inter', 'sans-serif'],
-				mono: ['Roboto Mono', 'monospace']
+				sans: ['Inter', 'system-ui', 'sans-serif'],
+				mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace']
 			}
 		}
 	},

@@ -1,94 +1,69 @@
 import React from "react";
 import Layout from "@/components/Layout";
-import { Card, CardContent } from "@/components/ui/card";
+import { CodeHeading, CodeView, FileHeader } from "@/components/CodeView";
 import SkillRadarChart from "@/components/SkillRadarChart";
 import TechStackIcons from "@/components/TechStackIcons";
 import { skillCategories, softSkills, skillColorMap } from "@/data/skills";
 
+const toKey = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, "_");
+
+// Soft skills rendered as a YAML list
+const softSkillLines: React.ReactNode[] = [
+  <span className="syn-keyword">soft_skills:</span>,
+  ...softSkills.map((s) => (
+    <>
+      <span className="syn-number">  - </span>
+      <span className="syn-string">{s.name}</span>
+    </>
+  )),
+];
+
 const Skills = () => {
   return (
-    <Layout className="pt-28">
-      <section className="container mx-auto px-4 py-8 md:py-16 relative">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-portfolio-highlight to-transparent opacity-50"></div>
-        <div className="max-w-4xl mx-auto mb-16 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-portfolio-white mb-6 animate-fade-in tracking-tight">
-            Technical <span className="text-portfolio-highlight">Expertise</span>
-          </h1>
-          <p className="text-portfolio-lightSlate text-lg md:text-xl animate-slide-up leading-relaxed max-w-2xl mx-auto">
-            A comprehensive overview of my technical skills and proficiency
-            levels. I constantly strive to expand my knowledge and stay current
-            with the latest technologies.
-          </p>
+    <Layout>
+      <FileHeader
+        comment="skills.yaml — proficiency levels, kept current"
+        keyword="const"
+        name="skills"
+        description="Technical skills across telecom, CRM, and full-stack web. Hover any icon for its level."
+      />
+
+      <section className="mb-14">
+        <CodeHeading>Skill analysis</CodeHeading>
+        <div className="panel p-4 md:p-6">
+          <SkillRadarChart categories={skillCategories} />
         </div>
+      </section>
 
-        {/* Skill Radar Chart Section */}
-        <section className="mb-20 animate-slide-up">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="w-1 h-8 bg-portfolio-highlight rounded-full"></div>
-            <h2 className="text-3xl font-bold text-portfolio-white">Skill Analysis</h2>
-          </div>
-          <Card className="bg-portfolio-lightNavy/30 backdrop-blur-sm border-portfolio-slate/10 shadow-lg">
-            <CardContent className="p-6 md:p-8">
-              <SkillRadarChart categories={skillCategories} />
-            </CardContent>
-          </Card>
-        </section>
-
-        {/* Technical Skills Grid Section */}
-        <section className="mb-20">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="w-1 h-8 bg-portfolio-highlight rounded-full"></div>
-            <h2 className="text-3xl font-bold text-portfolio-white">Core Competencies</h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {skillCategories.map((category, idx) => (
-              <Card
-                key={idx}
-                className="bg-portfolio-lightNavy/20 backdrop-blur-sm border-portfolio-slate/10 hover:border-portfolio-highlight/30 transition-all duration-300 shadow-lg group hover:-translate-y-1 hover:z-[100] relative"
-              >
-                <CardContent className="p-6">
-                  <h3
-                    className="text-xl font-bold mb-6 text-center group-hover:bg-clip-text group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-portfolio-white group-hover:to-portfolio-slate transition-all duration-300"
-                    style={{ color: skillColorMap[category.color] }}
-                  >
-                    {category.name}
-                  </h3>
-                  <TechStackIcons
-                    skills={category.skills}
-                    categoryColor={category.color}
-                  />
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        {/* Soft Skills */}
-        <section className="mb-16">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="w-1 h-8 bg-portfolio-highlight rounded-full"></div>
-            <h2 className="text-3xl font-bold text-portfolio-white">Soft Skills & Traits</h2>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
-            {softSkills.map((skill, idx) => (
-              <div
-                key={idx}
-                className="bg-portfolio-lightNavy/20 backdrop-blur-sm border border-portfolio-slate/10 rounded-xl p-6 text-center hover:bg-portfolio-lightNavy/40 hover:-translate-y-1 hover:border-portfolio-highlight/30 transition-all duration-300 group shadow-md hover:shadow-xl"
-              >
-                <div className="w-14 h-14 mx-auto rounded-full bg-portfolio-navy flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 border border-portfolio-slate/10 group-hover:border-portfolio-highlight/20">
-                  <span className="text-2xl filter drop-shadow-md">
-                    {skill.icon}
-                  </span>
-                </div>
-                <h3 className="text-base md:text-lg font-bold text-portfolio-white group-hover:text-portfolio-highlight transition-colors">
-                  {skill.name}
-                </h3>
+      <section className="mb-14">
+        <CodeHeading>Core competencies</CodeHeading>
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+          {skillCategories.map((category) => (
+            // hover:z-[100] keeps icon tooltips above neighbouring panels
+            <article key={category.name} className="panel relative hover:z-[100]">
+              <h3 className="flex items-center gap-2 border-b border-border bg-[hsl(var(--chrome-2))] px-3 py-1.5 font-mono text-xs">
+                <span
+                  className="h-2 w-2 rounded-full"
+                  style={{ backgroundColor: skillColorMap[category.color] }}
+                  aria-hidden="true"
+                />
+                <span className="syn-keyword">{toKey(category.name)}</span>
+                <span className="text-portfolio-slate">:</span>
+                <span className="syn-comment ml-auto text-xs"># {category.skills.length} items</span>
+              </h3>
+              <div className="p-4">
+                <TechStackIcons skills={category.skills} categoryColor={category.color} />
               </div>
-            ))}
-          </div>
-        </section>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <CodeHeading>Soft skills</CodeHeading>
+        <div className="panel overflow-hidden bg-background">
+          <CodeView lines={softSkillLines} />
+        </div>
       </section>
     </Layout>
   );
