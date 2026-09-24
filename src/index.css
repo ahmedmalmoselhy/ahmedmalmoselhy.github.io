@@ -5,113 +5,115 @@
 @tailwind utilities;
 
 /*
- * Palette: neutral graphite + one amber "signal" accent (terminal / IDE feel).
- * One accent only; everything else is grayscale so content carries the page.
+ * Palette: ink navy + copper accent, steel blue as secondary.
+ * One accent carries the UI; neutrals are navy-tinted.
  */
 @layer base {
   :root {
-    /* Light mode - warm paper, burnt-amber accent */
-    --background: 40 12% 97%;
-    --foreground: 220 12% 10%;
+    /* Light mode - cool paper, deep copper accent */
+    --background: 216 33% 97%;
+    --foreground: 218 45% 13%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 12% 10%;
+    --card-foreground: 218 45% 13%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 12% 10%;
+    --popover-foreground: 218 45% 13%;
 
-    --primary: 28 90% 36%;
+    --primary: 22 65% 38%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 40 8% 92%;
-    --secondary-foreground: 220 12% 14%;
+    --secondary: 216 25% 92%;
+    --secondary-foreground: 218 45% 13%;
 
-    --muted: 40 8% 92%;
-    --muted-foreground: 220 8% 36%;
+    --muted: 216 25% 92%;
+    --muted-foreground: 218 15% 38%;
 
-    --accent: 207 60% 38%;
+    --accent: 215 55% 35%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 70% 45%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 40 8% 86%;
-    --input: 40 8% 86%;
-    --ring: 28 90% 36%;
+    --border: 216 20% 86%;
+    --input: 216 20% 86%;
+    --ring: 22 65% 38%;
 
     --radius: 0.75rem;
 
-    --sidebar-background: 40 12% 97%;
-    --sidebar-foreground: 220 12% 10%;
-    --sidebar-primary: 28 90% 36%;
+    --sidebar-background: 216 33% 97%;
+    --sidebar-foreground: 218 45% 13%;
+    --sidebar-primary: 22 65% 38%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 40 8% 92%;
-    --sidebar-accent-foreground: 220 12% 14%;
-    --sidebar-border: 40 8% 86%;
-    --sidebar-ring: 28 90% 36%;
+    --sidebar-accent: 216 25% 92%;
+    --sidebar-accent-foreground: 218 45% 13%;
+    --sidebar-border: 216 20% 86%;
+    --sidebar-ring: 22 65% 38%;
 
-    /* Portfolio specific - Light mode */
-    --portfolio-navy: 40 12% 97%;
+    /* Portfolio specific */
+    --portfolio-navy: 216 33% 97%;
     --portfolio-light-navy: 0 0% 100%;
-    --portfolio-slate: 220 8% 36%;
-    --portfolio-light-slate: 220 10% 24%;
-    --portfolio-white: 220 12% 10%;
-    --portfolio-highlight: 28 90% 36%;
-    --portfolio-teal: 207 60% 38%;
+    --portfolio-slate: 218 15% 38%;
+    --portfolio-light-slate: 218 25% 24%;
+    --portfolio-white: 218 45% 13%;
+    --portfolio-highlight: 22 65% 38%;
+    --portfolio-teal: 215 55% 35%;
 
     /* Background glow strength (tuning knob) */
-    --glow: 0.16;
+    --glow: 0.12;
   }
 
   .dark {
-    /* Dark mode - graphite, amber accent */
-    --background: 220 8% 7%;
-    --foreground: 210 10% 92%;
+    /* Dark mode - ink navy, copper accent */
+    --background: 217 46% 10%;
+    --foreground: 218 30% 95%;
 
-    --card: 220 7% 10%;
-    --card-foreground: 210 10% 92%;
+    --card: 218 46% 15%;
+    --card-foreground: 218 30% 95%;
 
-    --popover: 220 7% 10%;
-    --popover-foreground: 210 10% 92%;
+    --popover: 218 46% 15%;
+    --popover-foreground: 218 30% 95%;
 
-    --primary: 36 95% 58%;
-    --primary-foreground: 220 8% 7%;
+    --primary: 24 65% 65%;
+    --primary-foreground: 25 58% 7%;
 
-    --secondary: 220 6% 14%;
-    --secondary-foreground: 210 10% 92%;
+    --secondary: 218 45% 17%;
+    --secondary-foreground: 218 30% 95%;
 
-    --muted: 220 6% 14%;
-    --muted-foreground: 215 8% 64%;
+    --muted: 218 45% 17%;
+    --muted-foreground: 219 17% 66%;
 
-    --accent: 207 58% 62%;
-    --accent-foreground: 220 8% 7%;
+    --accent: 213 50% 60%;
+    --accent-foreground: 25 58% 7%;
 
     --destructive: 0 70% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 6% 18%;
-    --input: 220 6% 18%;
-    --ring: 36 95% 58%;
+    --border: 219 37% 21%;
+    --input: 219 37% 21%;
+    --ring: 24 65% 65%;
 
-    --sidebar-background: 220 8% 7%;
-    --sidebar-foreground: 210 10% 92%;
-    --sidebar-primary: 36 95% 58%;
-    --sidebar-primary-foreground: 220 8% 7%;
-    --sidebar-accent: 220 6% 14%;
-    --sidebar-accent-foreground: 210 10% 92%;
-    --sidebar-border: 220 6% 18%;
-    --sidebar-ring: 36 95% 58%;
+    --radius: 0.75rem;
 
-    /* Portfolio specific - Dark mode */
-    --portfolio-navy: 220 8% 7%;
-    --portfolio-light-navy: 220 7% 10%;
-    --portfolio-slate: 215 8% 64%;
-    --portfolio-light-slate: 215 10% 78%;
-    --portfolio-white: 210 10% 94%;
-    --portfolio-highlight: 36 95% 58%;
-    --portfolio-teal: 207 58% 62%;
+    --sidebar-background: 217 46% 10%;
+    --sidebar-foreground: 218 30% 95%;
+    --sidebar-primary: 24 65% 65%;
+    --sidebar-primary-foreground: 25 58% 7%;
+    --sidebar-accent: 218 45% 17%;
+    --sidebar-accent-foreground: 218 30% 95%;
+    --sidebar-border: 219 37% 21%;
+    --sidebar-ring: 24 65% 65%;
 
-    --glow: 0.22;
+    /* Portfolio specific */
+    --portfolio-navy: 217 46% 10%;
+    --portfolio-light-navy: 218 46% 15%;
+    --portfolio-slate: 219 17% 66%;
+    --portfolio-light-slate: 219 22% 81%;
+    --portfolio-white: 218 30% 95%;
+    --portfolio-highlight: 24 65% 65%;
+    --portfolio-teal: 213 50% 60%;
+
+    --glow: 0.18;
   }
 }
 
@@ -127,7 +129,7 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    /* Amber glow from the top + faint blue counter-glow, fixed so it stays put on scroll */
+    /* Accent glow from the top + faint secondary counter-glow, fixed so it stays put on scroll */
     background-image:
       radial-gradient(ellipse 70% 45% at 50% -8%, hsl(var(--portfolio-highlight) / var(--glow)), transparent 70%),
       radial-gradient(ellipse 45% 40% at 100% 100%, hsl(var(--accent) / calc(var(--glow) * 0.6)), transparent 70%);
