@@ -43,22 +43,24 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onSectionChange }) => {
   const isActive = (section: PageSection) =>
     activeSection === section ||
     (section === "projects" && activeSection === "project-detail");
+  const activeIndex = Math.max(0, links.findIndex((l) => isActive(l.section)));
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-border bg-card/95 pt-[env(safe-area-inset-top)] backdrop-blur-md">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4">
+      {/* Mobile: two floating Liquid Glass capsules over the content. Desktop: solid bar. */}
+      <header className="pointer-events-none fixed inset-x-0 top-0 z-50 pt-[env(safe-area-inset-top)] md:pointer-events-auto md:border-b md:border-border md:bg-card/95 md:backdrop-blur-md">
+        <div className="container mx-auto flex items-center justify-between px-3 pt-3 md:h-16 md:px-4 md:pt-0">
           <button
             onClick={() => onSectionChange("home")}
-            className="flex items-center gap-3 rounded-md"
+            className="pointer-events-auto flex items-center gap-3 rounded-full transition-transform active:scale-[1.04] max-md:liquid-glass max-md:h-12 max-md:pl-1.5 max-md:pr-4 md:rounded-md"
             aria-label="Ahmed AlMoselhy, go to home"
           >
-            <span className="grid h-9 w-9 place-items-center rounded-md bg-primary font-mono text-sm font-semibold text-primary-foreground">
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-primary font-mono text-sm font-semibold text-primary-foreground md:rounded-md">
               AA
             </span>
             <span className="text-left leading-tight">
               <span className="block text-sm font-semibold text-portfolio-white">Ahmed AlMoselhy</span>
-              <span className="block text-xs text-portfolio-slate">Software Engineer</span>
+              <span className="block text-xs text-portfolio-slate max-md:text-portfolio-lightSlate">Software Engineer</span>
             </span>
           </button>
 
@@ -79,31 +81,34 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onSectionChange }) => {
             <ThemeToggle />
           </nav>
 
-          <div className="flex items-center gap-1 md:hidden">
+          <div className="liquid-glass pointer-events-auto flex h-12 items-center gap-0.5 rounded-full px-1 md:hidden">
             <RefreshButton />
             <ThemeToggle />
           </div>
         </div>
       </header>
 
-      {/* Mobile bottom tab bar: thumb-reachable, always visible */}
+      {/* Mobile tab bar: floating Liquid Glass capsule; the lens springs to the active tab */}
       <nav
         aria-label="Main"
-        className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-card/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md md:hidden"
+        className="liquid-glass fixed inset-x-3 bottom-[calc(env(safe-area-inset-bottom)+0.75rem)] z-50 rounded-full p-1.5 md:hidden"
       >
-        <ul className="grid grid-cols-5">
+        <ul className="relative grid grid-cols-5">
+          <li
+            aria-hidden="true"
+            className="liquid-lens pointer-events-none absolute inset-y-0 left-0 w-1/5 rounded-full transition-transform duration-500 [transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)]"
+            style={{ transform: `translateX(${activeIndex * 100}%)` }}
+          />
           {links.map(({ section, label, icon: Icon }) => {
             const active = isActive(section);
             return (
-              <li key={section}>
+              <li key={section} className="relative">
                 <button
                   onClick={() => onSectionChange(section)}
                   aria-current={active ? "page" : undefined}
                   className={cn(
-                    "relative flex min-h-[60px] w-full flex-col items-center justify-center gap-1 text-[11px] font-medium transition-colors duration-300 active:scale-95",
-                    active
-                      ? "text-portfolio-highlight before:absolute before:inset-x-5 before:top-0 before:h-0.5 before:rounded-full before:bg-portfolio-highlight"
-                      : "text-portfolio-slate",
+                    "flex min-h-[52px] w-full flex-col items-center justify-center gap-0.5 rounded-full text-[10px] font-medium transition-[color,transform] duration-300 active:scale-110",
+                    active ? "text-portfolio-highlight" : "text-portfolio-lightSlate",
                   )}
                 >
                   <Icon size={20} aria-hidden="true" />

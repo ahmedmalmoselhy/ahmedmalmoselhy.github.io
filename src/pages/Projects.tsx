@@ -21,7 +21,7 @@ const stats = [
 
 const Projects: React.FC<ProjectsProps> = ({ onSectionChange }) => {
   return (
-    <Layout className="pt-16">
+    <Layout className="pt-0 md:pt-16">
       <PageHeader
         eyebrow="Portfolio"
         title="Projects"

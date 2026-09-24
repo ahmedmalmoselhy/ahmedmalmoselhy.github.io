@@ -15,7 +15,7 @@ const stats = [
 
 const Skills = () => {
   return (
-    <Layout className="pt-16">
+    <Layout className="pt-0 md:pt-16">
       <PageHeader
         eyebrow="Expertise"
         title="Skills & technologies"

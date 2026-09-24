@@ -25,7 +25,7 @@ const availability = [
 
 const Contact = () => {
   return (
-    <Layout className="pt-16">
+    <Layout className="pt-0 md:pt-16">
       <PageHeader
         eyebrow="Contact"
         title="Let's work together"

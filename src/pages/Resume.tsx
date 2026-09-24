@@ -46,7 +46,7 @@ const stats = [
 
 const Resume = () => {
   return (
-    <Layout className="pt-16">
+    <Layout className="pt-0 md:pt-16">
       <PageHeader
         eyebrow="Resume"
         title="Professional experience"

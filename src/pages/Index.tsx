@@ -51,10 +51,10 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
   const [randomProjects] = useState(pickRandomProjects);
 
   return (
-    <Layout className="pt-16">
+    <Layout className="pt-0 md:pt-16">
       {/* Profile band: navy in both themes */}
       <section className="bg-[hsl(var(--band))] text-white">
-        <div className="container mx-auto px-4 pb-10 pt-12 md:pt-16">
+        <div className="container mx-auto px-4 pb-10 pt-[calc(6rem+env(safe-area-inset-top))] md:pt-16">
           <div className="grid items-center gap-8 md:grid-cols-[auto_1fr_auto]">
             <img
               src="/Ahmed-AlMoselhy.png"

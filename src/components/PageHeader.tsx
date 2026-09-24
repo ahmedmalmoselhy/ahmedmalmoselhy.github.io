@@ -30,7 +30,7 @@ interface PageHeaderProps {
 /** Navy band at the top of every inner page, matching the home profile band. */
 const PageHeader: React.FC<PageHeaderProps> = ({ eyebrow, title, description, actions, stats }) => (
   <section className="bg-[hsl(var(--band))] text-white">
-    <div className="container mx-auto px-4 pb-10 pt-12 md:pt-16">
+    <div className="container mx-auto px-4 pb-10 pt-[calc(6rem+env(safe-area-inset-top))] md:pt-16">
       <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         <div className="max-w-2xl animate-slide-up">
           <span className="text-xs font-semibold uppercase tracking-wider text-[hsl(var(--band-accent))]">
