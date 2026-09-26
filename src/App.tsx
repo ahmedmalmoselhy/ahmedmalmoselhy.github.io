@@ -10,7 +10,7 @@ import { useAppUpdates } from "./hooks/use-app-updates";
 
 const queryClient = new QueryClient();
 
-export type PageSection = 'home' | 'resume' | 'skills' | 'projects' | 'contact' | 'experience' | 'project-detail';
+export type PageSection = 'home' | 'resume' | 'skills' | 'projects' | 'contact' | 'project-detail';
 
 export interface AppState {
   section: PageSection;
@@ -19,7 +19,7 @@ export interface AppState {
 
 // The current page lives in the URL hash (#/resume, #/projects/5) so a reload,
 // a shared link, or the installed app's refresh reopens the same page.
-const HASH_SECTIONS: PageSection[] = ['resume', 'skills', 'projects', 'contact', 'experience'];
+const HASH_SECTIONS: PageSection[] = ['resume', 'skills', 'projects', 'contact'];
 
 const stateFromHash = (hash: string): AppState => {
   const [, section, id] = hash.match(/^#\/([a-z-]+)(?:\/(\d+))?$/) ?? [];

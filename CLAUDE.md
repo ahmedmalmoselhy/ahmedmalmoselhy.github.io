@@ -21,7 +21,7 @@ There is no test runner configured. `bun` is also usable (`bun.lock`/`bun.lockb`
 
 **Single-page app with custom state-based navigation — NOT react-router.** Although `react-router-dom` is a dependency, routing is hand-rolled:
 
-- `App.tsx` holds the single source of truth: `appState: { section: PageSection, projectId? }`, mutated by `handleSectionChange`. `PageSection` is a union type (`'home' | 'resume' | 'skills' | 'projects' | 'contact' | 'experience' | 'project-detail'`) exported from `App.tsx`.
+- `App.tsx` holds the single source of truth: `appState: { section: PageSection, projectId? }`, mutated by `handleSectionChange`. `PageSection` is a union type (`'home' | 'resume' | 'skills' | 'projects' | 'contact' | 'project-detail'`) exported from `App.tsx`.
 - `SinglePageApp.tsx` is a `switch` over `appState.section` that renders the matching page component. There are no URL routes — section changes are in-memory state, and every section change scrolls to top.
 - To add a "page": extend the `PageSection` union in `App.tsx`, add a `case` in `SinglePageApp.tsx`, and wire a trigger (usually `Navbar`) to call `onSectionChange`.
 - `onSectionChange(section, projectId?)` is threaded as a prop down to any component that needs to navigate (e.g. project cards pass a `projectId` to open `project-detail`).

@@ -1,6 +1,7 @@
 import { differenceInMonths, parse } from "date-fns";
 
-export function calculateDuration(period: string): string {
+export function calculateDuration(period?: string): string {
+  if (!period) return "";
   const [startStr, endStr] = period.split(" - ");
   
   const parseDate = (dateStr: string): Date => {

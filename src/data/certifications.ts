@@ -5,39 +5,45 @@ export interface CertificationItem {
     year: string;
     logo?: string;
     image?: string;
+    /** Company the certificate was earned while working at (matches ExperienceItem.company). */
+    employer?: string;
 }
 
 export const certifications: CertificationItem[] = [
     {
         id: "creatio-ai",
         name: "Creatio.AI",
-        issuer: "Creatio Academy",
+        issuer: "Creatio",
         year: "2026",
         logo: "/logos/creatio.png",
+        employer: "Qeema",
         image: "/certificates/creatio-ai.png",
     },
     {
         id: "creatio-solution-consultant",
         name: "Creatio Solution Consultant",
-        issuer: "Creatio Academy",
+        issuer: "Creatio",
         year: "2026",
         logo: "/logos/creatio.png",
+        employer: "Qeema",
         image: "/certificates/creatio-solution-consultant.png",
     },
     {
         id: "creatio-advanced",
         name: "Creatio Software Developer [Advanced]",
-        issuer: "Creatio Academy",
+        issuer: "Creatio",
         year: "2025",
         logo: "/logos/creatio.png",
+        employer: "Qeema",
         image: "/certificates/creatio-software-developer.jpeg",
     },
     {
         id: "creatio-basic",
         name: "Creatio No-Code Creator [Basic]",
-        issuer: "Creatio Academy",
+        issuer: "Creatio",
         year: "2025",
         logo: "/logos/creatio.png",
+        employer: "Qeema",
         image: "/certificates/creatio-no-code-creator.png",
     },
     {

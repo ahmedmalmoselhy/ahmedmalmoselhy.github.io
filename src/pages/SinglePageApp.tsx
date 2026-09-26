@@ -4,8 +4,8 @@ import Resume from './Resume';
 import Skills from './Skills';
 import Projects from './Projects';
 import Contact from './Contact';
-import Experience from './Experience';
 import ProjectDetail from './ProjectDetail';
+import ErrorBoundary from '@/components/ErrorBoundary';
 import { PageSection, AppState } from '@/App';
 
 interface SinglePageAppProps {
@@ -26,8 +26,6 @@ const SinglePageApp: React.FC<SinglePageAppProps> = ({ appState, onSectionChange
         return <Projects onSectionChange={onSectionChange} />;
       case 'contact':
         return <Contact />;
-      case 'experience':
-        return <Experience />;
       case 'project-detail':
         return (
           <ProjectDetail
@@ -42,7 +40,7 @@ const SinglePageApp: React.FC<SinglePageAppProps> = ({ appState, onSectionChange
 
   return (
     <div key={`${appState.section}-${appState.projectId || ''}`} className="page-enter">
-      {renderContent()}
+      <ErrorBoundary>{renderContent()}</ErrorBoundary>
     </div>
   );
 };

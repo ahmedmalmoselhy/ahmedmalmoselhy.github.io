@@ -4,50 +4,36 @@ export interface Role {
   responsibilities: string[];
 }
 
+export type ProjectStatus = "Ongoing" | "Completed" | "On hold";
+
+/** A client project delivered while employed at a company. */
+export interface CompanyProject {
+  name: string;
+  status: ProjectStatus;
+  client?: string;
+  logo?: string;
+  role?: string;
+  period?: string;
+  workType?: string;
+  location?: string;
+  highlights: string[];
+  technologies?: string[];
+}
+
 export interface ExperienceItem {
   company: string;
   logo?: string;
-  outsourced?: string;
   period: string;
   link?: string;
   workType: string;
   location: string;
   roles: (Role | Role[])[];
+  projects?: CompanyProject[];
+  achievements?: string[];
   technologies?: string[];
 }
 
 export const experiences: ExperienceItem[] = [
-  {
-    company: "Jawwy by STC",
-    outsourced: "Qeema",
-    logo: "/logos/Jawwy.png",
-    period: "July 2023 - Present",
-    workType: "Outsourced Full-time Remote",
-    location: "Riyadh, Saudi Arabia",
-    roles: [
-      {
-        title: "EOC/ECM Developer & Support Engineer",
-        period: "July 2023 - Present",
-        responsibilities: [
-          "Product Catalog Management: Oversaw catalog components using Ericsson Catalog Manager (ECM), ensuring accurate and efficient handling of product data.",
-          "Technical Support: Delivered advanced support to maintain system reliability and swiftly resolve critical issues in the L3 layer of support.",
-          "System Integration: Contributed to the development efforts, implementing logic to interface with external systems for streamlined operations and improved overall performance.",
-          "Troubleshooting and resolving complex issues related to Ericsson Order Care (EOC) and Ericsson Catalog Manager (ECM) systems.",
-          "Providing technical guidance and support to end-users, ensuring smooth operations and customer satisfaction.",
-          "Collaborating with cross-functional teams to identify and implement system enhancements and improvements.",
-        ],
-      },
-    ],
-    technologies: [
-      "Ericsson Order Care [EOC]",
-      "Ericsson Catalog Manager [ECM]",
-      "JavaScript",
-      "SQL",
-      "Oracle DB",
-      "Git",
-      "Docker",
-    ],
-  },
   {
     company: "Qeema",
     logo: "/logos/Qeema.png",
@@ -62,10 +48,72 @@ export const experiences: ExperienceItem[] = [
         responsibilities: [
           "Developed and implemented EOC solutions for the Jawwy DT project, customizing CRM solutions to meet telecom industry-specific requirements",
           "Provided Level 3 advanced application support ensuring optimal performance and rapid issue resolution",
-          "Played a pivotal role in the successful release of the Jawwy DT project by maintaining EOC/ECM modules and supporting the client's operation team",
-          "Led the EOC/ECM upgrade from version 20 to 22, resolving version conflicts while maintaining system integration and implementation flow",
         ],
       },
+    ],
+    projects: [
+      {
+        name: "Jawwy DT",
+        status: "Ongoing",
+        client: "Jawwy by STC",
+        logo: "/logos/Jawwy.png",
+        role: "EOC/ECM Developer & Support Engineer",
+        // period: "July 2023 - Present",
+        workType: "Full-time Remote",
+        location: "Riyadh, Saudi Arabia",
+        highlights: [
+          "Product Catalog Management: Oversaw catalog components using Ericsson Catalog Manager (ECM), ensuring accurate and efficient handling of product data.",
+          "Technical Support: Delivered advanced support to maintain system reliability and swiftly resolve critical issues in the L3 layer of support.",
+          "System Integration: Contributed to the development efforts, implementing logic to interface with external systems for streamlined operations and improved overall performance.",
+          "Troubleshooting and resolving complex issues related to Ericsson Order Care (EOC) and Ericsson Catalog Manager (ECM) systems.",
+          "Providing technical guidance and support to end-users, ensuring smooth operations and customer satisfaction.",
+          "Collaborating with cross-functional teams to identify and implement system enhancements and improvements.",
+        ],
+        technologies: [
+          "Ericsson Order Care [EOC]",
+          "Ericsson Catalog Manager [ECM]",
+          "JavaScript",
+          "SQL",
+          "Oracle DB",
+          "Git",
+          "Docker",
+        ],
+      },
+      {
+        name: "Delta Pharma",
+        status: "Completed",
+        client: "Internal Projects",
+        role: "Software Developer",
+        highlights: [
+          "Developed and maintained a custom CRM solution using Creatio, tailored to the specific needs of the pharmaceutical industry.",
+          "Implemented and optimized business processes, workflows, and automation within the Creatio platform to enhance operational efficiency.",
+          "Integrated third-party systems and APIs to streamline data flow and improve overall system functionality.",
+        ],
+        technologies: [
+          "Creatio"
+        ],
+      },
+      {
+        name: "Customer 360 Unified View",
+        status: "Completed",
+        client: "Internal Projects",
+        role: "Solution Designer & Project Lead, Senior Software Engineer",
+        highlights: [
+          "Designed and implemented a comprehensive customer data platform (CDP) to provide a unified view of customer interactions across multiple channels.",
+          "Led the development team in creating a scalable and efficient solution, ensuring seamless integration with existing systems and data sources.",
+          "Implemented advanced analytics and reporting capabilities to enable data-driven decision-making and improve customer engagement strategies.",
+          "Collaborated with stakeholders to gather requirements and translate them into technical specifications for the CDP.",
+          "Managed the entire project lifecycle, from planning and design to implementation and deployment.",
+          "Conducted regular reviews and assessments to ensure the CDP met the evolving needs of the business.",
+        ],
+        technologies: [
+          "Creatio"
+        ],
+      },
+    ],
+    achievements: [
+      "Played a pivotal role in the successful release of the Jawwy DT project by maintaining EOC/ECM modules and supporting the client's operation team",
+      "Led the EOC/ECM upgrade from version 20 to 22, resolving version conflicts while maintaining system integration and implementation flow",
     ],
     technologies: [
       "Ericsson Order Care [EOC]",
