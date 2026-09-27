@@ -5,134 +5,86 @@
 @tailwind utilities;
 
 /*
- * Style: enterprise profile. Ink navy + copper, IBM Plex type,
- * structured cards with light elevation. Hero sits on a navy "band"
- * that stays navy in both themes.
+ * Style: developer notebook. Stone page, graphite ink, signal blue plus domain colours
+ * (telecom blue, CRM teal, web orange), IBM Plex Sans + Mono, small bits of motion.
  */
 @layer base {
   :root {
-    /* Light mode (default) - cool paper, navy text, deep copper accent */
-    --background: 216 33% 97%;
-    --foreground: 218 45% 13%;
-
+    /* Light: stone page, white surfaces, graphite ink, signal blue; domain colours for telecom, CRM and web */
+    --background: 45 18% 95%;
+    --foreground: 220 10% 12%;
     --card: 0 0% 100%;
-    --card-foreground: 218 45% 13%;
-
+    --card-foreground: 220 10% 12%;
     --popover: 0 0% 100%;
-    --popover-foreground: 218 45% 13%;
-
-    --primary: 22 65% 38%;
+    --popover-foreground: 220 10% 12%;
+    --primary: 224 100% 52%;
     --primary-foreground: 0 0% 100%;
-
-    --secondary: 216 25% 92%;
-    --secondary-foreground: 218 45% 13%;
-
-    --muted: 216 25% 92%;
-    --muted-foreground: 218 15% 38%;
-
-    --accent: 215 55% 35%;
-    --accent-foreground: 0 0% 100%;
-
+    --secondary: 45 12% 91%;
+    --secondary-foreground: 220 10% 12%;
+    --muted: 45 12% 91%;
+    --muted-foreground: 220 5% 39%;
+    --accent: 224 100% 95%;
+    --accent-foreground: 224 100% 45%;
     --destructive: 0 70% 45%;
     --destructive-foreground: 0 0% 100%;
-
-    --border: 216 20% 86%;
-    --input: 216 20% 86%;
-    --ring: 22 65% 38%;
-
-    --radius: 0.5rem;
-
-    --sidebar-background: 216 33% 97%;
-    --sidebar-foreground: 218 45% 13%;
-    --sidebar-primary: 22 65% 38%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 216 25% 92%;
-    --sidebar-accent-foreground: 218 45% 13%;
-    --sidebar-border: 216 20% 86%;
-    --sidebar-ring: 22 65% 38%;
-
-    /* Portfolio specific */
-    --portfolio-navy: 216 33% 97%;
+    --border: 44 13% 85%;
+    --input: 44 13% 85%;
+    --ring: 224 100% 52%;
+    --radius: 0.375rem;
+    --portfolio-navy: 45 18% 95%;
     --portfolio-light-navy: 0 0% 100%;
-    --portfolio-slate: 218 15% 38%;
-    --portfolio-light-slate: 218 25% 24%;
-    --portfolio-white: 218 45% 13%;
-    --portfolio-highlight: 22 65% 38%;
-    --portfolio-teal: 215 55% 35%;
-
-    /* Hero band: always navy, with the bright copper that reads on navy */
-    --band: 217 46% 11%;
-    --band-accent: 24 65% 65%;
-
-    /* Liquid glass (mobile chrome): tint, fill opacity, edge, specular highlight, sheen */
-    /* Light: dense enough that navy text stays readable over the navy band (>= 4.5:1),
-       with a dark hairline so capsules still read over white content */
-    --glass-tint: 0 0% 100%;
-    --glass-alpha: 0.78;
-    --glass-edge: 0.7;
-    --glass-highlight: 1;
-    --glass-sheen: 0.25;
-    --glass-hairline: 218 45% 13% / 0.1;
-    --glass-shadow: 218 45% 13% / 0.22;
+    --portfolio-slate: 220 5% 39%;
+    --portfolio-light-slate: 220 7% 26%;
+    --portfolio-white: 220 10% 12%;
+    --portfolio-highlight: 224 100% 52%;
+    --portfolio-teal: 172 80% 30%;
+    --faint: 222 4% 57%;
+    --c-tel: 224 100% 52%;
+    --c-crm: 172 80% 30%;
+    --c-web: 19 77% 47%;
+    --ok: 152 67% 37%;
+    --warn: 36 83% 42%;
+    --grid: 220 10% 12% / 0.07;
+    --band: 220 10% 12%;
+    --band-accent: 224 100% 74%;
   }
 
   .dark {
-    /* Dark mode - ink navy, copper accent */
-    --background: 217 46% 9%;
-    --foreground: 218 30% 95%;
-
-    --card: 218 46% 13%;
-    --card-foreground: 218 30% 95%;
-
-    --popover: 218 46% 13%;
-    --popover-foreground: 218 30% 95%;
-
-    --primary: 24 65% 65%;
-    --primary-foreground: 25 58% 7%;
-
-    --secondary: 218 45% 16%;
-    --secondary-foreground: 218 30% 95%;
-
-    --muted: 218 45% 16%;
-    --muted-foreground: 219 17% 66%;
-
-    --accent: 213 50% 60%;
-    --accent-foreground: 25 58% 7%;
-
+    --background: 216 13% 8%;
+    --foreground: 50 9% 91%;
+    --card: 213 12% 11%;
+    --card-foreground: 50 9% 91%;
+    --popover: 213 12% 11%;
+    --popover-foreground: 50 9% 91%;
+    --primary: 225 100% 74%;
+    --primary-foreground: 222 45% 8%;
+    --secondary: 216 10% 14%;
+    --secondary-foreground: 50 9% 91%;
+    --muted: 216 10% 14%;
+    --muted-foreground: 222 4% 66%;
+    --accent: 224 40% 18%;
+    --accent-foreground: 225 100% 74%;
     --destructive: 0 70% 60%;
     --destructive-foreground: 0 0% 100%;
-
-    --border: 219 37% 20%;
-    --input: 219 37% 20%;
-    --ring: 24 65% 65%;
-
-    --sidebar-background: 217 46% 9%;
-    --sidebar-foreground: 218 30% 95%;
-    --sidebar-primary: 24 65% 65%;
-    --sidebar-primary-foreground: 25 58% 7%;
-    --sidebar-accent: 218 45% 16%;
-    --sidebar-accent-foreground: 218 30% 95%;
-    --sidebar-border: 219 37% 20%;
-    --sidebar-ring: 24 65% 65%;
-
-    --portfolio-navy: 217 46% 9%;
-    --portfolio-light-navy: 218 46% 13%;
-    --portfolio-slate: 219 17% 66%;
-    --portfolio-light-slate: 219 22% 81%;
-    --portfolio-white: 218 30% 95%;
-    --portfolio-highlight: 24 65% 65%;
-    --portfolio-teal: 213 50% 60%;
-
-    --band: 218 50% 6%;
-    --band-accent: 24 65% 65%;
-
-    --glass-tint: 218 40% 16%;
-    --glass-alpha: 0.5;
-    --glass-edge: 0.14;
-    --glass-highlight: 0.22;
-    --glass-sheen: 0.08;
-    --glass-hairline: 0 0% 0% / 0.35;
-    --glass-shadow: 0 0% 0% / 0.5;
+    --border: 220 10% 18%;
+    --input: 220 10% 18%;
+    --ring: 225 100% 74%;
+    --portfolio-navy: 216 13% 8%;
+    --portfolio-light-navy: 213 12% 11%;
+    --portfolio-slate: 222 4% 66%;
+    --portfolio-light-slate: 40 6% 80%;
+    --portfolio-white: 50 9% 91%;
+    --portfolio-highlight: 225 100% 74%;
+    --portfolio-teal: 171 58% 56%;
+    --faint: 220 5% 45%;
+    --c-tel: 225 100% 74%;
+    --c-crm: 171 58% 56%;
+    --c-web: 19 100% 67%;
+    --ok: 151 50% 53%;
+    --warn: 38 71% 58%;
+    --grid: 50 9% 91% / 0.06;
+    --band: 213 12% 13%;
+    --band-accent: 225 100% 74%;
   }
 }
 
@@ -171,137 +123,186 @@
 
 @layer components {
   .panel {
-    @apply rounded-lg border border-border bg-card;
-    box-shadow: 0 1px 2px hsl(218 45% 13% / 0.05), 0 1px 1px hsl(218 45% 13% / 0.03);
+    @apply rounded-md border border-border bg-card;
   }
 
-  /* Clickable cards: copper border + soft elevation on hover */
-  .card-interactive {
-    @apply cursor-pointer;
-    transition:
-      transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-      border-color 0.25s ease,
-      box-shadow 0.3s ease;
-  }
-
-  .card-interactive:hover,
-  .card-interactive:focus-visible {
-    @apply border-portfolio-highlight/50;
-    transform: translateY(-3px);
-    box-shadow: 0 12px 28px -12px hsl(218 45% 13% / 0.25);
-  }
-
-  .card-interactive:active {
-    transform: translateY(0) scale(0.99);
-    transition-duration: 0.12s;
-  }
-
+  /* Buttons: ink solid (primary action) and outlined surface (secondary) */
+  .btn-band,
   .btn-primary {
-    @apply inline-flex h-11 items-center justify-center gap-2 rounded-md bg-primary px-5 text-sm font-semibold text-primary-foreground;
-    transition: filter 0.2s ease, transform 0.2s ease;
+    @apply inline-flex h-11 items-center justify-center gap-2 rounded-md bg-foreground px-5 text-sm font-medium text-background;
+    transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
 
-  .btn-primary:hover {
-    filter: brightness(1.08);
-    transform: translateY(-1px);
-  }
-
+  .btn-band-outline,
   .btn-secondary {
-    @apply inline-flex h-11 items-center justify-center gap-2 rounded-md border border-border bg-card px-5 text-sm font-semibold text-portfolio-white;
-    transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    @apply inline-flex h-11 items-center justify-center gap-2 rounded-md border border-border bg-card px-5 text-sm font-medium text-foreground;
+    transition: border-color 0.15s ease, transform 0.2s ease;
   }
 
+  .btn-band:hover,
+  .btn-primary:hover,
+  .btn-band-outline:hover,
   .btn-secondary:hover {
-    @apply border-portfolio-highlight/60 text-portfolio-highlight;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
   }
 
-  /* Buttons that sit on the navy band (same look in both themes) */
-  .btn-band {
-    @apply inline-flex h-11 items-center justify-center gap-2 rounded-md bg-[hsl(var(--band-accent))] px-5 text-sm font-semibold text-[hsl(var(--band))];
-    transition: filter 0.2s ease, transform 0.2s ease;
+  .btn-band-outline:hover,
+  .btn-secondary:hover {
+    @apply border-faint;
   }
 
-  .btn-band:hover {
-    filter: brightness(1.1);
-    transform: translateY(-1px);
-  }
-
-  .btn-band-outline {
-    @apply inline-flex h-11 items-center justify-center gap-2 rounded-md border border-white/25 px-5 text-sm font-semibold text-white;
-    transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
-  }
-
-  .btn-band-outline:hover {
-    @apply border-white/60 bg-white/5;
-    transform: translateY(-1px);
-  }
-
-  .btn-primary:active,
-  .btn-secondary:active,
   .btn-band:active,
-  .btn-band-outline:active {
+  .btn-primary:active,
+  .btn-band-outline:active,
+  .btn-secondary:active {
     transform: scale(0.97);
   }
 
-  /*
-   * Liquid Glass (iOS 26 style) for floating mobile chrome: translucent, blurred and
-   * saturated fill, a specular highlight on the top edge, a faint rim light at the bottom,
-   * a thin light edge and a soft float shadow. Only for controls/bars, never content.
-   */
-  .liquid-glass {
-    background-color: hsl(var(--glass-tint) / var(--glass-alpha));
-    background-image: linear-gradient(180deg, hsl(0 0% 100% / var(--glass-sheen)), transparent 55%);
-    -webkit-backdrop-filter: blur(22px) saturate(180%);
-    backdrop-filter: blur(22px) saturate(180%);
-    border: 1px solid hsl(0 0% 100% / var(--glass-edge));
-    box-shadow:
-      inset 0 1px 0 hsl(0 0% 100% / var(--glass-highlight)),
-      inset 0 -1px 1px hsl(0 0% 100% / calc(var(--glass-highlight) * 0.35)),
-      0 0 0 0.5px hsl(var(--glass-hairline)),
-      0 10px 30px -8px hsl(var(--glass-shadow));
-  }
-
-  /* The "lens" that sits under the active item inside a glass bar */
-  .liquid-lens {
-    @apply bg-portfolio-highlight/15;
-    box-shadow:
-      inset 0 1px 0 hsl(0 0% 100% / calc(var(--glass-highlight) * 0.6)),
-      inset 0 0 0 1px hsl(var(--portfolio-highlight) / 0.25);
-  }
-
   .chip {
-    @apply inline-flex items-center rounded border border-border bg-muted px-2 py-0.5 text-xs font-medium text-portfolio-slate;
+    @apply inline-flex items-center rounded border border-border bg-card px-2 py-0.5 font-mono text-xs font-medium text-muted-foreground;
+    transition: border-color 0.15s, color 0.15s, transform 0.15s;
   }
 
+  .chip:hover {
+    @apply border-primary text-primary;
+    transform: translateY(-2px);
+  }
+
+  /* Small mono label ("// label") */
   .eyebrow {
-    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-portfolio-highlight;
+    @apply inline-flex items-center gap-2 font-mono text-sm font-medium text-primary;
   }
 
-  .page-title {
-    @apply font-display text-[clamp(2.25rem,5vw,3.5rem)] font-semibold leading-tight text-portfolio-white;
-  }
-
-  /* Header links: copper underline sits on the header's bottom border */
+  /* Header pills */
   .nav-link {
-    @apply relative flex h-full items-center px-3 text-sm font-medium text-portfolio-slate transition-colors duration-200 hover:text-portfolio-white;
+    @apply rounded-md px-3 py-1.5 font-mono text-sm text-muted-foreground transition-colors duration-150 hover:bg-card hover:text-foreground;
   }
 
   .nav-link.active {
-    @apply text-portfolio-white;
+    @apply bg-card text-foreground shadow-[inset_0_0_0_1px_hsl(var(--border))];
   }
 
-  .nav-link.active::after {
+  /* Blinking block cursor */
+  .caret {
+    @apply ml-0.5 inline-block h-[1em] w-2 bg-primary align-[-0.15em];
+    animation: blink 1.1s steps(1) infinite;
+  }
+
+  /* Status dot with a soft ping */
+  .live-dot {
+    @apply relative inline-block h-[7px] w-[7px] shrink-0 rounded-full bg-ok;
+  }
+
+  .live-dot::after {
     content: "";
-    @apply absolute inset-x-3 -bottom-px h-0.5 rounded-full bg-portfolio-highlight;
+    @apply absolute inset-0 rounded-full bg-inherit;
+    animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
   }
 
-  .section-title {
-    @apply mb-6 flex items-center font-display text-2xl font-semibold text-portfolio-white;
+  /* Marker highlight that draws in under a phrase */
+  .marker {
+    background: linear-gradient(hsl(var(--mk, var(--c-web)) / 0.28), hsl(var(--mk, var(--c-web)) / 0.28)) 0 88% / 0% 38% no-repeat;
+    animation: mark 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 1.2s forwards;
   }
 
-  .section-title::after {
-    @apply ml-4 h-px flex-grow bg-border content-[''];
+  /* Halftone portrait; the colour photo shows through a circle under the cursor */
+  .halftone {
+    @apply relative overflow-hidden rounded-md bg-foreground dark:bg-card;
+    cursor: crosshair;
+    transform: rotate(-1.5deg);
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .halftone:hover {
+    transform: rotate(0) scale(1.02);
+  }
+
+  .halftone img {
+    @apply absolute inset-0 h-full w-full object-cover object-[center_12%];
+  }
+
+  .halftone .ht {
+    filter: grayscale(1) contrast(1.35) brightness(1.08);
+    mix-blend-mode: screen;
+  }
+
+  .halftone .dots {
+    @apply pointer-events-none absolute inset-0 opacity-55;
+    background: radial-gradient(circle, transparent 42%, hsl(var(--background)) 46%) 0 0 / 4px 4px;
+  }
+
+  .halftone .color {
+    clip-path: circle(0 at var(--px, 50%) var(--py, 40%));
+    transition: clip-path 0.35s ease;
+  }
+
+  .halftone:hover .color {
+    clip-path: circle(70px at var(--px, 50%) var(--py, 40%));
+  }
+
+  /* Dot grid with a glow that follows the cursor (set --mx/--my) */
+  .dot-stage {
+    @apply relative overflow-hidden;
+  }
+
+  .dot-stage::before,
+  .dot-stage::after {
+    content: "";
+    @apply pointer-events-none absolute inset-0;
+  }
+
+  .dot-stage::before {
+    background: radial-gradient(hsl(var(--grid)) 1px, transparent 1.2px) 0 0 / 22px 22px;
+    mask: radial-gradient(420px circle at var(--mx, 70%) var(--my, 40%), #000, transparent 70%);
+  }
+
+  .dot-stage::after {
+    background: radial-gradient(360px circle at var(--mx, 70%) var(--my, 40%), hsl(var(--primary) / 0.1), transparent 70%);
+  }
+
+  /* Project card in a domain colour (set --c to an hsl triplet var) */
+  .card-dev {
+    --c: var(--primary);
+    @apply relative flex flex-col overflow-hidden rounded-lg border border-border bg-card;
+    transition: border-color 0.2s, transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s;
+  }
+
+  .card-dev::before {
+    content: "";
+    @apply absolute inset-x-0 top-0 z-10 h-[3px] origin-left;
+    background: hsl(var(--c));
+    transform: scaleX(0.18);
+    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .card-dev::after {
+    content: "";
+    @apply pointer-events-none absolute inset-0 opacity-0;
+    background: radial-gradient(240px circle at var(--sx, 50%) var(--sy, 0%), hsl(var(--c) / 0.16), transparent 70%);
+    transition: opacity 0.3s;
+  }
+
+  .card-dev:hover {
+    border-color: hsl(var(--c) / 0.45);
+    box-shadow: 0 18px 30px -18px hsl(var(--c) / 0.45);
+  }
+
+  .card-dev:hover::before {
+    transform: scaleX(1);
+  }
+
+  .card-dev:hover::after {
+    opacity: 1;
+  }
+
+  /* Scrolling stack ticker */
+  .ticker-track {
+    @apply inline-flex py-3;
+    animation: marquee 40s linear infinite;
+  }
+
+  .ticker:hover .ticker-track {
+    animation-play-state: paused;
   }
 
   /* Page switch animation (SinglePageApp re-keys on section change) */
@@ -327,6 +328,12 @@
   to { opacity: 1; translate: 0 0; }
 }
 
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes ping { 75%, 100% { transform: scale(2.4); opacity: 0; } }
+@keyframes mark { to { background-size: 100% 38%; } }
+@keyframes marquee { to { transform: translateX(-50%); } }
+@keyframes rise { from { opacity: 0; transform: translateY(0.45em) rotate(4deg); } }
+
 @keyframes page-in {
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: none; }
@@ -338,21 +345,5 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-}
-
-/* Glass needs backdrop blur; without it, or when the user asks for less transparency, go solid */
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .liquid-glass,
-  .max-md\:liquid-glass { background-color: hsl(var(--card)); }
-}
-
-@media (prefers-reduced-transparency: reduce) {
-  .liquid-glass,
-  .max-md\:liquid-glass {
-    background-color: hsl(var(--card));
-    background-image: none;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
   }
 }

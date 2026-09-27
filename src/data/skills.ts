@@ -18,12 +18,14 @@ export interface SoftSkill {
 
 // Shared color map for skill category accents, used by the radar chart,
 // tech stack icons, and the skills grid.
+// Mid-tone versions of the site's domain colours so they read on light and dark
+// (SVG attributes in the radar chart can't use CSS variables).
 export const skillColorMap: Record<string, string> = {
-  "portfolio-highlight": "#569CD6",
-  "portfolio-blue": "#569CD6",
-  "portfolio-teal": "#4EC9B0",
-  "portfolio-slate": "#858585",
-  "portfolio-lightSlate": "#9D9D9D",
+  "portfolio-highlight": "#3d6bff",
+  "portfolio-blue": "#3d6bff",
+  "portfolio-teal": "#1aa393",
+  "portfolio-slate": "#e0662a",
+  "portfolio-lightSlate": "#c9861c",
 };
 
 export const skillCategories: SkillCategory[] = [

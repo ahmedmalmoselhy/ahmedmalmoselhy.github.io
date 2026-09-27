@@ -1,193 +1,379 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "@/components/Layout";
-import ProjectCard from "@/components/ProjectCard";
-import { BandStats, SectionHeading } from "@/components/PageHeader";
+import { SectionHeading } from "@/components/PageHeader";
+import CairoClock from "@/components/CairoClock";
+import FilterPills from "@/components/FilterPills";
+import { magnet, peek, reduceMotion, resetTransform, tiltHandlers, trackPointer } from "@/lib/pointer";
 import { PageSection } from "@/App";
-import { ArrowRight, Code2, Download, Mail, MapPin, RadioTower, Users } from "lucide-react";
-import { projectsData } from "@/data/projects";
-import { experiences, careerStartYear } from "@/data/experience";
+import { ArrowRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { certifications } from "@/data/certifications";
+import { projectsData } from "@/data/projects";
+import { careerStartYear } from "@/data/experience";
+import {
+  buildPhrases,
+  changelog,
+  onMyDesk,
+  offTheClock,
+  shipped,
+  stack,
+  ticker,
+  type ChangeKind,
+  type Domain,
+} from "@/data/home";
 
 interface IndexProps {
   onSectionChange?: (section: PageSection, projectId?: number) => void;
 }
 
-// Fisher-Yates shuffle, first 3
-const pickRandomProjects = () => {
-  const copy = [...projectsData];
-  for (let i = copy.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [copy[i], copy[j]] = [copy[j], copy[i]];
-  }
-  return copy.slice(0, 3);
+const domainVar: Record<Domain, string> = { tel: "var(--c-tel)", crm: "var(--c-crm)", web: "var(--c-web)" };
+
+// Typed array (not an explicit JSX generic, which the dev-mode component tagger can't parse)
+const changeFilters: (ChangeKind | "all")[] = ["all", "ship", "cert", "work"];
+
+const kindStyle: Record<ChangeKind, string> = {
+  ship: "bg-domain-web/15 text-domain-web",
+  cert: "bg-domain-crm/15 text-domain-crm",
+  work: "bg-accent text-accent-foreground",
 };
 
-const stats = [
-  { value: `${new Date().getFullYear() - careerStartYear}+`, label: "Years of experience" },
-  { value: String(experiences.length), label: "Companies" },
-  { value: String(projectsData.length), label: "Projects delivered" },
-  { value: String(certifications.length), label: "Certifications" },
-];
+/** Types out each phrase, pauses, deletes it, moves to the next. */
+const useTypedPhrase = (phrases: string[]) => {
+  const [text, setText] = useState(phrases[0]);
+  useEffect(() => {
+    if (reduceMotion()) return;
+    let word = 0;
+    let chars = phrases[0].length;
+    let deleting = true;
+    let timer: number;
+    const tick = () => {
+      if (deleting) {
+        chars--;
+        if (chars === 0) {
+          deleting = false;
+          word = (word + 1) % phrases.length;
+        }
+      } else if (++chars === phrases[word].length) {
+        deleting = true;
+        setText(phrases[word]);
+        timer = window.setTimeout(tick, 2200);
+        return;
+      }
+      setText(phrases[word].slice(0, chars) || "​");
+      timer = window.setTimeout(tick, deleting ? 35 : 70);
+    };
+    timer = window.setTimeout(tick, 2200);
+    return () => window.clearTimeout(timer);
+  }, [phrases]);
+  return text;
+};
 
-const capabilities = [
-  {
-    icon: RadioTower,
-    title: "Telecom BSS",
-    text: "Ericsson Order Care and Catalog Manager — development, integration, and L3 support for production telecom stacks.",
-  },
-  {
-    icon: Users,
-    title: "CRM solutions",
-    text: "Creatio CRM customisation and business-process design that turns sales and service workflows into software.",
-  },
-  {
-    icon: Code2,
-    title: "Full-stack web",
-    text: "Laravel, Node, and React applications — dashboards, portals, and packages built to be maintained.",
-  },
-];
+const CountUp: React.FC<{ to: number }> = ({ to }) => {
+  const [n, setN] = useState(() => (reduceMotion() ? to : 0));
+  useEffect(() => {
+    if (n >= to) return;
+    const id = window.setTimeout(() => setN(n + 1), 900 / to);
+    return () => window.clearTimeout(id);
+  }, [n, to]);
+  return <b className="font-medium text-foreground">{n}</b>;
+};
+
+interface Contribution {
+  date: string;
+  count: number;
+  level: number;
+}
+
+/** Last 20 weeks of public GitHub activity (same API as the Projects page graph). */
+const GitHubStrip = () => {
+  const [days, setDays] = useState<Contribution[] | null>(null);
+  useEffect(() => {
+    fetch("https://github-contributions-api.jogruber.de/v4/ahmedmalmoselhy?y=last")
+      .then((r) => r.json())
+      .then((d: { contributions: Contribution[] }) => setDays(d.contributions.slice(-140)))
+      .catch(() => setDays([]));
+  }, []);
+  const total = days?.reduce((sum, d) => sum + d.count, 0);
+  const levelClass = ["bg-border", "bg-primary/30", "bg-primary/55", "bg-primary/80", "bg-primary"];
+
+  return (
+    <a
+      href="https://github.com/ahmedmalmoselhy"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex items-center gap-5 rounded-md border border-border bg-card px-5 py-4 transition-colors hover:border-faint"
+    >
+      <span className="hidden whitespace-nowrap font-mono text-xs text-muted-foreground sm:block">github · last 20 weeks</span>
+      <span className="grid flex-1 grid-flow-col grid-rows-7 justify-end gap-[3px] overflow-hidden" aria-hidden="true">
+        {days?.map((d, i) => (
+          <i
+            key={d.date}
+            title={`${d.date}: ${d.count}`}
+            className={cn("h-[9px] w-[9px] rounded-[2px] animate-fade-in", levelClass[d.level] ?? levelClass[0])}
+            style={{ animationDelay: `${i * 4}ms` }}
+          />
+        ))}
+      </span>
+      <span className="whitespace-nowrap font-mono text-[13px]">
+        {total === undefined ? "loading…" : days?.length ? `${total} contributions` : "github.com/ahmedmalmoselhy"}
+      </span>
+    </a>
+  );
+};
 
 const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
-  const [randomProjects] = useState(pickRandomProjects);
+  const phrase = useTypedPhrase(buildPhrases);
+  const [filter, setFilter] = useState<ChangeKind | "all">("all");
+  const years = new Date().getFullYear() - careerStartYear;
+  const name = "Ahmed AlMoselhy";
 
   return (
     <Layout className="pt-0 md:pt-16">
-      {/* Profile band: navy in both themes */}
-      <section className="bg-[hsl(var(--band))] text-white">
-        <div className="container mx-auto px-4 pb-10 pt-[calc(6rem+env(safe-area-inset-top))] md:pt-16">
-          <div className="grid items-center gap-8 md:grid-cols-[auto_1fr_auto]">
-            <img
-              src="/Ahmed-AlMoselhy.png"
-              alt="Portrait of Ahmed AlMoselhy"
-              width={144}
-              height={144}
-              className="mx-auto h-28 w-28 rounded-full bg-white/10 object-cover ring-4 ring-[hsl(var(--band-accent))] ring-offset-4 ring-offset-[hsl(var(--band))] animate-fade-in md:mx-0 md:h-36 md:w-36"
-            />
+      {/* Hero */}
+      <div className="dot-stage" onPointerMove={trackPointer}>
+        <section className="container relative z-10 mx-auto grid items-center gap-8 px-4 pb-10 pt-[calc(5.5rem+env(safe-area-inset-top))] md:grid-cols-[240px_1fr] md:gap-14 md:pb-14 md:pt-16 lg:grid-cols-[260px_1fr]">
+          <figure className="halftone h-[200px] w-[170px] md:h-[300px] md:w-full" onPointerMove={peek}>
+            <img className="ht" src="/Ahmed-AlMoselhy.png" alt="Portrait of Ahmed AlMoselhy" />
+            <span className="dots" />
+            <img className="color" src="/Ahmed-AlMoselhy.png" alt="" />
+          </figure>
 
-            <div className="text-center animate-slide-up md:text-left">
-              <h1 className="text-[clamp(2rem,5vw,3.25rem)] font-semibold leading-tight">
-                Ahmed AlMoselhy
-              </h1>
-              <p className="mt-1 text-lg font-medium text-[hsl(var(--band-accent))]">
-                Software Engineer · CRM &amp; Telecom Solutions
-              </p>
-              <div className="mt-3 flex flex-wrap justify-center gap-x-5 gap-y-1 text-sm text-white/70 md:justify-start">
-                <span className="inline-flex items-center gap-1.5">
-                  <MapPin size={15} aria-hidden="true" /> Cairo, Egypt
-                </span>
-                <span className="inline-flex items-center gap-1.5">
-                  <span className="h-2 w-2 rounded-full bg-emerald-400" aria-hidden="true" />
-                  Open to opportunities
-                </span>
-              </div>
+          <div>
+            <p className="font-mono text-sm font-medium text-primary">@ahmedmalmoselhy</p>
+            <h1 className="mt-2 text-[clamp(2.5rem,6vw,3.5rem)] font-semibold leading-[1.02] tracking-[-0.03em]">
+              <span className="sr-only">{name}</span>
+              <span aria-hidden="true">
+                {/* Letters rise one by one; each word is nowrap so lines only break between words */}
+                {name.split(" ").map((word, w, words) => {
+                  const offset = words.slice(0, w).join(" ").length + (w ? 1 : 0);
+                  return (
+                    <React.Fragment key={word}>
+                      {w > 0 && " "}
+                      <span className="inline-block whitespace-nowrap">
+                        {[...word].map((ch, i) => (
+                          <span
+                            key={i}
+                            className="inline-block motion-safe:animate-[rise_.7s_cubic-bezier(.2,.8,.2,1)_both]"
+                            style={{ animationDelay: `${100 + (offset + i) * 35}ms` }}
+                          >
+                            {ch}
+                          </span>
+                        ))}
+                      </span>
+                    </React.Fragment>
+                  );
+                })}
+              </span>
+            </h1>
+            <p className="mt-4 max-w-[620px] text-lg leading-relaxed text-muted-foreground md:text-xl">
+              I build and run{" "}
+              <span className="border-b-2 border-primary font-medium text-foreground">
+                {phrase}
+                <span className="ml-0.5 inline-block h-[1.05em] w-0.5 bg-primary align-[-3px] motion-safe:animate-[blink_1s_steps(1)_infinite]" />
+              </span>
+              <br />
+              <span className="marker font-medium text-foreground">Senior software engineer</span> and{" "}
+              <span className="marker font-medium text-foreground [--mk:var(--c-crm)] [animation-delay:1.5s]">
+                Creatio solution consultant
+              </span>
+              , shipping Laravel products on the side.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted-foreground">
+              <span className="flex items-center gap-2">
+                <i className="live-dot" /> Open to consulting
+              </span>
+              <span>
+                Cairo · <CairoClock /> local
+              </span>
+              <span className="font-mono">
+                <CountUp to={years} />+ yrs · <CountUp to={certifications.length} /> certs ·{" "}
+                <CountUp to={projectsData.length} /> projects
+              </span>
             </div>
-
-            <div className="flex flex-col gap-3 animate-slide-up sm:flex-row md:flex-col" style={{ animationDelay: "120ms" }}>
+            <div className="mt-7 flex flex-wrap gap-2.5">
               <button
                 onClick={() => onSectionChange?.("contact")}
-                className="btn-band"
+                onPointerMove={magnet}
+                onPointerLeave={resetTransform}
+                className="btn-band group"
               >
-                <Mail size={17} aria-hidden="true" /> Contact me
+                Get in touch <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" aria-hidden="true" />
               </button>
-              <a
-                href="/AhmedAlMoselhy.pdf"
-                download
-                className="btn-band-outline"
-              >
-                <Download size={17} aria-hidden="true" /> Download CV
+              <button onClick={() => onSectionChange?.("resume")} className="btn-band-outline">
+                Résumé
+              </button>
+              <a href="https://github.com/ahmedmalmoselhy" target="_blank" rel="noopener noreferrer" className="btn-band-outline">
+                GitHub
               </a>
             </div>
           </div>
-
-          <BandStats stats={stats} />
+        </section>
+        <div className="container relative z-10 mx-auto px-4 pb-8">
+          <GitHubStrip />
         </div>
-      </section>
+      </div>
 
-      {/* Employers strip */}
-      <section className="border-b border-border bg-card">
-        <div className="container mx-auto flex flex-col items-center gap-4 px-4 py-6 md:flex-row md:gap-10">
-          <span className="eyebrow shrink-0 text-portfolio-slate">Experience with</span>
-          <ul className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
-            {experiences.map((exp) => (
-              <li key={exp.company} className="flex items-center gap-2.5 text-sm font-medium text-portfolio-slate">
-                {exp.logo && (
-                  <img src={exp.logo} alt="" className="h-8 w-8 rounded bg-white object-contain p-0.5" loading="lazy" />
+      {/* Stack ticker */}
+      <div className="ticker overflow-hidden whitespace-nowrap border-y border-border bg-foreground text-background" aria-hidden="true">
+        <div className="ticker-track motion-reduce:animate-none">
+          {[...ticker, ...ticker].map((item, i) => (
+            <span key={i} className="inline-flex items-center gap-5 px-5 font-mono text-[13px]">
+              {item}
+              <span className={["text-domain-web", "text-domain-crm", "text-primary"][i % 3]}>//</span>
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Shipped */}
+      <section className="container mx-auto px-4 py-14 md:py-16">
+        <SectionHeading
+          title="Things I've shipped"
+          action={
+            <button onClick={() => onSectionChange?.("projects")} className="font-mono text-sm text-muted-foreground hover:text-primary">
+              all projects →
+            </button>
+          }
+        />
+        <div className="grid gap-5 md:grid-cols-3">
+          {shipped.map((item) => (
+            <button
+              key={item.title}
+              onClick={() =>
+                item.projectId ? onSectionChange?.("project-detail", item.projectId) : onSectionChange?.("resume")
+              }
+              {...tiltHandlers}
+              className="card-dev reveal group text-left"
+              style={{ "--c": domainVar[item.domain] } as React.CSSProperties}
+            >
+              <span className="grid aspect-video place-items-center overflow-hidden border-b border-border bg-[hsl(var(--c)/0.07)]">
+                {item.image ? (
+                  <img
+                    src={item.image}
+                    alt=""
+                    loading="lazy"
+                    className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]"
+                  />
+                ) : (
+                  <img
+                    src={item.logo}
+                    alt=""
+                    loading="lazy"
+                    className="h-20 w-20 rounded-xl bg-white object-contain p-2 shadow-[0_8px_20px_-10px_rgba(0,0,0,.3)] transition-transform duration-500 group-hover:-rotate-3 group-hover:scale-110"
+                  />
                 )}
-                {exp.company}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* Core capabilities */}
-      <section className="container mx-auto px-4 py-16 md:py-20">
-        <SectionHeading eyebrow="What I do" title="Core capabilities" />
-        <div className="grid gap-6 md:grid-cols-3">
-          {capabilities.map(({ icon: Icon, title, text }) => (
-            <article key={title} className="panel reveal p-6">
-              <span className="mb-4 grid h-11 w-11 place-items-center rounded-md bg-portfolio-highlight/10 text-portfolio-highlight">
-                <Icon size={22} aria-hidden="true" />
               </span>
-              <h3 className="mb-2 text-lg font-semibold text-portfolio-white">{title}</h3>
-              <p className="leading-relaxed text-portfolio-slate">{text}</p>
-            </article>
+              <span className="flex flex-1 flex-col p-5">
+                <span className="font-mono text-xs text-[hsl(var(--c))]">{item.kicker}</span>
+                <span className="mt-1.5 text-[17px] font-semibold">{item.title}</span>
+                <span className="mt-1.5 flex-1 text-[14.5px] leading-relaxed text-muted-foreground">{item.text}</span>
+                <span className="mt-3 flex justify-between font-mono text-xs text-muted-foreground">
+                  {item.footer}
+                  <span className="-translate-x-1 text-[hsl(var(--c))] opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100">
+                    read →
+                  </span>
+                </span>
+              </span>
+            </button>
           ))}
         </div>
       </section>
 
-      {/* About */}
-      <section className="container mx-auto px-4 pb-16 md:pb-20">
-        <div className="panel reveal grid gap-8 p-6 md:grid-cols-[1fr_2fr] md:p-10">
-          <div>
-            <span className="eyebrow">About</span>
-            <h2 className="mt-2 text-2xl font-semibold text-portfolio-white md:text-3xl">
-              Detail-oriented engineer, end to end.
-            </h2>
+      {/* On my desk */}
+      <div className="border-y border-border bg-primary/[0.05]">
+        <section className="container mx-auto px-4 py-14 md:py-16">
+          <SectionHeading title="Currently on my desk" />
+          <div className="reveal grid overflow-hidden rounded-lg border border-border bg-card shadow-[0_20px_40px_-28px_hsl(var(--primary)/0.5)] md:grid-cols-3">
+            {onMyDesk.map((item) => (
+              <article
+                key={item.title}
+                className="border-border p-6 transition-colors hover:bg-primary/[0.04] max-md:[&:not(:first-child)]:border-t md:[&:not(:first-child)]:border-l"
+              >
+                <span className="flex items-center gap-2 font-mono text-xs text-muted-foreground">
+                  <i className={cn("live-dot", item.pace === "slow" && "bg-warn")} />
+                  {item.status}
+                </span>
+                <h3 className="mt-3 text-[17px] font-semibold">{item.title}</h3>
+                <p className="mt-1.5 text-[14.5px] leading-relaxed text-muted-foreground">{item.text}</p>
+                <p className="mt-4 font-mono text-xs text-faint">{item.meta}</p>
+              </article>
+            ))}
           </div>
-          <div className="space-y-4 leading-relaxed text-portfolio-slate">
-            <p>
-              I'm a versatile Software Engineer with hands-on experience in
-              full-stack development, CRM systems, and Telecom applications —
-              with a track record across support levels and in building
-              scalable web applications with modern technologies.
-            </p>
-            <p>
-              My approach combines technical expertise with a user-centered
-              focus, so the end product is both functional and intuitive.
-              Outside of coding: gaming, reading, photography, and family.
-            </p>
-            <div className="flex flex-wrap gap-3 pt-2">
-              <button onClick={() => onSectionChange?.("resume")} className="btn-primary">
-                View full resume <ArrowRight size={17} aria-hidden="true" />
-              </button>
-              <button onClick={() => onSectionChange?.("skills")} className="btn-secondary">
-                Skills
-              </button>
+        </section>
+      </div>
+
+      {/* Changelog + stack */}
+      <section className="container mx-auto grid gap-12 px-4 py-14 md:py-16 lg:grid-cols-[1.5fr_1fr] lg:gap-14">
+        <div>
+          <SectionHeading
+            title="Changelog"
+            action={
+              <FilterPills label="Filter changelog" options={changeFilters} value={filter} onChange={setFilter} />
+            }
+          />
+          <ul>
+            {changelog
+              .filter((e) => filter === "all" || e.kind === filter)
+              .map((e, i) => (
+                <li
+                  key={e.text}
+                  className="-mx-2 grid grid-cols-[4.5rem_1fr] items-baseline gap-4 rounded border-b border-border px-2 py-3 text-[15px] transition-[background,transform] animate-fade-in hover:translate-x-1 hover:bg-card sm:grid-cols-[5.75rem_1fr_auto]"
+                  style={{ animationDelay: `${i * 60}ms` }}
+                >
+                  <span className="font-mono text-[13px] text-faint">{e.date}</span>
+                  <span>{e.text}</span>
+                  <span className={cn("hidden rounded px-2 py-0.5 font-mono text-[11.5px] sm:inline", kindStyle[e.kind])}>{e.kind}</span>
+                </li>
+              ))}
+          </ul>
+        </div>
+        <div>
+          <SectionHeading title="Stack" />
+          {stack.map(({ group, items }) => (
+            <div key={group} className="mb-5">
+              <h3 className="mb-2.5 text-sm font-semibold">{group}</h3>
+              <div className="flex flex-wrap gap-1.5">
+                {items.map((item) => (
+                  <span key={item} className="chip cursor-default">
+                    {item}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
+          ))}
+          <button onClick={() => onSectionChange?.("skills")} className="mt-2 font-mono text-sm text-muted-foreground hover:text-primary">
+            all skills →
+          </button>
         </div>
       </section>
 
-      {/* Featured projects */}
-      <section className="container mx-auto px-4 pb-16 md:pb-24">
-        <SectionHeading
-          eyebrow="Selected work"
-          title="Featured projects"
-          action={
-            <button onClick={() => onSectionChange?.("projects")} className="btn-secondary">
-              View all projects <ArrowRight size={17} aria-hidden="true" />
-            </button>
-          }
-        />
-
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {randomProjects.map((project) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              onOpen={() => onSectionChange?.("project-detail", project.id)}
-            />
+      {/* Off the clock */}
+      <section className="container mx-auto px-4 pb-16 md:pb-20">
+        <SectionHeading title="Off the clock" />
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+          {offTheClock.map((item, i) => (
+            <article
+              key={item.title}
+              className={cn(
+                "reveal group rounded-lg border p-5 transition-transform duration-200 hover:-translate-y-1",
+                i % 2 ? "hover:rotate-2" : "hover:-rotate-2",
+                [
+                  "border-domain-web/30 bg-domain-web/[0.07]",
+                  "border-primary/30 bg-primary/[0.07]",
+                  "border-domain-crm/30 bg-domain-crm/[0.07]",
+                  "border-warn/30 bg-warn/[0.08]",
+                ][i % 4],
+              )}
+            >
+              <span
+                className="inline-block text-2xl transition-transform duration-300 [transition-timing-function:cubic-bezier(.3,1.6,.5,1)] group-hover:-rotate-12 group-hover:scale-125"
+                aria-hidden="true"
+              >
+                {item.emoji}
+              </span>
+              <h3 className="mt-2.5 text-[15px] font-semibold">{item.title}</h3>
+              <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{item.text}</p>
+            </article>
           ))}
         </div>
       </section>

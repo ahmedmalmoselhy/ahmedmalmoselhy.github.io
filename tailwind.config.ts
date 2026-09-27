@@ -14,8 +14,9 @@ export default {
 		container: {
 			center: true,
 			padding: '2rem',
+			// One reading width everywhere: full width below 1120px, capped at 1120px above
 			screens: {
-				'2xl': '1400px'
+				'2xl': '1120px'
 			}
 		},
 		extend: {
@@ -63,6 +64,14 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
+				faint: 'hsl(var(--faint))',
+				domain: {
+					tel: 'hsl(var(--c-tel))',
+					crm: 'hsl(var(--c-crm))',
+					web: 'hsl(var(--c-web))'
+				},
+				ok: 'hsl(var(--ok))',
+				warn: 'hsl(var(--warn))',
 				portfolio: {
 					navy: 'hsl(var(--portfolio-navy))',
 					lightNavy: 'hsl(var(--portfolio-light-navy))',

@@ -1,0 +1,98 @@
+/** Content for the home page sections. Edit here, not in the page component. */
+
+export type Domain = "tel" | "crm" | "web";
+
+export interface ShippedItem {
+  title: string;
+  /** Mono label above the title, e.g. the stack */
+  kicker: string;
+  text: string;
+  footer: string;
+  domain: Domain;
+  /** Screenshot fills the thumbnail; a logo is shown small and centred */
+  image?: string;
+  logo?: string;
+  /** Opens this project's detail page when set; otherwise the card links to the resume */
+  projectId?: number;
+}
+
+export const shipped: ShippedItem[] = [
+  {
+    title: "Order-stack upgrade, v20 → v22",
+    kicker: "telecom · ericsson eoc/ecm",
+    text: "Led the upgrade of Jawwy by STC's live order stack, resolving version conflicts without breaking integrations.",
+    footer: "shipped · qeema",
+    domain: "tel",
+    logo: "/logos/Jawwy.png",
+  },
+  {
+    title: "Kiro Pet Supplies",
+    kicker: "laravel · filament · pwa",
+    text: "Bulk ordering that replaced a wholesaler's paper notes and chat threads, with an audit trail and PDF invoices over WhatsApp.",
+    footer: "shipped · 2026",
+    domain: "web",
+    image: "/projects-images/kiro-pet-supplies.svg",
+    projectId: 7,
+  },
+  {
+    title: "Customer 360",
+    kicker: "crm · creatio",
+    text: "Designed and led a unified customer view that brings every channel's interactions into one record.",
+    footer: "shipped · qeema",
+    domain: "crm",
+    logo: "/logos/creatio.png",
+  },
+];
+
+export interface NowItem {
+  title: string;
+  text: string;
+  status: string;
+  /** "live" pulses green, "slow" pulses amber */
+  pace: "live" | "slow";
+  meta: string;
+}
+
+export const onMyDesk: NowItem[] = [
+  { title: "Jawwy DT", text: "EOC/ECM development and L3 support for Jawwy by STC's production order stack.", status: "ongoing", pace: "live", meta: "since 2023" },
+  { title: "Varden", text: "HR platform: timesheets, PTO ledger and approvals, with a versioned JSON API.", status: "building", pace: "live", meta: "laravel" },
+  { title: "UniOne", text: "A university management system I'm building more than once, in different stacks.", status: "slowly", pace: "slow", meta: "side quest" },
+];
+
+export type ChangeKind = "ship" | "cert" | "work";
+
+export interface ChangelogEntry {
+  date: string;
+  text: string;
+  kind: ChangeKind;
+}
+
+export const changelog: ChangelogEntry[] = [
+  { date: "2026-09", text: "Shipped Kiro Pet Supplies to production", kind: "ship" },
+  { date: "2026", text: "Certified: Creatio Solution Consultant", kind: "cert" },
+  { date: "2026", text: "Certified: Creatio.AI", kind: "cert" },
+  { date: "2025", text: "Certified: Creatio Software Developer, Advanced", kind: "cert" },
+  { date: "2023", text: "Started on Jawwy DT for Jawwy by STC", kind: "work" },
+  { date: "2022-12", text: "Joined Qeema as a software engineer", kind: "work" },
+];
+
+export const stack: { group: string; items: string[] }[] = [
+  { group: "Platforms", items: ["Ericsson EOC", "Ericsson ECM", "Creatio"] },
+  { group: "Build", items: ["Laravel", "PHP", "Node", "Vue", "React", "C#"] },
+  { group: "Data and ops", items: ["Oracle", "PostgreSQL", "MySQL", "Docker", "Git"] },
+];
+
+export const ticker = [
+  "Ericsson EOC", "Ericsson ECM", "Creatio", "Laravel", "Filament", "PHP", "Vue", "React",
+  "Node", "C#", "Oracle", "PostgreSQL", "MySQL", "Docker", "Git", "L3 support", "Solution design",
+];
+
+/** Rotating phrase after "I build and run" in the hero */
+export const buildPhrases = ["telecom order stacks", "CRMs on Creatio", "Laravel products", "integrations that hold"];
+
+export const offTheClock = [
+  { emoji: "📷", title: "Photography", text: "Behind a camera when I'm not behind a terminal." },
+  { emoji: "🎮", title: "Gaming", text: "Games with a good story." },
+  { emoji: "📚", title: "Reading", text: "Tech, history and whatever's on the nightstand." },
+  { emoji: "🏠", title: "Family", text: "The reason I log off on time." },
+];

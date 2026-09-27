@@ -36,7 +36,10 @@ const App = () => {
 
   // Back/forward (incl. Android back gesture in the installed app) move between pages
   useEffect(() => {
-    const sync = () => setAppState(stateFromHash(window.location.hash));
+    const sync = () => {
+      setAppState(stateFromHash(window.location.hash));
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    };
     window.addEventListener('popstate', sync);
     window.addEventListener('hashchange', sync);
     return () => {

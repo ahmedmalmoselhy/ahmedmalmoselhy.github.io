@@ -46,8 +46,8 @@ export const experiences: ExperienceItem[] = [
         title: "Software Engineer",
         period: "December 2022 - Present",
         responsibilities: [
-          "Developed and implemented EOC solutions for the Jawwy DT project, customizing CRM solutions to meet telecom industry-specific requirements",
-          "Provided Level 3 advanced application support ensuring optimal performance and rapid issue resolution",
+          "Build and maintain Ericsson EOC/ECM solutions for the Jawwy DT project at Jawwy by STC",
+          "Handle L3 support for the production order stack: root-cause analysis and fixes for escalated incidents",
         ],
       },
     ],
@@ -62,12 +62,10 @@ export const experiences: ExperienceItem[] = [
         workType: "Full-time Remote",
         location: "Riyadh, Saudi Arabia",
         highlights: [
-          "Product Catalog Management: Oversaw catalog components using Ericsson Catalog Manager (ECM), ensuring accurate and efficient handling of product data.",
-          "Technical Support: Delivered advanced support to maintain system reliability and swiftly resolve critical issues in the L3 layer of support.",
-          "System Integration: Contributed to the development efforts, implementing logic to interface with external systems for streamlined operations and improved overall performance.",
-          "Troubleshooting and resolving complex issues related to Ericsson Order Care (EOC) and Ericsson Catalog Manager (ECM) systems.",
-          "Providing technical guidance and support to end-users, ensuring smooth operations and customer satisfaction.",
-          "Collaborating with cross-functional teams to identify and implement system enhancements and improvements.",
+          "Manage catalog components in Ericsson Catalog Manager (ECM) and keep product data accurate",
+          "Troubleshoot and fix escalated Ericsson Order Care (EOC) and ECM issues as the L3 support layer",
+          "Implement the integration logic between EOC and external systems",
+          "Work with the client's cross-functional teams on system enhancements, and guide end users",
         ],
         technologies: [
           "Ericsson Order Care [EOC]",
@@ -82,12 +80,11 @@ export const experiences: ExperienceItem[] = [
       {
         name: "Delta Pharma",
         status: "Completed",
-        client: "Internal Projects",
         role: "Software Developer",
         highlights: [
-          "Developed and maintained a custom CRM solution using Creatio, tailored to the specific needs of the pharmaceutical industry.",
-          "Implemented and optimized business processes, workflows, and automation within the Creatio platform to enhance operational efficiency.",
-          "Integrated third-party systems and APIs to streamline data flow and improve overall system functionality.",
+          "Built and maintained a Creatio CRM tailored to a pharmaceutical business",
+          "Designed and automated its business processes and workflows in Creatio",
+          "Integrated third-party systems and APIs with the CRM",
         ],
         technologies: [
           "Creatio"
@@ -96,15 +93,12 @@ export const experiences: ExperienceItem[] = [
       {
         name: "Customer 360 Unified View",
         status: "Completed",
-        client: "Internal Projects",
         role: "Solution Designer & Project Lead, Senior Software Engineer",
         highlights: [
-          "Designed and implemented a comprehensive customer data platform (CDP) to provide a unified view of customer interactions across multiple channels.",
-          "Led the development team in creating a scalable and efficient solution, ensuring seamless integration with existing systems and data sources.",
-          "Implemented advanced analytics and reporting capabilities to enable data-driven decision-making and improve customer engagement strategies.",
-          "Collaborated with stakeholders to gather requirements and translate them into technical specifications for the CDP.",
-          "Managed the entire project lifecycle, from planning and design to implementation and deployment.",
-          "Conducted regular reviews and assessments to ensure the CDP met the evolving needs of the business.",
+          "Designed a customer data platform in Creatio that brings every channel's customer interactions into one view",
+          "Gathered requirements with stakeholders and turned them into the technical specification",
+          "Led the development team from planning and design through deployment, integrating existing systems and data sources",
+          "Added analytics and reporting for sales and customer-engagement decisions",
         ],
         technologies: [
           "Creatio"
@@ -112,8 +106,8 @@ export const experiences: ExperienceItem[] = [
       },
     ],
     achievements: [
-      "Played a pivotal role in the successful release of the Jawwy DT project by maintaining EOC/ECM modules and supporting the client's operation team",
-      "Led the EOC/ECM upgrade from version 20 to 22, resolving version conflicts while maintaining system integration and implementation flow",
+      "Maintained the EOC/ECM modules and supported the client's operations team through the Jawwy DT release",
+      "Led the EOC/ECM upgrade from version 20 to 22, resolving version conflicts while keeping integrations and the implementation flow intact",
     ],
     technologies: [
       "Ericsson Order Care [EOC]",
@@ -140,9 +134,8 @@ export const experiences: ExperienceItem[] = [
         title: "Full-stack Developer",
         period: "September 2022 - October 2022",
         responsibilities: [
-          "Enhanced web application performance through comprehensive front-end and back-end optimizations",
-          "Improved codebase quality to align with industry standards and best practices",
-          "Delivered projects with high quality",
+          "Optimised front-end and back-end performance of client web applications",
+          "Refactored existing Laravel code to current standards",
         ],
       },
     ],
@@ -160,21 +153,19 @@ export const experiences: ExperienceItem[] = [
         title: "Full-stack Developer",
         period: "July 2022 - November 2022",
         responsibilities: [
-          "Enhanced web application performance through comprehensive front-end and back-end optimizations",
-          "Provided post-sales technical support to address client needs and ensure smooth deployment",
-          "Streamlined development processes by introducing modern tools and frameworks for workflow automation",
-          "Improved codebase quality to align with industry standards and best practices",
-          "Integrated Vue.js components to enhance user experience and improve performance",
-          "Delivered projects with high quality",
+          "Optimised front-end and back-end performance of client web applications",
+          "Built Vue.js components for client-facing interfaces",
+          "Introduced tooling that automated parts of the team's development workflow",
+          "Provided post-sales technical support to clients through deployment",
         ],
       },
       {
         title: "Backend Developer",
         period: "October 2021 - June 2022",
         responsibilities: [
-          "Enhanced web application performance through comprehensive and back-end optimizations",
-          "Integrated third-party APIs to support mobile application functionality and improve user experience",
-          "Improved codebase quality to align with industry standards and best practices",
+          "Optimised the back end of Laravel applications",
+          "Integrated the third-party APIs behind the company's mobile apps",
+          "Refactored legacy code to current Laravel standards",
         ],
       },
     ],

@@ -1,10 +1,11 @@
 import React from "react";
 import Layout from "@/components/Layout";
-import { ExternalLink, Github, Calendar, ArrowLeft, Mail } from "lucide-react";
+import { ExternalLink, Github, ArrowLeft, Mail } from "lucide-react";
 import ContactForDemo from "@/components/ContactForDemo";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { projectsData, statusStyles, statusLabels } from "@/data/projects";
+import { projectsData, statusLabels } from "@/data/projects";
+import { SectionHeading } from "@/components/PageHeader";
+import { cn } from "@/lib/utils";
 
 interface ProjectDetailProps {
   projectId: number;
@@ -27,7 +28,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back to Projects
             </Button>
-            <h1 className="page-title text-[clamp(2rem,5vw,3.25rem)]">
+            <h1 className="text-[clamp(2rem,5vw,3.25rem)] font-semibold">
               Project not found
             </h1>
           </div>
@@ -42,47 +43,35 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
         
 
         <div className="max-w-4xl mx-auto">
-          <Button
+          <button
             onClick={onBack}
-            variant="ghost"
-            className="mb-8 text-portfolio-highlight hover:text-portfolio-highlight/80 animate-fade-in hover:bg-portfolio-highlight/10 -ml-4"
+            className="group mb-8 inline-flex items-center gap-2 font-mono text-sm text-muted-foreground transition-colors hover:text-primary"
           >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Projects
-          </Button>
+            <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+            cd ../projects
+          </button>
 
-          <div className="panel animate-slide-up p-6 md:p-10 space-y-10">
+          <div className="animate-slide-up space-y-12">
             {/* Header */}
-            <div className="border-b border-portfolio-slate/10 pb-8">
-              <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
-                <h1 className="page-title text-[clamp(2rem,5vw,3.25rem)]">
-                  {project.title}
-                </h1>
-                <Badge
-                  variant="outline"
-                  className={`text-sm font-mono py-1.5 px-3 border-none bg-opacity-20 ${statusStyles[project.status].replace('bg-', 'bg-opacity-10 bg-').replace('text-', 'text-')}`}
-                >
-                  {statusLabels[project.status]}
-                </Badge>
-              </div>
+            <div className="border-b border-border pb-8">
+              <span className="eyebrow">// project</span>
+              <h1 className="mt-3 text-[clamp(2.25rem,5vw,3.5rem)] font-semibold leading-[1.05] tracking-[-0.025em]">
+                {project.title}
+              </h1>
+              <p className="mt-3 max-w-2xl text-lg leading-relaxed text-muted-foreground">{project.description}</p>
+              <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[13px] text-muted-foreground">
+                <span className="flex items-center gap-2">
+                  <i className={cn("live-dot", project.status !== "in-progress" && "bg-faint after:hidden")} />
+                  {statusLabels[project.status].toLowerCase()}
+                </span>
 
-              {project.date && (
-                <div className="flex items-center gap-2 text-portfolio-slate text-sm md:text-base">
-                  <Calendar className="h-4 w-4" />
-                  <span>
-                    Last modified:{" "}
-                    {new Date(project.date).toLocaleDateString(undefined, {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </span>
-                </div>
-              )}
+                {project.date && <span>updated {project.date}</span>}
+                <span>{project.technologies.length} technologies</span>
+              </div>
             </div>
 
             {/* Project Image */}
-            <div className="rounded-xl overflow-hidden border border-portfolio-slate/20 bg-portfolio-navy/50 shadow-lg">
+            <div className="overflow-hidden rounded-lg border border-border bg-card shadow-[0_24px_48px_-28px_hsl(var(--primary)/0.45)]">
               <img
                 src={project.image}
                 alt={`${project.title} screenshot`}
@@ -92,10 +81,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
 
             {/* Description */}
             <div className="space-y-4">
-              <h2 className="text-2xl font-bold text-portfolio-white flex items-center gap-2">
-                <span className="w-1 h-6 rounded-full bg-portfolio-highlight"></span>
-                About this project
-              </h2>
+              <SectionHeading title="About this project" />
               <p className="text-portfolio-lightSlate text-lg leading-relaxed">
                 {project.extendedDescription}
               </p>
@@ -103,15 +89,12 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
 
             {/* Technologies */}
             <div className="space-y-4">
-              <h2 className="text-2xl font-bold text-portfolio-white flex items-center gap-2">
-                <span className="w-1 h-6 rounded-full bg-portfolio-highlight"></span>
-                Technologies Used
-              </h2>
+              <SectionHeading title="Built with" />
               <div className="flex flex-wrap gap-2">
                 {project.technologies.map((tech, index) => (
                   <span
                     key={index}
-                    className="chip text-sm"
+                    className="chip px-2.5 py-1 text-[13px]"
                   >
                     {tech}
                   </span>
@@ -120,13 +103,13 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
             </div>
 
             {/* Links */}
-            <div className="flex flex-wrap gap-4 pt-4 border-t border-portfolio-slate/10 mt-8">
+            <div className="flex flex-wrap gap-3 border-t border-border pt-8">
               {project.monetized ? (
                 <ContactForDemo
                   title={project.title}
-                  className="btn-primary"
+                  className="btn-band"
                 >
-                  <Mail size={20} />
+                  <Mail size={18} />
                   <span>Request a Demo / Buy an Installation</span>
                 </ContactForDemo>
               ) : (
@@ -135,9 +118,9 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-secondary"
+                    className="btn-band-outline"
                   >
-                    <Github size={20} />
+                    <Github size={18} />
                     <span>View Source Code</span>
                   </a>
                 )
@@ -147,9 +130,9 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-primary"
+                  className="btn-band"
                 >
-                  <ExternalLink size={20} />
+                  <ExternalLink size={18} />
                   <span>View Live {project.demo ? "Demo" : "Site"}</span>
                 </a>
               )}

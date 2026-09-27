@@ -3,6 +3,20 @@ import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
+/** Flip light/dark and persist the choice in a cookie so it survives reloads and new visits. */
+export function useToggleTheme() {
+  const { theme, setTheme } = useTheme();
+  return () => {
+    const nextTheme = theme === "dark" ? "light" : "dark";
+    setTheme(nextTheme);
+    try {
+      document.cookie = `theme=${nextTheme}; path=/; max-age=31536000; samesite=lax`;
+    } catch {
+      // Ignore cookie write errors
+    }
+  };
+}
+
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -25,17 +39,7 @@ export function ThemeToggle() {
     }
   }, [setTheme]);
 
-  const handleToggle = () => {
-    const nextTheme = theme === "dark" ? "light" : "dark";
-    setTheme(nextTheme);
-
-    // Persist theme in a cookie so it survives page reloads and new visits
-    try {
-      document.cookie = `theme=${nextTheme}; path=/; max-age=31536000; samesite=lax`;
-    } catch {
-      // Ignore cookie write errors
-    }
-  };
+  const handleToggle = useToggleTheme();
 
   if (!mounted) {
     return (

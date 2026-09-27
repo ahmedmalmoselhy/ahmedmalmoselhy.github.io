@@ -1,51 +1,63 @@
 import React from "react";
-import { Github, Linkedin, Mail, Phone } from "lucide-react";
 
-const socials = [
-  { href: "https://github.com/ahmedmalmoselhy", label: "GitHub", icon: Github, external: true },
-  { href: "https://www.linkedin.com/in/ahmedmalmoselhy/", label: "LinkedIn", icon: Linkedin, external: true },
-  { href: "mailto:ahmedmalmoselhy@gmail.com", label: "Email", icon: Mail },
-  { href: "tel:+201117001262", label: "Phone", icon: Phone },
+// Hash links work here because App listens to hashchange
+const columns = [
+  {
+    title: "Site",
+    links: [
+      { label: "Resume", href: "#/resume" },
+      { label: "Projects", href: "#/projects" },
+      { label: "Skills", href: "#/skills" },
+      { label: "Contact", href: "#/contact" },
+    ],
+  },
+  {
+    title: "Elsewhere",
+    links: [
+      { label: "GitHub", href: "https://github.com/ahmedmalmoselhy", external: true },
+      { label: "LinkedIn", href: "https://www.linkedin.com/in/ahmedmalmoselhy/", external: true },
+      { label: "Email", href: "mailto:ahmedmalmoselhy@gmail.com" },
+      { label: "Phone", href: "tel:+201117001262" },
+    ],
+  },
+  {
+    title: "Files",
+    links: [{ label: "CV (PDF)", href: "/AhmedAlMoselhy.pdf" }],
+  },
 ];
 
-const Footer = () => {
-  const currentYear = new Date().getFullYear();
-
-  return (
-    <footer className="mt-8 border-t border-border bg-card">
-      <div className="container mx-auto flex flex-col items-center gap-6 px-4 py-8 text-center md:flex-row md:justify-between md:text-left">
-        <div>
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="inline-flex items-center gap-3 rounded-md"
-            aria-label="Back to top"
-          >
-            <span className="grid h-9 w-9 place-items-center rounded-md bg-primary font-mono text-sm font-semibold text-primary-foreground">
-              AA
-            </span>
-            <span className="text-sm font-semibold text-portfolio-white">Ahmed AlMoselhy</span>
-          </button>
-          <p className="mt-2 text-sm text-portfolio-slate">
-            © {currentYear} · Built with React, TypeScript & Tailwind CSS
-          </p>
-        </div>
-
-        <div className="flex gap-2">
-          {socials.map(({ href, label, icon: Icon, external }) => (
-            <a
-              key={label}
-              href={href}
-              aria-label={label}
-              {...(external && { target: "_blank", rel: "noopener noreferrer" })}
-              className="grid h-11 w-11 place-items-center rounded-full border border-border text-portfolio-slate transition-all duration-300 hover:-translate-y-1 hover:border-portfolio-highlight/50 hover:text-portfolio-highlight"
-            >
-              <Icon size={18} />
-            </a>
-          ))}
-        </div>
+const Footer = () => (
+  <footer className="mt-8 border-t border-border">
+    <div className="container mx-auto grid grid-cols-2 gap-8 px-4 py-10 text-sm md:grid-cols-[2fr_1fr_1fr_1fr] md:py-12">
+      <div className="col-span-2 md:col-span-1">
+        <p className="font-mono text-[15px] font-medium">
+          ~/ahmed<span className="text-primary">.</span>almoselhy
+        </p>
+        <p className="mt-2 leading-relaxed text-muted-foreground">
+          Built with React and Tailwind in Cairo.
+          <br />© {new Date().getFullYear()} Ahmed AlMoselhy
+        </p>
       </div>
-    </footer>
-  );
-};
+      {columns.map(({ title, links }) => (
+        <div key={title}>
+          <h2 className="mb-2.5 text-[13px] font-semibold">{title}</h2>
+          <ul>
+            {links.map(({ label, href, external }) => (
+              <li key={label}>
+                <a
+                  href={href}
+                  {...(external && { target: "_blank", rel: "noopener noreferrer" })}
+                  className="block py-1 text-muted-foreground transition-colors hover:text-primary"
+                >
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </footer>
+);
 
 export default Footer;
