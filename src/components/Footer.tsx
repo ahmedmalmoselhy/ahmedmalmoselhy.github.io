@@ -31,10 +31,10 @@ const Footer = () => (
     <div className="container mx-auto grid grid-cols-2 gap-8 px-4 py-10 text-sm md:grid-cols-[2fr_1fr_1fr_1fr] md:py-12">
       <div className="col-span-2 md:col-span-1">
         <p className="font-mono text-[15px] font-medium">
-          ~/ahmed<span className="text-primary">.</span>almoselhy
+          ~/ahmedmalmoselhy
         </p>
         <p className="mt-2 leading-relaxed text-muted-foreground">
-          Built with React and Tailwind in Cairo.
+          Built with React and Tailwind.
           <br />© {new Date().getFullYear()} Ahmed AlMoselhy
         </p>
       </div>
