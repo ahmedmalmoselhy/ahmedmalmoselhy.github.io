@@ -1,0 +1,17 @@
+{
+  "id": 2,
+  "title": "Laravel GetText Package",
+  "description": "Extended compatibility to PHP 8.1 and Laravel 9 for multilingual support.",
+  "extendedDescription": "I extended the system's compatibility to PHP 8.1 and Laravel 9 to ensure improved performance, stability, and long-term maintainability, while also enabling robust multilingual support. This upgrade allowed the application to leverage the latest framework enhancements, modern language features, and better localization tools, ultimately providing a more seamless and scalable environment for serving users across different regions and languages.",
+  "technologies": [
+    "PHP",
+    "Laravel"
+  ],
+  "image": "/projects-images/laravel-gettext-package.png",
+  "githubUrl": "https://github.com/ahmedmalmoselhy/laravel-gettext",
+  "liveUrl": "",
+  "demo": true,
+  "status": "archived",
+  "date": "2023-08-10",
+  "order": 2
+}

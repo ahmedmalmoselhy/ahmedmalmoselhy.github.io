@@ -1,4 +1,4 @@
-import content from "@/content/projects.json";
+import { ordered } from "@/lib/content";
 
 export interface Project {
   id: number;
@@ -26,7 +26,9 @@ export interface Project {
   relatedProjects?: number[];
 }
 
-export const projectsData = content.projects as Project[];
+export const projectsData = ordered<Project>(
+  import.meta.glob("/src/content/projects/*.json", { eager: true, import: "default" }),
+);
 
 export const statusLabels: Record<Project["status"], string> = {
   completed: "Completed",

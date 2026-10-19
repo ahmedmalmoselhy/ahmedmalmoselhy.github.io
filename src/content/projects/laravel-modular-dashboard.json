@@ -1,0 +1,19 @@
+{
+  "id": 1,
+  "title": "Laravel Modular Dashboard",
+  "description": "Developed a configurable admin dashboard with Laravel Blade templates.",
+  "extendedDescription": "I developed a highly configurable admin dashboard using Laravel Blade templates, focusing on flexibility, performance, and ease of customization. The solution allows administrators to manage interface components, layouts, and dynamic data displays without modifying core code, making the dashboard scalable and adaptable to different business needs. By leveraging Blade's templating capabilities, reusable components, and clean structure, the system ensures maintainability while providing a streamlined and user-friendly experience for both developers and end-users.",
+  "technologies": [
+    "Laravel",
+    "MariaDB",
+    "Laravel Blade",
+    "PHP"
+  ],
+  "image": "/projects-images/laravel-modular-dashboard.png",
+  "githubUrl": "https://github.com/ahmedmalmoselhy/laravel-dashboard",
+  "liveUrl": "",
+  "demo": true,
+  "status": "on-hold",
+  "date": "2023-10-15",
+  "order": 1
+}

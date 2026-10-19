@@ -243,7 +243,7 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
             <button
               key={item.title}
               onClick={() =>
-                item.projectId ? onSectionChange?.("project-detail", item.projectId) : onSectionChange?.("resume")
+                item.projectId ? onSectionChange?.("project-detail", Number(item.projectId)) : onSectionChange?.("resume")
               }
               {...tiltHandlers}
               className="card-dev reveal group text-left"

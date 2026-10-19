@@ -1,6 +1,11 @@
 # Sveltia CMS config. Every save is a commit to main, which triggers
 # .github/workflows/deploy.yml and goes live in ~2 minutes.
 # Sign in with a fine-grained GitHub token: this repo only, "Contents: Read and write".
+app_title: Portfolio Admin
+logo:
+  src: /icons/icon-192.png
+site_url: https://ahmedmalmoselhy.github.io
+
 backend:
   name: github
   repo: ahmedmalmoselhy/ahmedmalmoselhy.github.io
@@ -9,346 +14,411 @@ backend:
 media_folder: public
 public_folder: /
 
+# The live preview pane only shows raw JSON fields here, so give the form the full width
+editor:
+  preview: false
+
 output:
   omit_empty_optional_fields: true
   json:
     indent_style: space
     indent_size: 2
 
-collections:
+# One-off pages: open straight from the sidebar
+singletons:
   - name: site
     label: Profile & contact
-    files:
-      - name: site
-        label: Profile, contact & availability
-        file: src/content/site.json
-        format: json
+    icon: person
+    file: src/content/site.json
+    format: json
+    fields:
+      - { name: name, label: Full name, widget: string }
+      - { name: handle, label: Handle, widget: string, hint: "Shown as ~/handle in the header and footer" }
+      - { name: avatar, label: Profile picture, widget: image }
+      - { name: resume, label: CV (PDF), widget: file }
+      - { name: email, label: Email, widget: string }
+      - { name: phone, label: Phone, widget: string, hint: "Used for call links, e.g. +201117001262" }
+      - { name: phoneDisplay, label: Phone as displayed, widget: string, hint: "e.g. +20 111 700 1262" }
+      - name: whatsapp
+        label: WhatsApp number
+        widget: string
+        hint: "Digits only, with country code. Changing it does **not** update the QR code image on the contact page."
+      - { name: github, label: GitHub username, widget: string }
+      - { name: linkedin, label: LinkedIn username, widget: string }
+      - name: availability
+        label: Availability
+        widget: object
         fields:
-          - { name: name, label: Full name, widget: string }
-          - { name: handle, label: Handle (shown as ~/handle), widget: string }
-          - { name: avatar, label: Profile picture, widget: image }
-          - { name: resume, label: CV (PDF), widget: file }
-          - { name: email, label: Email, widget: string }
-          - { name: phone, label: "Phone for call links (e.g. +201117001262)", widget: string }
-          - { name: phoneDisplay, label: Phone as displayed, widget: string }
-          - name: whatsapp
-            label: WhatsApp number (digits only, with country code)
-            hint: Changing this does not update the QR code image on the contact page (public/whatsapp-qr.svg).
-            widget: string
-          - { name: github, label: GitHub username, widget: string }
-          - { name: linkedin, label: LinkedIn username, widget: string }
-          - name: availability
-            label: Availability
-            widget: object
-            fields:
-              - { name: available, label: Available (shows the green status dot), widget: boolean }
-              - { name: headline, label: Home page status, widget: string }
-              - { name: status, label: Contact page status, widget: string }
-              - name: openTo
-                label: Available for (contact page cards)
-                widget: list
-                summary: "{{title}}"
-                fields:
-                  - { name: title, label: Title, widget: string }
-                  - { name: text, label: Text, widget: string }
-                  - &icon
-                    name: icon
-                    label: Icon
-                    widget: select
-                    # Keep in sync with src/lib/icons.ts
-                    options: [Brain, Briefcase, Building2, ChartColumn, Clock, Code, Handshake, Heart, Lightbulb, MessageSquare, Palette, Rocket, Star, Users]
-
-  - name: projects
-    label: Projects
-    files:
-      - name: projects
-        label: Projects
-        file: src/content/projects.json
-        format: json
-        fields:
-          - name: projects
-            label: Projects
+          - { name: available, label: Available for work, widget: boolean, hint: "Turn off to hide the green status dot and both status lines" }
+          - { name: headline, label: Home page status, widget: string }
+          - { name: status, label: Contact page status, widget: string }
+          - name: openTo
+            label: "'Available for' cards (contact page)"
+            label_singular: card
             widget: list
-            summary: "{{title}} ({{status}})"
+            collapsed: true
+            summary: "{{title}}"
             fields:
-              - { name: id, label: ID (unique number used in links), widget: number, value_type: int }
               - { name: title, label: Title, widget: string }
-              - { name: description, label: Short description, widget: text }
-              - { name: extendedDescription, label: Full description, widget: text }
-              - name: technologies
-                label: Technologies
-                widget: list
-                field: { name: item, label: Technology, widget: string }
-              - name: image
-                label: Image
-                widget: image
-                media_folder: /public/projects-images
-                public_folder: /projects-images
-              - { name: githubUrl, label: GitHub URL, widget: string, required: false }
-              - { name: liveUrl, label: Live URL, widget: string, required: false }
-              - { name: demo, label: Demo, widget: boolean, default: true }
-              - { name: monetized, label: "Commercial (shows 'request a demo' instead of source)", widget: boolean, required: false }
-              - { name: date, label: Date, widget: datetime, time_format: false, date_format: YYYY-MM-DD, format: YYYY-MM-DD, required: false }
-              - name: status
-                label: Status
+              - { name: text, label: Text, widget: string }
+              - &icon
+                name: icon
+                label: Icon
                 widget: select
-                options: [completed, in-progress, on-hold, new, planned, archived, canceled]
-
-  - name: resume
-    label: Resume
-    files:
-      - name: experience
-        label: Experience
-        file: src/content/experience.json
-        format: json
-        fields:
-          - name: experiences
-            label: Employers
-            widget: list
-            summary: "{{company}} ({{period}})"
-            fields:
-              - { name: company, label: Company, widget: string }
-              - &logo
-                name: logo
-                label: Logo
-                widget: image
-                required: false
-                media_folder: /public/logos
-                public_folder: /logos
-              - { name: period, label: Period, widget: string, hint: "e.g. December 2022 - Present" }
-              - { name: link, label: Website, widget: string, required: false }
-              - { name: workType, label: Work type, widget: string, hint: "e.g. Full-time Hybrid" }
-              - { name: location, label: Location, widget: string }
-              - name: roles
-                label: Roles
-                widget: list
-                summary: "{{title}}"
-                fields:
-                  - { name: title, label: Title, widget: string }
-                  - { name: period, label: Period, widget: string }
-                  - name: responsibilities
-                    label: Responsibilities
-                    widget: list
-                    field: { name: item, label: Responsibility, widget: string }
-              - name: projects
-                label: Company projects
-                widget: list
-                required: false
-                summary: "{{name}}"
-                fields:
-                  - { name: name, label: Name, widget: string }
-                  - { name: status, label: Status, widget: select, options: [Ongoing, Completed, On hold] }
-                  - { name: client, label: Client, widget: string, required: false }
-                  - *logo
-                  - { name: role, label: Role, widget: string, required: false }
-                  - { name: period, label: Period, widget: string, required: false }
-                  - { name: workType, label: Work type, widget: string, required: false }
-                  - { name: location, label: Location, widget: string, required: false }
-                  - name: highlights
-                    label: Highlights
-                    widget: list
-                    field: { name: item, label: Highlight, widget: string }
-                  - name: technologies
-                    label: Technologies
-                    widget: list
-                    required: false
-                    field: { name: item, label: Technology, widget: string }
-              - name: achievements
-                label: Achievements
-                widget: list
-                required: false
-                field: { name: item, label: Achievement, widget: string }
-              - name: technologies
-                label: Technologies
-                widget: list
-                required: false
-                field: { name: item, label: Technology, widget: string }
-
-      - name: education
-        label: Education
-        file: src/content/education.json
-        format: json
-        fields:
-          - name: education
-            label: Education
-            widget: list
-            summary: "{{degree}}"
-            fields:
-              - { name: id, label: ID (unique), widget: string }
-              - { name: degree, label: Degree, widget: string }
-              - { name: institution, label: Institution, widget: string }
-              - { name: period, label: Period, widget: string }
-              - { name: description, label: Description, widget: text }
-              - *logo
-
-      - name: certifications
-        label: Certifications
-        file: src/content/certifications.json
-        format: json
-        fields:
-          - name: certifications
-            label: Certifications
-            widget: list
-            summary: "{{name}} ({{year}})"
-            fields:
-              - { name: id, label: ID (unique), widget: string }
-              - { name: name, label: Name, widget: string }
-              - { name: issuer, label: Issuer, widget: string }
-              - { name: year, label: Year, widget: string }
-              - *logo
-              - name: image
-                label: Certificate image
-                widget: image
-                required: false
-                media_folder: /public/certificates
-                public_folder: /certificates
-              - { name: employer, label: "Earned while at (company name from Experience)", widget: string, required: false }
-
-      - name: training
-        label: Training
-        file: src/content/training.json
-        format: json
-        fields:
-          - name: training
-            label: Training
-            widget: list
-            summary: "{{name}}"
-            fields:
-              - { name: id, label: ID (unique), widget: string }
-              - { name: name, label: Name, widget: string }
-              - { name: provider, label: Provider, widget: string }
-              - { name: year, label: Year, widget: string }
-              - { name: description, label: Description, widget: text, required: false }
-              - *logo
-
-      - name: personal
-        label: Overview, languages & interests
-        file: src/content/personal.json
-        format: json
-        fields:
-          - name: skillsOverview
-            label: Skills overview
-            widget: list
-            field: { name: item, label: Skill, widget: string }
-          - name: languages
-            label: Languages
-            widget: list
-            summary: "{{name}}: {{level}}"
-            fields:
-              - { name: name, label: Language, widget: string }
-              - { name: level, label: Level, widget: string }
-          - name: personalDetails
-            label: Personal details
-            widget: list
-            summary: "{{label}}: {{value}}"
-            fields:
-              - { name: label, label: Label, widget: string }
-              - { name: value, label: Value, widget: string }
-          - name: interests
-            label: Interests
-            widget: list
-            field: { name: item, label: Interest, widget: string }
-
-  - name: skills
-    label: Skills
-    files:
-      - name: skills
-        label: Skills
-        file: src/content/skills.json
-        format: json
-        fields:
-          - name: categories
-            label: Skill categories
-            widget: list
-            summary: "{{name}}"
-            fields:
-              - { name: name, label: Category, widget: string }
-              - name: skills
-                label: Skills
-                widget: list
-                summary: "{{name}}: {{level}}"
-                fields:
-                  - { name: name, label: Skill, widget: string }
-                  - { name: level, label: Level (0-100), widget: number, value_type: int, min: 0, max: 100 }
-              - name: color
-                label: Accent colour
-                widget: select
-                options: [portfolio-highlight, portfolio-blue, portfolio-teal, portfolio-slate, portfolio-lightSlate]
-          - name: softSkills
-            label: Soft skills
-            widget: list
-            summary: "{{name}}"
-            fields:
-              - { name: name, label: Skill, widget: string }
-              - *icon
+                # Keep in sync with src/lib/icons.ts
+                options: [Brain, Briefcase, Building2, ChartColumn, Clock, Code, Handshake, Heart, Lightbulb, MessageSquare, Palette, Rocket, Star, Users]
 
   - name: home
     label: Home page
-    files:
-      - name: home
-        label: Home page sections
-        file: src/content/home.json
-        format: json
+    icon: home
+    file: src/content/home.json
+    format: json
+    fields:
+      - name: buildPhrases
+        label: Hero rotating phrases
+        hint: "Completes the sentence 'I build and run …'"
+        widget: list
+        field: { name: item, label: Phrase, widget: string }
+      - name: shipped
+        label: Things I've shipped
+        label_singular: item
+        widget: list
+        collapsed: true
+        summary: "{{title}}"
+        thumbnail: image
         fields:
-          - name: buildPhrases
-            label: "Hero rotating phrases (I build and run ...)"
-            widget: list
-            field: { name: item, label: Phrase, widget: string }
-          - name: shipped
-            label: Recently shipped
-            widget: list
-            summary: "{{title}}"
-            fields:
-              - { name: title, label: Title, widget: string }
-              - { name: kicker, label: Kicker (stack label), widget: string }
-              - { name: text, label: Text, widget: text }
-              - { name: footer, label: Footer, widget: string }
-              - { name: domain, label: Domain, widget: select, options: [tel, crm, web] }
-              - name: image
-                label: Screenshot
-                widget: image
-                required: false
-                media_folder: /public/projects-images
-                public_folder: /projects-images
-              - *logo
-              - { name: projectId, label: Project ID to open (optional), widget: number, value_type: int, required: false }
-          - name: onMyDesk
-            label: On my desk
-            widget: list
-            summary: "{{title}}"
-            fields:
-              - { name: title, label: Title, widget: string }
-              - { name: text, label: Text, widget: text }
-              - { name: status, label: Status, widget: string }
-              - { name: pace, label: Pace, widget: select, options: [live, slow] }
-              - { name: meta, label: Meta, widget: string }
-          - name: changelog
-            label: Changelog
-            widget: list
-            summary: "{{date}} {{text}}"
-            fields:
-              - { name: date, label: "Date (e.g. 2026-09 or 2026)", widget: string }
-              - { name: text, label: Text, widget: string }
-              - { name: kind, label: Kind, widget: select, options: [ship, cert, work] }
-          - name: stack
-            label: Stack
-            widget: list
-            summary: "{{group}}"
-            fields:
-              - { name: group, label: Group, widget: string }
-              - name: items
-                label: Items
-                widget: list
-                field: { name: item, label: Item, widget: string }
-          - name: ticker
-            label: Ticker
+          - { name: title, label: Title, widget: string }
+          - { name: kicker, label: Stack label, widget: string, hint: "Small text above the title, e.g. laravel · filament · pwa" }
+          - { name: text, label: Text, widget: text }
+          - { name: footer, label: Footer, widget: string, hint: "e.g. shipped · 2026" }
+          - { name: domain, label: Colour, widget: select, options: [{ label: Telecom (blue), value: tel }, { label: CRM (teal), value: crm }, { label: Web (orange), value: web }] }
+          - name: image
+            label: Screenshot
+            widget: image
+            required: false
+            media_folder: /public/projects-images
+            public_folder: /projects-images
+          - &logo
+            name: logo
+            label: Logo
+            widget: image
+            required: false
+            media_folder: /public/logos
+            public_folder: /logos
+          - name: projectId
+            label: Opens project
+            widget: relation
+            collection: projects
+            value_field: id
+            search_fields: [title]
+            display_fields: [title]
+            required: false
+            hint: "Leave empty to link to the resume instead"
+      - name: onMyDesk
+        label: On my desk
+        label_singular: item
+        widget: list
+        collapsed: true
+        summary: "{{title}} · {{status}}"
+        fields:
+          - { name: title, label: Title, widget: string }
+          - { name: text, label: Text, widget: text }
+          - { name: status, label: Status, widget: string, hint: "e.g. ongoing, building, slowly" }
+          - { name: pace, label: Status dot, widget: select, options: [{ label: Green (active), value: live }, { label: Amber (slow), value: slow }] }
+          - { name: meta, label: Meta, widget: string }
+      - name: changelog
+        label: Changelog
+        label_singular: entry
+        widget: list
+        collapsed: true
+        summary: "{{date}} · {{text}}"
+        fields:
+          - { name: date, label: Date, widget: string, hint: "e.g. 2026-09 or 2026" }
+          - { name: text, label: Text, widget: string }
+          - { name: kind, label: Kind, widget: select, options: [{ label: Shipped, value: ship }, { label: Certificate, value: cert }, { label: Work, value: work }] }
+      - name: stack
+        label: Stack
+        label_singular: group
+        widget: list
+        collapsed: true
+        summary: "{{group}}"
+        fields:
+          - { name: group, label: Group, widget: string }
+          - name: items
+            label: Items
             widget: list
             field: { name: item, label: Item, widget: string }
-          - name: offTheClock
-            label: Off the clock
+      - name: ticker
+        label: Scrolling ticker
+        widget: list
+        field: { name: item, label: Item, widget: string }
+      - name: offTheClock
+        label: Off the clock
+        label_singular: item
+        widget: list
+        collapsed: true
+        summary: "{{emoji}} {{title}}"
+        fields:
+          - { name: emoji, label: Emoji, widget: string }
+          - { name: title, label: Title, widget: string }
+          - { name: text, label: Text, widget: string }
+
+  - name: skills
+    label: Skills
+    icon: psychology
+    file: src/content/skills.json
+    format: json
+    fields:
+      - name: categories
+        label: Skill categories
+        label_singular: category
+        widget: list
+        collapsed: true
+        summary: "{{name}}"
+        fields:
+          - { name: name, label: Category, widget: string }
+          - name: skills
+            label: Skills
+            label_singular: skill
             widget: list
-            summary: "{{emoji}} {{title}}"
+            summary: "{{name}} · {{level}}%"
             fields:
-              - { name: emoji, label: Emoji, widget: string }
-              - { name: title, label: Title, widget: string }
-              - { name: text, label: Text, widget: string }
+              - { name: name, label: Skill, widget: string }
+              - { name: level, label: Level (%), widget: number, value_type: int, min: 0, max: 100 }
+          - name: color
+            label: Colour
+            widget: select
+            options:
+              - { label: Blue, value: portfolio-highlight }
+              - { label: Blue (alt), value: portfolio-blue }
+              - { label: Teal, value: portfolio-teal }
+              - { label: Orange, value: portfolio-slate }
+              - { label: Amber, value: portfolio-lightSlate }
+      - name: softSkills
+        label: Soft skills
+        label_singular: soft skill
+        widget: list
+        collapsed: true
+        summary: "{{name}}"
+        fields:
+          - { name: name, label: Skill, widget: string }
+          - *icon
+
+  - name: personal
+    label: Resume extras
+    icon: badge
+    file: src/content/personal.json
+    format: json
+    fields:
+      - name: skillsOverview
+        label: Skills overview
+        widget: list
+        field: { name: item, label: Skill, widget: string }
+      - name: languages
+        label: Languages
+        label_singular: language
+        widget: list
+        summary: "{{name}} · {{level}}"
+        fields:
+          - { name: name, label: Language, widget: string }
+          - { name: level, label: Level, widget: string }
+      - name: personalDetails
+        label: Personal details
+        label_singular: detail
+        widget: list
+        summary: "{{label}}: {{value}}"
+        fields:
+          - { name: label, label: Label, widget: string }
+          - { name: value, label: Value, widget: string }
+      - name: interests
+        label: Interests
+        widget: list
+        field: { name: item, label: Interest, widget: string }
+
+# Lists of things: one file per entry, with search, thumbnails and drag-to-reorder
+collections:
+  - name: projects
+    label: Projects
+    label_singular: Project
+    icon: code
+    folder: src/content/projects
+    format: json
+    identifier_field: title
+    summary: "{{title}}"
+    reorder: true
+    thumbnail: image
+    sortable_fields: [title, date, status]
+    view_filters:
+      - { label: In progress, field: status, pattern: in-progress }
+      - { label: Completed, field: status, pattern: completed }
+      - { label: Commercial, field: monetized, pattern: true }
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: id, label: Project number, widget: number, value_type: int, hint: "Used in the page link (#/projects/7). Must be unique: use the highest existing number + 1." }
+      - name: status
+        label: Status
+        widget: select
+        options:
+          - { label: Completed, value: completed }
+          - { label: In progress, value: in-progress }
+          - { label: On hold, value: on-hold }
+          - { label: New, value: new }
+          - { label: Planned, value: planned }
+          - { label: Archived, value: archived }
+          - { label: Canceled, value: canceled }
+      - { name: date, label: Date, widget: datetime, time_format: false, format: YYYY-MM-DD, required: false }
+      - name: image
+        label: Cover image
+        widget: image
+        media_folder: /public/projects-images
+        public_folder: /projects-images
+      - { name: description, label: Short description, widget: text, hint: "One sentence, shown on the project card" }
+      - { name: extendedDescription, label: Full description, widget: text, hint: "Shown on the project page" }
+      - name: technologies
+        label: Technologies
+        widget: list
+        field: { name: item, label: Technology, widget: string }
+      - { name: githubUrl, label: GitHub URL, widget: string, required: false }
+      - { name: liveUrl, label: Live URL, widget: string, required: false }
+      - { name: demo, label: Demo available, widget: boolean, default: true }
+      - { name: monetized, label: Commercial product, widget: boolean, required: false, hint: "Shows a 'request a demo' button instead of source links" }
+
+  - divider: true
+
+  - name: experience
+    label: Experience
+    label_singular: Employer
+    icon: work
+    folder: src/content/experience
+    format: json
+    identifier_field: company
+    summary: "{{company}} · {{period}}"
+    reorder: true
+    thumbnail: logo
+    fields:
+      - { name: company, label: Company, widget: string }
+      - *logo
+      - { name: period, label: Period, widget: string, hint: "e.g. December 2022 - Present" }
+      - { name: workType, label: Work type, widget: string, hint: "e.g. Full-time Hybrid" }
+      - { name: location, label: Location, widget: string }
+      - { name: link, label: Website, widget: string, required: false }
+      - name: roles
+        label: Roles
+        label_singular: role
+        widget: list
+        collapsed: true
+        summary: "{{title}} · {{period}}"
+        fields:
+          - { name: title, label: Title, widget: string }
+          - { name: period, label: Period, widget: string }
+          - name: responsibilities
+            label: Responsibilities
+            widget: list
+            field: { name: item, label: Responsibility, widget: string }
+      - name: projects
+        label: Client projects
+        label_singular: project
+        widget: list
+        required: false
+        collapsed: true
+        summary: "{{name}} · {{status}}"
+        fields:
+          - { name: name, label: Name, widget: string }
+          - { name: status, label: Status, widget: select, options: [Ongoing, Completed, On hold] }
+          - { name: client, label: Client, widget: string, required: false }
+          - *logo
+          - { name: role, label: Role, widget: string, required: false }
+          - { name: period, label: Period, widget: string, required: false }
+          - { name: workType, label: Work type, widget: string, required: false }
+          - { name: location, label: Location, widget: string, required: false }
+          - name: highlights
+            label: Highlights
+            widget: list
+            field: { name: item, label: Highlight, widget: string }
+          - name: technologies
+            label: Technologies
+            widget: list
+            required: false
+            field: { name: item, label: Technology, widget: string }
+      - name: achievements
+        label: Achievements
+        widget: list
+        required: false
+        field: { name: item, label: Achievement, widget: string }
+      - name: technologies
+        label: Technologies
+        widget: list
+        required: false
+        field: { name: item, label: Technology, widget: string }
+
+  - name: certifications
+    label: Certifications
+    label_singular: Certificate
+    icon: verified
+    folder: src/content/certifications
+    format: json
+    identifier_field: name
+    summary: "{{name}} · {{year}}"
+    reorder: true
+    thumbnail: [image, logo]
+    fields:
+      - { name: name, label: Name, widget: string }
+      - { name: issuer, label: Issuer, widget: string }
+      - { name: year, label: Year, widget: string }
+      - name: image
+        label: Certificate image
+        widget: image
+        required: false
+        media_folder: /public/certificates
+        public_folder: /certificates
+      - name: logo
+        label: Issuer logo
+        widget: image
+        required: false
+        media_folder: /public/logos
+        public_folder: /logos
+      - name: employer
+        label: Earned while working at
+        widget: relation
+        collection: experience
+        value_field: company
+        search_fields: [company]
+        required: false
+        hint: "Shows the certificate under that employer on the resume"
+      - { name: id, label: ID, widget: uuid, use_b32_encoding: true }
+
+  - name: education
+    label: Education
+    label_singular: Degree
+    icon: school
+    folder: src/content/education
+    format: json
+    identifier_field: degree
+    summary: "{{degree}} · {{institution}}"
+    reorder: true
+    thumbnail: logo
+    fields:
+      - { name: degree, label: Degree, widget: string }
+      - { name: institution, label: Institution, widget: string }
+      - { name: period, label: Period, widget: string, hint: "e.g. 2014 - 2020" }
+      - *logo
+      - { name: description, label: Description, widget: text }
+      - { name: id, label: ID, widget: uuid, use_b32_encoding: true }
+
+  - name: training
+    label: Training
+    label_singular: Course
+    icon: menu_book
+    folder: src/content/training
+    format: json
+    identifier_field: name
+    summary: "{{name}} · {{year}}"
+    reorder: true
+    thumbnail: logo
+    fields:
+      - { name: name, label: Name, widget: string }
+      - { name: provider, label: Provider, widget: string }
+      - { name: year, label: Year, widget: string }
+      - *logo
+      - { name: description, label: Description, widget: text, required: false }
+      - { name: id, label: ID, widget: uuid, use_b32_encoding: true }

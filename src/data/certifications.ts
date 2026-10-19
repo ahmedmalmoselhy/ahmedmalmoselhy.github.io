@@ -1,4 +1,4 @@
-import content from "@/content/certifications.json";
+import { ordered } from "@/lib/content";
 
 export interface CertificationItem {
     id: string;
@@ -11,4 +11,6 @@ export interface CertificationItem {
     employer?: string;
 }
 
-export const certifications = content.certifications as CertificationItem[];
+export const certifications = ordered<CertificationItem>(
+  import.meta.glob("/src/content/certifications/*.json", { eager: true, import: "default" }),
+);

@@ -1,0 +1,21 @@
+{
+  "id": 4,
+  "title": "Curey Healthcare App",
+  "description": "Graduation project focused on backend API and database systems",
+  "extendedDescription": "My graduation project focused on designing and implementing robust backend APIs and database systems, emphasizing scalability, security, and efficient data management. I structured the API to support clean integration with various front-end clients, while the database architecture was optimized for performance and reliability. Through this project, I gained hands-on experience with system design principles, API lifecycle management, and data modeling, resulting in a solid and well-documented backend foundation.",
+  "technologies": [
+    "PHP",
+    "Laravel",
+    "MySQL",
+    "Postman",
+    "Heroku",
+    "PostgreSQL"
+  ],
+  "image": "/projects-images/curey-healthcare-app.png",
+  "githubUrl": "https://github.com/Curey-HealthCare/Curey-HealthCareApp-Backend",
+  "liveUrl": "",
+  "demo": true,
+  "status": "completed",
+  "date": "2020-06-15",
+  "order": 4
+}

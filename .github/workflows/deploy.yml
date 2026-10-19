@@ -28,7 +28,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      # Type-check catches content edits that break the shape the pages expect
+      # Type-check the app code; a malformed content JSON file fails the build step
       - run: npx tsc -p tsconfig.app.json --noEmit
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3

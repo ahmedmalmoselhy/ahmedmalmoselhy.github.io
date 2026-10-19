@@ -1,4 +1,4 @@
-import content from "@/content/experience.json";
+import { ordered } from "@/lib/content";
 
 export interface Role {
   title: string;
@@ -35,7 +35,9 @@ export interface ExperienceItem {
   technologies?: string[];
 }
 
-export const experiences = content.experiences as ExperienceItem[];
+export const experiences = ordered<ExperienceItem>(
+  import.meta.glob("/src/content/experience/*.json", { eager: true, import: "default" }),
+);
 
 /** Earliest year mentioned in any experience period (used for "years of experience"). */
 export const careerStartYear = Math.min(

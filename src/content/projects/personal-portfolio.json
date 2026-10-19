@@ -1,0 +1,18 @@
+{
+  "id": 5,
+  "title": "Personal Portfolio",
+  "description": "My personal portfolio website built with React and Tailwind CSS.",
+  "extendedDescription": "I built my personal portfolio website using React and Tailwind CSS, focusing on delivering a clean, modern, and responsive user experience. The site showcases my projects, skills, and professional background through a visually appealing layout powered by reusable React components and Tailwind's utility-first styling. By optimizing performance and ensuring seamless navigation across devices, the portfolio serves as an effective platform for presenting my work and personal brand.",
+  "technologies": [
+    "React",
+    "TypeScript",
+    "Tailwind CSS"
+  ],
+  "image": "/projects-images/personal-portfolio.png",
+  "githubUrl": "https://github.com/ahmedmalmoselhy/ahmedmalmoselhy.github.io",
+  "liveUrl": "https://ahmedmalmoselhy.github.io",
+  "demo": false,
+  "status": "completed",
+  "date": "2024-01-10",
+  "order": 5
+}

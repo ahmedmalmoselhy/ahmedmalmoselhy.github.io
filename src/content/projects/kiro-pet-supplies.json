@@ -1,0 +1,23 @@
+{
+  "id": 7,
+  "title": "Kiro Pet Supplies",
+  "description": "Bulk-ordering platform that replaces a pet-supply wholesaler's paper notes and chat threads.",
+  "extendedDescription": "A catalog and ordering platform built for a pet-supply wholesaler that used to run bulk orders through paper notes, phone calls and memory. Shop owners register their store locations, browse a price-free catalog, and submit an order that becomes a durable record from the first moment. The admin reviews each order, adjusts quantities and prices against real availability, and every change is logged as a discrete event, so there is always a clear audit trail of what was agreed. Finalised orders produce a PDF invoice that is sent to the customer over WhatsApp. The system is bilingual (English and Arabic), ships as installable PWAs for both customers and admins, and includes a Filament admin dashboard with spreadsheet import/export. This is a commercial product: the source code is not public, and installations are available on request.",
+  "technologies": [
+    "PHP",
+    "Laravel",
+    "Filament",
+    "Tailwind CSS",
+    "Vite",
+    "PWA",
+    "mPDF",
+    "PhpSpreadsheet"
+  ],
+  "image": "/projects-images/kiro-pet-supplies.svg",
+  "liveUrl": "",
+  "demo": true,
+  "monetized": true,
+  "status": "completed",
+  "date": "2026-09-21",
+  "order": 7
+}

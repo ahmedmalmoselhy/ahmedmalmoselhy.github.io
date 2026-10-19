@@ -1,0 +1,88 @@
+{
+  "company": "Qeema",
+  "logo": "/logos/Qeema.png",
+  "period": "December 2022 - Present",
+  "link": "https://qeema.net/",
+  "workType": "Full-time Hybrid",
+  "location": "Cairo, Egypt",
+  "roles": [
+    {
+      "title": "Software Engineer",
+      "period": "December 2022 - Present",
+      "responsibilities": [
+        "Build and maintain Ericsson EOC/ECM solutions for the Jawwy DT project at Jawwy by STC",
+        "Handle L3 support for the production order stack: root-cause analysis and fixes for escalated incidents"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Jawwy DT",
+      "status": "Ongoing",
+      "client": "Jawwy by STC",
+      "logo": "/logos/Jawwy.png",
+      "role": "EOC/ECM Developer & Support Engineer",
+      "workType": "Full-time Remote",
+      "location": "Riyadh, Saudi Arabia",
+      "highlights": [
+        "Manage catalog components in Ericsson Catalog Manager (ECM) and keep product data accurate",
+        "Troubleshoot and fix escalated Ericsson Order Care (EOC) and ECM issues as the L3 support layer",
+        "Implement the integration logic between EOC and external systems",
+        "Work with the client's cross-functional teams on system enhancements, and guide end users"
+      ],
+      "technologies": [
+        "Ericsson Order Care [EOC]",
+        "Ericsson Catalog Manager [ECM]",
+        "JavaScript",
+        "SQL",
+        "Oracle DB",
+        "Git",
+        "Docker"
+      ]
+    },
+    {
+      "name": "Delta Pharma",
+      "status": "Completed",
+      "role": "Software Developer",
+      "highlights": [
+        "Built and maintained a Creatio CRM tailored to a pharmaceutical business",
+        "Designed and automated its business processes and workflows in Creatio",
+        "Integrated third-party systems and APIs with the CRM"
+      ],
+      "technologies": [
+        "Creatio"
+      ]
+    },
+    {
+      "name": "Customer 360 Unified View",
+      "status": "Completed",
+      "role": "Solution Designer & Project Lead, Senior Software Engineer",
+      "highlights": [
+        "Designed a customer data platform in Creatio that brings every channel's customer interactions into one view",
+        "Gathered requirements with stakeholders and turned them into the technical specification",
+        "Led the development team from planning and design through deployment, integrating existing systems and data sources",
+        "Added analytics and reporting for sales and customer-engagement decisions"
+      ],
+      "technologies": [
+        "Creatio"
+      ]
+    }
+  ],
+  "achievements": [
+    "Maintained the EOC/ECM modules and supported the client's operations team through the Jawwy DT release",
+    "Led the EOC/ECM upgrade from version 20 to 22, resolving version conflicts while keeping integrations and the implementation flow intact"
+  ],
+  "technologies": [
+    "Ericsson Order Care [EOC]",
+    "Ericsson Catalog Manager [ECM]",
+    "Creatio",
+    "JavaScript",
+    "SQL",
+    "C#",
+    "Oracle DB",
+    "Microsoft SQL Server",
+    "Git",
+    "Docker"
+  ],
+  "order": 1
+}

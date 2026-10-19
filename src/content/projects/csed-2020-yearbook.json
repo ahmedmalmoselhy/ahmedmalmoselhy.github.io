@@ -1,0 +1,19 @@
+{
+  "id": 3,
+  "title": "CSED 2020 Yearbook",
+  "description": "Created a memorial website including backend and layout in Laravel Blade.",
+  "extendedDescription": "I created a memorial website that included both the backend functionality and the full layout implementation using Laravel Blade. The project focused on delivering a clean, respectful, and user-friendly experience, allowing visitors to view memories, stories, and tributes through an organized and visually appealing interface. By building the backend from scratch and designing the Blade templates for the front-end, I ensured a seamless integration between data management and presentation, resulting in a stable and meaningful platform for preserving and sharing memories.",
+  "technologies": [
+    "PHP",
+    "Laravel",
+    "PostgreSQL",
+    "Heroku"
+  ],
+  "image": "/projects-images/csed-2020-yearbook.png",
+  "githubUrl": "https://github.com/ahmedmalmoselhy/csed_yearbook",
+  "liveUrl": "",
+  "demo": true,
+  "status": "completed",
+  "date": "2021-05-20",
+  "order": 3
+}

@@ -1,0 +1,26 @@
+{
+  "company": "Devolum",
+  "logo": "/logos/Devolum.png",
+  "period": "September 2022 - October 2022",
+  "link": "https://devolum.com/",
+  "workType": "Part-time Remote",
+  "location": "Mansoura, Egypt",
+  "roles": [
+    {
+      "title": "Full-stack Developer",
+      "period": "September 2022 - October 2022",
+      "responsibilities": [
+        "Optimised front-end and back-end performance of client web applications",
+        "Refactored existing Laravel code to current standards"
+      ]
+    }
+  ],
+  "technologies": [
+    "PHP",
+    "Laravel",
+    "JavaScript",
+    "MySQL",
+    "Git"
+  ],
+  "order": 2
+}

@@ -1,4 +1,4 @@
-import content from "@/content/training.json";
+import { ordered } from "@/lib/content";
 
 export interface TrainingItem {
   id: string;
@@ -9,4 +9,6 @@ export interface TrainingItem {
   logo?: string;
 }
 
-export const training = content.training as TrainingItem[];
+export const training = ordered<TrainingItem>(
+  import.meta.glob("/src/content/training/*.json", { eager: true, import: "default" }),
+);

@@ -1,0 +1,41 @@
+{
+  "company": "Serv5",
+  "logo": "/logos/Serv5.png",
+  "period": "October 2021 - November 2022",
+  "link": "https://serv5.com/",
+  "workType": "Full-time On-site",
+  "location": "Mansoura, Egypt",
+  "roles": [
+    {
+      "title": "Full-stack Developer",
+      "period": "July 2022 - November 2022",
+      "responsibilities": [
+        "Optimised front-end and back-end performance of client web applications",
+        "Built Vue.js components for client-facing interfaces",
+        "Introduced tooling that automated parts of the team's development workflow",
+        "Provided post-sales technical support to clients through deployment"
+      ]
+    },
+    {
+      "title": "Backend Developer",
+      "period": "October 2021 - June 2022",
+      "responsibilities": [
+        "Optimised the back end of Laravel applications",
+        "Integrated the third-party APIs behind the company's mobile apps",
+        "Refactored legacy code to current Laravel standards"
+      ]
+    }
+  ],
+  "technologies": [
+    "PHP",
+    "Laravel",
+    "JavaScript",
+    "Vue.js",
+    "MySQL",
+    "RESTful APIs",
+    "Git",
+    "Node JS",
+    "Express.js"
+  ],
+  "order": 3
+}
