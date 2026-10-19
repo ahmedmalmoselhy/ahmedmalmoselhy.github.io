@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-label="Laravel Modular Dashboard placeholder">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1e2a38"/>
+      <stop offset="1" stop-color="#0f1620"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#g)"/>
+  <g fill="none" stroke="#5ba3d9" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" opacity="0.9" transform="translate(600 235)">
+    <rect x="-130" y="-95" width="110" height="75" rx="12"/>
+    <rect x="0" y="-95" width="130" height="75" rx="12"/>
+    <rect x="-130" y="0" width="150" height="95" rx="12"/>
+    <rect x="40" y="0" width="90" height="95" rx="12"/>
+  </g>
+  <text x="600" y="420" text-anchor="middle" font-family="system-ui, sans-serif" font-size="64" font-weight="700" fill="#e6edf5">Laravel Modular Dashboard</text>
+  <text x="600" y="475" text-anchor="middle" font-family="system-ui, sans-serif" font-size="26" fill="#8a97a6">Configurable admin dashboard</text>
+</svg>

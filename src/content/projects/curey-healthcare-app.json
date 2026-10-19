@@ -11,7 +11,7 @@
     "Heroku",
     "PostgreSQL"
   ],
-  "image": "/projects-images/curey-healthcare-app.png",
+  "image": "/projects-images/curey-healthcare-app.svg",
   "githubUrl": "https://github.com/Curey-HealthCare/Curey-HealthCareApp-Backend",
   "liveUrl": "",
   "demo": true,

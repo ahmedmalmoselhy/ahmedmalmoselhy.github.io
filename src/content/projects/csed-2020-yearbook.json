@@ -9,7 +9,7 @@
     "PostgreSQL",
     "Heroku"
   ],
-  "image": "/projects-images/csed-2020-yearbook.png",
+  "image": "/projects-images/csed-2020-yearbook.svg",
   "githubUrl": "https://github.com/ahmedmalmoselhy/csed_yearbook",
   "liveUrl": "",
   "demo": true,
