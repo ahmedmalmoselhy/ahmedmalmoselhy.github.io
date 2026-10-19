@@ -1,6 +1,16 @@
 {
-  "id": 8,
+  "order": 8,
   "title": "Varden",
+  "id": 8,
+  "status": "in-progress",
+  "date": "2026-09-21",
+  "image": "/projects-images/varden.svg",
+  "media": [
+    {
+      "type": "image",
+      "src": "/projects-media/brag.jpg"
+    }
+  ],
   "description": "HR and resource management platform: timesheets, PTO, leave and HR requests with a versioned API.",
   "extendedDescription": "An HR and resource management system covering the employee lifecycle end to end. HR manages employees, departments, work locations and the reporting hierarchy, with a full employment-history trail. Employees log monthly timesheets across projects and leave types, and submissions flow through a one-level manager-then-HR approval engine. A PTO ledger keeps append-only balances with per-location policies, holiday calendars, weekend and holiday work credits, sick-leave documentation review and year-end payouts, alongside a yearly vacation planner and team calendar. A request-type builder lets HR configure their own request workflows without a developer. It ships with a Blade UI and a documented, versioned JSON API (Sanctum-authenticated) on the same business logic, and is tested on both PostgreSQL and MySQL. This is a commercial product: the source code is not public, and installations are available on request.",
   "technologies": [
@@ -14,11 +24,6 @@
     "REST API",
     "Sanctum"
   ],
-  "image": "/projects-images/varden.svg",
-  "liveUrl": "",
   "demo": true,
-  "monetized": true,
-  "status": "in-progress",
-  "date": "2026-09-21",
-  "order": 8
+  "monetized": true
 }
