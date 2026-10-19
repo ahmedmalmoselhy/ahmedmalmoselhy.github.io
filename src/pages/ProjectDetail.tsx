@@ -3,9 +3,58 @@ import Layout from "@/components/Layout";
 import { ExternalLink, Github, ArrowLeft, Mail } from "lucide-react";
 import ContactForDemo from "@/components/ContactForDemo";
 import { Button } from "@/components/ui/button";
-import { projectsData, statusLabels } from "@/data/projects";
+import { projectsData, statusLabels, type ProjectMedia } from "@/data/projects";
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { SectionHeading } from "@/components/PageHeader";
 import { cn } from "@/lib/utils";
+
+/** Video ID from any common YouTube link: watch?v=, youtu.be/, shorts/, embed/, live/ */
+const youtubeId = (url: string) =>
+  url.match(/(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/))([\w-]{11})/)?.[1];
+
+const MediaItem: React.FC<{ item: ProjectMedia; title: string }> = ({ item, title }) => {
+  const alt = item.caption || `${title} screenshot`;
+  let body: React.ReactNode;
+  if (item.type === "image") {
+    body = (
+      <Dialog>
+        <DialogTrigger asChild>
+          <button className="block w-full cursor-zoom-in" aria-label={`Enlarge: ${alt}`}>
+            <img src={item.src} alt={alt} loading="lazy" className="aspect-video w-full object-cover object-top" />
+          </button>
+        </DialogTrigger>
+        <DialogContent className="max-w-5xl p-2">
+          <DialogTitle className="sr-only">{alt}</DialogTitle>
+          <img src={item.src} alt={alt} className="max-h-[85vh] w-full rounded object-contain" />
+        </DialogContent>
+      </Dialog>
+    );
+  } else if (item.type === "video") {
+    body = <video src={item.src} controls preload="metadata" className="aspect-video w-full bg-black" />;
+  } else {
+    const id = youtubeId(item.url);
+    body = id ? (
+      <iframe
+        src={`https://www.youtube-nocookie.com/embed/${id}`}
+        title={item.caption || `${title} video`}
+        loading="lazy"
+        allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+        allowFullScreen
+        className="aspect-video w-full"
+      />
+    ) : (
+      <a href={item.url} target="_blank" rel="noopener noreferrer" className="block p-6 text-primary underline">
+        {item.caption || item.url}
+      </a>
+    );
+  }
+  return (
+    <figure className={cn("overflow-hidden rounded-lg border border-border bg-card", item.type !== "image" && "sm:col-span-2")}>
+      {body}
+      {item.caption && <figcaption className="px-4 py-3 font-mono text-[13px] text-muted-foreground">{item.caption}</figcaption>}
+    </figure>
+  );
+};
 
 interface ProjectDetailProps {
   projectId: number;
@@ -86,6 +135,18 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
                 {project.extendedDescription}
               </p>
             </div>
+
+            {/* Gallery: extra screenshots and videos */}
+            {project.media?.length > 0 && (
+              <div className="space-y-4">
+                <SectionHeading title="Gallery" />
+                <div className="grid items-start gap-4 sm:grid-cols-2">
+                  {project.media.map((item, i) => (
+                    <MediaItem key={i} item={item} title={project.title} />
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Technologies */}
             <div className="space-y-4">

@@ -272,6 +272,36 @@ collections:
         widget: image
         media_folder: /public/projects-images
         public_folder: /projects-images
+      - name: media
+        label: Gallery
+        label_singular: media item
+        hint: "Extra screenshots and videos shown on the project page. Prefer YouTube for long videos: uploaded files go into the repo."
+        widget: list
+        required: false
+        collapsed: true
+        summary: "{{type}} · {{caption}}"
+        types:
+          - name: image
+            label: Screenshot
+            widget: object
+            summary: "{{caption}}"
+            fields:
+              - { name: src, label: Image, widget: image, media_folder: /public/projects-media, public_folder: /projects-media }
+              - { name: caption, label: Caption, widget: string, required: false }
+          - name: youtube
+            label: YouTube video
+            widget: object
+            summary: "{{caption}}"
+            fields:
+              - { name: url, label: YouTube link, widget: string, hint: "Any link: youtube.com/watch?v=…, youtu.be/…, or /shorts/…" }
+              - { name: caption, label: Caption, widget: string, required: false }
+          - name: video
+            label: Video file
+            widget: object
+            summary: "{{caption}}"
+            fields:
+              - { name: src, label: Video, widget: file, accept: "video/mp4,video/webm", media_folder: /public/projects-media, public_folder: /projects-media, hint: "MP4 or WebM, keep it small (under ~20 MB)" }
+              - { name: caption, label: Caption, widget: string, required: false }
       - { name: description, label: Short description, widget: text, hint: "One sentence, shown on the project card" }
       - { name: extendedDescription, label: Full description, widget: text, hint: "Shown on the project page" }
       - name: technologies

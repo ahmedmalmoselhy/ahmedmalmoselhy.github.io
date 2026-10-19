@@ -1,5 +1,11 @@
 import { ordered } from "@/lib/content";
 
+/** Extra screenshots and videos shown in the gallery on a project page. */
+export type ProjectMedia =
+  | { type: "image"; src: string; caption?: string }
+  | { type: "video"; src: string; caption?: string }
+  | { type: "youtube"; url: string; caption?: string };
+
 export interface Project {
   id: number;
   title: string;
@@ -24,6 +30,7 @@ export interface Project {
     | "canceled";
   contributors?: string[];
   relatedProjects?: number[];
+  media?: ProjectMedia[];
 }
 
 export const projectsData = ordered<Project>(
