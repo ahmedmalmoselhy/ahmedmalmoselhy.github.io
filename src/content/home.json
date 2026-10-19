@@ -1,4 +1,10 @@
 {
+  "buildPhrases": [
+    "CRMs on Creatio",
+    "Laravel products",
+    "integrations that hold",
+    "apps that work for you"
+  ],
   "shipped": [
     {
       "title": "Order-stack upgrade, v20 → v22",
@@ -130,12 +136,6 @@
     "Git",
     "L3 support",
     "Solution design"
-  ],
-  "buildPhrases": [
-    "telecom order stacks",
-    "CRMs on Creatio",
-    "Laravel products",
-    "integrations that hold"
   ],
   "offTheClock": [
     {
