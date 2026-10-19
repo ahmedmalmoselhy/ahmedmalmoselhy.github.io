@@ -6,6 +6,7 @@ import CommandPalette from "./CommandPalette";
 import { PageSection } from "@/App";
 import { Button } from "@/components/ui/button";
 import { reloadApp } from "@/hooks/use-app-updates";
+import { site } from "@/data/site";
 
 // Installed as an app (Android/desktop PWA or iOS home-screen web app): there is no
 // browser reload button or pull-to-refresh, so the header gets its own refresh button.
@@ -54,9 +55,9 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onSectionChange }) => {
           <button
             onClick={() => onSectionChange("home")}
             className="rounded-sm font-mono text-[15px] font-medium"
-            aria-label="Ahmed AlMoselhy, go to home"
+            aria-label={`${site.name}, go to home`}
           >
-            ~/ahmedmalmoselhy
+            ~/{site.handle}
             <span className="caret" aria-hidden="true" />
           </button>
 

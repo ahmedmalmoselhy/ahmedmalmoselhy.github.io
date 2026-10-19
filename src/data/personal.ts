@@ -1,33 +1,19 @@
-export const skillsOverview: string[] = [
-  "JavaScript", "Node JS", "Express JS", "Vue JS", "HTML/CSS",
-  "Python", "PHP", "Laravel", "C#", "Oracle DB", "Maria DB",
-  "MySQL", "PostgreSQL", "SQL", "Git", "Docker",
-  "Ericsson Order Care", "Ericsson Catalog Manager",
-  "Creatio", "Jira",
-];
+import content from "@/content/personal.json";
+
+export const skillsOverview: string[] = content.skillsOverview;
 
 export interface Language {
   name: string;
   level: string;
 }
 
-export const languages: Language[] = [
-  { name: "English", level: "Professional" },
-  { name: "Arabic", level: "Native" },
-];
+export const languages: Language[] = content.languages;
 
 export interface PersonalDetail {
   label: string;
   value: string;
 }
 
-export const personalDetails: PersonalDetail[] = [
-  { label: "Date of Birth", value: "1996" },
-  { label: "Military Service", value: "Completed" },
-  { label: "Marital Status", value: "Married" },
-];
+export const personalDetails: PersonalDetail[] = content.personalDetails;
 
-export const interests: string[] = [
-  "Open Source", "Web Development", "Database Design", "CRM Development",
-  "Photography", "Reading", "Traveling", "Gaming",
-];
+export const interests: string[] = content.interests;

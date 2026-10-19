@@ -4,8 +4,7 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { useToggleTheme } from "@/components/ThemeToggle";
 import { PageSection } from "@/App";
 import { projectsData } from "@/data/projects";
-
-const EMAIL = "ahmedmalmoselhy@gmail.com";
+import { site, githubUrl, linkedinUrl } from "@/data/site";
 
 interface Command {
   label: string;
@@ -37,11 +36,11 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({ open, onOpenChange, onS
       {
         label: "Copy email address",
         group: "contact",
-        run: () => navigator.clipboard?.writeText(EMAIL).then(() => toast.success("Email copied")),
+        run: () => navigator.clipboard?.writeText(site.email).then(() => toast.success("Email copied")),
       },
-      { label: "Open GitHub", group: "link", run: () => window.open("https://github.com/ahmedmalmoselhy", "_blank", "noopener") },
-      { label: "Open LinkedIn", group: "link", run: () => window.open("https://www.linkedin.com/in/ahmedmalmoselhy/", "_blank", "noopener") },
-      { label: "Download CV", group: "file", run: () => window.open("/AhmedAlMoselhy.pdf", "_blank") },
+      { label: "Open GitHub", group: "link", run: () => window.open(githubUrl, "_blank", "noopener") },
+      { label: "Open LinkedIn", group: "link", run: () => window.open(linkedinUrl, "_blank", "noopener") },
+      { label: "Download CV", group: "file", run: () => window.open(site.resume, "_blank") },
     ],
     [onSectionChange, toggleTheme],
   );

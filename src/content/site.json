@@ -1,0 +1,23 @@
+{
+  "name": "Ahmed AlMoselhy",
+  "handle": "ahmedmalmoselhy",
+  "avatar": "/Ahmed-AlMoselhy.png",
+  "resume": "/AhmedAlMoselhy.pdf",
+  "email": "ahmedmalmoselhy@gmail.com",
+  "phone": "+201117001262",
+  "phoneDisplay": "+20 111 700 1262",
+  "whatsapp": "201117001262",
+  "github": "ahmedmalmoselhy",
+  "linkedin": "ahmedmalmoselhy",
+  "availability": {
+    "available": true,
+    "headline": "Open to consulting",
+    "status": "Open to consulting and new roles",
+    "openTo": [
+      { "title": "Freelance work", "text": "Available for short to medium-term projects.", "icon": "Briefcase" },
+      { "title": "Full-time positions", "text": "Open to discussing new opportunities.", "icon": "Building2" },
+      { "title": "Consulting", "text": "Technical consulting for CRM, telecom, and web projects.", "icon": "Lightbulb" },
+      { "title": "Collaboration", "text": "Interested in partnering on innovative projects.", "icon": "Users" }
+    ]
+  }
+}

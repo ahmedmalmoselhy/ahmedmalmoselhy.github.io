@@ -1,0 +1,58 @@
+{
+  "skillsOverview": [
+    "JavaScript",
+    "Node JS",
+    "Express JS",
+    "Vue JS",
+    "HTML/CSS",
+    "Python",
+    "PHP",
+    "Laravel",
+    "C#",
+    "Oracle DB",
+    "Maria DB",
+    "MySQL",
+    "PostgreSQL",
+    "SQL",
+    "Git",
+    "Docker",
+    "Ericsson Order Care",
+    "Ericsson Catalog Manager",
+    "Creatio",
+    "Jira"
+  ],
+  "languages": [
+    {
+      "name": "English",
+      "level": "Professional"
+    },
+    {
+      "name": "Arabic",
+      "level": "Native"
+    }
+  ],
+  "personalDetails": [
+    {
+      "label": "Date of Birth",
+      "value": "1996"
+    },
+    {
+      "label": "Military Service",
+      "value": "Completed"
+    },
+    {
+      "label": "Marital Status",
+      "value": "Married"
+    }
+  ],
+  "interests": [
+    "Open Source",
+    "Web Development",
+    "Database Design",
+    "CRM Development",
+    "Photography",
+    "Reading",
+    "Traveling",
+    "Gaming"
+  ]
+}

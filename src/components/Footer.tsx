@@ -1,4 +1,5 @@
 import React from "react";
+import { site, githubUrl, linkedinUrl } from "@/data/site";
 
 // Hash links work here because App listens to hashchange
 const columns = [
@@ -14,15 +15,15 @@ const columns = [
   {
     title: "Elsewhere",
     links: [
-      { label: "GitHub", href: "https://github.com/ahmedmalmoselhy", external: true },
-      { label: "LinkedIn", href: "https://www.linkedin.com/in/ahmedmalmoselhy/", external: true },
-      { label: "Email", href: "mailto:ahmedmalmoselhy@gmail.com" },
-      { label: "Phone", href: "tel:+201117001262" },
+      { label: "GitHub", href: githubUrl, external: true },
+      { label: "LinkedIn", href: linkedinUrl, external: true },
+      { label: "Email", href: `mailto:${site.email}` },
+      { label: "Phone", href: `tel:${site.phone}` },
     ],
   },
   {
     title: "Files",
-    links: [{ label: "CV (PDF)", href: "/AhmedAlMoselhy.pdf" }],
+    links: [{ label: "CV (PDF)", href: site.resume }],
   },
 ];
 
@@ -31,11 +32,11 @@ const Footer = () => (
     <div className="container mx-auto grid grid-cols-2 gap-8 px-4 py-10 text-sm md:grid-cols-[2fr_1fr_1fr_1fr] md:py-12">
       <div className="col-span-2 md:col-span-1">
         <p className="font-mono text-[15px] font-medium">
-          ~/ahmedmalmoselhy
+          ~/{site.handle}
         </p>
         <p className="mt-2 leading-relaxed text-muted-foreground">
           Built with React and Tailwind.
-          <br />© {new Date().getFullYear()} Ahmed AlMoselhy
+          <br />© {new Date().getFullYear()} {site.name}
         </p>
       </div>
       {columns.map(({ title, links }) => (

@@ -1,3 +1,5 @@
+import content from "@/content/training.json";
+
 export interface TrainingItem {
   id: string;
   name: string;
@@ -7,14 +9,4 @@ export interface TrainingItem {
   logo?: string;
 }
 
-export const training: TrainingItem[] = [
-  {
-    id: "training-1",
-    name: "ITI Summer Internship for students [Front End]",
-    provider: "ITI - Mansoura University",
-    year: "2018",
-    description:
-      "A Front-End web development internship included : (HTML, CSS, JavaScript, jQuery, HTML5, CSS3, Angular JS)",
-    logo: "/logos/logoITI.png",
-  },
-];
+export const training = content.training as TrainingItem[];

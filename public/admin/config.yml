@@ -1,0 +1,354 @@
+# Sveltia CMS config. Every save is a commit to main, which triggers
+# .github/workflows/deploy.yml and goes live in ~2 minutes.
+# Sign in with a fine-grained GitHub token: this repo only, "Contents: Read and write".
+backend:
+  name: github
+  repo: ahmedmalmoselhy/ahmedmalmoselhy.github.io
+  branch: main
+
+media_folder: public
+public_folder: /
+
+output:
+  omit_empty_optional_fields: true
+  json:
+    indent_style: space
+    indent_size: 2
+
+collections:
+  - name: site
+    label: Profile & contact
+    files:
+      - name: site
+        label: Profile, contact & availability
+        file: src/content/site.json
+        format: json
+        fields:
+          - { name: name, label: Full name, widget: string }
+          - { name: handle, label: Handle (shown as ~/handle), widget: string }
+          - { name: avatar, label: Profile picture, widget: image }
+          - { name: resume, label: CV (PDF), widget: file }
+          - { name: email, label: Email, widget: string }
+          - { name: phone, label: "Phone for call links (e.g. +201117001262)", widget: string }
+          - { name: phoneDisplay, label: Phone as displayed, widget: string }
+          - name: whatsapp
+            label: WhatsApp number (digits only, with country code)
+            hint: Changing this does not update the QR code image on the contact page (public/whatsapp-qr.svg).
+            widget: string
+          - { name: github, label: GitHub username, widget: string }
+          - { name: linkedin, label: LinkedIn username, widget: string }
+          - name: availability
+            label: Availability
+            widget: object
+            fields:
+              - { name: available, label: Available (shows the green status dot), widget: boolean }
+              - { name: headline, label: Home page status, widget: string }
+              - { name: status, label: Contact page status, widget: string }
+              - name: openTo
+                label: Available for (contact page cards)
+                widget: list
+                summary: "{{title}}"
+                fields:
+                  - { name: title, label: Title, widget: string }
+                  - { name: text, label: Text, widget: string }
+                  - &icon
+                    name: icon
+                    label: Icon
+                    widget: select
+                    # Keep in sync with src/lib/icons.ts
+                    options: [Brain, Briefcase, Building2, ChartColumn, Clock, Code, Handshake, Heart, Lightbulb, MessageSquare, Palette, Rocket, Star, Users]
+
+  - name: projects
+    label: Projects
+    files:
+      - name: projects
+        label: Projects
+        file: src/content/projects.json
+        format: json
+        fields:
+          - name: projects
+            label: Projects
+            widget: list
+            summary: "{{title}} ({{status}})"
+            fields:
+              - { name: id, label: ID (unique number used in links), widget: number, value_type: int }
+              - { name: title, label: Title, widget: string }
+              - { name: description, label: Short description, widget: text }
+              - { name: extendedDescription, label: Full description, widget: text }
+              - name: technologies
+                label: Technologies
+                widget: list
+                field: { name: item, label: Technology, widget: string }
+              - name: image
+                label: Image
+                widget: image
+                media_folder: /public/projects-images
+                public_folder: /projects-images
+              - { name: githubUrl, label: GitHub URL, widget: string, required: false }
+              - { name: liveUrl, label: Live URL, widget: string, required: false }
+              - { name: demo, label: Demo, widget: boolean, default: true }
+              - { name: monetized, label: "Commercial (shows 'request a demo' instead of source)", widget: boolean, required: false }
+              - { name: date, label: Date, widget: datetime, time_format: false, date_format: YYYY-MM-DD, format: YYYY-MM-DD, required: false }
+              - name: status
+                label: Status
+                widget: select
+                options: [completed, in-progress, on-hold, new, planned, archived, canceled]
+
+  - name: resume
+    label: Resume
+    files:
+      - name: experience
+        label: Experience
+        file: src/content/experience.json
+        format: json
+        fields:
+          - name: experiences
+            label: Employers
+            widget: list
+            summary: "{{company}} ({{period}})"
+            fields:
+              - { name: company, label: Company, widget: string }
+              - &logo
+                name: logo
+                label: Logo
+                widget: image
+                required: false
+                media_folder: /public/logos
+                public_folder: /logos
+              - { name: period, label: Period, widget: string, hint: "e.g. December 2022 - Present" }
+              - { name: link, label: Website, widget: string, required: false }
+              - { name: workType, label: Work type, widget: string, hint: "e.g. Full-time Hybrid" }
+              - { name: location, label: Location, widget: string }
+              - name: roles
+                label: Roles
+                widget: list
+                summary: "{{title}}"
+                fields:
+                  - { name: title, label: Title, widget: string }
+                  - { name: period, label: Period, widget: string }
+                  - name: responsibilities
+                    label: Responsibilities
+                    widget: list
+                    field: { name: item, label: Responsibility, widget: string }
+              - name: projects
+                label: Company projects
+                widget: list
+                required: false
+                summary: "{{name}}"
+                fields:
+                  - { name: name, label: Name, widget: string }
+                  - { name: status, label: Status, widget: select, options: [Ongoing, Completed, On hold] }
+                  - { name: client, label: Client, widget: string, required: false }
+                  - *logo
+                  - { name: role, label: Role, widget: string, required: false }
+                  - { name: period, label: Period, widget: string, required: false }
+                  - { name: workType, label: Work type, widget: string, required: false }
+                  - { name: location, label: Location, widget: string, required: false }
+                  - name: highlights
+                    label: Highlights
+                    widget: list
+                    field: { name: item, label: Highlight, widget: string }
+                  - name: technologies
+                    label: Technologies
+                    widget: list
+                    required: false
+                    field: { name: item, label: Technology, widget: string }
+              - name: achievements
+                label: Achievements
+                widget: list
+                required: false
+                field: { name: item, label: Achievement, widget: string }
+              - name: technologies
+                label: Technologies
+                widget: list
+                required: false
+                field: { name: item, label: Technology, widget: string }
+
+      - name: education
+        label: Education
+        file: src/content/education.json
+        format: json
+        fields:
+          - name: education
+            label: Education
+            widget: list
+            summary: "{{degree}}"
+            fields:
+              - { name: id, label: ID (unique), widget: string }
+              - { name: degree, label: Degree, widget: string }
+              - { name: institution, label: Institution, widget: string }
+              - { name: period, label: Period, widget: string }
+              - { name: description, label: Description, widget: text }
+              - *logo
+
+      - name: certifications
+        label: Certifications
+        file: src/content/certifications.json
+        format: json
+        fields:
+          - name: certifications
+            label: Certifications
+            widget: list
+            summary: "{{name}} ({{year}})"
+            fields:
+              - { name: id, label: ID (unique), widget: string }
+              - { name: name, label: Name, widget: string }
+              - { name: issuer, label: Issuer, widget: string }
+              - { name: year, label: Year, widget: string }
+              - *logo
+              - name: image
+                label: Certificate image
+                widget: image
+                required: false
+                media_folder: /public/certificates
+                public_folder: /certificates
+              - { name: employer, label: "Earned while at (company name from Experience)", widget: string, required: false }
+
+      - name: training
+        label: Training
+        file: src/content/training.json
+        format: json
+        fields:
+          - name: training
+            label: Training
+            widget: list
+            summary: "{{name}}"
+            fields:
+              - { name: id, label: ID (unique), widget: string }
+              - { name: name, label: Name, widget: string }
+              - { name: provider, label: Provider, widget: string }
+              - { name: year, label: Year, widget: string }
+              - { name: description, label: Description, widget: text, required: false }
+              - *logo
+
+      - name: personal
+        label: Overview, languages & interests
+        file: src/content/personal.json
+        format: json
+        fields:
+          - name: skillsOverview
+            label: Skills overview
+            widget: list
+            field: { name: item, label: Skill, widget: string }
+          - name: languages
+            label: Languages
+            widget: list
+            summary: "{{name}}: {{level}}"
+            fields:
+              - { name: name, label: Language, widget: string }
+              - { name: level, label: Level, widget: string }
+          - name: personalDetails
+            label: Personal details
+            widget: list
+            summary: "{{label}}: {{value}}"
+            fields:
+              - { name: label, label: Label, widget: string }
+              - { name: value, label: Value, widget: string }
+          - name: interests
+            label: Interests
+            widget: list
+            field: { name: item, label: Interest, widget: string }
+
+  - name: skills
+    label: Skills
+    files:
+      - name: skills
+        label: Skills
+        file: src/content/skills.json
+        format: json
+        fields:
+          - name: categories
+            label: Skill categories
+            widget: list
+            summary: "{{name}}"
+            fields:
+              - { name: name, label: Category, widget: string }
+              - name: skills
+                label: Skills
+                widget: list
+                summary: "{{name}}: {{level}}"
+                fields:
+                  - { name: name, label: Skill, widget: string }
+                  - { name: level, label: Level (0-100), widget: number, value_type: int, min: 0, max: 100 }
+              - name: color
+                label: Accent colour
+                widget: select
+                options: [portfolio-highlight, portfolio-blue, portfolio-teal, portfolio-slate, portfolio-lightSlate]
+          - name: softSkills
+            label: Soft skills
+            widget: list
+            summary: "{{name}}"
+            fields:
+              - { name: name, label: Skill, widget: string }
+              - *icon
+
+  - name: home
+    label: Home page
+    files:
+      - name: home
+        label: Home page sections
+        file: src/content/home.json
+        format: json
+        fields:
+          - name: buildPhrases
+            label: "Hero rotating phrases (I build and run ...)"
+            widget: list
+            field: { name: item, label: Phrase, widget: string }
+          - name: shipped
+            label: Recently shipped
+            widget: list
+            summary: "{{title}}"
+            fields:
+              - { name: title, label: Title, widget: string }
+              - { name: kicker, label: Kicker (stack label), widget: string }
+              - { name: text, label: Text, widget: text }
+              - { name: footer, label: Footer, widget: string }
+              - { name: domain, label: Domain, widget: select, options: [tel, crm, web] }
+              - name: image
+                label: Screenshot
+                widget: image
+                required: false
+                media_folder: /public/projects-images
+                public_folder: /projects-images
+              - *logo
+              - { name: projectId, label: Project ID to open (optional), widget: number, value_type: int, required: false }
+          - name: onMyDesk
+            label: On my desk
+            widget: list
+            summary: "{{title}}"
+            fields:
+              - { name: title, label: Title, widget: string }
+              - { name: text, label: Text, widget: text }
+              - { name: status, label: Status, widget: string }
+              - { name: pace, label: Pace, widget: select, options: [live, slow] }
+              - { name: meta, label: Meta, widget: string }
+          - name: changelog
+            label: Changelog
+            widget: list
+            summary: "{{date}} {{text}}"
+            fields:
+              - { name: date, label: "Date (e.g. 2026-09 or 2026)", widget: string }
+              - { name: text, label: Text, widget: string }
+              - { name: kind, label: Kind, widget: select, options: [ship, cert, work] }
+          - name: stack
+            label: Stack
+            widget: list
+            summary: "{{group}}"
+            fields:
+              - { name: group, label: Group, widget: string }
+              - name: items
+                label: Items
+                widget: list
+                field: { name: item, label: Item, widget: string }
+          - name: ticker
+            label: Ticker
+            widget: list
+            field: { name: item, label: Item, widget: string }
+          - name: offTheClock
+            label: Off the clock
+            widget: list
+            summary: "{{emoji}} {{title}}"
+            fields:
+              - { name: emoji, label: Emoji, widget: string }
+              - { name: title, label: Title, widget: string }
+              - { name: text, label: Text, widget: string }

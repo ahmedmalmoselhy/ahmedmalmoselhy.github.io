@@ -9,6 +9,7 @@ import { training } from "@/data/training";
 import { skillsOverview, languages, personalDetails, interests } from "@/data/personal";
 import { calculateDuration, isPromotedRole } from "@/lib/date-utils";
 import { cn } from "@/lib/utils";
+import { site, githubUrl, linkedinUrl } from "@/data/site";
 import CertificateDialog from "@/components/CertificateDialog";
 
 const stats = [
@@ -19,10 +20,10 @@ const stats = [
 ];
 
 const contacts = [
-  { label: "Email", value: "ahmedmalmoselhy@gmail.com", href: "mailto:ahmedmalmoselhy@gmail.com" },
-  { label: "Phone", value: "+20 111 700 1262", href: "tel:+201117001262" },
-  { label: "LinkedIn", value: "in/ahmedmalmoselhy", href: "https://www.linkedin.com/in/ahmedmalmoselhy/" },
-  { label: "GitHub", value: "ahmedmalmoselhy", href: "https://github.com/ahmedmalmoselhy" },
+  { label: "Email", value: site.email, href: `mailto:${site.email}` },
+  { label: "Phone", value: site.phoneDisplay, href: `tel:${site.phone}` },
+  { label: "LinkedIn", value: `in/${site.linkedin}`, href: linkedinUrl },
+  { label: "GitHub", value: site.github, href: githubUrl },
 ];
 
 const certificationsByEmployer = (company: string) =>
@@ -80,7 +81,7 @@ const Resume = () => {
         title="Professional experience"
         description="Telecom order management, CRM and full-stack web work, newest first."
         actions={
-          <a href="/AhmedAlMoselhy.pdf" download className="btn-band">
+          <a href={site.resume} download className="btn-band">
             <Download size={17} aria-hidden="true" /> Download CV
           </a>
         }

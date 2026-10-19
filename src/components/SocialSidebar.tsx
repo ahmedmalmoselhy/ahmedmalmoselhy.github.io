@@ -1,13 +1,14 @@
 
 import React from 'react';
 import { Github, Linkedin, Mail, Phone } from 'lucide-react';
+import { site, githubUrl, linkedinUrl } from '@/data/site';
 
 const SocialSidebar = () => {
   return (
     <div className="fixed left-6 bottom-0 hidden lg:block z-10">
       <div className="flex flex-col items-center space-y-6">
         <a 
-          href="https://github.com/ahmedmalmoselhy" 
+          href={githubUrl} 
           target="_blank" 
           rel="noopener noreferrer"
           className="text-portfolio-slate hover:text-portfolio-highlight transition-transform hover:-translate-y-1"
@@ -16,7 +17,7 @@ const SocialSidebar = () => {
           <Github size={20} />
         </a>
         <a 
-          href="https://www.linkedin.com/in/ahmedmalmoselhy/" 
+          href={linkedinUrl} 
           target="_blank" 
           rel="noopener noreferrer"
           className="text-portfolio-slate hover:text-portfolio-highlight transition-transform hover:-translate-y-1"
@@ -25,14 +26,14 @@ const SocialSidebar = () => {
           <Linkedin size={20} />
         </a>
         <a 
-          href="mailto:ahmedmalmoselhy@gmail.com" 
+          href={`mailto:${site.email}`} 
           className="text-portfolio-slate hover:text-portfolio-highlight transition-transform hover:-translate-y-1"
           aria-label="Email"
         >
           <Mail size={20} />
         </a>
         <a 
-          href="tel:+201117001262" 
+          href={`tel:${site.phone}`} 
           className="text-portfolio-slate hover:text-portfolio-highlight transition-transform hover:-translate-y-1"
           aria-label="Phone"
         >

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-const GITHUB_USERNAME = "ahmedmalmoselhy";
+import { site } from "@/data/site";
+
+const GITHUB_USERNAME = site.github;
 
 interface ContributionDay {
   date: string;

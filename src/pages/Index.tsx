@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import { certifications } from "@/data/certifications";
 import { projectsData } from "@/data/projects";
 import { careerStartYear } from "@/data/experience";
+import { site, githubUrl } from "@/data/site";
 import {
   buildPhrases,
   changelog,
@@ -88,7 +89,7 @@ interface Contribution {
 const GitHubStrip = () => {
   const [days, setDays] = useState<Contribution[] | null>(null);
   useEffect(() => {
-    fetch("https://github-contributions-api.jogruber.de/v4/ahmedmalmoselhy?y=last")
+    fetch(`https://github-contributions-api.jogruber.de/v4/${site.github}?y=last`)
       .then((r) => r.json())
       .then((d: { contributions: Contribution[] }) => setDays(d.contributions.slice(-140)))
       .catch(() => setDays([]));
@@ -98,7 +99,7 @@ const GitHubStrip = () => {
 
   return (
     <a
-      href="https://github.com/ahmedmalmoselhy"
+      href={githubUrl}
       target="_blank"
       rel="noopener noreferrer"
       className="flex items-center gap-5 rounded-md border border-border bg-card px-5 py-4 transition-colors hover:border-faint"
@@ -115,7 +116,7 @@ const GitHubStrip = () => {
         ))}
       </span>
       <span className="whitespace-nowrap font-mono text-[13px]">
-        {total === undefined ? "loading…" : days?.length ? `${total} contributions` : "github.com/ahmedmalmoselhy"}
+        {total === undefined ? "loading…" : days?.length ? `${total} contributions` : `github.com/${site.github}`}
       </span>
     </a>
   );
@@ -125,7 +126,7 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
   const phrase = useTypedPhrase(buildPhrases);
   const [filter, setFilter] = useState<ChangeKind | "all">("all");
   const years = new Date().getFullYear() - careerStartYear;
-  const name = "Ahmed AlMoselhy";
+  const name = site.name;
 
   return (
     <Layout className="pt-0 md:pt-16">
@@ -133,13 +134,13 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
       <div className="dot-stage" onPointerMove={trackPointer}>
         <section className="container relative z-10 mx-auto grid items-center gap-8 px-4 pb-10 pt-[calc(5.5rem+env(safe-area-inset-top))] md:grid-cols-[240px_1fr] md:gap-14 md:pb-14 md:pt-16 lg:grid-cols-[260px_1fr]">
           <figure className="halftone h-[200px] w-[170px] md:h-[300px] md:w-full" onPointerMove={peek}>
-            <img className="ht" src="/Ahmed-AlMoselhy.png" alt="Portrait of Ahmed AlMoselhy" />
+            <img className="ht" src={site.avatar} alt={`Portrait of ${site.name}`} />
             <span className="dots" />
-            <img className="color" src="/Ahmed-AlMoselhy.png" alt="" />
+            <img className="color" src={site.avatar} alt="" />
           </figure>
 
           <div>
-            <p className="font-mono text-sm font-medium text-primary">@ahmedmalmoselhy</p>
+            <p className="font-mono text-sm font-medium text-primary">@{site.handle}</p>
             <h1 className="mt-2 text-[clamp(2.5rem,6vw,3.5rem)] font-semibold leading-[1.02] tracking-[-0.03em]">
               <span className="sr-only">{name}</span>
               <span aria-hidden="true">
@@ -179,9 +180,11 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
               , shipping Laravel products on the side.
             </p>
             <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted-foreground">
-              <span className="flex items-center gap-2">
-                <i className="live-dot" /> Open to consulting
-              </span>
+              {site.availability.available && (
+                <span className="flex items-center gap-2">
+                  <i className="live-dot" /> {site.availability.headline}
+                </span>
+              )}
               <span>
                 Cairo · <CairoClock /> local
               </span>
@@ -202,7 +205,7 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
               <button onClick={() => onSectionChange?.("resume")} className="btn-band-outline">
                 Résumé
               </button>
-              <a href="https://github.com/ahmedmalmoselhy" target="_blank" rel="noopener noreferrer" className="btn-band-outline">
+              <a href={githubUrl} target="_blank" rel="noopener noreferrer" className="btn-band-outline">
                 GitHub
               </a>
             </div>

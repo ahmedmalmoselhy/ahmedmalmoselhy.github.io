@@ -3,29 +3,23 @@ import { toast } from 'sonner';
 import Layout from '@/components/Layout';
 import PageHeader, { SectionHeading } from '@/components/PageHeader';
 import CairoClock from '@/components/CairoClock';
-import { ArrowUpRight, Copy, Download, Mail, MessageCircle, Phone, Github, Linkedin, Briefcase, Building2, Lightbulb, Users } from 'lucide-react';
+import { ArrowUpRight, Copy, Download, Mail, MessageCircle, Phone, Github, Linkedin } from 'lucide-react';
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 import { magnet, resetTransform, tiltHandlers } from '@/lib/pointer';
+import { site, githubUrl, linkedinUrl, whatsappUrl, openTo } from '@/data/site';
 
-const EMAIL = 'ahmedmalmoselhy@gmail.com';
-// Same link is baked into public/whatsapp-qr.svg — regenerate the SVG if this changes:
+const EMAIL = site.email;
+// Same link is baked into public/whatsapp-qr.svg — regenerate the SVG if the WhatsApp number changes:
 // npx qrcode -t svg -e M -q 2 -d "#0f1a2eff" -l "#ffffffff" -o public/whatsapp-qr.svg "<url>"
-const WHATSAPP_URL = 'https://wa.me/201117001262?text=Hi%20Ahmed%2C%20we%20just%20met!';
+const WHATSAPP_URL = whatsappUrl('Hi Ahmed, we just met!');
 
 // `c` is the card's domain colour; `copy` adds a copy-to-clipboard button
 const channels = [
   { label: 'email', value: EMAIL, href: `mailto:${EMAIL}`, icon: Mail, c: 'var(--c-tel)', copy: EMAIL },
-  { label: 'phone', value: '+20 111 700 1262', href: 'tel:+201117001262', icon: Phone, c: 'var(--c-crm)', copy: '+201117001262' },
-  { label: 'linkedin', value: 'linkedin.com/in/ahmedmalmoselhy', href: 'https://www.linkedin.com/in/ahmedmalmoselhy/', icon: Linkedin, c: 'var(--c-web)', external: true },
-  { label: 'github', value: 'github.com/ahmedmalmoselhy', href: 'https://github.com/ahmedmalmoselhy', icon: Github, c: 'var(--warn)', external: true },
-];
-
-const availability = [
-  { title: 'Freelance work', text: 'Available for short to medium-term projects.', icon: Briefcase },
-  { title: 'Full-time positions', text: 'Open to discussing new opportunities.', icon: Building2 },
-  { title: 'Consulting', text: 'Technical consulting for CRM, telecom, and web projects.', icon: Lightbulb },
-  { title: 'Collaboration', text: 'Interested in partnering on innovative projects.', icon: Users },
+  { label: 'phone', value: site.phoneDisplay, href: `tel:${site.phone}`, icon: Phone, c: 'var(--c-crm)', copy: site.phone },
+  { label: 'linkedin', value: `linkedin.com/in/${site.linkedin}`, href: linkedinUrl, icon: Linkedin, c: 'var(--c-web)', external: true },
+  { label: 'github', value: `github.com/${site.github}`, href: githubUrl, icon: Github, c: 'var(--warn)', external: true },
 ];
 
 const tints = [
@@ -50,7 +44,7 @@ const Contact = () => {
             <a href={`mailto:${EMAIL}`} className="btn-band group" onPointerMove={magnet} onPointerLeave={resetTransform}>
               <Mail size={17} aria-hidden="true" /> Email me
             </a>
-            <a href="/AhmedAlMoselhy.pdf" download className="btn-band-outline">
+            <a href={site.resume} download className="btn-band-outline">
               <Download size={17} aria-hidden="true" /> Download CV
             </a>
           </>
@@ -59,9 +53,11 @@ const Contact = () => {
 
       {/* Status line */}
       <div className="container mx-auto flex flex-wrap gap-x-6 gap-y-2 px-4 pt-8 text-sm text-muted-foreground">
-        <span className="flex items-center gap-2">
-          <i className="live-dot" /> Open to consulting and new roles
-        </span>
+        {site.availability.available && (
+          <span className="flex items-center gap-2">
+            <i className="live-dot" /> {site.availability.status}
+          </span>
+        )}
         <span>
           Cairo · <CairoClock /> local
         </span>
@@ -145,7 +141,7 @@ const Contact = () => {
       <section className="container mx-auto px-4 pb-16 md:pb-24">
         <SectionHeading title="Available for" />
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
-          {availability.map(({ title, text, icon: Icon }, i) => (
+          {openTo.map(({ title, text, icon: Icon }, i) => (
             <article
               key={title}
               className={cn(

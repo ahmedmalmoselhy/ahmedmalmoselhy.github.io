@@ -7,8 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const EMAIL = "ahmedmalmoselhy@gmail.com";
-const WHATSAPP = "201117001262"; // wa.me wants digits only, country code included
+import { site, whatsappUrl } from "@/data/site";
 
 interface ContactForDemoProps {
   title: string;
@@ -23,8 +22,8 @@ const ContactForDemo: React.FC<ContactForDemoProps> = ({
   children,
 }) => {
   const text = `Hi Ahmed, I'm interested in ${title}. I'd like to request a demo or ask about buying an installation.`;
-  const mailto = `mailto:${EMAIL}?subject=${encodeURIComponent(`${title} - demo / installation`)}&body=${encodeURIComponent(text)}`;
-  const whatsapp = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`;
+  const mailto = `mailto:${site.email}?subject=${encodeURIComponent(`${title} - demo / installation`)}&body=${encodeURIComponent(text)}`;
+  const whatsapp = whatsappUrl(text);
 
   return (
     // The menu is portaled, but React events still bubble to the parent card; keep them here.

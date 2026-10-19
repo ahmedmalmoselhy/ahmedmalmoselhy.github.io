@@ -13,7 +13,7 @@ Personal portfolio site for Ahmed AlMoselhy, deployed to GitHub Pages at `ahmedm
 - `npm run build:dev` — build in development mode (keeps `lovable-tagger` component tagging)
 - `npm run preview` — preview the production build
 - `npm run lint` — run ESLint over the repo
-- `npm run deploy` — runs `predeploy` (build) then publishes `dist/` to the `gh-pages` branch via the `gh-pages` package
+- Deploys are automatic: `.github/workflows/deploy.yml` type-checks, builds and publishes to GitHub Pages on every push to `main` (Pages source must be set to "GitHub Actions")
 
 There is no test runner configured. `bun` is also usable (`bun.lock`/`bun.lockb` present) but npm is the primary path.
 
@@ -26,7 +26,9 @@ There is no test runner configured. `bun` is also usable (`bun.lock`/`bun.lockb`
 - To add a "page": extend the `PageSection` union in `App.tsx`, add a `case` in `SinglePageApp.tsx`, and wire a trigger (usually `Navbar`) to call `onSectionChange`.
 - `onSectionChange(section, projectId?)` is threaded as a prop down to any component that needs to navigate (e.g. project cards pass a `projectId` to open `project-detail`).
 
-**Content is data-driven.** Page content lives in typed arrays under `src/data/` (`projects.ts`, `experience.ts`, `education.ts`, `certifications.ts`, `training.ts`), each exporting a TypeScript `interface` plus the data. Editing the portfolio's content means editing these files, not the page components. Project images and logos referenced by these files live in `public/` (e.g. `/projects-images/...`).
+**Content is data-driven and editable at `/admin`.** All content lives in JSON under `src/content/` (`site.json` for name, handle, avatar, CV, contact channels and availability; plus `projects`, `experience`, `education`, `certifications`, `training`, `personal`, `skills`, `home`). The modules in `src/data/*.ts` hold the TypeScript interfaces and re-export the JSON typed, so components import from `@/data/...` as before. Never hardcode contact info in components: use `@/data/site`. Icons in content are stored as names and resolved by `src/lib/icons.ts`.
+
+**Admin dashboard** is Sveltia CMS: `public/admin/index.html` + `public/admin/config.yml`. It commits JSON and uploaded media (to `public/`) straight to `main` through the GitHub API, which triggers the deploy workflow. When you add or rename a content field, update `config.yml` too, or the dashboard won't show it. Locally, open `http://localhost:8080/admin/index.html` (the dev server's SPA fallback swallows `/admin/`) and pick "Work with Local Repository" (Chrome/Edge) to edit files on disk without a token.
 
 **Providers** (in `App.tsx`): `next-themes` `ThemeProvider` (class-based, **defaults to dark**, system theme disabled), `@tanstack/react-query`, Radix `TooltipProvider`, and two toasters (`@/components/ui/toaster` and `sonner`).
 
