@@ -8,7 +8,8 @@
   "media": [
     {
       "type": "image",
-      "src": "/projects-media/brag.jpg"
+      "src": "/projects-media/brag.jpg",
+      "caption": "Promo Splash"
     }
   ],
   "description": "HR and resource management platform: timesheets, PTO, leave and HR requests with a versioned API.",
