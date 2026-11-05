@@ -7,22 +7,24 @@
   "location": "Mansoura, Egypt",
   "roles": [
     {
-      "title": "Full-stack Developer",
+      "title": "Full Stack Engineer",
       "period": "July 2022 - November 2022",
       "responsibilities": [
-        "Optimised front-end and back-end performance of client web applications",
-        "Built Vue.js components for client-facing interfaces",
-        "Introduced tooling that automated parts of the team's development workflow",
-        "Provided post-sales technical support to clients through deployment"
+        "Built and maintained web applications across the front end and back end, using Vue.js and PHP",
+        "Developed features end to end, from API endpoints to user-facing interfaces",
+        "Improved web app performance and responsiveness",
+        "Supported production systems with maintenance and issue resolution"
       ]
     },
     {
-      "title": "Backend Developer",
+      "title": "Back End Developer",
       "period": "October 2021 - June 2022",
       "responsibilities": [
-        "Optimised the back end of Laravel applications",
-        "Integrated the third-party APIs behind the company's mobile apps",
-        "Refactored legacy code to current Laravel standards"
+        "Contributed to multiple web and mobile projects, with a focus on back-end development and stability",
+        "Built and integrated APIs to power mobile applications",
+        "Improved web app performance through optimization work",
+        "Maintained and refactored code, and resolved production issues",
+        "Provided after-sales technical support to clients"
       ]
     }
   ],

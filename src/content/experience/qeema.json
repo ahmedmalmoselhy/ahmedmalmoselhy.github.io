@@ -7,11 +7,21 @@
   "location": "Cairo, Egypt",
   "roles": [
     {
-      "title": "Software Engineer",
-      "period": "December 2022 - Present",
+      "title": "Software Engineer II",
+      "period": "June 2026 - Present",
       "responsibilities": [
-        "Build and maintain Ericsson EOC/ECM solutions for the Jawwy DT project at Jawwy by STC",
-        "Handle L3 support for the production order stack: root-cause analysis and fixes for escalated incidents"
+        "Lead the design and delivery of Creatio BPM/CRM solutions for enterprise clients, from workflow automation and integrations to secure in-house features",
+        "Build the internal tooling and monitoring that raise delivery quality across the team"
+      ]
+    },
+    {
+      "title": "Software Engineer",
+      "period": "December 2022 - June 2026",
+      "responsibilities": [
+        "Contributed to the Jawwy Digital Transformation Project, enhancing the Order Manager module for STC",
+        "Developed and delivered features on Ericsson Order Care to improve operational efficiency",
+        "Provided L3 support after go-live, resolving complex issues and improving system performance",
+        "Worked across cross-functional teams to deliver on time and keep users satisfied"
       ]
     }
   ],
