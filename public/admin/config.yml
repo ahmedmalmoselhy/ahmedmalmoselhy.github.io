@@ -127,8 +127,9 @@ singletons:
           - { name: pace, label: Status dot, widget: select, options: [{ label: Green (active), value: live }, { label: Amber (slow), value: slow }] }
           - { name: meta, label: Meta, widget: string }
       - name: changelog
-        label: Changelog
+        label: Changelog extras
         label_singular: entry
+        hint: "Certificates, role changes and completed projects with a date are added to the changelog automatically. Add only other milestones here."
         widget: list
         collapsed: true
         summary: "{{date}} · {{text}}"

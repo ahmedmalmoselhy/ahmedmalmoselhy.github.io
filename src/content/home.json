@@ -58,33 +58,8 @@
   ],
   "changelog": [
     {
-      "date": "2026-09",
-      "text": "Shipped Kiro Pet Supplies to production",
-      "kind": "ship"
-    },
-    {
-      "date": "2026",
-      "text": "Certified: Creatio Solution Consultant",
-      "kind": "cert"
-    },
-    {
-      "date": "2026",
-      "text": "Certified: Creatio.AI",
-      "kind": "cert"
-    },
-    {
-      "date": "2025",
-      "text": "Certified: Creatio Software Developer, Advanced",
-      "kind": "cert"
-    },
-    {
       "date": "2023",
       "text": "Started on Jawwy DT for Jawwy by STC",
-      "kind": "work"
-    },
-    {
-      "date": "2022-12",
-      "text": "Joined Qeema as a software engineer",
       "kind": "work"
     }
   ],

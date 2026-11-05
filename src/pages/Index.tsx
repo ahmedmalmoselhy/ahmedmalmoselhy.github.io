@@ -317,6 +317,7 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
           <ul>
             {changelog
               .filter((e) => filter === "all" || e.kind === filter)
+              .slice(0, 8)
               .map((e, i) => (
                 <li
                   key={e.text}
