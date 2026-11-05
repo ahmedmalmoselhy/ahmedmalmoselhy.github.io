@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowRight, ArrowUpRight, Building2, Github, Handshake, Mail, Package, User, type LucideIcon } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Github, Mail } from "lucide-react";
 import ContactForDemo from "@/components/ContactForDemo";
 import { cn } from "@/lib/utils";
 import { kindLabels, statusLabels } from "@/data/projects";
@@ -17,35 +17,29 @@ interface ProjectCardProps {
 const linkClass =
   "relative z-10 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-portfolio-slate transition-colors hover:text-portfolio-highlight";
 
-// Fixed colours (not theme tokens): the label always sits on a dark cover image
-const kindStyle: Record<keyof typeof kindLabels, { className: string; Icon: LucideIcon }> = {
-  personal: { className: "bg-slate-100 text-slate-900", Icon: User },
-  client: { className: "bg-orange-600 text-white", Icon: Handshake },
-  service: { className: "bg-teal-600 text-white", Icon: Package },
-  company: { className: "bg-blue-600 text-white", Icon: Building2 },
+/** Category colour (an hsl triplet variable) for the card's top line and category text */
+const kindColor: Record<keyof typeof kindLabels, string> = {
+  personal: "var(--muted-foreground)",
+  client: "var(--c-web)",
+  service: "var(--c-crm)",
+  company: "var(--primary)",
 };
 
-/** Solid label in the top-left corner of a card cover: what kind of project it is. */
-export const KindTag: React.FC<{ kind: keyof typeof kindLabels; text?: string }> = ({ kind, text }) => {
-  const { className, Icon } = kindStyle[kind];
+const kindText: Record<keyof typeof kindLabels, string> = {
+  personal: "Personal project",
+  client: "Client work",
+  service: "Service",
+  company: "Company work",
+};
+
+const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpen, onCompany, style }) => {
+  const kind = project.kind ?? "personal";
   return (
-    <span
-      className={cn(
-        "absolute left-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-semibold shadow-lg ring-1 ring-black/10",
-        className,
-      )}
-    >
-      <Icon size={14} aria-hidden="true" />
-      {text ?? kindLabels[kind]}
-    </span>
-  );
-};
-
-const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpen, onCompany, style }) => (
   <article
-    className="card-dev reveal group h-full cursor-pointer"
+    // Full-width top line in the category colour (card-dev otherwise shows a short stub until hover)
+    className="card-dev reveal group h-full cursor-pointer before:scale-x-100"
     {...tiltHandlers}
-    style={style}
+    style={{ ...style, "--c": kindColor[kind] } as React.CSSProperties}
     onClick={onOpen}
     role="button"
     tabIndex={0}
@@ -58,19 +52,21 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpen, onCompany, s
     aria-label={`View ${project.title} details`}
   >
     <div className="relative aspect-[16/9] overflow-hidden border-b border-border bg-muted">
-      <KindTag
-        kind={project.kind ?? "personal"}
-        text={project.company ? `${kindLabels.company} · ${project.company}` : undefined}
-      />
       <img src={project.image} alt="" loading="lazy" className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]" />
     </div>
 
     <div className="flex flex-grow flex-col p-5">
-      <p className="flex items-center gap-1.5 font-mono text-xs text-primary">
-        <i className={cn("live-dot", project.status !== "in-progress" && "bg-faint after:hidden")} />
-        {statusLabels[project.status].toLowerCase()}
-        {project.date && ` · ${project.date.slice(0, 4)}`}
-      </p>
+      <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
+        <span className="text-[13px] font-semibold text-[hsl(var(--c))]">
+          {kindText[kind]}
+          {project.company && ` · ${project.company}`}
+        </span>
+        <span className="flex items-center gap-1.5 font-mono text-xs text-muted-foreground">
+          <i className={cn("live-dot", project.status !== "in-progress" && "bg-faint after:hidden")} />
+          {statusLabels[project.status].toLowerCase()}
+          {project.date && ` · ${project.date.slice(0, 4)}`}
+        </span>
+      </div>
       <h3 className="mt-1 text-lg font-semibold text-portfolio-white group-hover:text-portfolio-highlight">
         {project.title}
       </h3>
@@ -126,6 +122,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpen, onCompany, s
       </div>
     </div>
   </article>
-);
+  );
+};
 
 export default ProjectCard;
