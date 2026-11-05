@@ -23,4 +23,8 @@ export default defineConfig(({ mode }) => ({
     },
   },
   base: "/",
+  define: {
+    // Changes on every build; appended to files that keep one URL across updates (the CV)
+    __BUILD_ID__: JSON.stringify(Date.now().toString(36)),
+  },
 }));
