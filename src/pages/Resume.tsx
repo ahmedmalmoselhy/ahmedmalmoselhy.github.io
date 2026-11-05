@@ -1,13 +1,15 @@
 import React from "react";
 import Layout from "@/components/Layout";
 import PageHeader, { SectionHeading } from "@/components/PageHeader";
-import { Download } from "lucide-react";
-import { experiences, careerStartYear } from "@/data/experience";
+import { ArrowRight, Download } from "lucide-react";
+import { experiences, careerStartYear, companySlug } from "@/data/experience";
+import { Bullets, Period } from "@/components/CompanyProject";
+import type { Navigate } from "@/App";
 import { certifications } from "@/data/certifications";
 import { education } from "@/data/education";
 import { training } from "@/data/training";
 import { skillsOverview, languages, personalDetails, interests } from "@/data/personal";
-import { calculateDuration, isPromotedRole } from "@/lib/date-utils";
+import { isPromotedRole } from "@/lib/date-utils";
 import { cn } from "@/lib/utils";
 import { site, githubUrl, linkedinUrl } from "@/data/site";
 import CertificateDialog from "@/components/CertificateDialog";
@@ -28,26 +30,6 @@ const contacts = [
 
 const certificationsByEmployer = (company: string) =>
   certifications.filter((cert) => cert.employer === company);
-
-/** "Period · duration" in small slate text */
-const Period: React.FC<{ period: string }> = ({ period }) => {
-  const duration = calculateDuration(period);
-  return (
-    <span className="font-mono text-xs text-faint">
-      {period}
-      {duration && ` · ${duration}`}
-    </span>
-  );
-};
-
-/** Plain bullet list: slate text, small square markers */
-const Bullets: React.FC<{ items: string[]; marker?: string }> = ({ items, marker = "marker:text-primary/60" }) => (
-  <ul className={cn("mt-3 list-[square] space-y-1.5 pl-5 leading-relaxed text-portfolio-lightSlate", marker)}>
-    {items.map((item) => (
-      <li key={item}>{item}</li>
-    ))}
-  </ul>
-);
 
 /** Small mono tag on the right of a row, coloured by kind */
 const Tag: React.FC<{ kind: "cert" | "edu" | "training" }> = ({ kind }) => (
@@ -73,7 +55,7 @@ const SideBlock: React.FC<{ title: string; children: React.ReactNode }> = ({ tit
   </section>
 );
 
-const Resume = () => {
+const Resume: React.FC<{ onSectionChange?: Navigate }> = ({ onSectionChange }) => {
   return (
     <Layout className="pt-0 md:pt-16">
       <PageHeader
@@ -114,13 +96,17 @@ const Resume = () => {
                       {exp.logo && (
                         <img src={exp.logo} alt="" className="h-8 w-8 rounded-sm border border-border bg-white object-contain p-0.5" />
                       )}
-                      {exp.link ? (
-                        <a href={exp.link} target="_blank" rel="noopener noreferrer" className="hover:text-portfolio-highlight">
-                          {exp.company}
-                        </a>
-                      ) : (
-                        exp.company
-                      )}
+                      <button
+                        onClick={() => onSectionChange?.("company", companySlug(exp.company))}
+                        className="group inline-flex items-center gap-2 text-left hover:text-portfolio-highlight"
+                      >
+                        {exp.company}
+                        <ArrowRight
+                          size={17}
+                          aria-hidden="true"
+                          className="text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-portfolio-highlight"
+                        />
+                      </button>
                     </h3>
 
                     {/* Roles: stacked for promotions, side by side for parallel roles */}
@@ -143,38 +129,6 @@ const Resume = () => {
                         </div>
                       );
                     })}
-
-                    {exp.projects && (
-                      <div className="mt-7">
-                        <h4 className="text-sm font-semibold text-portfolio-slate">Client projects</h4>
-                        {exp.projects.map((project) => (
-                          <div
-                            key={project.name}
-                            className="mt-3 rounded-r-md border-l-2 border-primary/40 py-1 pl-4 transition-colors hover:border-primary hover:bg-card"
-                          >
-                            <p className="flex flex-wrap items-baseline gap-x-2">
-                              <span className="font-semibold">{project.name}</span>
-                              <span className="text-portfolio-slate">{project.client ? `for ${project.client}` : "internal"}</span>
-                              <span className="flex items-center gap-1.5 font-mono text-xs text-portfolio-slate">
-                                <i
-                                  className={cn(
-                                    "live-dot",
-                                    project.status !== "Ongoing" && "bg-faint after:hidden",
-                                    project.status === "On hold" && "bg-warn",
-                                  )}
-                                />
-                                {project.status.toLowerCase()}
-                              </span>
-                            </p>
-                            {project.role && <p className="text-sm text-portfolio-slate">{project.role}</p>}
-                            <Bullets items={project.highlights} />
-                            {project.technologies && (
-                              <p className="mt-2 font-mono text-xs text-muted-foreground">{project.technologies.join(" · ")}</p>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    )}
 
                     {exp.achievements && (
                       <div className="mt-7">

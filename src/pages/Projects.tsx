@@ -36,7 +36,7 @@ const Projects: React.FC<ProjectsProps> = ({ onSectionChange }) => {
       <PageHeader
         eyebrow="Projects"
         title="Things I've built"
-        description="Side projects, packages and products I can show publicly. Client work lives on the resume."
+        description="Side projects, packages and products I can show publicly. Client work lives on each company's page, linked from the resume."
         stats={stats}
       />
 

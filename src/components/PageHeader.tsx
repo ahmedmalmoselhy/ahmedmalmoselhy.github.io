@@ -25,13 +25,15 @@ interface PageHeaderProps {
   eyebrow: string;
   title: string;
   description?: string;
+  /** Small line of facts under the title (e.g. period · location) */
+  meta?: React.ReactNode;
   /** Buttons shown on the right (desktop) / below (mobile); use .btn-band / .btn-band-outline */
   actions?: React.ReactNode;
   stats?: BandStat[];
 }
 
 /** Page opener: "// label", large title, optional facts row, on a dot grid that follows the cursor. */
-const PageHeader: React.FC<PageHeaderProps> = ({ eyebrow, title, description, actions, stats }) => (
+const PageHeader: React.FC<PageHeaderProps> = ({ eyebrow, title, description, meta, actions, stats }) => (
   <section className="dot-stage border-b border-border" onPointerMove={trackPointer}>
     <div className="container relative z-10 mx-auto px-4 pb-6 pt-[calc(6rem+env(safe-area-inset-top))] md:pt-16">
       <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
@@ -40,6 +42,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ eyebrow, title, description, ac
           <h1 className="mt-3 text-[clamp(2.25rem,5vw,3.75rem)] font-semibold leading-[1.05] tracking-[-0.025em]">
             {title}
           </h1>
+          {meta && <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[13px] text-muted-foreground">{meta}</div>}
           {description && (
             <p className="mt-5 max-w-2xl text-lg leading-relaxed text-portfolio-slate">{description}</p>
           )}

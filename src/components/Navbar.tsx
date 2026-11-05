@@ -44,7 +44,8 @@ const Navbar: React.FC<NavbarProps> = ({ activeSection, onSectionChange }) => {
   // A project page lives under "Projects" in the nav
   const isActive = (section: PageSection) =>
     activeSection === section ||
-    (section === "projects" && activeSection === "project-detail");
+    (section === "projects" && activeSection === "project-detail") ||
+    (section === "resume" && activeSection === "company");
   const [paletteOpen, setPaletteOpen] = useState(false);
 
   return (

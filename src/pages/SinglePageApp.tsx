@@ -5,12 +5,13 @@ import Skills from './Skills';
 import Projects from './Projects';
 import Contact from './Contact';
 import ProjectDetail from './ProjectDetail';
+import Company from './Company';
 import ErrorBoundary from '@/components/ErrorBoundary';
-import { PageSection, AppState } from '@/App';
+import { Navigate, AppState } from '@/App';
 
 interface SinglePageAppProps {
   appState: AppState;
-  onSectionChange: (section: PageSection, projectId?: number) => void;
+  onSectionChange: Navigate;
 }
 
 const SinglePageApp: React.FC<SinglePageAppProps> = ({ appState, onSectionChange }) => {
@@ -19,7 +20,7 @@ const SinglePageApp: React.FC<SinglePageAppProps> = ({ appState, onSectionChange
       case 'home':
         return <Index onSectionChange={onSectionChange} />;
       case 'resume':
-        return <Resume />;
+        return <Resume onSectionChange={onSectionChange} />;
       case 'skills':
         return <Skills />;
       case 'projects':
@@ -33,13 +34,15 @@ const SinglePageApp: React.FC<SinglePageAppProps> = ({ appState, onSectionChange
             onBack={() => onSectionChange('projects')}
           />
         );
+      case 'company':
+        return <Company slug={appState.company ?? ''} onSectionChange={onSectionChange} />;
       default:
         return <Index onSectionChange={onSectionChange} />;
     }
   };
 
   return (
-    <div key={`${appState.section}-${appState.projectId || ''}`} className="page-enter">
+    <div key={`${appState.section}-${appState.projectId || appState.company || ''}`} className="page-enter">
       <ErrorBoundary>{renderContent()}</ErrorBoundary>
     </div>
   );

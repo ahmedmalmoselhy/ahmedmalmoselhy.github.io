@@ -332,6 +332,7 @@ collections:
       - { name: workType, label: Work type, widget: string, hint: "e.g. Full-time Hybrid" }
       - { name: location, label: Location, widget: string }
       - { name: link, label: Website, widget: string, required: false }
+      - { name: overview, label: Overview, widget: text, required: false, hint: "Intro paragraph at the top of this company's page" }
       - name: roles
         label: Roles
         label_singular: role
@@ -341,6 +342,7 @@ collections:
         fields:
           - { name: title, label: Title, widget: string }
           - { name: period, label: Period, widget: string }
+          - { name: details, label: Details, widget: text, required: false, hint: "Longer write-up shown on the company page; the resume shows only the bullets" }
           - name: responsibilities
             label: Responsibilities
             widget: list
@@ -350,12 +352,14 @@ collections:
         label_singular: project
         widget: list
         required: false
+        hint: "Adding at least one project shows a link to this company's page on the resume"
         collapsed: true
         summary: "{{name}} · {{status}}"
         fields:
           - { name: name, label: Name, widget: string }
           - { name: status, label: Status, widget: select, options: [Ongoing, Completed, On hold] }
-          - { name: client, label: Client, widget: string, required: false }
+          - { name: summary, label: Summary, widget: string, required: false, hint: "Short intro paragraph above the highlights on the company page" }
+          - { name: client, label: Client, widget: string, required: false, hint: "Leave empty for internal projects; filled = listed under Customer projects" }
           - *logo
           - { name: role, label: Role, widget: string, required: false }
           - { name: period, label: Period, widget: string, required: false }

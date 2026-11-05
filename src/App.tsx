@@ -10,25 +10,34 @@ import { useAppUpdates } from "./hooks/use-app-updates";
 
 const queryClient = new QueryClient();
 
-export type PageSection = 'home' | 'resume' | 'skills' | 'projects' | 'contact' | 'project-detail';
+export type PageSection = 'home' | 'resume' | 'skills' | 'projects' | 'contact' | 'project-detail' | 'company';
+
+/** Navigate to a section; `id` is a project id (number) or a company slug (string). */
+export type Navigate = (section: PageSection, id?: number | string) => void;
 
 export interface AppState {
   section: PageSection;
   projectId?: number;
+  /** Company slug for the 'company' section */
+  company?: string;
 }
 
-// The current page lives in the URL hash (#/resume, #/projects/5) so a reload,
+// The current page lives in the URL hash (#/resume, #/projects/5, #/experience/qeema) so a reload,
 // a shared link, or the installed app's refresh reopens the same page.
 const HASH_SECTIONS: PageSection[] = ['resume', 'skills', 'projects', 'contact'];
 
 const stateFromHash = (hash: string): AppState => {
-  const [, section, id] = hash.match(/^#\/([a-z-]+)(?:\/(\d+))?$/) ?? [];
-  if (section === 'projects' && id) return { section: 'project-detail', projectId: Number(id) };
+  const [, section, id] = hash.match(/^#\/([a-z-]+)(?:\/([\w-]+))?$/) ?? [];
+  if (section === 'projects' && /^\d+$/.test(id ?? '')) return { section: 'project-detail', projectId: Number(id) };
+  if (section === 'experience' && id) return { section: 'company', company: id };
   return HASH_SECTIONS.includes(section as PageSection) ? { section: section as PageSection } : { section: 'home' };
 };
 
-const hashFromState = ({ section, projectId }: AppState) =>
-  section === 'home' ? '' : section === 'project-detail' ? `#/projects/${projectId}` : `#/${section}`;
+const hashFromState = ({ section, projectId, company }: AppState) =>
+  section === 'home' ? ''
+  : section === 'project-detail' ? `#/projects/${projectId}`
+  : section === 'company' ? `#/experience/${company}`
+  : `#/${section}`;
 
 const App = () => {
   const [appState, setAppState] = useState<AppState>(() => stateFromHash(window.location.hash));
@@ -48,8 +57,11 @@ const App = () => {
     };
   }, []);
 
-  const handleSectionChange = (section: PageSection, projectId?: number) => {
-    const next = { section, projectId };
+  const handleSectionChange: Navigate = (section, id) => {
+    const next: AppState =
+      section === 'company'
+        ? { section, company: String(id) }
+        : { section, projectId: typeof id === 'number' ? id : undefined };
     const hash = hashFromState(next);
     if (hash !== window.location.hash) {
       window.history.pushState(null, '', hash || window.location.pathname);
