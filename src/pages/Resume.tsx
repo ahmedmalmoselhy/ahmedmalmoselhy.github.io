@@ -188,7 +188,7 @@ const Resume: React.FC<{ onSectionChange?: Navigate }> = ({ onSectionChange }) =
           {/* Certifications */}
           <section>
             <SectionHeading title="Certifications" />
-            <CertificateGallery certs={certifications} showEmployer />
+            <CertificateGallery certs={certifications} showEmployer columns={2} />
           </section>
 
           {/* Training */}

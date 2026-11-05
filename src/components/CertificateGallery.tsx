@@ -1,10 +1,15 @@
 import React from "react";
 import { Award } from "lucide-react";
 import type { CertificationItem } from "@/data/certifications";
+import { cn } from "@/lib/utils";
 
 /** Certificates as image tiles; clicking a tile opens the full certificate in a new tab. */
-const CertificateGallery: React.FC<{ certs: CertificationItem[]; showEmployer?: boolean }> = ({ certs, showEmployer }) => (
-  <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+const CertificateGallery: React.FC<{ certs: CertificationItem[]; showEmployer?: boolean; columns?: 2 | 3 }> = ({
+  certs,
+  showEmployer,
+  columns = 3,
+}) => (
+  <div className={cn("grid gap-6 sm:grid-cols-2", columns === 3 && "xl:grid-cols-3")}>
     {certs.map((cert) => (
       <figure key={cert.id} className="overflow-hidden rounded-lg border border-border bg-card">
         {cert.image ? (
