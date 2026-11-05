@@ -6,11 +6,8 @@
   "homepage": "https://ahmedmalmoselhy.github.io",
   "scripts": {
     "covers": "node scripts/generate-covers.mjs",
-    "predev": "npm run covers",
     "dev": "vite",
-    "prebuild": "npm run covers",
     "build": "vite build",
-    "prebuild:dev": "npm run covers",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview"

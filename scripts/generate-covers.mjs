@@ -1,5 +1,7 @@
 // Builds a cover image for every project that has no "Cover image" set in /admin.
-// Runs before `npm run dev` and `npm run build` (so also on every deploy).
+// Vite runs it (see vite.config.ts) when the dev server starts, whenever a content file
+// changes while it runs (e.g. after a git pull), and on every build/deploy.
+// `npm run covers` runs it by hand.
 // Output: public/projects-images/auto/<project id>.svg (git-ignored, regenerated each build).
 //
 // What goes on a cover:
@@ -17,10 +19,18 @@ const root = fileURLToPath(new URL("..", import.meta.url));
 const contentDir = (name) => join(root, "src", "content", name);
 const outDir = join(root, "public", "projects-images", "auto");
 
+/** Every JSON file in a folder; a file that can't be parsed (e.g. half-written mid git pull) is skipped. */
 const readJsonDir = (dir) =>
   readdirSync(dir)
     .filter((f) => f.endsWith(".json"))
-    .map((f) => JSON.parse(readFileSync(join(dir, f), "utf8")));
+    .flatMap((f) => {
+      try {
+        return [JSON.parse(readFileSync(join(dir, f), "utf8"))];
+      } catch {
+        console.warn(`  covers: skipped ${f} (not valid JSON yet)`);
+        return [];
+      }
+    });
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
@@ -135,15 +145,20 @@ ${parts.join("\n")}
 `;
 }
 
-const projects = readJsonDir(contentDir("projects"));
-const companies = new Map(readJsonDir(contentDir("experience")).map((e) => [e.company, e]));
+export function generateCovers() {
+  const projects = readJsonDir(contentDir("projects"));
+  const companies = new Map(readJsonDir(contentDir("experience")).map((e) => [e.company, e]));
 
-rmSync(outDir, { recursive: true, force: true });
-mkdirSync(outDir, { recursive: true });
-let count = 0;
-for (const project of projects) {
-  if (project.image) continue; // a cover uploaded in /admin wins
-  writeFileSync(join(outDir, `${project.id}.svg`), cover(project, companies));
-  count++;
+  rmSync(outDir, { recursive: true, force: true });
+  mkdirSync(outDir, { recursive: true });
+  let count = 0;
+  for (const project of projects) {
+    if (project.image) continue; // a cover uploaded in /admin wins
+    writeFileSync(join(outDir, `${project.id}.svg`), cover(project, companies));
+    count++;
+  }
+  console.log(`covers: generated ${count} project cover(s) in public/projects-images/auto`);
 }
-console.log(`covers: generated ${count} project cover(s) in public/projects-images/auto`);
+
+// Run directly: node scripts/generate-covers.mjs
+if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) generateCovers();
