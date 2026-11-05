@@ -398,7 +398,7 @@ collections:
     fields:
       - { name: name, label: Name, widget: string }
       - { name: issuer, label: Issuer, widget: string }
-      - { name: year, label: Year, widget: string }
+      - { name: year, label: Date, widget: string, hint: "Month and year from the certificate, e.g. Oct 2026" }
       - name: image
         label: Certificate image
         widget: image
