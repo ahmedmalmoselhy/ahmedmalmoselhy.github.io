@@ -13,6 +13,7 @@ Personal portfolio site for Ahmed AlMoselhy, deployed to GitHub Pages at `ahmedm
 - `npm run build:dev` — build in development mode (keeps `lovable-tagger` component tagging)
 - `npm run preview` — preview the production build
 - `npm run lint` — run ESLint over the repo
+- `npm run covers` — generate project covers (`scripts/generate-covers.mjs`) for every project without an uploaded cover image, into git-ignored `public/projects-images/auto/<id>.svg`. Runs automatically before `dev` and `build`, so covers for projects added in `/admin` appear on the next deploy. Company/client logos and Creatio/Ericsson marks are picked from the project's `company`, `client` + `logo`, and `technologies` fields
 - Deploys are automatic: `.github/workflows/deploy.yml` type-checks, builds and publishes to GitHub Pages on every push to `main` (Pages source must be set to "GitHub Actions")
 
 There is no test runner configured. `bun` is also usable (`bun.lock`/`bun.lockb` present) but npm is the primary path.
