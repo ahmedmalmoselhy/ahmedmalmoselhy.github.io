@@ -1,21 +1,47 @@
 import React from "react";
-import { ArrowUpRight, Github, Mail } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Building2, Github, Handshake, Mail, Package, User, type LucideIcon } from "lucide-react";
 import ContactForDemo from "@/components/ContactForDemo";
 import { cn } from "@/lib/utils";
-import { statusLabels } from "@/data/projects";
+import { kindLabels, statusLabels } from "@/data/projects";
 import { tiltHandlers } from "@/lib/pointer";
 import type { Project } from "@/data/projects";
 
 interface ProjectCardProps {
   project: Project;
   onOpen: () => void;
+  /** For company projects: opens the company's page */
+  onCompany?: () => void;
   style?: React.CSSProperties;
 }
 
 const linkClass =
   "relative z-10 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-portfolio-slate transition-colors hover:text-portfolio-highlight";
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpen, style }) => (
+// Fixed colours (not theme tokens): the label always sits on a dark cover image
+const kindStyle: Record<keyof typeof kindLabels, { className: string; Icon: LucideIcon }> = {
+  personal: { className: "bg-slate-100 text-slate-900", Icon: User },
+  client: { className: "bg-orange-600 text-white", Icon: Handshake },
+  service: { className: "bg-teal-600 text-white", Icon: Package },
+  company: { className: "bg-blue-600 text-white", Icon: Building2 },
+};
+
+/** Solid label in the top-left corner of a card cover: what kind of project it is. */
+export const KindTag: React.FC<{ kind: keyof typeof kindLabels; text?: string }> = ({ kind, text }) => {
+  const { className, Icon } = kindStyle[kind];
+  return (
+    <span
+      className={cn(
+        "absolute left-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-semibold shadow-lg ring-1 ring-black/10",
+        className,
+      )}
+    >
+      <Icon size={14} aria-hidden="true" />
+      {text ?? kindLabels[kind]}
+    </span>
+  );
+};
+
+const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpen, onCompany, style }) => (
   <article
     className="card-dev reveal group h-full cursor-pointer"
     {...tiltHandlers}
@@ -31,7 +57,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpen, style }) => 
     }}
     aria-label={`View ${project.title} details`}
   >
-    <div className="aspect-[16/9] overflow-hidden border-b border-border bg-muted">
+    <div className="relative aspect-[16/9] overflow-hidden border-b border-border bg-muted">
+      <KindTag
+        kind={project.kind ?? "personal"}
+        text={project.company ? `${kindLabels.company} · ${project.company}` : undefined}
+      />
       <img src={project.image} alt="" loading="lazy" className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]" />
     </div>
 
@@ -48,7 +78,19 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onOpen, style }) => 
       <p className="mb-3 mt-4 font-mono text-xs text-muted-foreground">{project.technologies.slice(0, 5).join(" · ")}</p>
 
       <div className="flex items-center gap-4 border-t border-border pt-2">
-        {project.monetized ? (
+        {project.company ? (
+          <button
+            type="button"
+            className={linkClass}
+            onClick={(e) => {
+              e.stopPropagation();
+              onCompany?.();
+            }}
+          >
+            {project.company} page
+            <ArrowRight size={16} aria-hidden="true" />
+          </button>
+        ) : project.monetized ? (
           <ContactForDemo title={project.title} className={linkClass}>
             <Mail size={16} aria-hidden="true" />
             Request a demo

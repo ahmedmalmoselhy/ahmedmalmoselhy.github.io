@@ -1,0 +1,27 @@
+{
+  "id": 11,
+  "kind": "company",
+  "company": "Qeema",
+  "title": "Contract Lifecycle Management (CLM)",
+  "description": "A Creatio solution for the MSA, SOW and change-order lifecycle.",
+  "extendedDescription": "A Creatio solution for the MSA, SOW and change-order lifecycle.",
+  "role": "Creatio Developer",
+  "highlights": [
+    "Built staged approvals for contracts and change orders",
+    "Locked signed contracts against further edits",
+    "Handled contract renewals",
+    "Automated billing plans from approved contracts, linked to cases and orders"
+  ],
+  "technologies": [
+    "Creatio",
+    "MSSQL",
+    "PostgreSQL",
+    "REST APIs (OData)"
+  ],
+  "coverIcon": "contract",
+  "coverSubtitle": "MSA, SOW and change-order lifecycle in Creatio",
+  "liveUrl": "",
+  "demo": false,
+  "status": "in-progress",
+  "order": 11
+}

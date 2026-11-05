@@ -2,6 +2,7 @@
   "order": 8,
   "title": "Varden",
   "id": 8,
+  "kind": "service",
   "status": "in-progress",
   "date": "2026-09-21",
   "image": "/projects-images/varden.svg",

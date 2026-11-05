@@ -1,0 +1,25 @@
+{
+  "id": 13,
+  "kind": "company",
+  "company": "Qeema",
+  "title": "Workload Management",
+  "description": "Designed and developed a workload management solution in Creatio CRM.",
+  "extendedDescription": "Designed and developed a workload management solution in Creatio CRM.",
+  "role": "Solution Designer & Developer",
+  "highlights": [
+    "Designed the solution and built it in Studio Creatio",
+    "Implemented the custom logic in C# and JavaScript"
+  ],
+  "technologies": [
+    "Creatio",
+    "C#",
+    "JavaScript",
+    "MSSQL"
+  ],
+  "coverIcon": "workload",
+  "coverSubtitle": "Team capacity and assignments in Creatio",
+  "liveUrl": "",
+  "demo": false,
+  "status": "completed",
+  "order": 13
+}

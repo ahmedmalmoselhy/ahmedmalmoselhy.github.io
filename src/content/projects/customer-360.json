@@ -1,0 +1,27 @@
+{
+  "id": 12,
+  "kind": "company",
+  "company": "Qeema",
+  "title": "Customer 360 Unified View",
+  "description": "Led a Creatio CRM implementation (the Creatio Brown Belt project) that replaced legacy systems and workflows and brought every channel's customer interactions into one view.",
+  "extendedDescription": "Led a Creatio CRM implementation (the Creatio Brown Belt project) that replaced legacy systems and workflows and brought every channel's customer interactions into one view.",
+  "role": "Project Lead, Solution Designer & Developer",
+  "highlights": [
+    "Gathered requirements with stakeholders and turned them into the technical specification",
+    "Led the development team from planning and design through deployment, integrating existing systems and data sources",
+    "Configured the Marketing, Sales and Service modules in Studio Creatio",
+    "Added analytics and reporting for sales and customer-engagement decisions"
+  ],
+  "technologies": [
+    "Creatio",
+    "C#",
+    "JavaScript",
+    "MSSQL"
+  ],
+  "coverIcon": "people",
+  "coverSubtitle": "Every channel's customer interactions in one view",
+  "liveUrl": "",
+  "demo": false,
+  "status": "completed",
+  "order": 12
+}

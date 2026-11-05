@@ -1,0 +1,27 @@
+{
+  "id": 14,
+  "kind": "company",
+  "company": "Qeema",
+  "title": "Delta Pharma",
+  "description": "Designed and implemented a Creatio CRM solution to streamline the company's business workflows.",
+  "extendedDescription": "Designed and implemented a Creatio CRM solution to streamline the company's business workflows.",
+  "role": "Solution Designer & Developer",
+  "highlights": [
+    "Designed and built a Creatio CRM tailored to a pharmaceutical business",
+    "Configured the Marketing, Sales and Service modules in Studio Creatio",
+    "Designed and automated its business processes and workflows",
+    "Integrated third-party systems and APIs with the CRM"
+  ],
+  "technologies": [
+    "Creatio",
+    "C#",
+    "JavaScript",
+    "MSSQL"
+  ],
+  "coverIcon": "capsule",
+  "coverSubtitle": "Creatio CRM for a pharmaceutical business",
+  "liveUrl": "",
+  "demo": false,
+  "status": "completed",
+  "order": 14
+}

@@ -1,5 +1,5 @@
 import React from "react";
-import type { CompanyProject } from "@/data/experience";
+import { statusLabels, type Project } from "@/data/projects";
 import { calculateDuration } from "@/lib/date-utils";
 import { cn } from "@/lib/utils";
 
@@ -24,32 +24,39 @@ export const Bullets: React.FC<{ items: string[]; marker?: string }> = ({ items,
 );
 
 /** Green pulsing dot for ongoing work, grey for completed, amber for on hold */
-export const StatusDot: React.FC<{ status: CompanyProject["status"] }> = ({ status }) => (
+export const StatusDot: React.FC<{ status: Project["status"] }> = ({ status }) => (
   <span className="flex items-center gap-1.5 font-mono text-xs text-portfolio-slate">
-    <i className={cn("live-dot", status !== "Ongoing" && "bg-faint after:hidden", status === "On hold" && "bg-warn")} />
-    {status.toLowerCase()}
+    <i className={cn("live-dot", status !== "in-progress" && "bg-faint after:hidden", status === "on-hold" && "bg-warn")} />
+    {statusLabels[status].toLowerCase()}
   </span>
 );
 
 /** A company project as a split panel: identity on the left, the work on the right. */
-export const CompanyProjectCard: React.FC<{ project: CompanyProject }> = ({ project }) => {
+export const CompanyProjectCard: React.FC<{ project: Project; onOpen: () => void }> = ({ project, onOpen }) => {
   const meta = [project.period, project.workType, project.location].filter(Boolean);
-  const initials = project.name
-    .split(/\s+/)
+  const initials = project.title
+    .split(/[\s-]+/)
+    .filter((w) => /^[A-Z0-9]/.test(w))
     .slice(0, 2)
     .map((w) => w[0])
     .join("");
   return (
     <article className="grid overflow-hidden rounded-lg border border-border bg-card transition-colors hover:border-primary/50 md:grid-cols-[17rem_1fr]">
       <div className="flex flex-col gap-3 border-b border-border bg-muted/50 p-6 md:border-b-0 md:border-r">
-        {project.logo ? (
+        {project.image ? (
+          <img src={project.image} alt="" loading="lazy" className="aspect-[16/9] w-full rounded-md border border-border object-cover" />
+        ) : project.logo ? (
           <img src={project.logo} alt="" className="h-14 w-14 rounded-md border border-border bg-white object-contain p-1" />
         ) : (
           <span className="flex h-14 w-14 items-center justify-center rounded-md border border-border bg-muted font-mono text-base font-semibold text-primary">
             {initials}
           </span>
         )}
-        <h3 className="text-xl font-semibold leading-tight">{project.name}</h3>
+        <h3 className="text-xl font-semibold leading-tight">
+          <button onClick={onOpen} className="text-left hover:text-portfolio-highlight">
+            {project.title}
+          </button>
+        </h3>
         <p className="text-sm text-portfolio-slate">{project.client ? `for ${project.client}` : "Internal project"}</p>
         <StatusDot status={project.status} />
         {(project.role || meta.length > 0) && (
@@ -60,9 +67,9 @@ export const CompanyProjectCard: React.FC<{ project: CompanyProject }> = ({ proj
         )}
       </div>
       <div className="p-6">
-        {project.summary && <p className="mb-4 leading-relaxed text-portfolio-lightSlate">{project.summary}</p>}
+        <p className="mb-4 leading-relaxed text-portfolio-lightSlate">{project.description}</p>
         <ul className="list-[square] space-y-1.5 pl-5 text-sm leading-relaxed text-portfolio-lightSlate marker:text-primary/60">
-          {project.highlights.map((item) => (
+          {(project.highlights ?? []).map((item) => (
             <li key={item}>{item}</li>
           ))}
         </ul>

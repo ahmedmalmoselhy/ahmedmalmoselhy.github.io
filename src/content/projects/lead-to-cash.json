@@ -1,0 +1,29 @@
+{
+  "id": 10,
+  "kind": "company",
+  "company": "Qeema",
+  "title": "Lead-to-Cash",
+  "description": "A Creatio solution covering the end-to-end journey from lead to invoice.",
+  "extendedDescription": "A Creatio solution covering the end-to-end journey from lead to invoice.",
+  "role": "Senior Creatio Developer",
+  "highlights": [
+    "Built the lead-to-invoice flow across products, contracts, projects and billing",
+    "Worked across the Sales, Product Catalogue, Contracts, Projects, and Billing & Invoicing modules",
+    "Connected the solution to other systems through REST APIs (OData)",
+    "Managed packages and deployments with the clio CLI"
+  ],
+  "technologies": [
+    "Creatio",
+    "C#",
+    "MSSQL",
+    "PostgreSQL",
+    "REST APIs (OData)",
+    "clio"
+  ],
+  "coverIcon": "funnel",
+  "coverSubtitle": "From lead to invoice in Creatio",
+  "liveUrl": "",
+  "demo": false,
+  "status": "in-progress",
+  "order": 10
+}

@@ -1,9 +1,11 @@
 import React from "react";
-import { ArrowLeft, Award, ExternalLink, Trophy } from "lucide-react";
+import { ArrowLeft, ExternalLink, Trophy } from "lucide-react";
 import Layout from "@/components/Layout";
 import PageHeader, { SectionHeading } from "@/components/PageHeader";
 import { Bullets, CompanyProjectCard, Period } from "@/components/CompanyProject";
 import { findCompany } from "@/data/experience";
+import { projectsAt } from "@/data/projects";
+import CertificateGallery from "@/components/CertificateGallery";
 import { certifications } from "@/data/certifications";
 import { calculateDuration } from "@/lib/date-utils";
 import type { Navigate } from "@/App";
@@ -35,7 +37,7 @@ const Company: React.FC<CompanyProps> = ({ slug, onSectionChange }) => {
   }
 
   const roles = company.roles.flat();
-  const projects = company.projects ?? [];
+  const projects = projectsAt(company.company);
   const earned = certifications.filter((cert) => cert.employer === company.company);
 
   return (
@@ -125,7 +127,11 @@ const Company: React.FC<CompanyProps> = ({ slug, onSectionChange }) => {
                 <SectionHeading title={title} />
                 <div className="space-y-6">
                   {items.map((project) => (
-                    <CompanyProjectCard key={project.name} project={project} />
+                    <CompanyProjectCard
+                      key={project.id}
+                      project={project}
+                      onOpen={() => onSectionChange("project-detail", project.id)}
+                    />
                   ))}
                 </div>
               </section>
@@ -135,32 +141,7 @@ const Company: React.FC<CompanyProps> = ({ slug, onSectionChange }) => {
         {earned.length > 0 && (
           <section>
             <SectionHeading title="Certifications" />
-            <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-              {earned.map((cert) => (
-                <figure key={cert.id} className="overflow-hidden rounded-lg border border-border bg-card">
-                  {cert.image ? (
-                    <a href={cert.image} target="_blank" rel="noopener noreferrer" aria-label={`Open ${cert.name} certificate`}>
-                      <img
-                        src={cert.image}
-                        alt={`${cert.name} certificate`}
-                        loading="lazy"
-                        className="aspect-[4/3] w-full bg-white object-contain p-2 transition-transform hover:scale-[1.02]"
-                      />
-                    </a>
-                  ) : (
-                    <div className="flex aspect-[4/3] items-center justify-center bg-muted/40 text-muted-foreground">
-                      <Award size={40} aria-hidden="true" />
-                    </div>
-                  )}
-                  <figcaption className="border-t border-border px-5 py-4">
-                    <p className="font-semibold">{cert.name}</p>
-                    <p className="font-mono text-xs text-muted-foreground">
-                      {cert.issuer} · {cert.year}
-                    </p>
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
+            <CertificateGallery certs={earned} />
           </section>
         )}
 

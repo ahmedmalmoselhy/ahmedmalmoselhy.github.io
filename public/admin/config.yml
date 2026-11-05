@@ -252,9 +252,21 @@ collections:
       - { label: In progress, field: status, pattern: in-progress }
       - { label: Completed, field: status, pattern: completed }
       - { label: Commercial, field: monetized, pattern: true }
+      - { label: Company work, field: kind, pattern: company }
     fields:
       - { name: title, label: Title, widget: string }
       - { name: id, label: Project number, widget: number, value_type: int, hint: "Used in the page link (#/projects/7). Must be unique: use the highest existing number + 1." }
+      - name: kind
+        label: Type
+        widget: select
+        default: personal
+        required: false
+        hint: "Shown as a label on the Projects page. For Company, also fill in the company fields at the bottom."
+        options:
+          - { label: Personal, value: personal }
+          - { label: Client work, value: client }
+          - { label: Service, value: service }
+          - { label: Company, value: company }
       - name: status
         label: Status
         widget: select
@@ -270,8 +282,28 @@ collections:
       - name: image
         label: Cover image
         widget: image
+        required: false
         media_folder: /public/projects-images
         public_folder: /projects-images
+        hint: "Leave empty to get a generated cover: icon, title, company and client logos, and Creatio / Ericsson marks from the technologies list."
+      - name: coverIcon
+        label: Cover icon
+        widget: select
+        required: false
+        hint: "Icon on the generated cover. Empty picks one from the project type."
+        options:
+          - { label: Code, value: code }
+          - { label: Dashboard, value: dashboard }
+          - { label: Pipeline / order flow, value: pipeline }
+          - { label: Funnel to revenue, value: funnel }
+          - { label: Contract, value: contract }
+          - { label: People / customers, value: people }
+          - { label: Workload bars, value: workload }
+          - { label: Capsule / health, value: capsule }
+          - { label: Box / product, value: box }
+          - { label: Handshake / client, value: handshake }
+          - { label: Building / company, value: building }
+      - { name: coverSubtitle, label: Cover subtitle, widget: string, required: false, hint: "Line under the title on the generated cover. Empty uses 'for <client>' or 'at <company>'." }
       - name: media
         label: Gallery
         label_singular: media item
@@ -312,6 +344,32 @@ collections:
       - { name: liveUrl, label: Live URL, widget: string, required: false }
       - { name: demo, label: Demo available, widget: boolean, default: true }
       - { name: monetized, label: Commercial product, widget: boolean, required: false, hint: "Shows a 'request a demo' button instead of source links" }
+      - name: company
+        label: Company
+        widget: relation
+        collection: experience
+        value_field: company
+        search_fields: [company]
+        required: false
+        hint: "For company projects: the employer. The project then also shows on that company's page."
+      - { name: client, label: Client, widget: string, required: false, hint: "The customer, for company or client work. Leave empty for internal projects." }
+      - name: logo
+        label: Client logo
+        widget: image
+        required: false
+        media_folder: /public/logos
+        public_folder: /logos
+        hint: "Shown in the top-right corner of the generated cover"
+      - { name: role, label: Role, widget: string, required: false }
+      - { name: period, label: Period, widget: string, required: false }
+      - { name: workType, label: Work type, widget: string, required: false }
+      - { name: location, label: Location, widget: string, required: false }
+      - name: highlights
+        label: What I did
+        widget: list
+        required: false
+        hint: "Bullets shown on the project page and the company page"
+        field: { name: item, label: Highlight, widget: string }
 
   - divider: true
 
@@ -347,33 +405,6 @@ collections:
             label: Responsibilities
             widget: list
             field: { name: item, label: Responsibility, widget: string }
-      - name: projects
-        label: Client projects
-        label_singular: project
-        widget: list
-        required: false
-        hint: "Adding at least one project shows a link to this company's page on the resume"
-        collapsed: true
-        summary: "{{name}} · {{status}}"
-        fields:
-          - { name: name, label: Name, widget: string }
-          - { name: status, label: Status, widget: select, options: [Ongoing, Completed, On hold] }
-          - { name: summary, label: Summary, widget: string, required: false, hint: "Short intro paragraph above the highlights on the company page" }
-          - { name: client, label: Client, widget: string, required: false, hint: "Leave empty for internal projects; filled = listed under Customer projects" }
-          - *logo
-          - { name: role, label: Role, widget: string, required: false }
-          - { name: period, label: Period, widget: string, required: false }
-          - { name: workType, label: Work type, widget: string, required: false }
-          - { name: location, label: Location, widget: string, required: false }
-          - name: highlights
-            label: Highlights
-            widget: list
-            field: { name: item, label: Highlight, widget: string }
-          - name: technologies
-            label: Technologies
-            widget: list
-            required: false
-            field: { name: item, label: Technology, widget: string }
       - name: achievements
         label: Achievements
         widget: list

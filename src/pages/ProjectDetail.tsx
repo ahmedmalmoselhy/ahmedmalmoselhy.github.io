@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "@/components/Layout";
-import { ExternalLink, Github, ArrowLeft, Mail } from "lucide-react";
+import { ExternalLink, Github, ArrowLeft, ArrowRight, Mail } from "lucide-react";
 import ContactForDemo from "@/components/ContactForDemo";
 import { Button } from "@/components/ui/button";
 import { projectsData, statusLabels, type ProjectMedia } from "@/data/projects";
@@ -59,9 +59,11 @@ const MediaItem: React.FC<{ item: ProjectMedia; title: string }> = ({ item, titl
 interface ProjectDetailProps {
   projectId: number;
   onBack: () => void;
+  /** Opens a company's page (for projects done at a company) */
+  onCompany: (company: string) => void;
 }
 
-const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
+const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack, onCompany }) => {
   const project = projectsData.find((p) => p.id === projectId);
 
   if (!project) {
@@ -114,6 +116,15 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
                   {statusLabels[project.status].toLowerCase()}
                 </span>
 
+                {project.company && (
+                  <button onClick={() => onCompany(project.company!)} className="text-primary hover:underline">
+                    at {project.company}
+                  </button>
+                )}
+                {project.company && <span>{project.client ? `for ${project.client}` : "internal project"}</span>}
+                {project.role && <span>{project.role}</span>}
+                {project.period && <span>{project.period}</span>}
+                {project.location && <span>{project.location}</span>}
                 {project.date && <span>updated {project.date}</span>}
                 <span>{project.technologies.length} technologies</span>
               </div>
@@ -128,13 +139,26 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
               />
             </div>
 
-            {/* Description */}
-            <div className="space-y-4">
-              <SectionHeading title="About this project" />
-              <p className="text-portfolio-lightSlate text-lg leading-relaxed">
-                {project.extendedDescription}
-              </p>
-            </div>
+            {/* Description (skipped when it only repeats the summary above) */}
+            {project.extendedDescription !== project.description && (
+              <div className="space-y-4">
+                <SectionHeading title="About this project" />
+                <p className="text-portfolio-lightSlate text-lg leading-relaxed">
+                  {project.extendedDescription}
+                </p>
+              </div>
+            )}
+
+            {project.highlights && project.highlights.length > 0 && (
+              <div className="space-y-4">
+                <SectionHeading title="What I did" />
+                <ul className="list-[square] space-y-2 pl-5 text-lg leading-relaxed text-portfolio-lightSlate marker:text-primary/60">
+                  {project.highlights.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             {/* Gallery: extra screenshots and videos */}
             {project.media?.length > 0 && (
@@ -165,7 +189,12 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack }) => {
 
             {/* Links */}
             <div className="flex flex-wrap gap-3 border-t border-border pt-8">
-              {project.monetized ? (
+              {project.company ? (
+                <button onClick={() => onCompany(project.company!)} className="btn-band-outline">
+                  <span>More from my time at {project.company}</span>
+                  <ArrowRight size={18} />
+                </button>
+              ) : project.monetized ? (
                 <ContactForDemo
                   title={project.title}
                   className="btn-band"

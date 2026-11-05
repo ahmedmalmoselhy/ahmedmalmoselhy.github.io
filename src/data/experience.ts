@@ -8,24 +8,6 @@ export interface Role {
   responsibilities: string[];
 }
 
-export type ProjectStatus = "Ongoing" | "Completed" | "On hold";
-
-/** A client project delivered while employed at a company. */
-export interface CompanyProject {
-  name: string;
-  status: ProjectStatus;
-  /** Short intro paragraph above the highlights on the company page */
-  summary?: string;
-  client?: string;
-  logo?: string;
-  role?: string;
-  period?: string;
-  workType?: string;
-  location?: string;
-  highlights: string[];
-  technologies?: string[];
-}
-
 export interface ExperienceItem {
   company: string;
   logo?: string;
@@ -36,7 +18,6 @@ export interface ExperienceItem {
   /** Intro paragraph at the top of the company page */
   overview?: string;
   roles: (Role | Role[])[];
-  projects?: CompanyProject[];
   achievements?: string[];
   technologies?: string[];
 }

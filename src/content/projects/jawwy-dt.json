@@ -1,0 +1,34 @@
+{
+  "id": 9,
+  "kind": "company",
+  "company": "Qeema",
+  "title": "Jawwy DT",
+  "client": "Jawwy by STC",
+  "description": "EOC/ECM development and L3 support for Jawwy by STC's production order stack.",
+  "extendedDescription": "EOC/ECM development and L3 support for Jawwy by STC's production order stack.",
+  "role": "EOC/ECM Developer & Support Engineer",
+  "highlights": [
+    "Manage catalog components in Ericsson Catalog Manager (ECM) and keep product data accurate",
+    "Troubleshoot and fix escalated Ericsson Order Care (EOC) and ECM issues as the L3 support layer",
+    "Implement the integration logic between EOC and external systems",
+    "Work with the client's cross-functional teams on system enhancements, and guide end users"
+  ],
+  "technologies": [
+    "Ericsson Order Care [EOC]",
+    "Ericsson Catalog Manager [ECM]",
+    "JavaScript",
+    "SQL",
+    "Oracle DB",
+    "Git",
+    "Docker"
+  ],
+  "coverIcon": "pipeline",
+  "coverSubtitle": "Telecom order management for Jawwy by STC",
+  "logo": "/logos/Jawwy.png",
+  "workType": "Full-time Remote",
+  "location": "Riyadh, Saudi Arabia",
+  "liveUrl": "",
+  "demo": false,
+  "status": "in-progress",
+  "order": 9
+}

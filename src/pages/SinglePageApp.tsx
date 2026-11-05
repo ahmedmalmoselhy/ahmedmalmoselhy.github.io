@@ -8,6 +8,7 @@ import ProjectDetail from './ProjectDetail';
 import Company from './Company';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import { Navigate, AppState } from '@/App';
+import { companySlug } from '@/data/experience';
 
 interface SinglePageAppProps {
   appState: AppState;
@@ -32,6 +33,7 @@ const SinglePageApp: React.FC<SinglePageAppProps> = ({ appState, onSectionChange
           <ProjectDetail
             projectId={appState.projectId || 1}
             onBack={() => onSectionChange('projects')}
+            onCompany={(company) => onSectionChange('company', companySlug(company))}
           />
         );
       case 'company':

@@ -3,40 +3,42 @@ import Layout from "@/components/Layout";
 import ProjectCard from "@/components/ProjectCard";
 import PageHeader, { SectionHeading } from "@/components/PageHeader";
 import FilterPills from "@/components/FilterPills";
-import { PageSection } from "@/App";
-import { projectsData, statusLabels, type Project } from "@/data/projects";
+import type { Navigate } from "@/App";
+import { projectsData, kindLabels } from "@/data/projects";
+import { companySlug } from "@/data/experience";
 import GitHubGraph from "@/components/GitHubGraph";
 
 interface ProjectsProps {
-  onSectionChange?: (section: PageSection, projectId?: number) => void;
+  onSectionChange?: Navigate;
 }
 
-type Status = Project["status"];
+type Kind = keyof typeof kindLabels;
 
-const countStatus = (status: Status) => projectsData.filter((p) => p.status === status).length;
+const items = projectsData.map((project) => ({ kind: (project.kind ?? "personal") as Kind, project }));
+
+const countKind = (kind: Kind) => items.filter((i) => i.kind === kind).length;
 
 const stats = [
-  { value: String(projectsData.length), label: "Total projects" },
-  { value: String(countStatus("completed")), label: "Completed" },
-  { value: String(countStatus("in-progress")), label: "In progress" },
-  { value: String(new Set(projectsData.flatMap((p) => p.technologies)).size), label: "Technologies used" },
+  { value: String(items.length), label: "Total projects" },
+  { value: String(countKind("personal")), label: "Personal" },
+  { value: String(countKind("client") + countKind("service")), label: "Client work & services" },
+  { value: String(countKind("company")), label: "Company projects" },
 ];
 
-// Only offer filters for statuses that actually appear, in the order they're defined
-const statuses = (Object.keys(statusLabels) as Status[]).filter((s) => countStatus(s) > 0);
-// Typed array (not an explicit JSX generic, which the dev-mode component tagger can't parse)
-const filterOptions: (Status | "all")[] = ["all", ...statuses];
+// Only offer filters for types that actually appear, in the order they're defined
+// (typed array, not an explicit JSX generic, which the dev-mode component tagger can't parse)
+const filterOptions: (Kind | "all")[] = ["all", ...(Object.keys(kindLabels) as Kind[]).filter((k) => countKind(k) > 0)];
 
 const Projects: React.FC<ProjectsProps> = ({ onSectionChange }) => {
-  const [filter, setFilter] = useState<Status | "all">("all");
-  const shown = projectsData.filter((p) => filter === "all" || p.status === filter);
+  const [filter, setFilter] = useState<Kind | "all">("all");
+  const shown = items.filter((i) => filter === "all" || i.kind === filter);
 
   return (
     <Layout className="pt-0 md:pt-16">
       <PageHeader
         eyebrow="Projects"
         title="Things I've built"
-        description="Side projects, packages and products I can show publicly. Client work lives on each company's page, linked from the resume."
+        description="Personal projects, client work, services, and the projects I've delivered at companies."
         stats={stats}
       />
 
@@ -45,20 +47,21 @@ const Projects: React.FC<ProjectsProps> = ({ onSectionChange }) => {
           title="All projects"
           action={
             <FilterPills
-              label="Filter projects by status"
+              label="Filter projects by type"
               options={filterOptions}
               value={filter}
               onChange={setFilter}
-              format={(s) => (s === "all" ? `all · ${projectsData.length}` : `${statusLabels[s].toLowerCase()} · ${countStatus(s)}`)}
+              format={(k) => (k === "all" ? `all · ${items.length}` : `${kindLabels[k].toLowerCase()} · ${countKind(k)}`)}
             />
           }
         />
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {shown.map((project) => (
+          {shown.map(({ project }) => (
             <ProjectCard
               key={project.id}
               project={project}
               onOpen={() => onSectionChange?.("project-detail", project.id)}
+              onCompany={project.company ? () => onSectionChange?.("company", companySlug(project.company!)) : undefined}
             />
           ))}
         </div>
