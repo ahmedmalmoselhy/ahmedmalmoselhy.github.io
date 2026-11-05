@@ -1,7 +1,6 @@
 import React from "react";
 import Layout from "@/components/Layout";
 import PageHeader, { SectionHeading } from "@/components/PageHeader";
-import SkillRadarChart from "@/components/SkillRadarChart";
 import TechStackIcons from "@/components/TechStackIcons";
 import { cn } from "@/lib/utils";
 import { skillCategories, softSkills, skillColorMap } from "@/data/skills";
@@ -33,22 +32,14 @@ const Skills = () => {
       />
 
       <section className="container mx-auto px-4 py-14 md:py-16">
-        <SectionHeading title="Skill analysis" />
-        <div className="panel reveal p-6 md:p-8">
-          <SkillRadarChart categories={skillCategories} />
-        </div>
-      </section>
-
-      <section className="container mx-auto px-4 pb-14 md:pb-16">
         <SectionHeading title="Core competencies" />
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           {skillCategories.map((category) => {
             const color = skillColorMap[category.color];
             return (
-              // hover:z-[100] keeps the icon tooltips above neighbouring cards
               <article
                 key={category.name}
-                className="panel reveal relative overflow-hidden p-6 transition-[transform,box-shadow] duration-300 hover:z-[100] hover:-translate-y-1"
+                className="panel reveal relative overflow-hidden p-6 transition-[transform,box-shadow] duration-300 hover:-translate-y-1"
                 style={{ boxShadow: `inset 0 3px 0 ${color}` }}
               >
                 <h3 className="mb-5 flex items-center gap-2.5 text-lg font-semibold">

@@ -5,6 +5,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { Portal as TooltipPortal } from "@radix-ui/react-tooltip";
 import { skillColorMap, type Skill } from "@/data/skills";
 
 interface TechStackIconsProps {
@@ -69,12 +70,13 @@ const TechStackIcons: React.FC<TechStackIconsProps> = ({
                 <div
                   tabIndex={0}
                   aria-label={`${skill.name}: ${skill.level}% proficiency`}
-                  className="group relative w-14 h-14 md:w-16 md:h-16 rounded-xl bg-portfolio-lightNavy/30 border border-portfolio-slate/10 hover:border-portfolio-highlight/30 p-2.5 cursor-pointer transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-portfolio-highlight/10 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-portfolio-highlight/50"
+                  className="group relative w-14 h-14 md:w-16 md:h-16 rounded-xl p-2.5 cursor-pointer transition-transform duration-300 hover:scale-110 flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-portfolio-highlight/50"
                   style={{
                     ["--hover-color" as any]: skillColorMap[categoryColor],
                   }}
                 >
-                  <div className="w-full h-full flex items-center justify-center p-1">
+                  {/* Grey until hovered or focused, then the logo's own colours */}
+                  <div className="w-full h-full flex items-center justify-center p-1 opacity-70 grayscale transition-[filter,opacity] duration-300 group-hover:opacity-100 group-hover:grayscale-0 group-focus-visible:opacity-100 group-focus-visible:grayscale-0">
                     {icon ? icon : <FallbackIcon name={skill.name} />}
                   </div>
                   {/* Skill level indicator */}
@@ -88,6 +90,8 @@ const TechStackIcons: React.FC<TechStackIconsProps> = ({
                   />
                 </div>
               </TooltipTrigger>
+              {/* Portal: render at the page root so the card's overflow-hidden can't clip it */}
+              <TooltipPortal>
               <TooltipContent
                 side="bottom"
                 className="bg-portfolio-lightNavy border-portfolio-slate/30 z-50"
@@ -104,6 +108,7 @@ const TechStackIcons: React.FC<TechStackIconsProps> = ({
                   </p>
                 </div>
               </TooltipContent>
+              </TooltipPortal>
             </Tooltip>
           );
         })}
