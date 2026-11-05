@@ -13,6 +13,7 @@ import { isPromotedRole } from "@/lib/date-utils";
 import { cn } from "@/lib/utils";
 import { site, githubUrl, linkedinUrl } from "@/data/site";
 import CertificateDialog from "@/components/CertificateDialog";
+import CertificateGallery from "@/components/CertificateGallery";
 
 const stats = [
   { value: `${new Date().getFullYear() - careerStartYear}+`, label: "Years of experience" },
@@ -187,26 +188,7 @@ const Resume: React.FC<{ onSectionChange?: Navigate }> = ({ onSectionChange }) =
           {/* Certifications */}
           <section>
             <SectionHeading title="Certifications" />
-            <ul>
-              {certifications.map((cert) => (
-                <li key={cert.id} className="border-b border-border">
-                  <CertificateDialog cert={cert}>
-                    <button
-                      type="button"
-                      className="-mx-2 grid w-[calc(100%+1rem)] items-baseline gap-1 rounded px-2 py-3.5 text-left transition-[background,transform] hover:translate-x-1 hover:bg-card md:grid-cols-[10rem_1fr_auto_auto] md:gap-6"
-                    >
-                      <span className="font-mono text-[13px] text-faint">{cert.year}</span>
-                      <span className="font-medium">{cert.name}</span>
-                      <span className="text-sm text-portfolio-slate">
-                        {cert.issuer}
-                        {cert.employer && ` · via ${cert.employer}`}
-                      </span>
-                      <Tag kind="cert" />
-                    </button>
-                  </CertificateDialog>
-                </li>
-              ))}
-            </ul>
+            <CertificateGallery certs={certifications} showEmployer />
           </section>
 
           {/* Training */}
