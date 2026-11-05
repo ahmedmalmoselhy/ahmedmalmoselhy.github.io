@@ -54,31 +54,94 @@
       ]
     },
     {
-      "name": "Delta Pharma",
-      "status": "Completed",
-      "role": "Software Developer",
+      "name": "Lead-to-Cash",
+      "status": "Ongoing",
+      "role": "Senior Creatio Developer",
+      "summary": "A Creatio solution covering the end-to-end journey from lead to invoice.",
       "highlights": [
-        "Built and maintained a Creatio CRM tailored to a pharmaceutical business",
-        "Designed and automated its business processes and workflows in Creatio",
-        "Integrated third-party systems and APIs with the CRM"
+        "Built the lead-to-invoice flow across products, contracts, projects and billing",
+        "Worked across the Sales, Product Catalogue, Contracts, Projects, and Billing & Invoicing modules",
+        "Connected the solution to other systems through REST APIs (OData)",
+        "Managed packages and deployments with the clio CLI"
       ],
       "technologies": [
-        "Creatio"
+        "Creatio",
+        "C#",
+        "MSSQL",
+        "PostgreSQL",
+        "REST APIs (OData)",
+        "clio"
+      ]
+    },
+    {
+      "name": "Contract Lifecycle Management (CLM)",
+      "status": "Ongoing",
+      "role": "Creatio Developer",
+      "summary": "A Creatio solution for the MSA, SOW and change-order lifecycle.",
+      "highlights": [
+        "Built staged approvals for contracts and change orders",
+        "Locked signed contracts against further edits",
+        "Handled contract renewals",
+        "Automated billing plans from approved contracts, linked to cases and orders"
+      ],
+      "technologies": [
+        "Creatio",
+        "MSSQL",
+        "PostgreSQL",
+        "REST APIs (OData)"
       ]
     },
     {
       "name": "Customer 360 Unified View",
       "status": "Completed",
-      "role": "Solution Designer & Project Lead, Senior Software Engineer",
+      "role": "Project Lead, Solution Designer & Developer",
+      "summary": "Led a Creatio CRM implementation (the Creatio Brown Belt project) that replaced legacy systems and workflows and brought every channel's customer interactions into one view.",
       "highlights": [
-        "Designed a customer data platform in Creatio that brings every channel's customer interactions into one view",
         "Gathered requirements with stakeholders and turned them into the technical specification",
         "Led the development team from planning and design through deployment, integrating existing systems and data sources",
+        "Configured the Marketing, Sales and Service modules in Studio Creatio",
         "Added analytics and reporting for sales and customer-engagement decisions"
       ],
       "technologies": [
-        "Creatio"
+        "Creatio",
+        "C#",
+        "JavaScript",
+        "MSSQL"
       ]
+    },
+    {
+      "name": "Workload Management",
+      "status": "Completed",
+      "role": "Solution Designer & Developer",
+      "summary": "Designed and developed a workload management solution in Creatio CRM.",
+      "highlights": [
+        "Designed the solution and built it in Studio Creatio",
+        "Implemented the custom logic in C# and JavaScript"
+      ],
+      "technologies": [
+        "Creatio",
+        "C#",
+        "JavaScript",
+        "MSSQL"
+      ]
+    },
+    {
+      "name": "Delta Pharma",
+      "status": "Completed",
+      "role": "Solution Designer & Developer",
+      "highlights": [
+        "Designed and built a Creatio CRM tailored to a pharmaceutical business",
+        "Configured the Marketing, Sales and Service modules in Studio Creatio",
+        "Designed and automated its business processes and workflows",
+        "Integrated third-party systems and APIs with the CRM"
+      ],
+      "technologies": [
+        "Creatio",
+        "C#",
+        "JavaScript",
+        "MSSQL"
+      ],
+      "summary": "Designed and implemented a Creatio CRM solution to streamline the company's business workflows."
     }
   ],
   "achievements": [
@@ -94,6 +157,9 @@
     "C#",
     "Oracle DB",
     "Microsoft SQL Server",
+    "PostgreSQL",
+    "REST APIs (OData)",
+    "clio",
     "Git",
     "Docker"
   ],
