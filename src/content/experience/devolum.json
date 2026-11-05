@@ -5,10 +5,12 @@
   "link": "https://devolum.com/",
   "workType": "Part-time Remote",
   "location": "Mansoura, Egypt",
+  "overview": "A short part-time, remote engagement with Devolum alongside my role at Serv5, working on existing client web applications.",
   "roles": [
     {
       "title": "Full-stack Developer",
       "period": "September 2022 - October 2022",
+      "details": "I worked on client web applications built with Laravel, improving performance on both the front end and the back end, and refactoring older code to current Laravel standards so it was easier to maintain.",
       "responsibilities": [
         "Optimised front-end and back-end performance of client web applications",
         "Refactored existing Laravel code to current standards"

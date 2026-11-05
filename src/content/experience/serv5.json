@@ -5,10 +5,12 @@
   "link": "https://serv5.com/",
   "workType": "Full-time On-site",
   "location": "Mansoura, Egypt",
+  "overview": "I spent just over a year at Serv5 in Mansoura, working on-site on client web and mobile projects. I started on the back end with Laravel and moved into full-stack work in July 2022, adding Vue.js front ends to the PHP back ends I already knew.",
   "roles": [
     {
       "title": "Full Stack Engineer",
       "period": "July 2022 - November 2022",
+      "details": "In July 2022 I moved into a full-stack role, building features end to end, from API endpoints in PHP to Vue.js interfaces for client-facing apps. I kept working on performance across both layers, supported production systems with maintenance and fixes, and introduced tooling that automated parts of the team's development workflow.",
       "responsibilities": [
         "Built and maintained web applications across the front end and back end, using Vue.js and PHP",
         "Developed features end to end, from API endpoints to user-facing interfaces",
@@ -19,6 +21,7 @@
     {
       "title": "Back End Developer",
       "period": "October 2021 - June 2022",
+      "details": "I joined Serv5 as a back-end developer, working across several web and mobile projects at once. Most of my time went into Laravel: building and integrating the APIs behind the company's mobile apps, optimising slow parts of existing applications, and refactoring legacy code to current Laravel standards. I also handled after-sales technical support, helping clients with issues once their projects were live.",
       "responsibilities": [
         "Contributed to multiple web and mobile projects, with a focus on back-end development and stability",
         "Built and integrated APIs to power mobile applications",

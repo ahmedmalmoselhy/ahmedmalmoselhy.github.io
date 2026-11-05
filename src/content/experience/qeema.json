@@ -5,10 +5,12 @@
   "link": "https://qeema.net/",
   "workType": "Full-time Hybrid",
   "location": "Cairo, Egypt",
+  "overview": "I joined Qeema in December 2022 and spent my first years on telecom order management for Jawwy by STC, working on Ericsson Order Care and Ericsson Catalog Manager from feature work through L3 production support. Alongside that I delivered Creatio CRM projects, and in June 2026 I was promoted to Software Engineer II, where I now focus on designing and delivering Creatio BPM/CRM solutions for enterprise clients.",
   "roles": [
     {
       "title": "Software Engineer II",
       "period": "June 2026 - Present",
+      "details": "As Software Engineer II I lead Creatio BPM/CRM work for enterprise clients from requirements to delivery: workflow automation, the integrations that connect Creatio to each client's existing systems, and secure features built in-house rather than bought as third-party add-ons. I also build the internal tooling and monitoring the team relies on, so problems surface earlier and releases go out with fewer surprises.",
       "responsibilities": [
         "Lead the design and delivery of Creatio BPM/CRM solutions for enterprise clients, from workflow automation and integrations to secure in-house features",
         "Build the internal tooling and monitoring that raise delivery quality across the team"
@@ -17,6 +19,7 @@
     {
       "title": "Software Engineer",
       "period": "December 2022 - June 2026",
+      "details": "My first role at Qeema centred on the Jawwy Digital Transformation project for STC, working remotely with the team in Riyadh on the Order Manager module built on Ericsson Order Care (EOC) and Ericsson Catalog Manager (ECM). I developed features on EOC, kept product catalog data accurate in ECM, and implemented the integration logic between EOC and external systems. After go-live I became part of the L3 support layer, tracing escalated production incidents to their root cause and fixing them, and I led the upgrade from EOC/ECM version 20 to 22 while keeping the existing integrations and order flow intact. In the same period I worked on Creatio CRM projects, including a CRM for a pharmaceutical company and a unified customer view.",
       "responsibilities": [
         "Contributed to the Jawwy Digital Transformation Project, enhancing the Order Manager module for STC",
         "Developed and delivered features on Ericsson Order Care to improve operational efficiency",
