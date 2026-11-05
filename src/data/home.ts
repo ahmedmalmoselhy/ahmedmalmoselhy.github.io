@@ -1,7 +1,7 @@
 import content from "@/content/home.json";
 import { certifications } from "@/data/certifications";
 import { experiences } from "@/data/experience";
-import { projectsData } from "@/data/projects";
+import { projectsData, kindLabels, type Project } from "@/data/projects";
 
 /** Types for the home page sections. Content lives in src/content/home.json (editable at /admin). */
 
@@ -21,7 +21,31 @@ export interface ShippedItem {
   projectId?: number;
 }
 
-export const shipped = content.shipped as ShippedItem[];
+const domainOf = (p: Project): Domain => {
+  const t = p.technologies.join(" ").toLowerCase();
+  if (/(eoc|ecm|ericsson)/.test(t)) return "tel";
+  if (/creatio|crm/.test(t)) return "crm";
+  return "web";
+};
+
+const completed = projectsData.filter((p) => p.status === "completed");
+const newestFirst = (a: Project, b: Project) => (b.date ?? "").localeCompare(a.date ?? "");
+
+/** Up to three completed projects: the ones ticked "Featured" in /admin first, then the newest. */
+export const shipped: ShippedItem[] = [
+  ...completed.filter((p) => p.featured),
+  ...completed.filter((p) => !p.featured).sort(newestFirst),
+]
+  .slice(0, 3)
+  .map((p) => ({
+    title: p.title,
+    kicker: p.technologies.slice(0, 3).join(" · ").toLowerCase(),
+    text: p.description,
+    footer: `shipped · ${p.company?.toLowerCase() ?? p.date?.slice(0, 4) ?? kindLabels[p.kind ?? "personal"].toLowerCase()}`,
+    domain: domainOf(p),
+    image: p.image,
+    projectId: p.id,
+  }));
 
 export interface NowItem {
   title: string;
@@ -32,7 +56,19 @@ export interface NowItem {
   meta: string;
 }
 
-export const onMyDesk = content.onMyDesk as NowItem[];
+/** Every project in progress, in dashboard order. */
+export const onMyDesk: (NowItem & { projectId: number })[] = projectsData
+  .filter((p) => p.status === "in-progress")
+  .map((p) => ({
+    title: p.title,
+    text: p.description,
+    status: "in progress",
+    pace: "live",
+    meta: [p.company ? `at ${p.company.toLowerCase()}` : kindLabels[p.kind ?? "personal"].toLowerCase(), p.date && `since ${p.date.slice(0, 4)}`]
+      .filter(Boolean)
+      .join(" · "),
+    projectId: p.id,
+  }));
 
 export type ChangeKind = "ship" | "cert" | "work";
 

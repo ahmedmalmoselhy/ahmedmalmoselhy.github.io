@@ -23,5 +23,6 @@
   "liveUrl": "",
   "demo": false,
   "status": "completed",
+  "featured": true,
   "order": 12
 }

@@ -19,6 +19,7 @@
   "demo": true,
   "monetized": true,
   "status": "completed",
+  "featured": true,
   "date": "2026-09-21",
   "order": 7
 }

@@ -286,21 +286,24 @@ const Index: React.FC<IndexProps> = ({ onSectionChange }) => {
       <div className="border-y border-border bg-primary/[0.05]">
         <section className="container mx-auto px-4 py-14 md:py-16">
           <SectionHeading title="Currently on my desk" />
-          <div className="reveal grid overflow-hidden rounded-lg border border-border bg-card shadow-[0_20px_40px_-28px_hsl(var(--primary)/0.5)] md:grid-cols-3">
+          <div className="reveal overflow-hidden rounded-lg border border-border bg-card shadow-[0_20px_40px_-28px_hsl(var(--primary)/0.5)]">
+            <div className="-ml-px -mt-px grid md:grid-cols-3">
             {onMyDesk.map((item) => (
-              <article
+              <button
                 key={item.title}
-                className="border-border p-6 transition-colors hover:bg-primary/[0.04] max-md:[&:not(:first-child)]:border-t md:[&:not(:first-child)]:border-l"
+                onClick={() => onSectionChange?.("project-detail", item.projectId)}
+                className="border-l border-t border-border p-6 text-left transition-colors hover:bg-primary/[0.04]"
               >
                 <span className="flex items-center gap-2 font-mono text-xs text-muted-foreground">
                   <i className={cn("live-dot", item.pace === "slow" && "bg-warn")} />
                   {item.status}
                 </span>
                 <h3 className="mt-3 text-[17px] font-semibold">{item.title}</h3>
-                <p className="mt-1.5 text-[14.5px] leading-relaxed text-muted-foreground">{item.text}</p>
+                <p className="mt-1.5 line-clamp-3 text-[14.5px] leading-relaxed text-muted-foreground">{item.text}</p>
                 <p className="mt-4 font-mono text-xs text-faint">{item.meta}</p>
-              </article>
+              </button>
             ))}
+            </div>
           </div>
         </section>
       </div>

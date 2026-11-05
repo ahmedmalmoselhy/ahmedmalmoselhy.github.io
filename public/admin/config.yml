@@ -79,53 +79,6 @@ singletons:
         hint: "Completes the sentence 'I build and run …'"
         widget: list
         field: { name: item, label: Phrase, widget: string }
-      - name: shipped
-        label: Things I've shipped
-        label_singular: item
-        widget: list
-        collapsed: true
-        summary: "{{title}}"
-        thumbnail: image
-        fields:
-          - { name: title, label: Title, widget: string }
-          - { name: kicker, label: Stack label, widget: string, hint: "Small text above the title, e.g. laravel · filament · pwa" }
-          - { name: text, label: Text, widget: text }
-          - { name: footer, label: Footer, widget: string, hint: "e.g. shipped · 2026" }
-          - { name: domain, label: Colour, widget: select, options: [{ label: Telecom (blue), value: tel }, { label: CRM (teal), value: crm }, { label: Web (orange), value: web }] }
-          - name: image
-            label: Screenshot
-            widget: image
-            required: false
-            media_folder: /public/projects-images
-            public_folder: /projects-images
-          - &logo
-            name: logo
-            label: Logo
-            widget: image
-            required: false
-            media_folder: /public/logos
-            public_folder: /logos
-          - name: projectId
-            label: Opens project
-            widget: relation
-            collection: projects
-            value_field: id
-            search_fields: [title]
-            display_fields: [title]
-            required: false
-            hint: "Leave empty to link to the resume instead"
-      - name: onMyDesk
-        label: On my desk
-        label_singular: item
-        widget: list
-        collapsed: true
-        summary: "{{title}} · {{status}}"
-        fields:
-          - { name: title, label: Title, widget: string }
-          - { name: text, label: Text, widget: text }
-          - { name: status, label: Status, widget: string, hint: "e.g. ongoing, building, slowly" }
-          - { name: pace, label: Status dot, widget: select, options: [{ label: Green (active), value: live }, { label: Amber (slow), value: slow }] }
-          - { name: meta, label: Meta, widget: string }
       - name: changelog
         label: Changelog extras
         label_singular: entry
@@ -345,6 +298,7 @@ collections:
       - { name: liveUrl, label: Live URL, widget: string, required: false }
       - { name: demo, label: Demo available, widget: boolean, default: true }
       - { name: monetized, label: Commercial product, widget: boolean, required: false, hint: "Shows a 'request a demo' button instead of source links" }
+      - { name: featured, label: Featured, widget: boolean, required: false, hint: "Show under 'Things I''ve shipped' on the home page (completed projects; up to 3, the rest filled by the newest)" }
       - name: company
         label: Company
         widget: relation
@@ -386,7 +340,13 @@ collections:
     thumbnail: logo
     fields:
       - { name: company, label: Company, widget: string }
-      - *logo
+      - &logo
+        name: logo
+        label: Logo
+        widget: image
+        required: false
+        media_folder: /public/logos
+        public_folder: /logos
       - { name: period, label: Period, widget: string, hint: "e.g. December 2022 - Present" }
       - { name: workType, label: Work type, widget: string, hint: "e.g. Full-time Hybrid" }
       - { name: location, label: Location, widget: string }

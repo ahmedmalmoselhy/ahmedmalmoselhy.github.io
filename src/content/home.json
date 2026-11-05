@@ -5,57 +5,6 @@
     "integrations that hold",
     "apps that work for you"
   ],
-  "shipped": [
-    {
-      "title": "Order-stack upgrade, v20 → v22",
-      "kicker": "telecom · ericsson eoc/ecm",
-      "text": "Led the upgrade of Jawwy by STC's live order stack, resolving version conflicts without breaking integrations.",
-      "footer": "shipped · qeema",
-      "domain": "tel",
-      "logo": "/logos/Jawwy.png"
-    },
-    {
-      "title": "Kiro Pet Supplies",
-      "kicker": "laravel · filament · pwa",
-      "text": "Bulk ordering that replaced a wholesaler's paper notes and chat threads, with an audit trail and PDF invoices over WhatsApp.",
-      "footer": "shipped · 2026",
-      "domain": "web",
-      "image": "/projects-images/kiro-pet-supplies.svg",
-      "projectId": 7
-    },
-    {
-      "title": "Customer 360",
-      "kicker": "crm · creatio",
-      "text": "Designed and led a unified customer view that brings every channel's interactions into one record.",
-      "footer": "shipped · qeema",
-      "domain": "crm",
-      "logo": "/logos/creatio.png",
-      "projectId": 12
-    }
-  ],
-  "onMyDesk": [
-    {
-      "title": "Jawwy DT",
-      "text": "EOC/ECM development and L3 support for Jawwy by STC's production order stack.",
-      "status": "ongoing",
-      "pace": "live",
-      "meta": "since 2023"
-    },
-    {
-      "title": "Varden",
-      "text": "HR platform: timesheets, PTO ledger and approvals, with a versioned JSON API.",
-      "status": "building",
-      "pace": "live",
-      "meta": "laravel"
-    },
-    {
-      "title": "UniOne",
-      "text": "A university management system I'm building more than once, in different stacks.",
-      "status": "slowly",
-      "pace": "slow",
-      "meta": "side quest"
-    }
-  ],
   "changelog": [
     {
       "date": "2023",

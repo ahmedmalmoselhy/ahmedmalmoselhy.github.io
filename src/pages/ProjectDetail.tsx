@@ -143,7 +143,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ projectId, onBack, onComp
             {project.extendedDescription !== project.description && (
               <div className="space-y-4">
                 <SectionHeading title="About this project" />
-                <p className="text-portfolio-lightSlate text-lg leading-relaxed">
+                <p className="whitespace-pre-line text-portfolio-lightSlate text-lg leading-relaxed">
                   {project.extendedDescription}
                 </p>
               </div>

@@ -27,6 +27,8 @@ export interface Project {
   githubUrl?: string;
   liveUrl: string;
   demo: boolean;
+  /** Shown under "Things I've shipped" on the home page (completed projects only) */
+  featured?: boolean;
   /** Commercial product: shows a "request a demo / buy" contact button instead of source links. */
   monetized?: boolean;
   date?: string;
