@@ -1,0 +1,20 @@
+{
+  "order": 15,
+  "title": "Jawwy Support",
+  "id": 15,
+  "kind": "company",
+  "status": "in-progress",
+  "date": "2023-11-28",
+  "description": "Level 3 support engineer for Ericsson Order Care Order Management. Resolved complex production incidents across order flows, integrations and Oracle databases, and delivered fixes through the CR lifecycle.",
+  "extendedDescription": "Provided Level 3 technical support for Ericsson Order Care (EOC) Order Management on a live telecom platform. Handled escalations from L1/L2 that needed code-level and database-level investigation.\nDiagnosed production failures in order orchestration flows, including failed or stuck orders, integration steps returning errors, and configuration problems such as missing or null endpoint settings. Found root causes and delivered fixes.\nAnalyzed Oracle database behavior, including AWR reports, to separate database-side performance issues from application-side faults during incidents.\nInvestigated order fallout and integration failures between EOC, Ericsson Catalog Manager (ECM) and surrounding systems. Traced failures across the ESB and service layers.\nDebugged timeout and exception-propagation issues in backend services to restore stable order processing.\nTook changes through the full change-request lifecycle, from design and impact analysis through testing, deployment and post-release verification in production.\nCarried out Oracle Data Pump export/import work when moving EOC and ECM schemas between environments (11g to 19c). Resolved version-parameter and tablespace-sizing issues.\nDocumented recurring issues, resolutions and workarounds so the team could respond faster to similar incidents.",
+  "technologies": [
+    "EOC",
+    "ECM"
+  ],
+  "demo": false,
+  "monetized": false,
+  "company": "Qeema",
+  "client": "Jawwy by STC",
+  "logo": "/logos/Jawwy.png",
+  "role": "Software Engineer"
+}
