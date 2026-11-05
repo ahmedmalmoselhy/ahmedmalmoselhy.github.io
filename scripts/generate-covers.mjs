@@ -5,10 +5,10 @@
 // Output: public/projects-images/auto/<project id>.svg (git-ignored, regenerated each build).
 //
 // What goes on a cover:
-//   centre        icon (the project's "Cover icon", or a default for its type), title, subtitle
-//   bottom-left   the company's logo, for projects done at a company
-//   top-right     the client's logo, when the project has a client and a client logo
-//   bottom-right  technology marks: Creatio, Ericsson (EOC/ECM)
+//   top           icon (the project's "Cover icon", or a default for its type), title, subtitle
+//   bottom row    centred, divided by hairlines: the company (projects done at a company), the
+//                 client (when a client logo is set), then technology marks: Creatio, Ericsson
+//                 (EOC/ECM). See LOGO_STYLE for how they are drawn.
 // Logos are embedded as data URIs: an SVG shown through <img> cannot load other files.
 
 import { readFileSync, readdirSync, mkdirSync, writeFileSync, rmSync } from "node:fs";
@@ -59,35 +59,104 @@ function loadLogo(publicPath) {
   return { uri: `data:${mime};base64,${data.toString("base64")}`, w: 1, h: 1 };
 }
 
-const TILE = 84;
+// How company, client and technology logos are shown in the bottom row:
+//   "drawn": everything drawn into the SVG in one light grey: Ericsson's bars and Creatio's arrow
+//            as marks, every other name as a wordmark (works for any new company or client)
+//   "mono":  the real logo images, turned grey and lightened for the dark cover
+export const LOGO_STYLE = "mono";
 
-/** White rounded tile holding a logo (or a drawing), with a label beside it. */
-function badge({ x, y, label, logo, drawing, alignRight = false }) {
-  const tileX = alignRight ? x - TILE : x;
-  let inner = drawing ? `<g transform="translate(${tileX} ${y})">${drawing}</g>` : "";
-  if (logo) {
-    const s = Math.min((TILE - 20) / logo.w, (TILE - 20) / logo.h);
-    const w = logo.w * s;
-    const h = logo.h * s;
-    inner = `<image href="${logo.uri}" x="${(tileX + (TILE - w) / 2).toFixed(1)}" y="${(y + (TILE - h) / 2).toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}"/>`;
-  }
-  const textX = alignRight ? tileX - 18 : tileX + TILE + 18;
-  return `  <rect x="${tileX}" y="${y}" width="${TILE}" height="${TILE}" rx="18" fill="#ffffff"/>
-  ${inner}
-  <text x="${textX}" y="${y + TILE / 2 + 9}" text-anchor="${alignRight ? "end" : "start"}" font-family="system-ui, sans-serif" font-size="26" font-weight="600" fill="#e6edf5">${esc(label)}</text>`;
+const INK = "#cfd6de"; // light grey used for the row
+const ROW_Y = 548; // vertical centre of the logo row
+const MARK_H = 96; // logo height in the row
+const GAP = 76; // space between items (a hairline divider sits in the middle)
+
+// Ericsson's three equal bars rising to the right, in 84x84 units
+const ericssonBars = (fill) =>
+  [0, 1, 2]
+    .map((i) => `<path d="M24 ${33 + i * 15} L60 ${23 + i * 15}" stroke="${fill}" stroke-width="10" stroke-linecap="round"/>`)
+    .join("");
+// Creatio's arrow mark, in 60x44 units
+const creatioArrow = (fill) => `<path d="M0 0 L60 22 L0 44 L13 22 Z" fill="${fill}"/>`;
+
+/** Rough rendered width of bold system-ui text: capitals are wider than lowercase, spaces narrow. */
+const textWidth = (text, size) =>
+  [...text].reduce((w, c) => w + (c === " " ? 0.28 : /[A-Z0-9]/.test(c) ? 0.68 : 0.56), 0) * size;
+
+/** Row item: { w, draw(x) } where x is the item's left edge and the row is centred on ROW_Y. */
+function wordmark(text, size = 46) {
+  return {
+    w: textWidth(text, size),
+    draw: (x) =>
+      // centred in its slot, so any error in the width estimate splits evenly on both sides
+      `<text x="${(x + textWidth(text, size) / 2).toFixed(1)}" y="${ROW_Y + size * 0.35}" text-anchor="middle" font-family="system-ui, sans-serif" font-size="${size}" font-weight="700" fill="${INK}">${esc(text)}</text>`,
+  };
 }
 
-// Ericsson's mark: three equal, left-aligned bars rising gently to the right, drawn inside an 84x84 tile
-const ERICSSON_MARK = [0, 1, 2]
-  .map((i) => `<path d="M24 ${33 + i * 15} L60 ${23 + i * 15}" stroke="#000000" stroke-width="10" stroke-linecap="round"/>`)
-  .join("");
+/** A small mark followed by a wordmark, e.g. Ericsson's bars + "ERICSSON". */
+function markAndWord(markSvg, markW, markH, text, size = 40) {
+  const s = 60 / markH;
+  const gap = 16;
+  const word = wordmark(text, size);
+  return {
+    w: markW * s + gap + word.w,
+    draw: (x) => `<g transform="translate(${x} ${ROW_Y - 30}) scale(${s.toFixed(3)})">${markSvg}</g>` + word.draw(x + markW * s + gap),
+  };
+}
 
-/** Technology marks for the bottom-right corner, decided from the project's technologies. */
+function drawnItem(item) {
+  if (item.mark === "ericsson") return markAndWord(ericssonBars(INK), 84, 84, "ERICSSON");
+  if (item.mark === "creatio") return markAndWord(creatioArrow(INK), 60, 44, "creatio", 44);
+  return wordmark(item.label);
+}
+
+function monoItem(item) {
+  if (item.mark === "ericsson") {
+    const s = MARK_H / 60;
+    return {
+      w: 60 * s,
+      draw: (x) => `<g transform="translate(${x - 18 * s} ${ROW_Y - MARK_H / 2 - 12 * s}) scale(${s.toFixed(3)})">${ericssonBars(INK)}</g>`,
+    };
+  }
+  if (!item.logo) return wordmark(item.label);
+  const w = Math.min(220, (item.logo.w / item.logo.h) * MARK_H);
+  const h = Math.min(MARK_H, (w / item.logo.w) * item.logo.h);
+  return {
+    w,
+    draw: (x) =>
+      `<image href="${item.logo.uri}" x="${x}" y="${(ROW_Y - h / 2).toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" filter="url(#mono)"/>`,
+  };
+}
+
+/** The bottom row: items centred on the cover with hairline dividers between them. */
+function logoRow(items, style) {
+  const parts = items.map(style === "mono" ? monoItem : drawnItem);
+  const total = parts.reduce((sum, p) => sum + p.w, 0) + GAP * (parts.length - 1);
+  let x = 600 - total / 2;
+  const out = [];
+  parts.forEach((p, i) => {
+    if (i > 0) out.push(`<path d="M${(x - GAP / 2).toFixed(1)} ${ROW_Y - 30} V${ROW_Y + 30}" stroke="#3a4756" stroke-width="2"/>`);
+    out.push(p.draw(x));
+    x += p.w + GAP;
+  });
+  return out.map((l) => `  ${l}`).join("\n");
+}
+
+// Greys a logo and lifts it towards white so dark logos still read on the dark cover
+const MONO_FILTER = `<filter id="mono" color-interpolation-filters="sRGB">
+      <feColorMatrix type="matrix" values="0.3 0.59 0.11 0 0  0.3 0.59 0.11 0 0  0.3 0.59 0.11 0 0  0 0 0 1 0"/>
+      <feComponentTransfer>
+        <feFuncR type="linear" slope="0.5" intercept="0.45"/>
+        <feFuncG type="linear" slope="0.5" intercept="0.45"/>
+        <feFuncB type="linear" slope="0.5" intercept="0.48"/>
+      </feComponentTransfer>
+    </filter>`;
+
+/** Technology marks, decided from the project's technologies. */
 function techMarks(technologies = []) {
   const t = technologies.join(" ").toLowerCase();
   const marks = [];
-  if (t.includes("creatio")) marks.push({ label: "Creatio", logo: loadLogo("/logos/creatio.png") });
-  if (/\b(eoc|ecm|ericsson)\b/.test(t)) marks.push({ label: "Ericsson", drawing: ERICSSON_MARK });
+  if (t.includes("creatio")) marks.push({ label: "Creatio", mark: "creatio", logo: loadLogo("/logos/creatio.png") });
+  if (/\b(eoc|ecm|ericsson)\b/.test(t)) marks.push({ label: "Ericsson", mark: "ericsson" });
   return marks;
 }
 
@@ -107,25 +176,26 @@ const ICONS = {
 };
 const DEFAULT_ICON = { personal: "code", client: "handshake", service: "box", company: "building" };
 
-function cover(project, companies) {
+export function renderCover(project, companies, style = LOGO_STYLE) {
   const kind = project.kind ?? "personal";
   const icon = ICONS[project.coverIcon] ?? ICONS[DEFAULT_ICON[kind]] ?? ICONS.code;
   const company = project.company ? companies.get(project.company) : null;
   const subtitle =
     project.coverSubtitle ?? (project.client ? `for ${project.client}` : project.company ? `at ${project.company}` : "");
-  const titleSize = project.title.length > 24 ? 60 : 72;
 
-  const parts = [];
-  if (project.company) parts.push(badge({ x: 48, y: 547, label: project.company, logo: loadLogo(company?.logo) }));
-  if (project.client && project.logo) {
-    parts.push(badge({ x: 1152, y: 44, label: project.client, logo: loadLogo(project.logo), alignRight: true }));
-  }
-  // Technology marks line up from the bottom-right corner leftwards
-  let right = 1152;
-  for (const mark of techMarks(project.technologies)) {
-    parts.push(badge({ x: right, y: 547, ...mark, alignRight: true }));
-    right -= TILE + 18 + mark.label.length * 15 + 36;
-  }
+  // Logos, left to right: company, client, then technology marks
+  const logos = [];
+  if (project.company) logos.push({ label: project.company, logo: loadLogo(company?.logo) });
+  if (project.client && project.logo) logos.push({ label: project.client, logo: loadLogo(project.logo) });
+  logos.push(...techMarks(project.technologies));
+
+  // Without logos the title block sits in the middle; with them it moves up to make room for the row
+  const hasLogos = logos.length > 0;
+  const iconY = hasLogos ? 152 : 215;
+  const iconScale = hasLogos ? 0.8 : 1;
+  const titleY = hasLogos ? 338 : 400;
+  const titleSize = project.title.length > 24 ? (hasLogos ? 52 : 60) : hasLogos ? 62 : 72;
+  const row = hasLogos ? logoRow(logos, style) : "";
 
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-label="${esc(project.title)} cover">
   <defs>
@@ -133,14 +203,15 @@ function cover(project, companies) {
       <stop offset="0" stop-color="#1e2a38"/>
       <stop offset="1" stop-color="#0f1620"/>
     </linearGradient>
+    ${style === "mono" && hasLogos ? MONO_FILTER : ""}
   </defs>
   <rect width="1200" height="675" fill="url(#g)"/>
-${parts.join("\n")}
-  <g fill="none" stroke="#5ba3d9" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" opacity="0.9" transform="translate(600 215)">
+  <g fill="none" stroke="#5ba3d9" stroke-width="${(10 / iconScale).toFixed(1)}" stroke-linecap="round" stroke-linejoin="round" opacity="0.9" transform="translate(600 ${iconY}) scale(${iconScale})">
     ${icon}
   </g>
-  <text x="600" y="400" text-anchor="middle" font-family="system-ui, sans-serif" font-size="${titleSize}" font-weight="700" fill="#e6edf5">${esc(project.title)}</text>
-  <text x="600" y="455" text-anchor="middle" font-family="system-ui, sans-serif" font-size="26" fill="#8a97a6">${esc(subtitle)}</text>
+  <text x="600" y="${titleY}" text-anchor="middle" font-family="system-ui, sans-serif" font-size="${titleSize}" font-weight="700" fill="#e6edf5">${esc(project.title)}</text>
+  <text x="600" y="${titleY + 48}" text-anchor="middle" font-family="system-ui, sans-serif" font-size="25" fill="#8a97a6">${esc(subtitle)}</text>
+${row}
 </svg>
 `;
 }
@@ -154,7 +225,7 @@ export function generateCovers() {
   let count = 0;
   for (const project of projects) {
     if (project.image) continue; // a cover uploaded in /admin wins
-    writeFileSync(join(outDir, `${project.id}.svg`), cover(project, companies));
+    writeFileSync(join(outDir, `${project.id}.svg`), renderCover(project, companies));
     count++;
   }
   console.log(`covers: generated ${count} project cover(s) in public/projects-images/auto`);
