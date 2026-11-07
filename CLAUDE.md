@@ -16,7 +16,7 @@ Personal portfolio site for Ahmed AlMoselhy, deployed to GitHub Pages at `ahmedm
 - `npm run covers` — generate project covers (`scripts/generate-covers.mjs`) for every project without an uploaded cover image, into git-ignored `public/projects-images/auto/<id>.svg`. A Vite plugin in `vite.config.ts` runs it on dev-server start, on every build/deploy, and again whenever a project/experience JSON changes while the dev server runs (e.g. after a `git pull`), so covers for projects added in `/admin` appear without restarting. Company/client logos and Creatio/Ericsson marks are picked from the project's `company`, `client` + `logo`, and `technologies` fields
 - Deploys are automatic: `.github/workflows/deploy.yml` type-checks, builds and publishes to GitHub Pages on every push to `main` (Pages source must be set to "GitHub Actions")
 
-There is no test runner configured. `bun` is also usable (`bun.lock`/`bun.lockb` present) but npm is the primary path.
+There is no test runner configured. npm is the only package manager: keep `package-lock.json` as the single lockfile. Cloudflare Pages picks bun if a `bun.lock` exists and fails on a stale one, so don't add bun lockfiles back.
 
 ## Architecture
 
