@@ -4,7 +4,7 @@
 app_title: Portfolio Admin
 logo:
   src: /icons/icon-192.png
-site_url: https://ahmedmalmoselhy.github.io
+site_url: https://portfolio.ahmed-malmoselhy.workers.dev
 
 backend:
   name: github
@@ -34,6 +34,7 @@ singletons:
     fields:
       - { name: name, label: Full name, widget: string }
       - { name: handle, label: Handle, widget: string, hint: "Shown as ~/handle in the header and footer" }
+      - { name: title, label: Title, widget: string, hint: "Shown in the footer" }
       - { name: avatar, label: Profile picture, widget: image }
       - { name: resume, label: CV (PDF), widget: file }
       - { name: email, label: Email, widget: string }

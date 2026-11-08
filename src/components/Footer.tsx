@@ -35,7 +35,7 @@ const Footer = () => (
           ~/{site.handle}
         </p>
         <p className="mt-2 leading-relaxed text-muted-foreground">
-          Built with React and Tailwind.
+          {site.name} | {site.title}
           <br />© {new Date().getFullYear()} {site.name}
         </p>
       </div>

@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "homepage": "https://ahmedmalmoselhy.github.io",
+  "homepage": "https://portfolio.ahmed-malmoselhy.workers.dev",
   "scripts": {
     "covers": "node scripts/generate-covers.mjs",
     "dev": "vite",

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-Personal portfolio site for Ahmed AlMoselhy, deployed to GitHub Pages at `ahmedmalmoselhy.github.io`. React 18 + TypeScript + Vite, styled with Tailwind and shadcn-ui (Radix) components.
+Personal portfolio site for Ahmed AlMoselhy, live at `https://portfolio.ahmed-malmoselhy.workers.dev` (Cloudflare Workers static assets; GitHub Pages deploy workflow still exists). React 18 + TypeScript + Vite, styled with Tailwind and shadcn-ui (Radix) components.
 
 ## Commands
 
