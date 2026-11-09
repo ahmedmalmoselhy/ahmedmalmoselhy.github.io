@@ -1,0 +1,27 @@
+{
+  "id": 16,
+  "title": "Varden Node",
+  "kind": "service",
+  "status": "in-progress",
+  "date": "2026-11-09",
+  "coverIcon": "people",
+  "coverSubtitle": "Varden HR platform rebuilt on Next.js",
+  "description": "Node.js rebuild of Varden, the HR and resource management platform, on Next.js and PostgreSQL.",
+  "extendedDescription": "A ground-up port of Varden from Laravel to the Node.js ecosystem, deployed to Vercel. It covers the same product: timesheets, leave and PTO, HR requests, recruitment and the employee lifecycle, built on Next.js with a typed PostgreSQL schema through Drizzle ORM and Zod validation. The port works against an exported parity contract from the Laravel app, so every feature is tracked until both versions behave the same, and it is covered by Vitest unit tests and Playwright end-to-end tests. This is a commercial product: the source code is not public, and installations are available on request.",
+  "technologies": [
+    "TypeScript",
+    "Next.js",
+    "React",
+    "Node.js",
+    "PostgreSQL",
+    "Drizzle ORM",
+    "Tailwind CSS",
+    "Zod",
+    "Vitest",
+    "Playwright",
+    "Vercel"
+  ],
+  "demo": true,
+  "monetized": true,
+  "order": 16
+}
